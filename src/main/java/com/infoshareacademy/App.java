@@ -1,7 +1,12 @@
 package com.infoshareacademy;
 
+import com.infoshareacademy.menu.MenuNavigation;
+
 public class App {
+
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        MenuNavigation menuNavigation = new MenuNavigation();
+        menuNavigation.mainNavigation();
+
     }
 }
