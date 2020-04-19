@@ -1,5 +1,6 @@
 package com.infoshareacademy;
 
+import com.infoshareacademy.menu.DisplayMenu;
 import com.infoshareacademy.menu.MenuNavigation;
 
 public class App {
