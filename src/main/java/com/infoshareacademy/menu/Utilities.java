@@ -6,7 +6,7 @@ public class Utilities {
 
     public static void freezeConsole(int seconds) {
         try {
-            TimeUnit.SECONDS.sleep(2);
+            TimeUnit.SECONDS.sleep(seconds);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -14,7 +14,7 @@ public class UserInput {
         try {
             userChoiceParsed = Integer.parseInt(userChoice);
         } catch (NumberFormatException numberFormatException) {
-            System.out.println("Wrong input format! Only numbers accepted. Try again. ");
+            STDOUT.info("Wrong input format! Only numbers accepted. Try again. ");
             Utilities.freezeConsole(1);
         }
         return userChoiceParsed;

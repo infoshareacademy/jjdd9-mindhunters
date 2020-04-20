@@ -1,6 +1,10 @@
 package com.infoshareacademy.menu;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class MenuNavigation {
+    private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
 
     UserInput userInput = new UserInput();
     int submenuChoice = 0;
@@ -22,7 +26,7 @@ public class MenuNavigation {
                 DisplayMenu.displayExit();
                 System.exit(0);
             default:
-                System.out.println("Please choose number from the list.");
+                STDOUT.info("Please choose number from the list.");
                 Utilities.freezeConsole(1);
                 mainNavigation();
         }
@@ -33,19 +37,19 @@ public class MenuNavigation {
         switch (userInput.getUserInput()) {
             case 1:
                 returnNavigation();
-                System.out.println("ALL DRINKS RECIPES - CALL OBJECTS");
+                STDOUT.info("ALL DRINKS RECIPES - CALL OBJECTS");
                 break;
             case 2:
                 returnNavigation();
-                System.out.println("SEARCH BY NAME - CALL OBJECTS");
+                STDOUT.info("SEARCH BY NAME - CALL OBJECTS");
                 break;
             case 3:
                 returnNavigation();
-                System.out.println("SEARCH BY INGREDIENT - CALL OBJECTS");
+                STDOUT.info("SEARCH BY INGREDIENT - CALL OBJECTS");
                 break;
             case 4:
                 returnNavigation();
-                System.out.println("SEARCH BY CATEGORY - CALL OBJECTS");
+                STDOUT.info("SEARCH BY CATEGORY - CALL OBJECTS");
                 break;
             case 5:
                 mainNavigation();
@@ -54,7 +58,7 @@ public class MenuNavigation {
                 DisplayMenu.displayExit();
                 System.exit(0);
             default:
-                System.out.println("Please choose number from the list.");
+                STDOUT.info("Please choose number from the list.");
                 Utilities.freezeConsole(1);
                 browseNavigation();
         }
@@ -65,19 +69,19 @@ public class MenuNavigation {
         switch (userInput.getUserInput()) {
             case 1:
                 returnNavigation();
-                System.out.println("ADD DRINK - CALL OBJECTS");
+                STDOUT.info("ADD DRINK - CALL OBJECTS");
                 break;
             case 2:
                 returnNavigation();
-                System.out.println("DELETE DRINK - CALL OBJECTS");
+                STDOUT.info("DELETE DRINK - CALL OBJECTS");
                 break;
             case 3:
                 returnNavigation();
-                System.out.println("ADD TO FAVOURITES - CALL OBJECTS");
+                STDOUT.info("ADD TO FAVOURITES - CALL OBJECTS");
                 break;
             case 4:
                 returnNavigation();
-                System.out.println("REMOVE FROM FAVOURITES - CALL OBJECTS");
+                STDOUT.info("REMOVE FROM FAVOURITES - CALL OBJECTS");
                 break;
             case 5:
                 mainNavigation();
@@ -86,7 +90,7 @@ public class MenuNavigation {
                 DisplayMenu.displayExit();
                 System.exit(0);
             default:
-                System.out.println("Please choose number from the list.");
+                STDOUT.info("Please choose number from the list.");
                 Utilities.freezeConsole(1);
                 manageNavigation();
         }
@@ -97,15 +101,15 @@ public class MenuNavigation {
         switch (userInput.getUserInput()) {
             case 1:
                 returnNavigation();
-                System.out.println("LOAD/CHANGE CONFIGURATION - CALL OBJECTS");
+                STDOUT.info("LOAD/CHANGE CONFIGURATION - CALL OBJECTS");
                 break;
             case 2:
                 returnNavigation();
-                System.out.println("CHANGE DRINKS SORTING ORDER - CALL OBJECTS");
+                STDOUT.info("CHANGE DRINKS SORTING ORDER - CALL OBJECTS");
                 break;
             case 3:
                 returnNavigation();
-                System.out.println("SET RECIPE DATA MODIFICATION FORMAT - CALL OBJECTS");
+                STDOUT.info("SET RECIPE DATA MODIFICATION FORMAT - CALL OBJECTS");
                 break;
             case 4:
                 mainNavigation();
@@ -114,7 +118,7 @@ public class MenuNavigation {
                 DisplayMenu.displayExit();
                 System.exit(0);
             default:
-                System.out.println("Please choose number from the list.");
+                STDOUT.info("Please choose number from the list.");
                 Utilities.freezeConsole(1);
                 settingsNavigation();
         }
@@ -138,7 +142,7 @@ public class MenuNavigation {
             case 3:
                 break;
             default:
-                System.out.println("Please choose number from the list.");
+                STDOUT.info("Please choose number from the list.");
                 Utilities.freezeConsole(1);
                 returnNavigation();
         }
