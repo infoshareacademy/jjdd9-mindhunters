@@ -6,9 +6,18 @@ public class UserInput {
 
     Scanner scanner = new Scanner(System.in);
 
-    public int getUserInput(){
+    public int getUserInput() {
         System.out.print("Type your choice: ");
         String userChoice = scanner.nextLine();
-        return Integer.parseInt(userChoice);
+
+        Integer userChoiceParsed = -1; //value not available in any menu
+        try {
+            userChoiceParsed = Integer.parseInt(userChoice);
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println("Wrong input format! Only numbers accepted. Try again. ");
+            Utilities.freezeConsole(1);
+        }
+        return userChoiceParsed;
     }
+
 }

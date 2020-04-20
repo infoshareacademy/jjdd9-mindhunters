@@ -59,6 +59,11 @@ public class DisplayMenu {
         System.out.println(" ---------------------------------------------------");
     }
 
+    public static void displayExit() {
+        clearConsole();
+        System.out.println(" -------------- SEE YOU NEXT TIME ------------------ ");
+    }
+
     public static void clearConsole() {
         try {
             if (System.getProperty("os.name").toLowerCase().contains("win")) {
