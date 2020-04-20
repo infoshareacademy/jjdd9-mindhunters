@@ -5,7 +5,7 @@ public class Drinks {
     private String idDrink;
     private String strDrink;
     private String strCategory;
-    private String strAlcoholic;    //isAlcoholic?
+   /* private String strAlcoholic;    //isAlcoholic?
     private String strInstructions;
     private String strDrinkThumb;   // URL to .jpg
     private String strIngredient1;
@@ -38,8 +38,29 @@ public class Drinks {
     private String strMeasure13;
     private String strMeasure14;
     private String strMeasure15;
-    private String dateModified;
+    private String dateModified;*/
 
+    public String getIdDrink() {
+        return idDrink;
+    }
 
+    public String getStrDrink() {
+        return strDrink;
+    }
 
+    public String getStrCategory() {
+        return strCategory;
+    }
+
+    public void setIdDrink(String idDrink) {
+        this.idDrink = idDrink;
+    }
+
+    public void setStrDrink(String strDrink) {
+        this.strDrink = strDrink;
+    }
+
+    public void setStrCategory(String strCategory) {
+        this.strCategory = strCategory;
+    }
 }
