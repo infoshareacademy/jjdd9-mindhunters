@@ -1,7 +1,11 @@
 package com.infoshareacademy;
 
+import com.infoshareacademy.menu.MenuControl;
+
 public class App {
+
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        MenuControl menuControl = new MenuControl();
+        menuControl.mainNavigation();
     }
 }
