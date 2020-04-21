@@ -7,6 +7,8 @@ public class MenuControl {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     private static final String userMessage = "Please choose number from the list.";
 
+    private static boolean exit = false;
+
     UserInput userInput = new UserInput();
 
     public void mainNavigation() {
@@ -24,12 +26,13 @@ public class MenuControl {
                     break;
                 case 4:
                     DisplayMenu.displayExit();
-                    System.exit(0);
+                    exit = true;
+                    break;
                 default:
                     STDOUT.info(userMessage);
                     break;
             }
-        } while (true);
+        } while (!exit);
     }
 
     public void browseNavigation() {
@@ -38,28 +41,29 @@ public class MenuControl {
             DisplayMenu.displayBrowseMenu();
             switch (userInput.getUserInput()) {
                 case 1:
-                    STDOUT.info("ALL DRINKS RECIPES - CALL OBJECTS");
+                    STDOUT.info("ALL DRINKS RECIPES");
                     break;
                 case 2:
-                    STDOUT.info("SEARCH BY NAME - CALL OBJECTS");
+                    STDOUT.info("SEARCH BY NAME");
                     break;
                 case 3:
-                    STDOUT.info("SEARCH BY INGREDIENT - CALL OBJECTS");
+                    STDOUT.info("SEARCH BY INGREDIENT");
                     break;
                 case 4:
-                    STDOUT.info("SEARCH BY CATEGORY - CALL OBJECTS");
+                    STDOUT.info("SEARCH BY CATEGORY");
                     break;
                 case 5:
                     cont = false;
                     break;
                 case 6:
                     DisplayMenu.displayExit();
-                    System.exit(0);
+                    exit = true;
+                    break;
                 default:
                     STDOUT.info(userMessage);
                     break;
             }
-        } while (cont);
+        } while (cont && (!exit));
     }
 
     public void manageNavigation() {
@@ -68,29 +72,29 @@ public class MenuControl {
             DisplayMenu.displayManageMenu();
             switch (userInput.getUserInput()) {
                 case 1:
-                    STDOUT.info("ADD DRINK - CALL OBJECTS");
+                    STDOUT.info("ADD DRINK");
                     break;
                 case 2:
-                    ;
-                    STDOUT.info("DELETE DRINK - CALL OBJECTS");
+                    STDOUT.info("DELETE DRINK");
                     break;
                 case 3:
-                    STDOUT.info("ADD TO FAVOURITES - CALL OBJECTS");
+                    STDOUT.info("ADD TO FAVOURITES");
                     break;
                 case 4:
-                    STDOUT.info("REMOVE FROM FAVOURITES - CALL OBJECTS");
+                    STDOUT.info("REMOVE FROM FAVOURITES");
                     break;
                 case 5:
                     cont = false;
                     break;
                 case 6:
                     DisplayMenu.displayExit();
-                    System.exit(0);
+                    exit = true;
+                    break;
                 default:
                     STDOUT.info(userMessage);
                     break;
             }
-        } while (cont);
+        } while (cont && (!exit));
     }
 
     public void settingsNavigation() {
@@ -99,24 +103,25 @@ public class MenuControl {
             DisplayMenu.displaySettingsMenu();
             switch (userInput.getUserInput()) {
                 case 1:
-                    STDOUT.info("LOAD/CHANGE CONFIGURATION - CALL OBJECTS");
+                    STDOUT.info("LOAD/CHANGE CONFIGURATION");
                     break;
                 case 2:
-                    STDOUT.info("CHANGE DRINKS SORTING ORDER - CALL OBJECTS");
+                    STDOUT.info("CHANGE DRINKS SORTING ORDER");
                     break;
                 case 3:
-                    STDOUT.info("SET RECIPE DATA MODIFICATION FORMAT - CALL OBJECTS");
+                    STDOUT.info("SET RECIPE DATA MODIFICATION FORMAT");
                     break;
                 case 4:
                     cont = false;
                     break;
                 case 5:
                     DisplayMenu.displayExit();
-                    System.exit(0);
+                    exit = true;
+                    break;
                 default:
                     STDOUT.info(userMessage);
                     break;
             }
-        } while (cont);
+        } while (cont && (!exit));
     }
 }
