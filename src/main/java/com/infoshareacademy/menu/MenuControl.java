@@ -5,9 +5,9 @@ import org.slf4j.LoggerFactory;
 
 public class MenuControl {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
-    private static final String userMessage = "Please choose number from the list.";
+    private static final String USER_MESSAGE = "Please choose number from the list.";
 
-    private static boolean exit = false;
+    private boolean exit = false;
 
     UserInput userInput = new UserInput();
 
@@ -29,7 +29,7 @@ public class MenuControl {
                     exit = true;
                     break;
                 default:
-                    STDOUT.info(userMessage);
+                    STDOUT.info(USER_MESSAGE);
                     break;
             }
         } while (!exit);
@@ -60,7 +60,7 @@ public class MenuControl {
                     exit = true;
                     break;
                 default:
-                    STDOUT.info(userMessage);
+                    STDOUT.info(USER_MESSAGE);
                     break;
             }
         } while (cont && (!exit));
@@ -91,7 +91,7 @@ public class MenuControl {
                     exit = true;
                     break;
                 default:
-                    STDOUT.info(userMessage);
+                    STDOUT.info(USER_MESSAGE);
                     break;
             }
         } while (cont && (!exit));
@@ -119,7 +119,7 @@ public class MenuControl {
                     exit = true;
                     break;
                 default:
-                    STDOUT.info(userMessage);
+                    STDOUT.info(USER_MESSAGE);
                     break;
             }
         } while (cont && (!exit));

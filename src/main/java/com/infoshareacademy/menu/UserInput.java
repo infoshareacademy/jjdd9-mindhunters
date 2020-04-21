@@ -17,11 +17,10 @@ public class UserInput {
     public int getUserInput() {
         STDOUT.info(CHOICE_MESSAGE);
         String userChoice = scanner.nextLine();
-        if (NumberUtils.isCreatable(userChoice)) {
+        if (NumberUtils.isCreatable(userChoice)){
             return Integer.parseInt(userChoice);
-        } else {
-            STDOUT.info(WRONG_INPUT_MESSAGE);
         }
+        STDOUT.info(WRONG_INPUT_MESSAGE);
         return 0;
     }
 }
