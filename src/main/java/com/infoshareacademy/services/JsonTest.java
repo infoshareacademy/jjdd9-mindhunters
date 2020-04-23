@@ -13,8 +13,8 @@ public class JsonTest {
 
         System.out.println(myDrink[0].toString());*/
 
-        Drink[] myDrinksArray = JsonReader.objectMapper("TEST.json");
-
+        Drink myDrinks = JsonReader.ObjectMapper("TEST.json");
+        myDrinks.toString();
 
 
     }
