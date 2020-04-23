@@ -1,10 +1,14 @@
 package com.infoshareacademy.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.infoshareacademy.services.JsonReader;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@JsonRootName(value = "drinks")
 public class Drink {
 
     @JsonProperty("idDrink")
@@ -19,9 +23,9 @@ public class Drink {
     private String recipe;
     @JsonProperty("strDrinkThumb")
     private String imageUrl;
-    private List<Ingredient> ingredients;
+/*    private List<Ingredient> ingredients;
     @JsonProperty("dateModified")
-    private LocalDateTime modifiedDate;
+    private LocalDateTime modifiedDate;*/
 
     public String getDrinkId() {
         return drinkId;
@@ -71,7 +75,7 @@ public class Drink {
         this.imageUrl = imageUrl;
     }
 
-    public List<Ingredient> getIngredients() {
+ /*   public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
@@ -85,6 +89,20 @@ public class Drink {
 
     public void setModifiedDate(LocalDateTime modifiedDate) {
         this.modifiedDate = modifiedDate;
+    }*/
+
+    @Override
+    public String toString() {
+        return "Drink{" +
+                "drinkId='" + drinkId + '\'' +
+                ", drinkName='" + drinkName + '\'' +
+                ", categoryName='" + categoryName + '\'' +
+                ", alcoholStatus='" + alcoholStatus + '\'' +
+                ", recipe='" + recipe + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", ingredients=" +
+                ", modifiedDate="  +
+                '}';
     }
 }
 
