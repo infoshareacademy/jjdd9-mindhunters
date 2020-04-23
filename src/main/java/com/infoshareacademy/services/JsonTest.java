@@ -1,6 +1,5 @@
 package com.infoshareacademy.services;
 
-import com.infoshareacademy.services.JsonReader;
 import com.infoshareacademy.domain.Drink;
 
 import java.io.IOException;
@@ -14,9 +13,8 @@ public class JsonTest {
 
         System.out.println(myDrink[0].toString());*/
 
-        List<Drink> myDrinksArray = JsonReader.ObjectMapperArray("TEST.json");
+        Drink[] myDrinksArray = JsonReader.objectMapper("TEST.json");
 
-        System.out.println(myDrinksArray.get(0).toString());
 
 
     }
