@@ -33,9 +33,11 @@ public class JsonDrinkDeserializer extends JsonDeserializer<Drink> {
         drink.setImageUrl(readValueAsTree.get("strDrinkThumb").asText());
 
         String dateAsString = readValueAsTree.get("dateModified").asText();
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime formatDateTime = LocalDateTime.parse(dateAsString, dateFormatter);
-        drink.setModifiedDate(formatDateTime);
+        if (dateAsString != "null") {
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime formatDateTime = LocalDateTime.parse(dateAsString, dateFormatter);
+            drink.setModifiedDate(formatDateTime);
+        }
 
         Ingredient ingredient = new Ingredient();
 

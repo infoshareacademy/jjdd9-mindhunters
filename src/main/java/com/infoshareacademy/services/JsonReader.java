@@ -25,7 +25,7 @@ public class JsonReader {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
-        File json = new File("LIST_aLETTER.json");
+        File json = new File(fileName);
         JsonNode jsonNode = mapper.readTree(json);
 
 
