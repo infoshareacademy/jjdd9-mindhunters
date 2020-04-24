@@ -6,16 +6,16 @@ import org.slf4j.LoggerFactory;
 public class DisplayMenu {
 
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
+    private static final String endLine = "\n --------------------------------------------------- ";
 
     public static void displayMainMenu() {
         clearScreen();
-
         STDOUT.info("\n ------------------ Main Menu ---------------------- ");
         STDOUT.info("\n|  ENTER [1] to browse drinks recipes               |" +
                 "\n|  ENTER [2] to manage recipes                      |" +
                 "\n|  ENTER [3] to change settings                     |" +
                 "\n|  ENTER [4] to EXIT                                |");
-        STDOUT.info("\n --------------------------------------------------- ");
+        STDOUT.info(endLine);
     }
 
     public static void displayBrowseMenu() {
@@ -27,8 +27,7 @@ public class DisplayMenu {
                 "\n|  ENTER [4] to search drink by category            |" +
                 "\n|  ENTER [5] to return to previous menu             |" +
                 "\n|  ENTER [6] to EXIT                                |");
-        STDOUT.info("\n --------------------------------------------------- ");
-
+        STDOUT.info(endLine);
     }
 
     public static void displayManageMenu() {
@@ -40,7 +39,7 @@ public class DisplayMenu {
                 "\n|  ENTER [4] to remove drink from favourites        |" +
                 "\n|  ENTER [5] to return to previous menu             |" +
                 "\n|  ENTER [6] to EXIT                                |");
-        STDOUT.info("\n --------------------------------------------------- ");
+        STDOUT.info(endLine);
     }
 
     public static void displaySettingsMenu() {
@@ -51,21 +50,17 @@ public class DisplayMenu {
                 "\n|  ENTER [3] to set recipe data modification format |" +
                 "\n|  ENTER [4] to return to previous menu             |" +
                 "\n|  ENTER [5] to EXIT                                |");
-        STDOUT.info("\n --------------------------------------------------- ");
-    }
-
-    public static void displayReturnMenu() {
-        clearScreen();
-        STDOUT.info("\n ----------------- RETURN MENU --------------------- ");
-        STDOUT.info("\n|  ENTER [1] to return to previous menu             |" +
-                "\n|  ENTER [2] to EXIT                                |" +
-                "\n|  ENTER [3] to stay in this menu                   |");
-        STDOUT.info("\n --------------------------------------------------- ");
+        STDOUT.info(endLine);
     }
 
     public static void displayExit() {
         clearScreen();
-        STDOUT.info("\n -------------- SEE YOU NEXT TIME ------------------ ");
+        STDOUT.info("\n --------------------- QUIT ------------------------ ");
+        STDOUT.info("\n|  Hope to see you again soon.                      |" +
+                "\n|                                                   |" +
+                "\n|  Enjoy responsibly!                               |");
+        STDOUT.info(endLine);
+        STDOUT.info("\n");
     }
 
     private static void clearScreen() {
