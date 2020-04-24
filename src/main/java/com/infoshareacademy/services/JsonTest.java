@@ -13,8 +13,8 @@ public class JsonTest {
 
         System.out.println(myDrink[0].toString());*/
 
-        Drink myDrinks = JsonReader.ObjectMapper("TEST.json");
-        myDrinks.toString();
+        List<Drink> myDrinks = JsonReader.objectMapper("TEST.json");
+        myDrinks.forEach(System.out::println);
 
 
     }

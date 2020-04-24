@@ -10,6 +10,7 @@ import com.infoshareacademy.domain.Drink;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 
 public class JsonDrinkDeserializer extends JsonDeserializer<Drink> {
@@ -21,18 +22,23 @@ public class JsonDrinkDeserializer extends JsonDeserializer<Drink> {
         Drink drink = new Drink();
 
         JsonNode readValueAsTree = jsonParser.readValueAsTree();
+//        for (JsonNode node : readValueAsTree){
+            drink.setDrinkId(readValueAsTree.get("idDrink").asText());
+//            drink.setDrinkId(readValueAsTree.get("idDrink").asText());
+            drink.setDrinkName(readValueAsTree.get("strDrink").asText());
+            drink.setCategoryName(readValueAsTree.get("strCategory").asText());
+            drink.setAlcoholStatus(readValueAsTree.get("strAlcoholic").asText());
+            drink.setRecipe(readValueAsTree.get("strInstructions").asText());
+            drink.setImageUrl(readValueAsTree.get("strDrinkThumb").asText());
 
-        drink.setDrinkId(readValueAsTree.get("idDrink").asText());
-        drink.setDrinkName(readValueAsTree.get("strDrink").asText());
-        drink.setCategoryName(readValueAsTree.get("Cocktail").asText());
-        drink.setAlcoholStatus(readValueAsTree.get("strAlcoholic").asText());
-        drink.setRecipe(readValueAsTree.get("strInstructions").asText());
-        drink.setImageUrl(readValueAsTree.get("strDrinkThumb").asText());
+            String dateAsString = readValueAsTree.get("dateModified").asText();
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime formatDateTime = LocalDateTime.parse(dateAsString, dateFormatter);
+            drink.setModifiedDate(formatDateTime);
+//        }
 
-        String dateAsString =readValueAsTree.get("dateModified").asText() ;
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime formatDateTime = LocalDateTime.parse(dateAsString, dateFormatter);
-        drink.setModifiedDate(formatDateTime);
+
+
 
         return drink;
     }
