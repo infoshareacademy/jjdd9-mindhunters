@@ -106,8 +106,8 @@ public class Drink {
                 ", alcoholStatus='" + alcoholStatus + '\'' +
                 ", recipe='" + recipe + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
-                ", ingredients=" +
-                ", modifiedDate="  +
+                ", ingredients=" + ingredients +
+                ", modifiedDate=" + modifiedDate +
                 '}';
     }
 }
