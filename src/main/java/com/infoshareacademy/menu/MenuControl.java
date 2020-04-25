@@ -1,5 +1,7 @@
 package com.infoshareacademy.menu;
 
+import com.infoshareacademy.utilities.UserInput;
+import com.infoshareacademy.utilities.Utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +32,7 @@ public class MenuControl {
                     break;
                 default:
                     STDOUT.info(USER_MESSAGE);
+                    Utilities.freezeConsole();
                     break;
             }
         } while (!exit);
@@ -61,6 +64,7 @@ public class MenuControl {
                     break;
                 default:
                     STDOUT.info(USER_MESSAGE);
+                    Utilities.freezeConsole();
                     break;
             }
         } while (cont && (!exit));
@@ -92,6 +96,7 @@ public class MenuControl {
                     break;
                 default:
                     STDOUT.info(USER_MESSAGE);
+                    Utilities.freezeConsole();
                     break;
             }
         } while (cont && (!exit));
@@ -120,6 +125,7 @@ public class MenuControl {
                     break;
                 default:
                     STDOUT.info(USER_MESSAGE);
+                    Utilities.freezeConsole();
                     break;
             }
         } while (cont && (!exit));
