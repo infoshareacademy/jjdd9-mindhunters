@@ -9,11 +9,9 @@ import java.io.IOException;
 public class App {
 
     public static void main(String[] args) throws IOException {
-        DrinksDatabase drinksDatabase = DrinksDatabase.getINSTANCE();
-        //MenuControl menuControl = new MenuControl();
-       // menuControl.mainNavigation();
+        MenuControl menuControl = new MenuControl();
+        menuControl.mainNavigation();
 
-        System.out.println(drinksDatabase.getDrinks().size());
 
     }
 }
