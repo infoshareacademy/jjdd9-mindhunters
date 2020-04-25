@@ -24,4 +24,9 @@ public final class DrinksDatabase {
     public void addDrinks(List<Drink> drinkRecipes) {
         drinks.addAll(drinkRecipes);
     }
+
+    public Set<Drink> getDrinks() {
+
+        return drinks;
+    }
 }
