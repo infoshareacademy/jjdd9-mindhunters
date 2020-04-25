@@ -4,20 +4,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public final class ClassSingelton {
+public final class DrinksDatabase {
 
-    private static ClassSingelton INSTANCE;
+    private static DrinksDatabase INSTANCE;
     private String info = "Initial info class";
     private Set<Drink> drinks;
 
-    private ClassSingelton() {
+    private DrinksDatabase() {
         drinks = new HashSet();
-
     }
 
-    public static ClassSingelton getINSTANCE() {
+    public static DrinksDatabase getINSTANCE() {
         if (INSTANCE == null) {
-            INSTANCE = new ClassSingelton();
+            INSTANCE = new DrinksDatabase();
         }
         return INSTANCE;
     }
