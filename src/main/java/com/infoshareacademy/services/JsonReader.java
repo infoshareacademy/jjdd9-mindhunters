@@ -2,7 +2,6 @@ package com.infoshareacademy.services;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.infoshareacademy.domain.Drink;
@@ -29,8 +28,9 @@ public class JsonReader {
         JsonNode jsonNode = mapper.readTree(json);
 
 
-        List<Drink> drink = (List<Drink>)mapper.readValue(jsonNode.get("drinks").toString(),
-                new TypeReference<List<Drink>>() {});
+        List<Drink> drink = (List<Drink>) mapper.readValue(jsonNode.get("drinks").toString(),
+                new TypeReference<List<Drink>>() {
+                });
 
         return drink;
     }

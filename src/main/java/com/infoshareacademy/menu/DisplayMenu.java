@@ -6,7 +6,10 @@ import org.slf4j.LoggerFactory;
 public class DisplayMenu {
 
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
-    private static final String endLine = "\n --------------------------------------------------- ";
+    private static final String END_LINE = "\n --------------------------------------------------- ";
+
+    private DisplayMenu() {
+    }
 
     public static void displayMainMenu() {
         clearScreen();
@@ -15,7 +18,7 @@ public class DisplayMenu {
                 "\n|  ENTER [2] to manage recipes                      |" +
                 "\n|  ENTER [3] to change settings                     |" +
                 "\n|  ENTER [4] to EXIT                                |");
-        STDOUT.info(endLine);
+        STDOUT.info(END_LINE);
     }
 
     public static void displayBrowseMenu() {
@@ -27,7 +30,7 @@ public class DisplayMenu {
                 "\n|  ENTER [4] to search drink by category            |" +
                 "\n|  ENTER [5] to return to previous menu             |" +
                 "\n|  ENTER [6] to EXIT                                |");
-        STDOUT.info(endLine);
+        STDOUT.info(END_LINE);
     }
 
     public static void displayManageMenu() {
@@ -39,7 +42,7 @@ public class DisplayMenu {
                 "\n|  ENTER [4] to remove drink from favourites        |" +
                 "\n|  ENTER [5] to return to previous menu             |" +
                 "\n|  ENTER [6] to EXIT                                |");
-        STDOUT.info(endLine);
+        STDOUT.info(END_LINE);
     }
 
     public static void displaySettingsMenu() {
@@ -50,7 +53,7 @@ public class DisplayMenu {
                 "\n|  ENTER [3] to set recipe data modification format |" +
                 "\n|  ENTER [4] to return to previous menu             |" +
                 "\n|  ENTER [5] to EXIT                                |");
-        STDOUT.info(endLine);
+        STDOUT.info(END_LINE);
     }
 
     public static void displayExit() {
@@ -59,7 +62,7 @@ public class DisplayMenu {
         STDOUT.info("\n|  Hope to see you again soon.                      |" +
                 "\n|                                                   |" +
                 "\n|  Enjoy responsibly!                               |");
-        STDOUT.info(endLine);
+        STDOUT.info(END_LINE);
         STDOUT.info("\n");
     }
 

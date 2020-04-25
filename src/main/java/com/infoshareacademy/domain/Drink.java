@@ -2,13 +2,12 @@ package com.infoshareacademy.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.infoshareacademy.services.JsonDrinkDeserializer;
-import com.infoshareacademy.services.JsonReader;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
 @JsonIgnoreProperties({"strDrinkAlternate", "strDrinkES", "strDrinkDE", "strDrinkFR",
         "strDrinkZH-HANS", "strDrinkZH-HANT", "strTags", "strVideo", "strIBA",
         "strInstructionsES", "strInstructionsDE", "strInstructionsFR", "strInstructionsZH-HANS",
