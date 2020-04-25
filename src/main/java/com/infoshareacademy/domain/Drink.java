@@ -1,10 +1,19 @@
 package com.infoshareacademy.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.infoshareacademy.services.JsonDrinkDeserializer;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@JsonIgnoreProperties({"strDrinkAlternate", "strDrinkES", "strDrinkDE", "strDrinkFR",
+        "strDrinkZH-HANS", "strDrinkZH-HANT", "strTags", "strVideo", "strIBA",
+        "strInstructionsES", "strInstructionsDE", "strInstructionsFR", "strInstructionsZH-HANS",
+        "strInstructionsZH-HANT", "strDrinkThumb", "strCreativeCommonsConfirmed"})
+
+@JsonDeserialize(using = JsonDrinkDeserializer.class)
 public class Drink {
 
     @JsonProperty("idDrink")
@@ -85,6 +94,20 @@ public class Drink {
 
     public void setModifiedDate(LocalDateTime modifiedDate) {
         this.modifiedDate = modifiedDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Drink{" +
+                "drinkId='" + drinkId + '\'' +
+                ", drinkName='" + drinkName + '\'' +
+                ", categoryName='" + categoryName + '\'' +
+                ", alcoholStatus='" + alcoholStatus + '\'' +
+                ", recipe='" + recipe + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", ingredients=" + ingredients +
+                ", modifiedDate=" + modifiedDate +
+                '}';
     }
 }
 

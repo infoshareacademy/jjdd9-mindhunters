@@ -20,4 +20,12 @@ public class Ingredient {
     public void setMeasure(String measure) {
         this.measure = measure;
     }
+
+    @Override
+    public String toString() {
+        return "Ingredient{" +
+                "name='" + name + '\'' +
+                ", measure='" + measure + '\'' +
+                '}';
+    }
 }
