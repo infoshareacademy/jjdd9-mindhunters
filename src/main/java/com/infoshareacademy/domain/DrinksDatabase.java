@@ -1,5 +1,6 @@
 package com.infoshareacademy.domain;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -8,10 +9,10 @@ public final class DrinksDatabase {
 
     private static DrinksDatabase INSTANCE;
     private String info = "Initial info class";
-    private Set<Drink> drinks;
+    private List<Drink> drinks;
 
     private DrinksDatabase() {
-        drinks = new HashSet();
+        drinks = new ArrayList<>();
     }
 
     public static DrinksDatabase getINSTANCE() {
@@ -25,7 +26,7 @@ public final class DrinksDatabase {
         drinks.addAll(drinkRecipes);
     }
 
-    public Set<Drink> getDrinks() {
+    public List<Drink> getDrinks() {
 
         return drinks;
     }
