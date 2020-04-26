@@ -1,5 +1,7 @@
 package com.infoshareacademy.menu;
 
+import com.infoshareacademy.domain.DrinksDatabase;
+import com.infoshareacademy.services.DrinkService;
 import com.infoshareacademy.utilities.UserInput;
 import com.infoshareacademy.utilities.Utilities;
 import org.slf4j.Logger;
@@ -40,11 +42,14 @@ public class MenuControl {
 
     public void browseNavigation() {
         boolean cont = true;
+        DrinkService.loadDrinkList();
         do {
             DisplayMenu.displayBrowseMenu();
             switch (userInput.getUserInput()) {
                 case 1:
-                    STDOUT.info("ALL DRINKS RECIPES");
+                    DrinkService.printAllDrinks(DrinksDatabase.getINSTANCE());
+                    STDOUT.info("SEARCH BY NAME");
+                    userInput.getUserInputAnyKey();
                     break;
                 case 2:
                     STDOUT.info("SEARCH BY NAME");

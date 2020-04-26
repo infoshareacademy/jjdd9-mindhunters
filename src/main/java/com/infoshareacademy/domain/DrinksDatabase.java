@@ -1,13 +1,7 @@
 package com.infoshareacademy.domain;
 
-import com.infoshareacademy.services.JsonReader;
-
-import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public final class DrinksDatabase {
 
@@ -30,16 +24,8 @@ public final class DrinksDatabase {
         drinks.addAll(drinkRecipes);
     }
 
-    public List<Drink> getDrinks() throws IOException {
-        List<Drink> drinks = new ArrayList<>();
-        for (int i=0; i<=4; i++){
-            char letter = (char) (97 + i) ;
-            String fileName = "LIST_" + letter + "LETTER.json";
+    public List<Drink> getDrinks() {
 
-            drinks.addAll(JsonReader.objectMapper(fileName));
-
-            addDrinks(drinks);
-        }
         return this.drinks;
     }
 }
