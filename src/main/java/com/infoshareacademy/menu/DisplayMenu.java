@@ -1,5 +1,6 @@
 package com.infoshareacademy.menu;
 
+import com.infoshareacademy.utilities.Utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,6 +13,8 @@ public class DisplayMenu {
     }
 
     public static void displayMainMenu() {
+        logo();
+        Utilities.freezeConsole();
         clearScreen();
         STDOUT.info("\n ------------------ Main Menu ---------------------- ");
         STDOUT.info("\n|  ENTER [1] to browse drinks recipes               |" +
@@ -62,6 +65,46 @@ public class DisplayMenu {
         STDOUT.info("\n|  Hope to see you again soon.                      |" +
                 "\n|                                                   |" +
                 "\n|  Enjoy responsibly!                               |");
+        STDOUT.info(END_LINE);
+        STDOUT.info("\n");
+    }
+
+    public static void logo() {
+        clearScreen();
+        STDOUT.info("\n ------------- Welcome in Mindhunters World of Goodies ------------------ ");
+        STDOUT.info("\n|                                                                        |" +
+                "\n|                                                                        |" +
+                "\n|                                                     .''''.             |" +
+                "\n|                                                    /,.--. )            |" +
+                "\n|                               .'``.        __   __((\\- -(\\)            |" +
+                "\n|                      _______.'     \\_.-''''  ``'  /)) - . |            |" +
+                "\n|     __....::::::::::'''''''/    .   \\ ''''''::::::(/ `-'`.)            |" +
+                "\n|  .:'::.  .  o ~ .  ~  o ~ /    /     '.o ~ . _.....--- `   \\           |" +
+                "\n|   ':. ':::::.___.____,___/   ,'_\\     \\ _.-'___..___..._,' )           |" +
+                "\n|     ':.  o~  `::::::::::::::::::::::::::::::::::::::::'  (\\ |          |" +
+                "\n|        `':.  o ~  o   ..   o  ,  ~  \\ . o~   -.  ~   .'.:'\\'(          |" +
+                "\n|            ':.  ,..   o  ~   o  . ,  'o.    ~ o   ~ o'.:' \\(/          |" +
+                "\n|               '.   o   ~   .    ~    o ~ ',o :  :  .' .'('\\/|          |" +
+                "\n|                 '-._    ~    o  , o  ,  .  ~._ _.o_.-' \\/ ) (          |" +
+                "\n|                     '- .._  .    ~    ~      _.. -'                    |" +
+                "\n|                           ''' - .,.,. - '''                            |" +
+                "\n|                                (:' .:)                                 |" +
+                "\n|                                 :| '|                                  |" +
+                "\n|                                 |. ||                                  |" +
+                "\n|                                 || :|                                  |" +
+                "\n|                                 :| |'         K A M I L                |" +
+                "\n|                                 || :|            L U K A S Z           |" +
+                "\n|                                 '| ||                M I C H A L       |" +
+                "\n|                                 |: ':                   S Z Y M O N    |" +
+                "\n|                                 || :|                                  |" +
+                "\n|                           __..--:| |'--..__                            |" +
+                "\n|                     _...-'  _.' |' :| '.__ '-..._                      |" +
+                "\n|                   / -  ..---    '''''   ---...  _ \\                    |" +
+                "\n|                   \\  _____  ..--   --..     ____  /                    |" +
+                "\n|                    '-----....._________.....-----'                     |" +
+                "\n|     Art by lgbeard                                                     |" +
+                "\n|                                                                        |" +
+                "\n ------------------------------------------------------------------------");
         STDOUT.info(END_LINE);
         STDOUT.info("\n");
     }
