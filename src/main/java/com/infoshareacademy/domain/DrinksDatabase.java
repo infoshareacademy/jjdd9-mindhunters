@@ -1,9 +1,7 @@
 package com.infoshareacademy.domain;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public final class DrinksDatabase {
 
@@ -28,6 +26,6 @@ public final class DrinksDatabase {
 
     public List<Drink> getDrinks() {
 
-        return drinks;
+        return this.drinks;
     }
 }

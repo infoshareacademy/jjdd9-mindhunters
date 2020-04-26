@@ -11,6 +11,7 @@ public class UserInput {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     private static final String CHOICE_MESSAGE = "\nType your choice: ";
     private static final String WRONG_INPUT_MESSAGE = "Wrong input. ";
+    private static final String PRESS_ANY_KEY = "\n\nPress ENTER to continue... ";
 
     Scanner scanner = new Scanner(System.in);
 
@@ -23,5 +24,10 @@ public class UserInput {
         STDOUT.info(WRONG_INPUT_MESSAGE);
         Utilities.freezeConsole();
         return 0;
+    }
+
+    public void getUserInputAnyKey() {
+        STDOUT.info(PRESS_ANY_KEY);
+        scanner.nextLine();
     }
 }
