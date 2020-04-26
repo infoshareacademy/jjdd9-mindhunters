@@ -48,7 +48,6 @@ public class MenuControl {
             switch (userInput.getUserInput()) {
                 case 1:
                     DrinkService.printAllDrinks(DrinksDatabase.getINSTANCE());
-                    STDOUT.info("SEARCH BY NAME");
                     userInput.getUserInputAnyKey();
                     break;
                 case 2:
