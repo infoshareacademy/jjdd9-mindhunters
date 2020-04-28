@@ -18,7 +18,7 @@ public class MenuControl {
     public void mainNavigation() {
         do {
             DisplayMenu.displayMainMenu();
-            switch (userInput.getUserInput()) {
+            switch (userInput.getUserNumericInput()) {
                 case 1:
                     browseNavigation();
                     break;
@@ -45,7 +45,7 @@ public class MenuControl {
         DrinkService.loadDrinkList();
         do {
             DisplayMenu.displayBrowseMenu();
-            switch (userInput.getUserInput()) {
+            switch (userInput.getUserNumericInput()) {
                 case 1:
                     DrinkService.printAllDrinks(DrinksDatabase.getINSTANCE());
                     userInput.getUserInputAnyKey();
@@ -78,7 +78,7 @@ public class MenuControl {
         boolean cont = true;
         do {
             DisplayMenu.displayManageMenu();
-            switch (userInput.getUserInput()) {
+            switch (userInput.getUserNumericInput()) {
                 case 1:
                     STDOUT.info("ADD DRINK");
                     break;
@@ -110,7 +110,7 @@ public class MenuControl {
         boolean cont = true;
         do {
             DisplayMenu.displaySettingsMenu();
-            switch (userInput.getUserInput()) {
+            switch (userInput.getUserNumericInput()) {
                 case 1:
                     STDOUT.info("LOAD/CHANGE CONFIGURATION");
                     break;

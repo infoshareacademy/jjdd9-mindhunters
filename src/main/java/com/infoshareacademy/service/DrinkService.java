@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 public class DrinkService {
 
@@ -43,6 +44,36 @@ public class DrinkService {
                     drink.getDrinkId(), drink.getCategoryName(), drink.getAlcoholStatus());
             STDOUT.info("\n");
         }
+    }
+
+    public static void printAllCategories(DrinksDatabase database) {
+        List<String> categories = getCategories(database);
+        int counter = 0;
+        for (String category : categories) {
+            counter++;
+            STDOUT.info("[{}], {} \n", counter, category);
+        }
+    }
+
+    public static List<String> getCategories(DrinksDatabase database) {
+        TreeSet<String> categories = new TreeSet<>();
+        database.getDrinks().forEach(drink -> categories.add(drink.getCategoryName()));
+        return List.copyOf(categories);
+    }
+
+    public static void printAllAlcoholStatuses(DrinksDatabase database) {
+        List<String> alcoholStatuses = getAlcoholStatuses(database);
+        int counter = 0;
+        for (String alcoholStatus : alcoholStatuses) {
+            counter++;
+            STDOUT.info("[{}], {} \n", counter, alcoholStatus);
+        }
+    }
+
+    public static List<String> getAlcoholStatuses(DrinksDatabase database) {
+        TreeSet<String> alcoholStatuses = new TreeSet<>();
+        database.getDrinks().forEach(drink -> alcoholStatuses.add(drink.getAlcoholStatus()));
+        return List.copyOf(alcoholStatuses);
     }
 }
 

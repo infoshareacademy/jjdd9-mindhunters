@@ -9,14 +9,14 @@ import java.util.Scanner;
 public class UserInput {
 
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
-    private static final String CHOICE_MESSAGE = "\nType your choice: ";
-    private static final String WRONG_INPUT_MESSAGE = "Wrong input. ";
+    private static final String INT_CHOICE_MESSAGE = "\nType your choice: ";
     private static final String PRESS_ANY_KEY = "\n\nPress ENTER to continue... ";
+    private static final String STRING_CHOICE_MESSAGE = "\nEnter your values: ";
 
     Scanner scanner = new Scanner(System.in);
 
-    public int getUserInput() {
-        STDOUT.info(CHOICE_MESSAGE);
+    public int getUserNumericInput() {
+        STDOUT.info(INT_CHOICE_MESSAGE);
         String userChoice = scanner.nextLine();
         if (NumberUtils.isCreatable(userChoice)) {
             return Integer.parseInt(userChoice);
@@ -24,8 +24,13 @@ public class UserInput {
         return 0;
     }
 
+    public String getUserStringInput() {
+        STDOUT.info(STRING_CHOICE_MESSAGE);
+        String userChoice = scanner.nextLine().trim();
+        return userChoice;
+    }
+
     public void getUserInputAnyKey() {
-        STDOUT.info(PRESS_ANY_KEY);
         scanner.nextLine();
     }
 }
