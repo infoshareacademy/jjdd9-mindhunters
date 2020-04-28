@@ -1,7 +1,7 @@
 package com.infoshareacademy.menu;
 
 import com.infoshareacademy.domain.DrinksDatabase;
-import com.infoshareacademy.services.DrinkService;
+import com.infoshareacademy.service.DrinkService;
 import com.infoshareacademy.utilities.UserInput;
 import com.infoshareacademy.utilities.Utilities;
 import org.slf4j.Logger;
@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 public class MenuControl {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
-    private static final String USER_MESSAGE = "Please choose number from the list.";
+    private static final String USER_MESSAGE = "Wrong input. Please choose number from the list.";
 
     private boolean exit = false;
 

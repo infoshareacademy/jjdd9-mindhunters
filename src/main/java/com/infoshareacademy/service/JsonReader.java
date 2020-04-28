@@ -1,4 +1,4 @@
-package com.infoshareacademy.services;
+package com.infoshareacademy.service;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -13,11 +13,7 @@ import java.util.List;
 
 public class JsonReader {
 
-    private String fileName;
-
-    public JsonReader(String fileName) {
-
-        this.fileName = fileName;
+    public JsonReader() {
     }
 
     public static List<Drink> objectMapper(String fileName) throws IOException {

@@ -6,7 +6,6 @@ import java.util.List;
 public final class DrinksDatabase {
 
     private static DrinksDatabase INSTANCE;
-    private String info = "Initial info class";
     private List<Drink> drinks;
 
     private DrinksDatabase() {
