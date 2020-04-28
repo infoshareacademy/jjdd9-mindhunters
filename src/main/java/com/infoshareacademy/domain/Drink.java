@@ -3,7 +3,7 @@ package com.infoshareacademy.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.infoshareacademy.services.JsonDrinkDeserializer;
+import com.infoshareacademy.service.JsonDrinkDeserializer;
 
 import java.time.LocalDateTime;
 import java.util.List;

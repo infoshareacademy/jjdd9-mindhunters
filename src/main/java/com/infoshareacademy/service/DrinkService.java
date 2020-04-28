@@ -1,4 +1,4 @@
-package com.infoshareacademy.services;
+package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.DrinksDatabase;
@@ -12,6 +12,9 @@ import java.util.List;
 public class DrinkService {
 
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
+
+    private DrinkService() {
+    }
 
     public static void loadDrinkList() {
 
@@ -28,17 +31,16 @@ public class DrinkService {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } database.addDrinks(drinks);
+            }
+            database.addDrinks(drinks);
         }
     }
 
     public static void printAllDrinks(DrinksDatabase database) {
 
         for (Drink drink : database.getDrinks()) {
-            STDOUT.info("\n{}", drink.getDrinkName().toUpperCase());
-            STDOUT.info("\n\t*ID: {}", drink.getDrinkId());
-            STDOUT.info("\n\t*Category: {}", drink.getCategoryName());
-            STDOUT.info("\n\t*Alcohol status: {}", drink.getAlcoholStatus());
+            STDOUT.info("\n{}\n *ID: {}, *Category: {}, {};", drink.getDrinkName().toUpperCase(),
+                    drink.getDrinkId(), drink.getCategoryName(), drink.getAlcoholStatus());
             STDOUT.info("\n");
         }
     }

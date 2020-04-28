@@ -21,8 +21,6 @@ public class UserInput {
         if (NumberUtils.isCreatable(userChoice)) {
             return Integer.parseInt(userChoice);
         }
-        STDOUT.info(WRONG_INPUT_MESSAGE);
-        Utilities.freezeConsole();
         return 0;
     }
 
