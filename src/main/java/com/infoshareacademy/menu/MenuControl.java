@@ -51,7 +51,11 @@ public class MenuControl {
                     userInput.getUserInputAnyKey();
                     break;
                 case 2:
-                    STDOUT.info("SEARCH BY NAME");
+                    STDOUT.info(" -------------SEARCH BY NAME------------------");
+                    //String singleDrink = userInput.getUserInputString();
+                    //DrinkService.printSingleDrink(DrinksDatabase.getINSTANCE(),singleDrink);
+                    DrinkService.printSingleDrink(DrinksDatabase.getINSTANCE(),userInput.getUserInputString());
+                    userInput.getUserInputAnyKey();
                     break;
                 case 3:
                     STDOUT.info("SEARCH BY INGREDIENT");
