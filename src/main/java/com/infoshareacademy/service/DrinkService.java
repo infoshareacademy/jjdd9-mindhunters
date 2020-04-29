@@ -14,6 +14,7 @@ public class DrinkService {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
 
     private DrinkService() {
+
     }
 
     public static void loadDrinkList() {

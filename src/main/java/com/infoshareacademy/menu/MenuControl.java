@@ -2,6 +2,7 @@ package com.infoshareacademy.menu;
 
 import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.service.DrinkService;
+import com.infoshareacademy.service.DrinkServiceSz;
 import com.infoshareacademy.utilities.UserInput;
 import com.infoshareacademy.utilities.Utilities;
 import org.slf4j.Logger;
@@ -51,7 +52,9 @@ public class MenuControl {
                     userInput.getUserInputAnyKey();
                     break;
                 case 2:
-                    STDOUT.info("SEARCH BY NAME");
+                    DrinkServiceSz search = new DrinkServiceSz();
+                    search.searchDrinkByName();
+                    userInput.getUserInputAnyKey();
                     break;
                 case 3:
                     STDOUT.info("SEARCH BY INGREDIENT");
