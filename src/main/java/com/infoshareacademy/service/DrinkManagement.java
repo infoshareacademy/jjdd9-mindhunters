@@ -3,66 +3,89 @@ package com.infoshareacademy.service;
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.domain.Ingredient;
+import com.infoshareacademy.menu.DisplayMenu;
 import com.infoshareacademy.utilities.UserInput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DrinkManagement {
 
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
-    DrinksDatabase database = DrinksDatabase.getINSTANCE();
-    private int initialDrinkId = 0; //to be loaded from properties
-    UserInput userInput = new UserInput();
+    private DrinksDatabase database;
+    private UserInput userInput;
+    private Integer maxExistingId;
+
+    public DrinkManagement() {
+        this.database = DrinksDatabase.getINSTANCE();
+        this.userInput =  new UserInput();
+        this.maxExistingId = 0;
+    }
 
     public void createUserDrink() {
         Drink userDrink = new Drink();
         setUserDrinkId(userDrink);
-        STDOUT.info("Type name of drink:");
-        userDrink.setDrinkName(userInput.getUserStringInput());
+
+        DisplayMenu.clearScreen();
+        userDrink.setDrinkName(userInput.getUserStringInput("Type name of drink: "));
+
+        DisplayMenu.clearScreen();
         setUserDrinkCategory(userDrink);
+
+        DisplayMenu.clearScreen();
         setUserDrinkAlcoholStatus(userDrink);
-        STDOUT.info("Type drink recipe: ");
-        userDrink.setRecipe(userInput.getUserStringInput());
-        STDOUT.info("Type drink image URL: ");
-        userDrink.setRecipe(userInput.getUserStringInput());
+
+        DisplayMenu.clearScreen();
+        userDrink.setRecipe(userInput.getUserStringInput("Type drink recipe: "));
+
+        DisplayMenu.clearScreen();
+        userDrink.setImageUrl(userInput.getUserStringInput("Type drink image URL: "));
+
+        DisplayMenu.clearScreen();
         userDrink.setIngredients(setUserDrinkIngredientAndMeasure(15));
+        userDrink.setModifiedDate(LocalDateTime.now());
 
-
+        //TESTTESTSTESTSTEST
+        System.out.println("");
+        System.out.println(userDrink.toString());
     }
 
     private void setUserDrinkCategory(Drink userDrink) {
-        STDOUT.info("Choose category number:");
+        STDOUT.info("Choose category number:\n");
         DrinkService.printAllCategories(database);
         int userChoice = 0;
         do {
             userChoice = userInput.getUserNumericInput();
-            if (userChoice > 0 && userChoice < 10) {
+            if (userChoice > 0 && userChoice <= DrinkService.getCategories(database).size()) {
                 break;
             }
-            STDOUT.info("Wrong input.");
+            STDOUT.info("Wrong input.\n");
         } while (true);
         userDrink.setCategoryName(DrinkService.getCategories(database).get(userChoice - 1));
     }
 
     public void setUserDrinkId(Drink userDrink) {
-        initialDrinkId++;
-        String drinkId = "u" + initialDrinkId;
-        userDrink.setDrinkId(drinkId);
+        if (maxExistingId == 0){
+            maxExistingId = Collections.max(DrinkService.getDrinkIdNumbers(database));
+        }
+        maxExistingId++;
+        userDrink.setDrinkId(maxExistingId.toString());
     }
 
     private void setUserDrinkAlcoholStatus(Drink userDrink) {
-        STDOUT.info("Choose alcohol status:");
+        STDOUT.info("Choose alcohol status:\n");
         DrinkService.printAllAlcoholStatuses(database);
         int userChoice = 0;
         do {
             userChoice = userInput.getUserNumericInput();
-            if (userChoice > 0 && userChoice < DrinkService.getAlcoholStatuses(database).size() + 1) {
+            if (userChoice > 0 && userChoice <= DrinkService.getAlcoholStatuses(database).size()) {
                 break;
             }
-            STDOUT.info("Wrong input.");
+            STDOUT.info("Wrong input.\n");
         } while (true);
         userDrink.setAlcoholStatus((DrinkService.getAlcoholStatuses(database).get(userChoice - 1)));
     }
@@ -71,22 +94,18 @@ public class DrinkManagement {
         List<Ingredient> ingredients = new ArrayList<>();
         String name;
         String measure;
-        while (true) {
-            STDOUT.info("Type ingredient and measure separated by '|' ");
-            String[] ingredientInput = userInput.getUserStringInput().split("|");
-            while (ingredientInput.length < 2 || ingredientInput[0].isBlank() || ingredientInput[1].isBlank()) {
-                STDOUT.info("Wrong input. Try again. ");
-                ingredientInput = userInput.getUserStringInput().split("|");
-            }
-            name = ingredientInput[0];
-            measure = ingredientInput[1];
+        int counter = 1;
+        do {
+            name = userInput.getUserStringInput("Type ingredient no." + counter + " name: ");
+            StringBuilder builder = new StringBuilder();
+            String message =
+                    builder.append("Type ").append("'").append(name).append("'").append(" measure: ").toString();
+            measure = userInput.getUserStringInput(message);
             ingredients.add(new Ingredient(name, measure));
-            STDOUT.info("Would you like to add more ingredients/measures? Press [y] to continue...");
-            if (!userInput.getUserStringInput().toLowerCase().equals("y") || ingredients.size() < maxCapacity) {
-                break;
-            }
-        }
+            STDOUT.info("\n");
+            counter++;
+        } while (userInput.getUserStringInput("If you want to add another ingredient [max 15] press [y]: ").equalsIgnoreCase(
+                "y") && (ingredients.size() <= maxCapacity));
         return ingredients;
     }
-
 }

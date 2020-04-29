@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.infoshareacademy.service.JsonDrinkDeserializer;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @JsonIgnoreProperties({"strDrinkAlternate", "strDrinkES", "strDrinkDE", "strDrinkFR",
@@ -106,8 +107,8 @@ public class Drink {
                 ", recipe='" + recipe + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", ingredients=" + ingredients +
-                ", modifiedDate=" + modifiedDate +
-                '}';
+                ", modifiedDate='" + modifiedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) +
+                "'}";
     }
 }
 

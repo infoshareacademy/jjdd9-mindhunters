@@ -66,7 +66,7 @@ public class DisplayMenu {
         STDOUT.info("\n");
     }
 
-    private static void clearScreen() {
+    public static void clearScreen() {
         STDOUT.info("\033[H\033[2J");
     }
 }

@@ -46,12 +46,19 @@ public class DrinkService {
         }
     }
 
+    public static List<Integer> getDrinkIdNumbers(DrinksDatabase database) {
+        List<Integer> idNumbers = new ArrayList<>();
+        database.getDrinks().forEach(drink -> idNumbers.add(Integer.parseInt(drink.getDrinkId())));
+        return idNumbers;
+    }
+
+
     public static void printAllCategories(DrinksDatabase database) {
         List<String> categories = getCategories(database);
         int counter = 0;
         for (String category : categories) {
             counter++;
-            STDOUT.info("[{}], {} \n", counter, category);
+            STDOUT.info("[{}], {}\n", counter, category);
         }
     }
 
@@ -66,7 +73,7 @@ public class DrinkService {
         int counter = 0;
         for (String alcoholStatus : alcoholStatuses) {
             counter++;
-            STDOUT.info("[{}], {} \n", counter, alcoholStatus);
+            STDOUT.info("[{}], {}\n", counter, alcoholStatus);
         }
     }
 

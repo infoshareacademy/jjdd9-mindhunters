@@ -10,6 +10,10 @@ public class Ingredient {
         this.measure = measure;
     }
 
+    public Ingredient() {
+
+    }
+
     public String getName() {
         return name;
     }

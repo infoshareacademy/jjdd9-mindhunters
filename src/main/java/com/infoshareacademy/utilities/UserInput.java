@@ -11,7 +11,6 @@ public class UserInput {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     private static final String INT_CHOICE_MESSAGE = "\nType your choice: ";
     private static final String PRESS_ANY_KEY = "\n\nPress ENTER to continue... ";
-    private static final String STRING_CHOICE_MESSAGE = "\nEnter your values: ";
 
     Scanner scanner = new Scanner(System.in);
 
@@ -24,8 +23,8 @@ public class UserInput {
         return 0;
     }
 
-    public String getUserStringInput() {
-        STDOUT.info(STRING_CHOICE_MESSAGE);
+    public String getUserStringInput(String choiceMessage) {
+        STDOUT.info(choiceMessage);
         String userChoice = scanner.nextLine().trim();
         return userChoice;
     }
