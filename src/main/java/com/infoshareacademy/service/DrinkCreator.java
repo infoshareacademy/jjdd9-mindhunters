@@ -13,20 +13,24 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class DrinkManagement {
+public class DrinkCreator {
 
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     private DrinksDatabase database;
     private UserInput userInput;
     private Integer maxExistingId;
 
-    public DrinkManagement() {
+    public DrinkCreator() {
         this.database = DrinksDatabase.getINSTANCE();
         this.userInput =  new UserInput();
         this.maxExistingId = 0;
     }
 
-    public void createUserDrink() {
+    private void addDrinkToDatabase(Drink drink) {
+        database.addDrink(drink);
+    }
+
+    public Drink createUserDrink() {
         Drink userDrink = new Drink();
         setUserDrinkId(userDrink);
 
@@ -49,9 +53,7 @@ public class DrinkManagement {
         userDrink.setIngredients(setUserDrinkIngredientAndMeasure(15));
         userDrink.setModifiedDate(LocalDateTime.now());
 
-        //TESTTESTSTESTSTEST
-        System.out.println("");
-        System.out.println(userDrink.toString());
+        return userDrink;
     }
 
     private void setUserDrinkCategory(Drink userDrink) {

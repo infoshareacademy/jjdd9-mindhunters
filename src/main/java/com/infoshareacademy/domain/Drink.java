@@ -110,5 +110,7 @@ public class Drink {
                 ", modifiedDate='" + modifiedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) +
                 "'}";
     }
+
+    
 }
 

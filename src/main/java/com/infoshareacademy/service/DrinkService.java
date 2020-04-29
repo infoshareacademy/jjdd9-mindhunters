@@ -33,7 +33,7 @@ public class DrinkService {
                     e.printStackTrace();
                 }
             }
-            database.addDrinks(drinks);
+            database.addAllDrinks(drinks);
         }
     }
 
