@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.infoshareacademy.service.JsonDrinkDeserializer;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @JsonIgnoreProperties({"strDrinkAlternate", "strDrinkES", "strDrinkDE", "strDrinkFR",
@@ -108,6 +109,14 @@ public class Drink {
                 ", ingredients=" + ingredients +
                 ", modifiedDate=" + modifiedDate +
                 '}';
+    }
+
+    public List<String> getIngridientsNamesList() {
+        List<String> ingridientsNames = new ArrayList<>();
+        for (Ingredient ingredient : ingredients){
+            ingridientsNames.add(ingredient.getName());
+        }
+        return ingridientsNames;
     }
 }
 

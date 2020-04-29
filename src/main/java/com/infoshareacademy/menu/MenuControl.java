@@ -44,7 +44,8 @@ public class MenuControl {
     public void browseNavigation() {
         boolean cont = true;
         DrinkService.loadDrinkList();
-        do {
+        DrinkServiceSz search = new DrinkServiceSz();
+                do {
             DisplayMenu.displayBrowseMenu();
             switch (userInput.getUserInput()) {
                 case 1:
@@ -52,12 +53,12 @@ public class MenuControl {
                     userInput.getUserInputAnyKey();
                     break;
                 case 2:
-                    DrinkServiceSz search = new DrinkServiceSz();
                     search.searchDrinkByName();
                     userInput.getUserInputAnyKey();
                     break;
                 case 3:
-                    STDOUT.info("SEARCH BY INGREDIENT");
+                    search.searchDrinkByIngridient();
+                    userInput.getUserInputAnyKey();
                     break;
                 case 4:
                     STDOUT.info("SEARCH BY CATEGORY");
