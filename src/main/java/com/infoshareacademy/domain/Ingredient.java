@@ -28,4 +28,5 @@ public class Ingredient {
                 ", measure='" + measure + '\'' +
                 '}';
     }
+
 }

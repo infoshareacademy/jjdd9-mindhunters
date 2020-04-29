@@ -5,9 +5,7 @@ import com.infoshareacademy.domain.DrinksDatabase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class DrinkServiceSz {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
@@ -44,14 +42,11 @@ public class DrinkServiceSz {
             STDOUT.info("Input min. 3 characters.\n");
             searchDrinkByName();
         }
-
         String userInput = "";
-
         while (!(userInput.equalsIgnoreCase("y") || userInput.equalsIgnoreCase("n"))) {
             STDOUT.info("\nDo you want to repeat the search? <y/n>: ");
             userInput = scanner.next();
             clearScreen();
-
         }
         if (userInput.equalsIgnoreCase("y")) {
             clearScreen();
@@ -59,11 +54,58 @@ public class DrinkServiceSz {
         }
     }
 
+    public void searchDrinkByIngridient() {
+
+        Scanner scanner = new Scanner(System.in);
+
+        clearScreen();
+        STDOUT.info("\nInput ingridients name: ");
+        List<Drink> outputSearch = new ArrayList<>();
+
+        List<String> inputSearch = Arrays.asList(scanner.nextLine().toLowerCase().split(","));
+
+        for (String input : inputSearch) {
+            Iterator i = inputSearch.iterator();
+            if (input.length() <= 2) {
+                inputSearch.remove(i);
+            }
+        }
+
+        for (Drink drink : database) {
+            List<String> ingrediensNamestList = drink.getIngridientsNamesList();
+
+            for (String ingredientName: ingrediensNamestList)
+            {
+                if (ingrediensNamestList.containsAll(inputSearch)){
+                    outputSearch.add(drink);
+                }
+            }
+        }
+        if (outputSearch.isEmpty()) {
+            STDOUT.info("No matching result found.\n");
+        } else {
+            printFoundDrink(outputSearch);
+            STDOUT.info("\n");
+        }
+
+/*        String userInput = "";
+        while (!(userInput.equalsIgnoreCase("y") || userInput.equalsIgnoreCase("n"))) {
+            STDOUT.info("\nDo you want to repeat the search? <y/n>: ");
+            userInput = scanner.next();
+            clearScreen();
+        }
+        if (userInput.equalsIgnoreCase("y")) {
+            clearScreen();
+            searchDrinkByName();
+        }*/
+    }
+
 
     public void printFoundDrink(List<Drink> drinkList) {
         for (Drink drink : drinkList) {
             STDOUT.info("\n{}\n *ID: {}, *Category: {}, {};", drink.getDrinkName().toUpperCase(),
                     drink.getDrinkId(), drink.getCategoryName(), drink.getAlcoholStatus());
+            STDOUT.info("\n {}",drink.getIngridientsNamesList());
             STDOUT.info("\n");
 
         }
