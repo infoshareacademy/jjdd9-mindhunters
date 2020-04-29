@@ -18,13 +18,15 @@ public class DrinkServiceSz {
     }
 
     public void searchDrinkByName() {
-        List<Drink> outputSearch = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);
 
-        STDOUT.info("Input drink name: ");
+        String inputSearch = "";
 
-        String inputSearch = scanner.next().toLowerCase();
+        clearScreen();
+        STDOUT.info("\nInput drink name: ");
+        List<Drink> outputSearch = new ArrayList<>();
+        inputSearch = scanner.next().toLowerCase();
         if (inputSearch.length() > 2) {
             for (Drink drink : database) {
                 String name = drink.getDrinkName().toLowerCase();
@@ -32,15 +34,30 @@ public class DrinkServiceSz {
                     outputSearch.add(drink);
                 }
             }
-            printFoundDrink(outputSearch);
+            if (outputSearch.isEmpty()) {
+                STDOUT.info("No matching result found.\n");
+            } else {
+                printFoundDrink(outputSearch);
+                STDOUT.info("\n");
+            }
         } else {
-            STDOUT.info("Input min. 3 characters\n");
+            STDOUT.info("Input min. 3 characters.\n");
             searchDrinkByName();
         }
 
+        String userInput = "";
+
+        while (!(userInput.equalsIgnoreCase("y") || userInput.equalsIgnoreCase("n"))) {
+            STDOUT.info("\nDo you want to repeat the search? <y/n>: ");
+            userInput = scanner.next();
+            clearScreen();
+
+        }
+        if (userInput.equalsIgnoreCase("y")) {
+            clearScreen();
+            searchDrinkByName();
+        }
     }
-
-
 
 
     public void printFoundDrink(List<Drink> drinkList) {
@@ -51,6 +68,12 @@ public class DrinkServiceSz {
 
         }
     }
+
+    private static void clearScreen() {
+        STDOUT.info("\033[H\033[2J");
+    }
+
+
 }
 
 
