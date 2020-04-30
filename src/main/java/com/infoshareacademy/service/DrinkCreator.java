@@ -56,7 +56,7 @@ public class DrinkCreator {
         return userDrink;
     }
 
-    private void setUserDrinkCategory(Drink userDrink) {
+    void setUserDrinkCategory(Drink userDrink) {
         STDOUT.info("Choose category number:\n");
         DrinkService.printAllCategories(database);
         int userChoice = 0;
@@ -78,7 +78,7 @@ public class DrinkCreator {
         userDrink.setDrinkId(maxExistingId.toString());
     }
 
-    private void setUserDrinkAlcoholStatus(Drink userDrink) {
+    void setUserDrinkAlcoholStatus(Drink userDrink) {
         STDOUT.info("Choose alcohol status:\n");
         DrinkService.printAllAlcoholStatuses(database);
         int userChoice = 0;
@@ -92,7 +92,7 @@ public class DrinkCreator {
         userDrink.setAlcoholStatus((DrinkService.getAlcoholStatuses(database).get(userChoice - 1)));
     }
 
-    private List<Ingredient> setUserDrinkIngredientAndMeasure(int maxCapacity) {
+    List<Ingredient> setUserDrinkIngredientAndMeasure(int maxCapacity) {
         List<Ingredient> ingredients = new ArrayList<>();
         String name;
         String measure;
