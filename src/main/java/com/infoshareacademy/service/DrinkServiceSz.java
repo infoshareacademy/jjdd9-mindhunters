@@ -2,8 +2,6 @@ package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.DrinksDatabase;
-import com.infoshareacademy.domain.Ingredient;
-import org.davidmoten.text.utils.WordWrap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class DrinkServiceSz {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
@@ -89,41 +88,25 @@ public class DrinkServiceSz {
             }
         } while (!(userInput.equalsIgnoreCase("n")));
 
+        List<String> newList = inputSearch.stream()
+                .distinct()
+                .filter(string -> string.length() > 2)
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
+
         outputSearch = database.stream()
-                .filter (drink ->
-                                inputSearch.stream()
-                                                .distinct()
-                                                .filter(string -> string.length() > 2)
-                                                .allMatch(input -> input.equalsIgnoreCase(drink
-                                                        .getIngridientsNamesList()
+                .filter(drink -> (drink.getIngridientsNamesList().stream()
+                        .map(String::toLowerCase)
+                        .collect(Collectors.toList())
+                ).containsAll(newList))
+                .collect(Collectors.toList());
 
-
-
-
-/*
-        for (String input : inputSearch) {
-            Iterator i = inputSearch.iterator();
-            if (input.length() <= 2) {
-                inputSearch.remove(i);
-            }
-        }
-
-        for (Drink drink : database) {
-            List<String> ingrediensNamestList = drink.getIngridientsNamesList();
-
-            for (String ingredientName : ingrediensNamestList) {
-                if (ingrediensNamestList.containsAll(inputSearch)) {
-                    outputSearch.add(drink);
-                }
-            }
-        }
         if (outputSearch.isEmpty()) {
             STDOUT.info("No matching result found.\n");
         } else {
             printFoundDrink(outputSearch);
             STDOUT.info("\n");
         }
-*/
 
 
     }
@@ -134,7 +117,6 @@ public class DrinkServiceSz {
             STDOUT.info("\n{}\n *ID: {}, *Category: {}, {};", drink.getDrinkName().toUpperCase(),
                     drink.getDrinkId(), drink.getCategoryName(), drink.getAlcoholStatus());
             STDOUT.info("\n {}", drink.getIngridientsNamesList());
-            STDOUT.info("\n {}", drink.getModifiedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
             STDOUT.info("\n");
         }
     }
