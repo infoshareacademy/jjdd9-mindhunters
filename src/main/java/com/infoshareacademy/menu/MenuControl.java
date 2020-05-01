@@ -2,6 +2,7 @@ package com.infoshareacademy.menu;
 
 import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.service.DrinkService;
+import com.infoshareacademy.utilities.PropertiesUtilities;
 import com.infoshareacademy.utilities.UserInput;
 import com.infoshareacademy.utilities.Utilities;
 import org.slf4j.Logger;
@@ -115,15 +116,66 @@ public class MenuControl {
                     STDOUT.info("LOAD/CHANGE CONFIGURATION");
                     break;
                 case 2:
-                    STDOUT.info("CHANGE DRINKS SORTING ORDER");
+                    settingsOrderNavigation();
                     break;
                 case 3:
-                    STDOUT.info("SET RECIPE DATA MODIFICATION FORMAT");
+                    settingsDateFormatNavigation();
                     break;
                 case 4:
                     cont = false;
                     break;
                 case 5:
+                    DisplayMenu.displayExit();
+                    exit = true;
+                    break;
+                default:
+                    STDOUT.info(USER_MESSAGE);
+                    Utilities.freezeConsole();
+                    break;
+            }
+        } while (cont && (!exit));
+    }
+
+    public void settingsOrderNavigation() {
+        boolean cont = true;
+        do {
+            DisplayMenu.displaySettingsOrderMenu();
+            switch (userInput.getUserInput()) {
+                case 1:
+                    (new PropertiesUtilities()).setProperties("ordeby", "asc");
+                    break;
+                case 2:
+                    (new PropertiesUtilities()).setProperties("ordeby", "desc");
+                    break;
+                case 3:
+                    cont = false;
+                    break;
+                case 4:
+                    DisplayMenu.displayExit();
+                    exit = true;
+                    break;
+                default:
+                    STDOUT.info(USER_MESSAGE);
+                    Utilities.freezeConsole();
+                    break;
+            }
+        } while (cont && (!exit));
+    }
+    public void settingsDateFormatNavigation() {
+        boolean cont = true;
+        do {
+            DisplayMenu.displaySettingsDateFormatMenu();
+            switch (userInput.getUserInput()) {
+                case 1:
+                    (new PropertiesUtilities()).setProperties("date.format", "YYYY-MM-DD HH:MM:SS");
+                    break;
+                case 2:
+                    (new PropertiesUtilities()).setProperties("date.format", "DD-MM-YYYY HH:MM:SS");
+                    break;
+                case 3:
+                    cont = false;
+                    break;
+                case 4:
                     DisplayMenu.displayExit();
                     exit = true;
                     break;

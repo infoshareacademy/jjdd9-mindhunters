@@ -56,6 +56,26 @@ public class DisplayMenu {
         STDOUT.info(END_LINE);
     }
 
+    public static void displaySettingsOrderMenu() {
+        clearScreen();
+        STDOUT.info("\n ---------------- Settings ------------------- ");
+        STDOUT.info("\n|  [1] Set ASC                                |" +
+                "\n|  [2] Set DESC                               |" +
+                "\n|  [3] to return to previous menu             |" +
+                "\n|  [4] to EXIT                                |");
+        STDOUT.info(END_LINE);
+    }
+
+    public static void displaySettingsDateFormatMenu() {
+        clearScreen();
+        STDOUT.info("\n ---------------- Settings ------------------- ");
+        STDOUT.info("\n|  [1] YYYY-MM-DD HH:MM:SS                    |" +
+                "\n|  [2] DD-MM-YYYY HH:MM:SS                    |"+
+        "\n|  [3] to return to previous menu             |"+
+        "\n|  [4] to EXIT                                |");
+        STDOUT.info(END_LINE);
+    }
+
     public static void displayExit() {
         clearScreen();
         STDOUT.info("\n ------------------ QUIT -------------------- ");
