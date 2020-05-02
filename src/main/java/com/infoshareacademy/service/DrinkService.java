@@ -46,7 +46,7 @@ public class DrinkService {
         }
     }
 
-    public static List<Integer> getDrinkIdNumbers(DrinksDatabase database) {
+    public static List<Integer> getAllDrinkIdNumbers(DrinksDatabase database) {
         List<Integer> idNumbers = new ArrayList<>();
         database.getDrinks().forEach(drink -> idNumbers.add(Integer.parseInt(drink.getDrinkId())));
         return idNumbers;
@@ -54,7 +54,7 @@ public class DrinkService {
 
 
     public static void printAllCategories(DrinksDatabase database) {
-        List<String> categories = getCategories(database);
+        List<String> categories = getAllCategories(database);
         int counter = 0;
         for (String category : categories) {
             counter++;
@@ -62,7 +62,7 @@ public class DrinkService {
         }
     }
 
-    public static List<String> getCategories(DrinksDatabase database) {
+    public static List<String> getAllCategories(DrinksDatabase database) {
         TreeSet<String> categories = new TreeSet<>();
         database.getDrinks().forEach(drink -> categories.add(drink.getCategoryName()));
         return List.copyOf(categories);
@@ -81,6 +81,11 @@ public class DrinkService {
         TreeSet<String> alcoholStatuses = new TreeSet<>();
         database.getDrinks().forEach(drink -> alcoholStatuses.add(drink.getAlcoholStatus()));
         return List.copyOf(alcoholStatuses);
+    }
+
+    public static void printDrinkIngrAndMeasures(Drink drink){
+        drink.getIngredients().forEach(i -> STDOUT.info("Ingredient: {}, measure: {}\n", i.getName(), i.getMeasure()) );
+        STDOUT.info("\n");
     }
 }
 

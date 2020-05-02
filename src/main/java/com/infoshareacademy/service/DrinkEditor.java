@@ -46,43 +46,42 @@ public class DrinkEditor {
             switch (userInput.getUserNumericInput()) {
                 case 1:
                     DisplayMenu.clearScreen();
-                    STDOUT.info("Previous drink name: {}\n", editedDrink.getDrinkName());
+                    STDOUT.info("Previous drink name: {}\n\n", editedDrink.getDrinkName());
                     editedDrink.setDrinkName(userInput.getUserStringInput("Type name of drink: "));
                     editedDrink.setModifiedDate(LocalDateTime.now());
                     break;
                 case 2:
                     DisplayMenu.clearScreen();
-                    STDOUT.info("Previous drink category: {}\n", editedDrink.getCategoryName());
+                    STDOUT.info("Previous drink category: {}\n\n", editedDrink.getCategoryName());
                     drinkCreator.setUserDrinkCategory(editedDrink);
                     editedDrink.setModifiedDate(LocalDateTime.now());
                     break;
                 case 3:
                     DisplayMenu.clearScreen();
-                    STDOUT.info("Previous drink alcohol status: {}\n", editedDrink.getAlcoholStatus());
+                    STDOUT.info("Previous drink alcohol status: {}\n\n", editedDrink.getAlcoholStatus());
                     drinkCreator.setUserDrinkAlcoholStatus(editedDrink);
                     editedDrink.setModifiedDate(LocalDateTime.now());
                     break;
                 case 4:
                     DisplayMenu.clearScreen();
-                    STDOUT.info("Previous drink recipe: {}\n", editedDrink.getRecipe());
+                    STDOUT.info("Previous drink recipe: {}\n\n", editedDrink.getRecipe());
                     editedDrink.setRecipe(userInput.getUserStringInput("Type drink recipe: "));
                     editedDrink.setModifiedDate(LocalDateTime.now());
                     break;
                 case 5:
                     DisplayMenu.clearScreen();
-                    STDOUT.info("Previous drink image URL: {}\n", editedDrink.getImageUrl());
+                    STDOUT.info("Previous drink image URL: {}\n\n", editedDrink.getImageUrl());
                     editedDrink.setImageUrl(userInput.getUserStringInput("Type drink image URL: "));
                     editedDrink.setModifiedDate(LocalDateTime.now());
                     break;
                 case 6:
                     DisplayMenu.clearScreen();
-                    STDOUT.info("Previous drink ingredients and measure: {}\n", editedDrink.getIngredients());
+                    DrinkService.printDrinkIngrAndMeasures(editedDrink);
                     editedDrink.setIngredients(drinkCreator.setUserDrinkIngredientAndMeasure(15));
                     editedDrink.setModifiedDate(LocalDateTime.now());
                     break;
                 case 7:
-                    STDOUT.info("Drink edit complete. Thank you. ");
-                    //dodaj do bazy danych
+                    STDOUT.info("Drink edit complete. Thank you.\n");
                     cont = false;
                     break;
                 default:

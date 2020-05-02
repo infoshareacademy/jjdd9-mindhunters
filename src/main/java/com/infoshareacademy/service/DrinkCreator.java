@@ -28,7 +28,7 @@ public class DrinkCreator {
         DrinksDatabase.getINSTANCE().addDrink(drink);
     }
 
-    public Drink createUserDrink() {
+    public void createUserDrink() {
         Drink userDrink = new Drink();
         setUserDrinkId(userDrink);
 
@@ -51,7 +51,7 @@ public class DrinkCreator {
         userDrink.setIngredients(setUserDrinkIngredientAndMeasure(15));
         userDrink.setModifiedDate(LocalDateTime.now());
 
-        return userDrink;
+        DrinksDatabase.getINSTANCE().addDrink(userDrink);
     }
 
     void setUserDrinkCategory(Drink userDrink) {
@@ -60,17 +60,17 @@ public class DrinkCreator {
         int userChoice = 0;
         do {
             userChoice = userInput.getUserNumericInput();
-            if (userChoice > 0 && userChoice <= DrinkService.getCategories(DrinksDatabase.getINSTANCE()).size()) {
+            if (userChoice > 0 && userChoice <= DrinkService.getAllCategories(DrinksDatabase.getINSTANCE()).size()) {
                 break;
             }
             STDOUT.info("Wrong input.\n");
         } while (true);
-        userDrink.setCategoryName(DrinkService.getCategories(DrinksDatabase.getINSTANCE()).get(userChoice - 1));
+        userDrink.setCategoryName(DrinkService.getAllCategories(DrinksDatabase.getINSTANCE()).get(userChoice - 1));
     }
 
     public void setUserDrinkId(Drink userDrink) {
         if (maxExistingId == 0){
-            maxExistingId = Collections.max(DrinkService.getDrinkIdNumbers(DrinksDatabase.getINSTANCE()));
+            maxExistingId = Collections.max(DrinkService.getAllDrinkIdNumbers(DrinksDatabase.getINSTANCE()));
         }
         maxExistingId++;
         userDrink.setDrinkId(maxExistingId.toString());

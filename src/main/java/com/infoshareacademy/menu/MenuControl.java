@@ -1,6 +1,8 @@
 package com.infoshareacademy.menu;
 
 import com.infoshareacademy.domain.DrinksDatabase;
+import com.infoshareacademy.service.DrinkCreator;
+import com.infoshareacademy.service.DrinkRemover;
 import com.infoshareacademy.service.DrinkService;
 import com.infoshareacademy.utilities.UserInput;
 import com.infoshareacademy.utilities.Utilities;
@@ -16,6 +18,7 @@ public class MenuControl {
     UserInput userInput = new UserInput();
 
     public void mainNavigation() {
+        DrinkService.loadDrinkList();
         do {
             DisplayMenu.displayMainMenu();
             switch (userInput.getUserNumericInput()) {
@@ -42,7 +45,6 @@ public class MenuControl {
 
     public void browseNavigation() {
         boolean cont = true;
-        DrinkService.loadDrinkList();
         do {
             DisplayMenu.displayBrowseMenu();
             switch (userInput.getUserNumericInput()) {
@@ -80,10 +82,26 @@ public class MenuControl {
             DisplayMenu.displayManageMenu();
             switch (userInput.getUserNumericInput()) {
                 case 1:
-                    STDOUT.info("ADD DRINK");
+                    DrinkCreator creator = new DrinkCreator();
+                    creator.createUserDrink();
+                    STDOUT.info("Drink added to database.\n");
                     break;
                 case 2:
-                    STDOUT.info("DELETE DRINK");
+                    DrinkRemover remover = new DrinkRemover();
+                    boolean idNotFound = true;
+                    while (idNotFound) {
+                        if (remover.removeDrinkFromDatabase(userInput.getUserStringInput("Please type drink id to be " +
+                                "removed: " +
+                                " "))) {
+                            idNotFound = false;
+                            STDOUT.info("Drink removal complete.\n");
+                        } else if (userInput.getUserStringInput("Drink ID not found. Press [y] to try again: ").equalsIgnoreCase("y")) {
+                            idNotFound = true;
+                        } else {
+                            idNotFound = false;
+                            STDOUT.info("Drink removal unsuccessful - drink not found.\n");
+                        }
+                    }
                     break;
                 case 3:
                     STDOUT.info("ADD TO FAVOURITES");
