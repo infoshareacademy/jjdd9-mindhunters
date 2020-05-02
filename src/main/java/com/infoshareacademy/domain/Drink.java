@@ -107,10 +107,12 @@ public class Drink {
                 ", recipe='" + recipe + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", ingredients=" + ingredients +
-                ", modifiedDate='" + modifiedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) +
+                ", modifiedDate='" + (modifiedDate != null ? modifiedDate.format(DateTimeFormatter.ofPattern("yyyy-MM" +
+                "-dd " +
+                "HH:mm:ss")) : modifiedDate) +
                 "'}";
     }
 
-    
+
 }
 

@@ -16,18 +16,16 @@ import java.util.List;
 public class DrinkCreator {
 
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
-    private DrinksDatabase database;
     private UserInput userInput;
     private Integer maxExistingId;
 
     public DrinkCreator() {
-        this.database = DrinksDatabase.getINSTANCE();
         this.userInput =  new UserInput();
         this.maxExistingId = 0;
     }
 
     private void addDrinkToDatabase(Drink drink) {
-        database.addDrink(drink);
+        DrinksDatabase.getINSTANCE().addDrink(drink);
     }
 
     public Drink createUserDrink() {
@@ -58,21 +56,21 @@ public class DrinkCreator {
 
     void setUserDrinkCategory(Drink userDrink) {
         STDOUT.info("Choose category number:\n");
-        DrinkService.printAllCategories(database);
+        DrinkService.printAllCategories(DrinksDatabase.getINSTANCE());
         int userChoice = 0;
         do {
             userChoice = userInput.getUserNumericInput();
-            if (userChoice > 0 && userChoice <= DrinkService.getCategories(database).size()) {
+            if (userChoice > 0 && userChoice <= DrinkService.getCategories(DrinksDatabase.getINSTANCE()).size()) {
                 break;
             }
             STDOUT.info("Wrong input.\n");
         } while (true);
-        userDrink.setCategoryName(DrinkService.getCategories(database).get(userChoice - 1));
+        userDrink.setCategoryName(DrinkService.getCategories(DrinksDatabase.getINSTANCE()).get(userChoice - 1));
     }
 
     public void setUserDrinkId(Drink userDrink) {
         if (maxExistingId == 0){
-            maxExistingId = Collections.max(DrinkService.getDrinkIdNumbers(database));
+            maxExistingId = Collections.max(DrinkService.getDrinkIdNumbers(DrinksDatabase.getINSTANCE()));
         }
         maxExistingId++;
         userDrink.setDrinkId(maxExistingId.toString());
@@ -80,16 +78,16 @@ public class DrinkCreator {
 
     void setUserDrinkAlcoholStatus(Drink userDrink) {
         STDOUT.info("Choose alcohol status:\n");
-        DrinkService.printAllAlcoholStatuses(database);
+        DrinkService.printAllAlcoholStatuses(DrinksDatabase.getINSTANCE());
         int userChoice = 0;
         do {
             userChoice = userInput.getUserNumericInput();
-            if (userChoice > 0 && userChoice <= DrinkService.getAlcoholStatuses(database).size()) {
+            if (userChoice > 0 && userChoice <= DrinkService.getAlcoholStatuses(DrinksDatabase.getINSTANCE()).size()) {
                 break;
             }
             STDOUT.info("Wrong input.\n");
         } while (true);
-        userDrink.setAlcoholStatus((DrinkService.getAlcoholStatuses(database).get(userChoice - 1)));
+        userDrink.setAlcoholStatus((DrinkService.getAlcoholStatuses(DrinksDatabase.getINSTANCE()).get(userChoice - 1)));
     }
 
     List<Ingredient> setUserDrinkIngredientAndMeasure(int maxCapacity) {

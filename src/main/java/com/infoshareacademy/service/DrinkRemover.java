@@ -14,7 +14,7 @@ public class DrinkRemover {
         this.database = DrinksDatabase.getINSTANCE();
     }
 
-    private boolean removeDrinkFromDatabase(String id) {
+    public boolean removeDrinkFromDatabase(String id) {
         for (Drink drink : database.getDrinks()) {
             if (drink.getDrinkId().trim().equalsIgnoreCase(id)) {
                 database.getDrinks().remove(drink);
