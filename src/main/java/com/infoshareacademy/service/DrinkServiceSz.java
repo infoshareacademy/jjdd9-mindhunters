@@ -5,9 +5,9 @@ import com.infoshareacademy.domain.DrinksDatabase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -28,6 +28,7 @@ public class DrinkServiceSz {
         clearScreen();
         STDOUT.info("\nInput drink name: ");
         List<Drink> outputSearch = new ArrayList<>();
+
         inputSearch = scanner.next().toLowerCase();
         if (inputSearch.length() > 2) {
             for (Drink drink : database) {
@@ -88,17 +89,21 @@ public class DrinkServiceSz {
             }
         } while (!(userInput.equalsIgnoreCase("n")));
 
-        List<String> newList = inputSearch.stream()
+        List<String> newInputList = inputSearch.stream()
+                .filter(Objects::nonNull)
                 .distinct()
                 .filter(string -> string.length() > 2)
                 .map(String::toLowerCase)
+                .map(String::trim)
+                .map(word -> word.replaceAll(" ", ""))
                 .collect(Collectors.toList());
 
         outputSearch = database.stream()
                 .filter(drink -> (drink.getIngridientsNamesList().stream()
                         .map(String::toLowerCase)
+                        .map(word -> word.replaceAll(" ", ""))
                         .collect(Collectors.toList())
-                ).containsAll(newList))
+                ).containsAll(newInputList))
                 .collect(Collectors.toList());
 
         if (outputSearch.isEmpty()) {
