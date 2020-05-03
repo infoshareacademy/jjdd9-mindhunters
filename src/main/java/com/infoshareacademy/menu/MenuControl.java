@@ -1,9 +1,7 @@
 package com.infoshareacademy.menu;
 
 import com.infoshareacademy.domain.DrinksDatabase;
-import com.infoshareacademy.service.DrinkCreator;
-import com.infoshareacademy.service.DrinkRemover;
-import com.infoshareacademy.service.DrinkService;
+import com.infoshareacademy.service.*;
 import com.infoshareacademy.utilities.UserInput;
 import com.infoshareacademy.utilities.Utilities;
 import org.slf4j.Logger;
@@ -104,15 +102,34 @@ public class MenuControl {
                     }
                     break;
                 case 3:
-                    STDOUT.info("ADD TO FAVOURITES");
+                    DrinkEditor editor = new DrinkEditor();
+                    boolean editIdNotFound = true;
+                    while (editIdNotFound) {
+                        if (editor.editDrinkFromDatabase(userInput.getUserStringInput("Please type drink id to be " +
+                                "edit: " +
+                                " "))) {
+                            idNotFound = false;
+                            STDOUT.info("Drink edit complete.\n");
+                        } else if (userInput.getUserStringInput("Drink ID not found. Press [y] to try again: ").equalsIgnoreCase("y")) {
+                            editIdNotFound = true;
+                        } else {
+                            editIdNotFound = false;
+                            STDOUT.info("Drink edit unsuccessful - drink not found.\n");
+                        }
+                    }
                     break;
                 case 4:
-                    STDOUT.info("REMOVE FROM FAVOURITES");
+                    STDOUT.info("ADD TO FAVOURITES");
                     break;
                 case 5:
-                    cont = false;
+                    STDOUT.info("REMOVE FROM FAVOURITES");
                     break;
                 case 6:
+                    cont = false;
+                    break;
+                case 7:
+
+                    JsonWriter.writeJsonToFile(DrinksDatabase.getINSTANCE(), "testowy");
                     DisplayMenu.displayExit();
                     exit = true;
                     break;

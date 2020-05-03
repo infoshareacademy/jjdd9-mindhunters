@@ -38,10 +38,11 @@ public class DisplayMenu {
         STDOUT.info("\n ---------- Drink Management Menu ----------- ");
         STDOUT.info("\n|  [1] to add drink                          |" +
                 "\n|  [2] to delete drink                       |" +
-                "\n|  [3] to add drink to favourites            |" +
-                "\n|  [4] to remove drink from favourites       |" +
-                "\n|  [5] to return to previous menu            |" +
-                "\n|  [6] to EXIT                               |");
+                "\n|  [3] to edit drink                         |" +
+                "\n|  [4] to add drink to favourites            |" +
+                "\n|  [5] to remove drink from favourites       |" +
+                "\n|  [6] to return to previous menu            |" +
+                "\n|  [7] to EXIT                               |");
         STDOUT.info(END_LINE);
     }
 
