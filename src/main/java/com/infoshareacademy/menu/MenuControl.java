@@ -12,7 +12,7 @@ public class MenuControl {
     private static final String USER_MESSAGE = "Wrong input. Please choose number from the list.";
 
     private boolean exit = false;
-
+    DatabaseOperator databaseOperator = null;
     UserInput userInput = new UserInput();
 
     public void mainNavigation() {
@@ -80,41 +80,47 @@ public class MenuControl {
             DisplayMenu.displayManageMenu();
             switch (userInput.getUserNumericInput()) {
                 case 1:
-                    DrinkCreator creator = new DrinkCreator();
-                    creator.createUserDrink();
-                    STDOUT.info("Drink added to database.\n");
+                    databaseOperator = new DrinkCreator();
+                    databaseOperator.operate(DrinkCreator.generateUserDrinkId());
+                    STDOUT.info("\nDrink added to database. Press any key to continue: \n");
+                    userInput.getUserInputAnyKey();
                     break;
                 case 2:
-                    DrinkRemover remover = new DrinkRemover();
+                    databaseOperator = new DrinkRemover();
                     boolean idNotFound = true;
                     while (idNotFound) {
-                        if (remover.removeDrinkFromDatabase(userInput.getUserStringInput("Please type drink id to be " +
+                        if (databaseOperator.operate(userInput.getUserStringInput("Please type drink id to be " +
                                 "removed: " +
                                 " "))) {
                             idNotFound = false;
-                            STDOUT.info("Drink removal complete.\n");
-                        } else if (userInput.getUserStringInput("Drink ID not found. Press [y] to try again: ").equalsIgnoreCase("y")) {
+                            STDOUT.info("\nDrink removal complete. Press any key to continue: \n");
+                            userInput.getUserInputAnyKey();
+                        } else if (userInput.getUserStringInput("\nDrink ID not found. Press [y] to try again: ").equalsIgnoreCase("y")) {
                             idNotFound = true;
                         } else {
                             idNotFound = false;
-                            STDOUT.info("Drink removal unsuccessful - drink not found.\n");
+                            STDOUT.info("Drink removal unsuccessful - drink not found. Press any key to continue: " +
+                                    "\n");
+                            userInput.getUserInputAnyKey();
                         }
                     }
                     break;
                 case 3:
-                    DrinkEditor editor = new DrinkEditor();
+                    databaseOperator = new DrinkEditor();
                     boolean editIdNotFound = true;
                     while (editIdNotFound) {
-                        if (editor.editDrinkFromDatabase(userInput.getUserStringInput("Please type drink id to be " +
-                                "edit: " +
+                        if (databaseOperator.operate(userInput.getUserStringInput("Please type drink id to be " +
+                                "edited: " +
                                 " "))) {
-                            idNotFound = false;
-                            STDOUT.info("Drink edit complete.\n");
-                        } else if (userInput.getUserStringInput("Drink ID not found. Press [y] to try again: ").equalsIgnoreCase("y")) {
+                            editIdNotFound = false;
+                            STDOUT.info("\nDrink edit complete. Press any key to continue:\n");
+                            userInput.getUserInputAnyKey();
+                        } else if (userInput.getUserStringInput("\nDrink ID not found. Press [y] to try again: ").equalsIgnoreCase("y")) {
                             editIdNotFound = true;
                         } else {
                             editIdNotFound = false;
-                            STDOUT.info("Drink edit unsuccessful - drink not found.\n");
+                            STDOUT.info("Drink edit unsuccessful - drink not found. Press any key to continue:\n");
+                            userInput.getUserInputAnyKey();
                         }
                     }
                     break;
@@ -125,11 +131,11 @@ public class MenuControl {
                     STDOUT.info("REMOVE FROM FAVOURITES");
                     break;
                 case 6:
+                    JsonWriter.writeJsonToFile(DrinksDatabase.getINSTANCE(), "AllDrinks");
                     cont = false;
                     break;
                 case 7:
-
-                    JsonWriter.writeJsonToFile(DrinksDatabase.getINSTANCE(), "testowy");
+                    JsonWriter.writeJsonToFile(DrinksDatabase.getINSTANCE(), "AllDrinks");
                     DisplayMenu.displayExit();
                     exit = true;
                     break;

@@ -13,26 +13,18 @@ import java.time.LocalDateTime;
 import static com.infoshareacademy.menu.DisplayMenu.clearScreen;
 
 
-public class DrinkEditor {
+public class DrinkEditor implements DatabaseOperator {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
-    private DrinkCreator drinkCreator = new DrinkCreator();
-    private Drink editedDrink = new Drink();
-    private Drink preEditDrink = new Drink();
+    private final DrinkCreator drinkCreator = new DrinkCreator();
     private static final String END_LINE = "\n -------------------------------------------- ";
-    private UserInput userInput = new UserInput();
+    private final UserInput userInput = new UserInput();
     private static final String USER_MESSAGE = "Wrong input. Please choose number from the list.";
 
-
-    public DrinkEditor() {
-
-    }
-
-    public boolean editDrinkFromDatabase(String id) {
+    @Override
+    public boolean operate(String drinkId) {
         for (Drink drink : DrinksDatabase.getINSTANCE().getDrinks()) {
-            if (drink.getDrinkId().trim().equalsIgnoreCase(id)) {
-                editedDrink = drink;
-                preEditDrink = drink;
-                editNavigation(editedDrink);
+            if (drink.getDrinkId().trim().equalsIgnoreCase(drinkId)) {
+                editNavigation(drink);
                 return true;
             }
         }
@@ -81,7 +73,6 @@ public class DrinkEditor {
                     editedDrink.setModifiedDate(LocalDateTime.now());
                     break;
                 case 7:
-                    STDOUT.info("Drink edit complete. Thank you.\n");
                     cont = false;
                     break;
                 default:

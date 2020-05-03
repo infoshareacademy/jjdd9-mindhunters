@@ -11,7 +11,6 @@ public class App {
 
     public static void main(String[] args) {
         DrinkService.loadDrinkList();
-
         MenuControl menuControl = new MenuControl();
         menuControl.mainNavigation();
 

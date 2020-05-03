@@ -13,24 +13,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class DrinkCreator {
+public class DrinkCreator implements DatabaseOperator {
 
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
-    private UserInput userInput;
-    private Integer maxExistingId;
+    private static int maxExistingId = 0;
+    private final UserInput userInput = new UserInput();
 
-    public DrinkCreator() {
-        this.userInput =  new UserInput();
-        this.maxExistingId = 0;
-    }
-
-    private void addDrinkToDatabase(Drink drink) {
-        DrinksDatabase.getINSTANCE().addDrink(drink);
-    }
-
-    public void createUserDrink() {
+    @Override
+    public boolean operate(String drinkId) {
         Drink userDrink = new Drink();
-        setUserDrinkId(userDrink);
+        userDrink.setDrinkId(drinkId.toString());
 
         DisplayMenu.clearScreen();
         userDrink.setDrinkName(userInput.getUserStringInput("Type name of drink: "));
@@ -52,6 +44,7 @@ public class DrinkCreator {
         userDrink.setModifiedDate(LocalDateTime.now());
 
         DrinksDatabase.getINSTANCE().addDrink(userDrink);
+        return true;
     }
 
     void setUserDrinkCategory(Drink userDrink) {
@@ -68,12 +61,12 @@ public class DrinkCreator {
         userDrink.setCategoryName(DrinkService.getAllCategories(DrinksDatabase.getINSTANCE()).get(userChoice - 1));
     }
 
-    public void setUserDrinkId(Drink userDrink) {
-        if (maxExistingId == 0){
+    public static String generateUserDrinkId() {
+        if (maxExistingId == 0) {
             maxExistingId = Collections.max(DrinkService.getAllDrinkIdNumbers(DrinksDatabase.getINSTANCE()));
         }
         maxExistingId++;
-        userDrink.setDrinkId(maxExistingId.toString());
+        return String.valueOf(maxExistingId);
     }
 
     void setUserDrinkAlcoholStatus(Drink userDrink) {
