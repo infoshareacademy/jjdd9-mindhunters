@@ -53,32 +53,25 @@ public class DrinkService {
         }
     }
 
-    public static void printSingleDrink(DrinksDatabase database, String singleDrink) {
-        int i = 0;
-        Drink foundDrink;
-        do {
-            foundDrink = database.getDrinks().get(i);
-            i++;
-        } while (!(foundDrink.getDrinkName().contains(singleDrink)));
-
+    public static void printSingleDrink(Drink drink) {
         String alcoContColour;
-        if (foundDrink.getAlcoholStatus().equals("Alcoholic")) {
+        if (drink.getAlcoholStatus().equals("Alcoholic")) {
             alcoContColour = ANSI_RED;
         } else {
             alcoContColour = ANSI_RESET;
         }
         STDOUT.info("\n" + Colours.ANSI_BACKGROUND_YELLOW_BLACK +
-                StringUtils.center(foundDrink.getDrinkName().toUpperCase(), 46, "-")
+                StringUtils.center(drink.getDrinkName().toUpperCase(), 46, "-")
                 + Colours.ANSI_RESET);
-        STDOUT.info("\n                              Drink Id :" + foundDrink.getDrinkId() +
-                "\n  Category : " + foundDrink.getCategoryName() + alcoContColour + "(" +
-                foundDrink.getAlcoholStatus() + ")" + ANSI_RESET + "\n");
+        STDOUT.info("\n                              Drink Id :" + drink.getDrinkId() +
+                "\n  Category : " + drink.getCategoryName() + alcoContColour + "(" +
+                drink.getAlcoholStatus() + ")" + ANSI_RESET + "\n");
 
         STDOUT.info("\n" + Colours.ANSI_BRIGHT_YELLOW +
                 StringUtils.rightPad("Recipe :", 46, "=")
                 + Colours.ANSI_RESET);
 
-        String wrapText = WordUtils.wrap(foundDrink.getRecipe(), 46);
+        String wrapText = WordUtils.wrap(drink.getRecipe(), 46);
         STDOUT.info("\n{}", wrapText + "\n");
 
         STDOUT.info(Colours.ANSI_BRIGHT_YELLOW +
@@ -89,20 +82,20 @@ public class DrinkService {
                 StringUtils.rightPad("Ingredients :", 46, "=")
                 + Colours.ANSI_RESET);
 
-        List<Ingredient> ingredients = foundDrink.getIngredients();
+        List<Ingredient> ingredients = drink.getIngredients();
         String emptySpaces = "                           ";
         for (int j = 0; j < ingredients.size(); j++) {
-            String adjustedName = foundDrink.getIngredients().get(j).getName() + emptySpaces;
+            String adjustedName = drink.getIngredients().get(j).getName() + emptySpaces;
             STDOUT.info("\n" + adjustedName.substring(0, 24) +
-                    " : " + foundDrink.getIngredients().get(j).getMeasure());
+                    " : " + drink.getIngredients().get(j).getMeasure());
         }
         STDOUT.info("\n" + Colours.ANSI_BRIGHT_YELLOW +
                 StringUtils.rightPad("=", 46, "=")
                 + Colours.ANSI_RESET + "\n");
 
-        STDOUT.info("\nPhoto link : " + "\n" + Colours.ANSI_BLUE + foundDrink.getImageUrl() + ANSI_RESET +
+        STDOUT.info("\nPhoto link : " + "\n" + Colours.ANSI_BLUE + drink.getImageUrl() + ANSI_RESET +
                 "\n" + "\n" + Colours.ANSI_BACKGROUND_YELLOW_BLACK + "          Last modification : " +
-                foundDrink.getModifiedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) +
+                drink.getModifiedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) +
                 Colours.ANSI_RESET);
     }
 }
