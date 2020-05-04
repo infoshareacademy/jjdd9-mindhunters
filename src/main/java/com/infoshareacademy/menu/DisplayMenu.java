@@ -67,6 +67,19 @@ public class DisplayMenu {
         STDOUT.info("\n");
     }
 
+    public static void displayEditMenu() {
+        clearScreen();
+        STDOUT.info("\n ---------------- DRINK EDIT ----------------- ");
+        STDOUT.info("\n|  [1] to edit drink name                     |" +
+                "\n|  [2] to edit drink category                 |" +
+                "\n|  [3] to edit alcohol status                 |" +
+                "\n|  [4] to edit recipe                         |" +
+                "\n|  [5] to edit image url                      |" +
+                "\n|  [6] to edit ingredients                    |" +
+                "\n|  [7] to complete drink edit                 |");
+        STDOUT.info(END_LINE);
+    }
+
     public static void clearScreen() {
         STDOUT.info("\033[H\033[2J");
     }

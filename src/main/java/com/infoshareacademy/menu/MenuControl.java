@@ -1,7 +1,8 @@
 package com.infoshareacademy.menu;
 
 import com.infoshareacademy.domain.DrinksDatabase;
-import com.infoshareacademy.service.*;
+import com.infoshareacademy.service.DrinkService;
+import com.infoshareacademy.service.JsonWriter;
 import com.infoshareacademy.utilities.UserInput;
 import com.infoshareacademy.utilities.Utilities;
 import org.slf4j.Logger;
@@ -12,8 +13,8 @@ public class MenuControl {
     private static final String USER_MESSAGE = "Wrong input. Please choose number from the list.";
 
     private boolean exit = false;
-    DatabaseOperator databaseOperator = null;
     UserInput userInput = new UserInput();
+    DrinkService drinkService = new DrinkService();
 
     public void mainNavigation() {
         DrinkService.loadDrinkList();
@@ -80,24 +81,20 @@ public class MenuControl {
             DisplayMenu.displayManageMenu();
             switch (userInput.getUserNumericInput()) {
                 case 1:
-                    databaseOperator = new DrinkCreator();
-                    databaseOperator.operate(DrinkCreator.generateUserDrinkId());
+                    drinkService.saveDrink();
                     STDOUT.info("\nDrink added to database. Press any key to continue: \n");
                     userInput.getUserInputAnyKey();
                     break;
                 case 2:
-                    databaseOperator = new DrinkRemover();
                     boolean idNotFound = true;
                     while (idNotFound) {
-                        if (databaseOperator.operate(userInput.getUserStringInput("Please type drink id to be " +
+                        if (drinkService.deleteDrink(userInput.getUserStringInput("Please type drink id to be " +
                                 "removed: " +
                                 " "))) {
                             idNotFound = false;
                             STDOUT.info("\nDrink removal complete. Press any key to continue: \n");
                             userInput.getUserInputAnyKey();
-                        } else if (userInput.getUserStringInput("\nDrink ID not found. Press [y] to try again: ").equalsIgnoreCase("y")) {
-                            idNotFound = true;
-                        } else {
+                        } else if (!userInput.getUserStringInput("\nDrink ID not found. Press [y] to try again: ").equalsIgnoreCase("y")) {
                             idNotFound = false;
                             STDOUT.info("Drink removal unsuccessful - drink not found. Press any key to continue: " +
                                     "\n");
@@ -106,18 +103,15 @@ public class MenuControl {
                     }
                     break;
                 case 3:
-                    databaseOperator = new DrinkEditor();
                     boolean editIdNotFound = true;
                     while (editIdNotFound) {
-                        if (databaseOperator.operate(userInput.getUserStringInput("Please type drink id to be " +
+                        if (drinkService.updateDrink(userInput.getUserStringInput("Please type drink id to be " +
                                 "edited: " +
                                 " "))) {
                             editIdNotFound = false;
                             STDOUT.info("\nDrink edit complete. Press any key to continue:\n");
                             userInput.getUserInputAnyKey();
-                        } else if (userInput.getUserStringInput("\nDrink ID not found. Press [y] to try again: ").equalsIgnoreCase("y")) {
-                            editIdNotFound = true;
-                        } else {
+                        } else if (!userInput.getUserStringInput("\nDrink ID not found. Press [y] to try again: ").equalsIgnoreCase("y")) {
                             editIdNotFound = false;
                             STDOUT.info("Drink edit unsuccessful - drink not found. Press any key to continue:\n");
                             userInput.getUserInputAnyKey();
@@ -131,11 +125,11 @@ public class MenuControl {
                     STDOUT.info("REMOVE FROM FAVOURITES");
                     break;
                 case 6:
-                    JsonWriter.writeJsonToFile(DrinksDatabase.getINSTANCE(), "AllDrinks");
+                    JsonWriter.writeJsonToFile(DrinksDatabase.getINSTANCE(), "AllDrinks.json");
                     cont = false;
                     break;
                 case 7:
-                    JsonWriter.writeJsonToFile(DrinksDatabase.getINSTANCE(), "AllDrinks");
+                    JsonWriter.writeJsonToFile(DrinksDatabase.getINSTANCE(), "AllDrinks.json");
                     DisplayMenu.displayExit();
                     exit = true;
                     break;
