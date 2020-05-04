@@ -5,6 +5,15 @@ public class Ingredient {
     private String name;
     private String measure;
 
+    public Ingredient(String name, String measure) {
+        this.name = name;
+        this.measure = measure;
+    }
+
+    public Ingredient() {
+
+    }
+
     public String getName() {
         return name;
     }

@@ -43,17 +43,17 @@ public class JsonDrinkDeserializer extends JsonDeserializer<Drink> {
         List<Ingredient> ingredientsList = new ArrayList<>();
 
         for (int i = 1; i <= 15; i++) {
-            String ingridientMeasureField = "strMeasure" + i;
-            String ingridientNameField = "strIngredient" + i;
+            String ingredientMeasureField = "strMeasure" + i;
+            String ingredientNameField = "strIngredient" + i;
 
-            if (!readValueAsTree.get(ingridientNameField).asText().equals("null")) {
-                if (!readValueAsTree.get(ingridientMeasureField).asText().equals("null")) {
-                    ingredient.setName(readValueAsTree.get(ingridientNameField).asText());
-                    ingredient.setMeasure(readValueAsTree.get(ingridientMeasureField).asText());
+            if (!readValueAsTree.get(ingredientNameField).asText().equals("null")) {
+                if (!readValueAsTree.get(ingredientMeasureField).asText().equals("null")) {
+                    ingredient.setName(readValueAsTree.get(ingredientNameField).asText());
+                    ingredient.setMeasure(readValueAsTree.get(ingredientMeasureField).asText());
                     ingredientsList.add(ingredient);
                     ingredient = new Ingredient();
                 } else {
-                    ingredient.setName(readValueAsTree.get(ingridientNameField).asText());
+                    ingredient.setName(readValueAsTree.get(ingredientNameField).asText());
                     ingredient.setMeasure("no measures");
                     ingredientsList.add(ingredient);
                     ingredient = new Ingredient();

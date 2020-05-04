@@ -19,12 +19,15 @@ public final class DrinksDatabase {
         return INSTANCE;
     }
 
-    public void addDrinks(List<Drink> drinkRecipes) {
+    public void addAllDrinks(List<Drink> drinkRecipes) {
         drinks.addAll(drinkRecipes);
     }
 
-    public List<Drink> getDrinks() {
+    public void addDrink(Drink drinkRecipe) {
+        drinks.add(drinkRecipe);
+    }
 
+    public List<Drink> getDrinks() {
         return this.drinks;
     }
 }
