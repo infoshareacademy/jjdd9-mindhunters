@@ -39,7 +39,7 @@ public class DisplayMenu {
         STDOUT.info("\n ---------- Drink Management Menu ----------- ");
         STDOUT.info("\n|  [1] to add drink                          |" +
                 "\n|  [2] to delete drink                       |" +
-                "\n|  [3] to edit drink                         |" +
+                "\n|  [3] to update drink                       |" +
                 "\n|  [4] to add drink to favourites            |" +
                 "\n|  [5] to remove drink from favourites       |" +
                 "\n|  [6] to return to previous menu            |" +
@@ -70,14 +70,14 @@ public class DisplayMenu {
 
     public static void displayEditMenu() {
         Utilities.clearScreen();
-        STDOUT.info("\n ---------------- DRINK EDIT ----------------- ");
-        STDOUT.info("\n|  [1] to edit drink name                     |" +
-                "\n|  [2] to edit drink category                 |" +
-                "\n|  [3] to edit alcohol status                 |" +
-                "\n|  [4] to edit recipe                         |" +
-                "\n|  [5] to edit image url                      |" +
-                "\n|  [6] to edit ingredients                    |" +
-                "\n|  [7] to complete drink edit                 |");
+        STDOUT.info("\n --------------- DRINK UPDATE ---------------- ");
+        STDOUT.info("\n|  [1] to update drink name                   |" +
+                "\n|  [2] to update drink category               |" +
+                "\n|  [3] to update alcohol status               |" +
+                "\n|  [4] to update recipe                       |" +
+                "\n|  [5] to update image url                    |" +
+                "\n|  [6] to update ingredients                  |" +
+                "\n|  [7] to complete drink update               |");
         STDOUT.info(END_LINE);
     }
 

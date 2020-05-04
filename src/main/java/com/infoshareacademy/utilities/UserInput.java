@@ -32,4 +32,13 @@ public class UserInput {
     public void getUserInputAnyKey() {
         scanner.nextLine();
     }
+
+    public boolean getYesOrNo(String input){
+        for (ChoiceYesNo choice : ChoiceYesNo.values()){
+            if (choice.toString().equalsIgnoreCase(input)){
+                return choice.getValue();
+            }
+        }
+        return false;
+    }
 }

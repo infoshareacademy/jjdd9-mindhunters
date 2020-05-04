@@ -168,6 +168,7 @@ public class DrinkService {
         List<Ingredient> ingredients = new ArrayList<>();
         String name;
         String measure;
+        String choice;
         int counter = 1;
         do {
             name = userInput.getUserStringInput("Type ingredient no." + counter + " name: ");
@@ -178,8 +179,8 @@ public class DrinkService {
             ingredients.add(new Ingredient(name, measure));
             STDOUT.info("\n");
             counter++;
-        } while (userInput.getUserStringInput("If you want to add another ingredient [max 15] press [y]: ").equalsIgnoreCase(
-                "y") && (ingredients.size() <= maxCapacity));
+            choice = userInput.getUserStringInput("Do you want to add another ingredient [max 15], press [Y] / [N]: ");
+        } while (userInput.getYesOrNo(choice) && (ingredients.size() <= maxCapacity));
         return ingredients;
     }
 

@@ -3,6 +3,7 @@ package com.infoshareacademy.menu;
 import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.service.DrinkService;
 import com.infoshareacademy.service.JsonWriter;
+import com.infoshareacademy.utilities.ChoiceYesNo;
 import com.infoshareacademy.utilities.UserInput;
 import com.infoshareacademy.utilities.Utilities;
 import org.slf4j.Logger;
@@ -113,20 +114,23 @@ public class MenuControl {
     }
 
     private void update() {
-        Utilities.clearScreen();
         boolean checkId = false;
         while (!checkId) {
+            Utilities.clearScreen();
             String drinkIdToEdit = userInput.getUserStringInput("Please type drink id to be edited: ");
 
             if (drinkService.editDrink(drinkIdToEdit)) {
-                STDOUT.info("\nDrink update complete. Press any key to continue:\n");
+                Utilities.clearScreen();
+                STDOUT.info("Drink update complete. Press any key to continue: ");
                 userInput.getUserInputAnyKey();
                 checkId = true;
             } else {
-                String input = userInput.getUserStringInput("\nDrink ID not found. Press [y] to try again: ");
+                Utilities.clearScreen();
+                String input = userInput.getUserStringInput("Drink ID not found. Press [Y] to try again: ");
 
-                if (!input.equalsIgnoreCase("y")) {
-                    STDOUT.info("Drink edit unsuccessful - drink not found. Press any key to continue:\n");
+                if (!userInput.getYesOrNo(input)) {
+                    Utilities.clearScreen();
+                    STDOUT.info("Drink edit unsuccessful - drink not found. Press any key to continue: ");
                     userInput.getUserInputAnyKey();
                     checkId = true;
                 }
@@ -135,21 +139,23 @@ public class MenuControl {
     }
 
     private void delete() {
-        Utilities.clearScreen();
         boolean checkId = false;
         while (!checkId) {
+            Utilities.clearScreen();
             String drinkIdToDelete = userInput.getUserStringInput("Please type drink id to be removed: ");
 
             if (drinkService.removeDrink(drinkIdToDelete)) {
-                STDOUT.info("\nDrink removal complete. Press any key to continue: \n");
+                Utilities.clearScreen();
+                STDOUT.info("Drink removal complete. Press any key to continue: ");
                 userInput.getUserInputAnyKey();
                 checkId = true;
             } else {
-                String input = userInput.getUserStringInput("\nDrink ID not found. Press [y] to try again: ");
+                Utilities.clearScreen();
+                String input = userInput.getUserStringInput("Drink ID not found. Press [Y] try again: ");
 
-                if (!input.equalsIgnoreCase("y")) {
-
-                    STDOUT.info("Drink removal unsuccessful - drink not found. Press any key to continue:\n");
+                if (!userInput.getYesOrNo(input)) {
+                    Utilities.clearScreen();
+                    STDOUT.info("Drink removal unsuccessful - drink not found. Press any key to continue: ");
                     userInput.getUserInputAnyKey();
                     checkId = true;
                 }
@@ -159,7 +165,8 @@ public class MenuControl {
 
     private void save() {
         drinkService.createDrink();
-        STDOUT.info("\nDrink added to database. Press any key to continue: \n");
+        Utilities.clearScreen();
+        STDOUT.info("Drink added to database. Press any key to continue: ");
         userInput.getUserInputAnyKey();
     }
 
