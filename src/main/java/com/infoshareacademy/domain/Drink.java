@@ -3,7 +3,9 @@ package com.infoshareacademy.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.infoshareacademy.service.JsonDrinkDeserializer;
+import com.infoshareacademy.service.JsonDrinkSerializer;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,11 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @JsonIgnoreProperties({"strDrinkAlternate", "strDrinkES", "strDrinkDE", "strDrinkFR",
-        "strDrinkZH-HANS", "strDrinkZH-HANT", "strTags", "strVideo", "strIBA",
+        "strDrinkZH-HANS", "strDrinkZH-HANT", "strTags", "strVideo", "strIBA", "strGlass",
         "strInstructionsES", "strInstructionsDE", "strInstructionsFR", "strInstructionsZH-HANS",
         "strInstructionsZH-HANT", "strDrinkThumb", "strCreativeCommonsConfirmed"})
 
 @JsonDeserialize(using = JsonDrinkDeserializer.class)
+@JsonSerialize(using = JsonDrinkSerializer.class)
 public class Drink {
 
     @JsonProperty("idDrink")
@@ -108,6 +111,10 @@ public class Drink {
                 ", recipe='" + recipe + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", ingredients=" + ingredients +
+                ", modifiedDate='" + (modifiedDate != null ? modifiedDate.format(DateTimeFormatter.ofPattern("yyyy-MM" +
+                "-dd " +
+                "HH:mm:ss")) : null) +
+                "'}";
                 ", modifiedDate='" + modifiedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) +
                 "'}";
     }
@@ -119,5 +126,7 @@ public class Drink {
         }
         return ingridientsNames;
     }
+
+
 }
 
