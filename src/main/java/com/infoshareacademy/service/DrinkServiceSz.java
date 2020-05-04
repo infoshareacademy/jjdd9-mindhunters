@@ -1,15 +1,15 @@
 package com.infoshareacademy.service;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.Streams;
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.DrinksDatabase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DrinkServiceSz {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
@@ -98,7 +98,7 @@ public class DrinkServiceSz {
                 .map(word -> word.replaceAll(" ", ""))
                 .collect(Collectors.toList());
 
-        outputSearch = database.stream()
+        List<Drink> newoutputSearch = database.stream()
                 .filter(drink -> (drink.getIngridientsNamesList().stream()
                         .map(String::toLowerCase)
                         .map(word -> word.replaceAll(" ", ""))
@@ -106,11 +106,28 @@ public class DrinkServiceSz {
                 ).containsAll(newInputList))
                 .collect(Collectors.toList());
 
-        if (outputSearch.isEmpty()) {
+        HashMap<Integer, Drink> outputSearch2 = database.stream()
+                .filter(drink -> (drink.getIngridientsNamesList().stream()
+                        .map(String::toLowerCase)
+                        .map(word -> word.replaceAll(" ", ""))
+                        .collect(Collectors.toList())
+                ).containsAll(newInputList))
+                .collect(HashMap<Integer, Drink>::new,
+                        (map, streamValue) -> map.put(map.size(), streamValue),
+                        (map, map2) -> {
+                        });
+
+
+        if (outputSearch2.isEmpty()) {
             STDOUT.info("No matching result found.\n");
         } else {
-            printFoundDrink(outputSearch);
-            STDOUT.info("\n");
+            printFoundDrink(newoutputSearch);
+            STDOUT.info("\nWhat receipe do you want to display? ");
+            Integer receipeNumber = scanner.nextInt();
+            clearScreen();
+
+            if (receipeNumber >= 1 && receipeNumber <= newoutputSearch.size() )
+            STDOUT.info(outputSearch2.get(receipeNumber-1).toString());
         }
 
 
@@ -118,13 +135,30 @@ public class DrinkServiceSz {
 
 
     public void printFoundDrink(List<Drink> drinkList) {
+        int count = 1;
         for (Drink drink : drinkList) {
+            STDOUT.info("\n[{}]", count);
+            STDOUT.info("\n{}\n *ID: {}, *Category: {}, {};", drink.getDrinkName().toUpperCase(),
+                    drink.getDrinkId(), drink.getCategoryName(), drink.getAlcoholStatus());
+            STDOUT.info("\n {}", drink.getIngridientsNamesList());
+            STDOUT.info("\n");
+            count++;
+        }
+    }
+
+/*
+    public void printFoundDrink(HashMap<Integer, Drink> drinkList) {
+        for (Drink drink : drinkList) {
+
+            STDOUT.info("[{}]", drinkList.get(drink));
             STDOUT.info("\n{}\n *ID: {}, *Category: {}, {};", drink.getDrinkName().toUpperCase(),
                     drink.getDrinkId(), drink.getCategoryName(), drink.getAlcoholStatus());
             STDOUT.info("\n {}", drink.getIngridientsNamesList());
             STDOUT.info("\n");
         }
     }
+*/
+
 
     private static void clearScreen() {
         STDOUT.info("\033[H\033[2J");
