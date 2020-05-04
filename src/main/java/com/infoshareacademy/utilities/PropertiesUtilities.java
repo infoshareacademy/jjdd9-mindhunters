@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Properties;
 
 public class PropertiesUtilities {
-    public static final String PROPERTY_FILE = "src/main/resources/AppConfig.properties";
+    public static final String PROPERTY_FILE = "AppConfig.properties";
     private Properties properties;
 
     public PropertiesUtilities() {

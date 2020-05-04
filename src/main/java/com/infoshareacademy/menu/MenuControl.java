@@ -142,10 +142,10 @@ public class MenuControl {
             DisplayMenu.displaySettingsOrderMenu();
             switch (userInput.getUserInput()) {
                 case 1:
-                    (new PropertiesUtilities()).setProperties("ordeby", "asc");
+                    (new PropertiesUtilities()).setProperties("orderby", "asc");
                     break;
                 case 2:
-                    (new PropertiesUtilities()).setProperties("ordeby", "desc");
+                    (new PropertiesUtilities()).setProperties("orderby", "desc");
                     break;
                 case 3:
                     cont = false;

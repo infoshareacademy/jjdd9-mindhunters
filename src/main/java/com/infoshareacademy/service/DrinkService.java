@@ -2,12 +2,16 @@ package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.DrinksDatabase;
+import com.infoshareacademy.utilities.PropertiesUtilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DrinkService {
 
@@ -37,12 +41,26 @@ public class DrinkService {
     }
 
     public static void printAllDrinks(DrinksDatabase database) {
+        PropertiesUtilities propertiesUtilities = new PropertiesUtilities();
+        String orderby = propertiesUtilities.getProperty("orderby");
+        Stream<Drink> sorted = database.getDrinks().stream();
+        switch (orderby) {
+            case "asc":
+                sorted = sorted.sorted(Comparator.comparing(Drink::getDrinkName));
 
-        for (Drink drink : database.getDrinks()) {
+                break;
+            case "desc":
+                sorted = sorted.sorted(Comparator.comparing(Drink::getDrinkName).reversed());
+
+                break;
+        }
+
+        sorted.forEach(drink -> {
             STDOUT.info("\n{}\n *ID: {}, *Category: {}, {};", drink.getDrinkName().toUpperCase(),
                     drink.getDrinkId(), drink.getCategoryName(), drink.getAlcoholStatus());
             STDOUT.info("\n");
-        }
+        });
+
     }
 }
 
