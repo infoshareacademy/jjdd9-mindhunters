@@ -23,7 +23,7 @@ public final class DrinksDatabase {
         drinks.addAll(drinkRecipes);
     }
 
-    public void addDrink(Drink drinkRecipe){
+    public void addDrink(Drink drinkRecipe) {
         drinks.add(drinkRecipe);
     }
 

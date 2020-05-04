@@ -21,13 +21,10 @@ public class DrinkService {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     private static final String USER_MESSAGE = "Wrong input. Please choose number from the list.";
     private final UserInput userInput = new UserInput();
-
     private int maxExistingId = 0;
 
-    public static void loadDrinkList() {
-
+    public void loadDrinkList() {
         DrinksDatabase database = DrinksDatabase.getINSTANCE();
-
         if (database.getDrinks().isEmpty()) {
             List<Drink> drinks = new ArrayList<>();
             for (int i = 0; i <= 4; i++) {
@@ -44,8 +41,7 @@ public class DrinkService {
         }
     }
 
-    public static void printAllDrinks(DrinksDatabase database) {
-
+    public void printAllDrinks(DrinksDatabase database) {
         for (Drink drink : database.getDrinks()) {
             STDOUT.info("\n{}\n *ID: {}, *Category: {}, {};", drink.getDrinkName().toUpperCase(),
                     drink.getDrinkId(), drink.getCategoryName(), drink.getAlcoholStatus());
@@ -53,14 +49,14 @@ public class DrinkService {
         }
     }
 
-    public static List<Integer> getAllDrinkIdNumbers(DrinksDatabase database) {
+    public List<Integer> getAllDrinkIdNumbers(DrinksDatabase database) {
         List<Integer> idNumbers = new ArrayList<>();
         database.getDrinks().forEach(drink -> idNumbers.add(Integer.parseInt(drink.getDrinkId())));
         return idNumbers;
     }
 
 
-    public static void printAllCategories(DrinksDatabase database) {
+    public void printAllCategories(DrinksDatabase database) {
         List<String> categories = getAllCategories(database);
         int counter = 0;
         for (String category : categories) {
@@ -69,13 +65,13 @@ public class DrinkService {
         }
     }
 
-    public static List<String> getAllCategories(DrinksDatabase database) {
+    public List<String> getAllCategories(DrinksDatabase database) {
         TreeSet<String> categories = new TreeSet<>();
         database.getDrinks().forEach(drink -> categories.add(drink.getCategoryName()));
         return List.copyOf(categories);
     }
 
-    public static void printAllAlcoholStatuses(DrinksDatabase database) {
+    public void printAllAlcoholStatuses(DrinksDatabase database) {
         List<String> alcoholStatuses = getAlcoholStatuses(database);
         int counter = 0;
         for (String alcoholStatus : alcoholStatuses) {
@@ -84,18 +80,18 @@ public class DrinkService {
         }
     }
 
-    public static List<String> getAlcoholStatuses(DrinksDatabase database) {
+    public List<String> getAlcoholStatuses(DrinksDatabase database) {
         TreeSet<String> alcoholStatuses = new TreeSet<>();
         database.getDrinks().forEach(drink -> alcoholStatuses.add(drink.getAlcoholStatus()));
         return List.copyOf(alcoholStatuses);
     }
 
-    public static void printDrinkIngrAndMeasures(Drink drink) {
+    public void printDrinkIngrAndMeasures(Drink drink) {
         drink.getIngredients().forEach(i -> STDOUT.info("Ingredient: {}, measure: {}\n", i.getName(), i.getMeasure()));
         STDOUT.info("\n");
     }
 
-    public boolean deleteDrink(String id) {
+    public boolean removeDrink(String id) {
         DrinksDatabase database = DrinksDatabase.getINSTANCE();
         for (Drink drink : database.getDrinks()) {
             if (drink.getDrinkId().trim().equalsIgnoreCase(id)) {
@@ -106,26 +102,26 @@ public class DrinkService {
         return false;
     }
 
-    public void saveDrink() {
+    public void createDrink() {
         Drink userDrink = new Drink();
         userDrink.setDrinkId(generateUserDrinkId());
 
-        DisplayMenu.clearScreen();
+        Utilities.clearScreen();
         userDrink.setDrinkName(userInput.getUserStringInput("Type name of drink: "));
 
-        DisplayMenu.clearScreen();
+        Utilities.clearScreen();
         setUserDrinkCategory(userDrink);
 
-        DisplayMenu.clearScreen();
+        Utilities.clearScreen();
         setUserDrinkAlcoholStatus(userDrink);
 
-        DisplayMenu.clearScreen();
+        Utilities.clearScreen();
         userDrink.setRecipe(userInput.getUserStringInput("Type drink recipe: "));
 
-        DisplayMenu.clearScreen();
+        Utilities.clearScreen();
         userDrink.setImageUrl(userInput.getUserStringInput("Type drink image URL: "));
 
-        DisplayMenu.clearScreen();
+        Utilities.clearScreen();
         userDrink.setIngredients(setUserDrinkIngredientAndMeasure(15));
         userDrink.setModifiedDate(LocalDateTime.now());
 
@@ -134,41 +130,41 @@ public class DrinkService {
 
     private String generateUserDrinkId() {
         if (maxExistingId == 0) {
-            maxExistingId = Collections.max(DrinkService.getAllDrinkIdNumbers(DrinksDatabase.getINSTANCE()));
+            maxExistingId = Collections.max(getAllDrinkIdNumbers(DrinksDatabase.getINSTANCE()));
         }
         maxExistingId++;
         return String.valueOf(maxExistingId);
     }
 
-    void setUserDrinkCategory(Drink userDrink) {
+    private void setUserDrinkCategory(Drink userDrink) {
         STDOUT.info("Choose category number:\n");
-        DrinkService.printAllCategories(DrinksDatabase.getINSTANCE());
+        printAllCategories(DrinksDatabase.getINSTANCE());
         int userChoice = 0;
         do {
             userChoice = userInput.getUserNumericInput();
-            if (userChoice > 0 && userChoice <= DrinkService.getAllCategories(DrinksDatabase.getINSTANCE()).size()) {
+            if (userChoice > 0 && userChoice <= getAllCategories(DrinksDatabase.getINSTANCE()).size()) {
                 break;
             }
             STDOUT.info("Wrong input.\n");
         } while (true);
-        userDrink.setCategoryName(DrinkService.getAllCategories(DrinksDatabase.getINSTANCE()).get(userChoice - 1));
+        userDrink.setCategoryName(getAllCategories(DrinksDatabase.getINSTANCE()).get(userChoice - 1));
     }
 
-    void setUserDrinkAlcoholStatus(Drink userDrink) {
+    private void setUserDrinkAlcoholStatus(Drink userDrink) {
         STDOUT.info("Choose alcohol status:\n");
-        DrinkService.printAllAlcoholStatuses(DrinksDatabase.getINSTANCE());
+        printAllAlcoholStatuses(DrinksDatabase.getINSTANCE());
         int userChoice = 0;
         do {
             userChoice = userInput.getUserNumericInput();
-            if (userChoice > 0 && userChoice <= DrinkService.getAlcoholStatuses(DrinksDatabase.getINSTANCE()).size()) {
+            if (userChoice > 0 && userChoice <= getAlcoholStatuses(DrinksDatabase.getINSTANCE()).size()) {
                 break;
             }
             STDOUT.info("Wrong input.\n");
         } while (true);
-        userDrink.setAlcoholStatus((DrinkService.getAlcoholStatuses(DrinksDatabase.getINSTANCE()).get(userChoice - 1)));
+        userDrink.setAlcoholStatus((getAlcoholStatuses(DrinksDatabase.getINSTANCE()).get(userChoice - 1)));
     }
 
-    List<Ingredient> setUserDrinkIngredientAndMeasure(int maxCapacity) {
+    private List<Ingredient> setUserDrinkIngredientAndMeasure(int maxCapacity) {
         List<Ingredient> ingredients = new ArrayList<>();
         String name;
         String measure;
@@ -187,7 +183,7 @@ public class DrinkService {
         return ingredients;
     }
 
-    public boolean updateDrink(String drinkId) {
+    public boolean editDrink(String drinkId) {
         for (Drink drink : DrinksDatabase.getINSTANCE().getDrinks()) {
             if (drink.getDrinkId().trim().equalsIgnoreCase(drinkId)) {
                 editNavigation(drink);
@@ -203,38 +199,38 @@ public class DrinkService {
             DisplayMenu.displayEditMenu();
             switch (userInput.getUserNumericInput()) {
                 case 1:
-                    DisplayMenu.clearScreen();
+                    Utilities.clearScreen();
                     STDOUT.info("Previous drink name: {}\n\n", editedDrink.getDrinkName());
                     editedDrink.setDrinkName(userInput.getUserStringInput("Type name of drink: "));
                     editedDrink.setModifiedDate(LocalDateTime.now());
                     break;
                 case 2:
-                    DisplayMenu.clearScreen();
+                    Utilities.clearScreen();
                     STDOUT.info("Previous drink category: {}\n\n", editedDrink.getCategoryName());
                     setUserDrinkCategory(editedDrink);
                     editedDrink.setModifiedDate(LocalDateTime.now());
                     break;
                 case 3:
-                    DisplayMenu.clearScreen();
+                    Utilities.clearScreen();
                     STDOUT.info("Previous drink alcohol status: {}\n\n", editedDrink.getAlcoholStatus());
                     setUserDrinkAlcoholStatus(editedDrink);
                     editedDrink.setModifiedDate(LocalDateTime.now());
                     break;
                 case 4:
-                    DisplayMenu.clearScreen();
+                    Utilities.clearScreen();
                     STDOUT.info("Previous drink recipe: {}\n\n", editedDrink.getRecipe());
                     editedDrink.setRecipe(userInput.getUserStringInput("Type drink recipe: "));
                     editedDrink.setModifiedDate(LocalDateTime.now());
                     break;
                 case 5:
-                    DisplayMenu.clearScreen();
+                    Utilities.clearScreen();
                     STDOUT.info("Previous drink image URL: {}\n\n", editedDrink.getImageUrl());
                     editedDrink.setImageUrl(userInput.getUserStringInput("Type drink image URL: "));
                     editedDrink.setModifiedDate(LocalDateTime.now());
                     break;
                 case 6:
-                    DisplayMenu.clearScreen();
-                    DrinkService.printDrinkIngrAndMeasures(editedDrink);
+                    Utilities.clearScreen();
+                    printDrinkIngrAndMeasures(editedDrink);
                     editedDrink.setIngredients(setUserDrinkIngredientAndMeasure(15));
                     editedDrink.setModifiedDate(LocalDateTime.now());
                     break;

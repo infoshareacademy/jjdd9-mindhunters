@@ -13,11 +13,11 @@ public class MenuControl {
     private static final String USER_MESSAGE = "Wrong input. Please choose number from the list.";
 
     private boolean exit = false;
-    UserInput userInput = new UserInput();
-    DrinkService drinkService = new DrinkService();
+    private final UserInput userInput = new UserInput();
+    private final DrinkService drinkService = new DrinkService();
 
     public void mainNavigation() {
-        DrinkService.loadDrinkList();
+        drinkService.loadDrinkList();
         do {
             DisplayMenu.displayMainMenu();
             switch (userInput.getUserNumericInput()) {
@@ -48,7 +48,7 @@ public class MenuControl {
             DisplayMenu.displayBrowseMenu();
             switch (userInput.getUserNumericInput()) {
                 case 1:
-                    DrinkService.printAllDrinks(DrinksDatabase.getINSTANCE());
+                    drinkService.printAllDrinks(DrinksDatabase.getINSTANCE());
                     userInput.getUserInputAnyKey();
                     break;
                 case 2:
@@ -81,42 +81,13 @@ public class MenuControl {
             DisplayMenu.displayManageMenu();
             switch (userInput.getUserNumericInput()) {
                 case 1:
-                    drinkService.saveDrink();
-                    STDOUT.info("\nDrink added to database. Press any key to continue: \n");
-                    userInput.getUserInputAnyKey();
+                    save();
                     break;
                 case 2:
-                    boolean idNotFound = true;
-                    while (idNotFound) {
-                        if (drinkService.deleteDrink(userInput.getUserStringInput("Please type drink id to be " +
-                                "removed: " +
-                                " "))) {
-                            idNotFound = false;
-                            STDOUT.info("\nDrink removal complete. Press any key to continue: \n");
-                            userInput.getUserInputAnyKey();
-                        } else if (!userInput.getUserStringInput("\nDrink ID not found. Press [y] to try again: ").equalsIgnoreCase("y")) {
-                            idNotFound = false;
-                            STDOUT.info("Drink removal unsuccessful - drink not found. Press any key to continue: " +
-                                    "\n");
-                            userInput.getUserInputAnyKey();
-                        }
-                    }
+                    delete();
                     break;
                 case 3:
-                    boolean editIdNotFound = true;
-                    while (editIdNotFound) {
-                        if (drinkService.updateDrink(userInput.getUserStringInput("Please type drink id to be " +
-                                "edited: " +
-                                " "))) {
-                            editIdNotFound = false;
-                            STDOUT.info("\nDrink edit complete. Press any key to continue:\n");
-                            userInput.getUserInputAnyKey();
-                        } else if (!userInput.getUserStringInput("\nDrink ID not found. Press [y] to try again: ").equalsIgnoreCase("y")) {
-                            editIdNotFound = false;
-                            STDOUT.info("Drink edit unsuccessful - drink not found. Press any key to continue:\n");
-                            userInput.getUserInputAnyKey();
-                        }
-                    }
+                    update();
                     break;
                 case 4:
                     STDOUT.info("ADD TO FAVOURITES");
@@ -139,6 +110,49 @@ public class MenuControl {
                     break;
             }
         } while (cont && (!exit));
+    }
+
+    private void update() {
+        Utilities.clearScreen();
+        boolean editIdNotFound = true;
+        while (editIdNotFound) {
+            if (drinkService.editDrink(userInput.getUserStringInput("Please type drink id to be " +
+                    "edited: " +
+                    " "))) {
+                editIdNotFound = false;
+                STDOUT.info("\nDrink update complete. Press any key to continue:\n");
+                userInput.getUserInputAnyKey();
+            } else if (!userInput.getUserStringInput("\nDrink ID not found. Press [y] to try again: ").equalsIgnoreCase("y")) {
+                editIdNotFound = false;
+                STDOUT.info("Drink edit unsuccessful - drink not found. Press any key to continue:\n");
+                userInput.getUserInputAnyKey();
+            }
+        }
+    }
+
+    private void delete() {
+        Utilities.clearScreen();
+        boolean idNotFound = true;
+        while (idNotFound) {
+            if (drinkService.removeDrink(userInput.getUserStringInput("Please type drink id to be " +
+                    "removed: " +
+                    " "))) {
+                idNotFound = false;
+                STDOUT.info("\nDrink removal complete. Press any key to continue: \n");
+                userInput.getUserInputAnyKey();
+            } else if (!userInput.getUserStringInput("\nDrink ID not found. Press [y] to try again: ").equalsIgnoreCase("y")) {
+                idNotFound = false;
+                STDOUT.info("Drink removal unsuccessful - drink not found. Press any key to continue: " +
+                        "\n");
+                userInput.getUserInputAnyKey();
+            }
+        }
+    }
+
+    private void save() {
+        drinkService.createDrink();
+        STDOUT.info("\nDrink added to database. Press any key to continue: \n");
+        userInput.getUserInputAnyKey();
     }
 
     public void settingsNavigation() {

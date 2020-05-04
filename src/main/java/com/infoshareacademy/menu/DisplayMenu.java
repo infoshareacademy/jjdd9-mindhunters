@@ -1,5 +1,6 @@
 package com.infoshareacademy.menu;
 
+import com.infoshareacademy.utilities.Utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +13,7 @@ public class DisplayMenu {
     }
 
     public static void displayMainMenu() {
-        clearScreen();
+        Utilities.clearScreen();
         STDOUT.info("\n --------------- Main Menu ------------------ ");
         STDOUT.info("\n|  [1] to browse drinks recipes              |" +
                 "\n|  [2] to manage recipes                     |" +
@@ -22,7 +23,7 @@ public class DisplayMenu {
     }
 
     public static void displayBrowseMenu() {
-        clearScreen();
+        Utilities.clearScreen();
         STDOUT.info("\n ------------ Drink Browse Menu ------------- ");
         STDOUT.info("\n|  [1] to display all drinks list            |" +
                 "\n|  [2] to search drink by name               |" +
@@ -34,7 +35,7 @@ public class DisplayMenu {
     }
 
     public static void displayManageMenu() {
-        clearScreen();
+        Utilities.clearScreen();
         STDOUT.info("\n ---------- Drink Management Menu ----------- ");
         STDOUT.info("\n|  [1] to add drink                          |" +
                 "\n|  [2] to delete drink                       |" +
@@ -47,7 +48,7 @@ public class DisplayMenu {
     }
 
     public static void displaySettingsMenu() {
-        clearScreen();
+        Utilities.clearScreen();
         STDOUT.info("\n ---------------- Settings ------------------- ");
         STDOUT.info("\n|  [1] to load/change configuration           |" +
                 "\n|  [2] to change drinks sorting order         |" +
@@ -58,7 +59,7 @@ public class DisplayMenu {
     }
 
     public static void displayExit() {
-        clearScreen();
+        Utilities.clearScreen();
         STDOUT.info("\n ------------------ QUIT -------------------- ");
         STDOUT.info("\n|  Hope to see you again soon.               |" +
                 "\n|                                            |" +
@@ -68,7 +69,7 @@ public class DisplayMenu {
     }
 
     public static void displayEditMenu() {
-        clearScreen();
+        Utilities.clearScreen();
         STDOUT.info("\n ---------------- DRINK EDIT ----------------- ");
         STDOUT.info("\n|  [1] to edit drink name                     |" +
                 "\n|  [2] to edit drink category                 |" +
@@ -80,7 +81,4 @@ public class DisplayMenu {
         STDOUT.info(END_LINE);
     }
 
-    public static void clearScreen() {
-        STDOUT.info("\033[H\033[2J");
-    }
 }
