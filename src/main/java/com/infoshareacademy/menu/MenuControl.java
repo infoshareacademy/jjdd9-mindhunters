@@ -114,37 +114,45 @@ public class MenuControl {
 
     private void update() {
         Utilities.clearScreen();
-        boolean editIdNotFound = true;
-        while (editIdNotFound) {
-            if (drinkService.editDrink(userInput.getUserStringInput("Please type drink id to be " +
-                    "edited: " +
-                    " "))) {
-                editIdNotFound = false;
+        boolean checkId = false;
+        while (!checkId) {
+            String drinkIdToEdit = userInput.getUserStringInput("Please type drink id to be edited: ");
+
+            if (drinkService.editDrink(drinkIdToEdit)) {
                 STDOUT.info("\nDrink update complete. Press any key to continue:\n");
                 userInput.getUserInputAnyKey();
-            } else if (!userInput.getUserStringInput("\nDrink ID not found. Press [y] to try again: ").equalsIgnoreCase("y")) {
-                editIdNotFound = false;
-                STDOUT.info("Drink edit unsuccessful - drink not found. Press any key to continue:\n");
-                userInput.getUserInputAnyKey();
+                checkId = true;
+            } else {
+                String input = userInput.getUserStringInput("\nDrink ID not found. Press [y] to try again: ");
+
+                if (!input.equalsIgnoreCase("y")) {
+                    STDOUT.info("Drink edit unsuccessful - drink not found. Press any key to continue:\n");
+                    userInput.getUserInputAnyKey();
+                    checkId = true;
+                }
             }
         }
     }
 
     private void delete() {
         Utilities.clearScreen();
-        boolean idNotFound = true;
-        while (idNotFound) {
-            if (drinkService.removeDrink(userInput.getUserStringInput("Please type drink id to be " +
-                    "removed: " +
-                    " "))) {
-                idNotFound = false;
+        boolean checkId = false;
+        while (!checkId) {
+            String drinkIdToDelete = userInput.getUserStringInput("Please type drink id to be removed: ");
+
+            if (drinkService.removeDrink(drinkIdToDelete)) {
                 STDOUT.info("\nDrink removal complete. Press any key to continue: \n");
                 userInput.getUserInputAnyKey();
-            } else if (!userInput.getUserStringInput("\nDrink ID not found. Press [y] to try again: ").equalsIgnoreCase("y")) {
-                idNotFound = false;
-                STDOUT.info("Drink removal unsuccessful - drink not found. Press any key to continue: " +
-                        "\n");
-                userInput.getUserInputAnyKey();
+                checkId = true;
+            } else {
+                String input = userInput.getUserStringInput("\nDrink ID not found. Press [y] to try again: ");
+
+                if (!input.equalsIgnoreCase("y")) {
+
+                    STDOUT.info("Drink removal unsuccessful - drink not found. Press any key to continue:\n");
+                    userInput.getUserInputAnyKey();
+                    checkId = true;
+                }
             }
         }
     }
