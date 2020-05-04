@@ -23,7 +23,7 @@ public class DrinkService {
     private final UserInput userInput = new UserInput();
     private int maxExistingId = 0;
 
-    public void loadDrinkList() {
+    public static void loadDrinkList() {
         DrinksDatabase database = DrinksDatabase.getINSTANCE();
         if (database.getDrinks().isEmpty()) {
             List<Drink> drinks = new ArrayList<>();
@@ -139,7 +139,7 @@ public class DrinkService {
     private void setUserDrinkCategory(Drink userDrink) {
         STDOUT.info("Choose category number:\n");
         printAllCategories(DrinksDatabase.getINSTANCE());
-        int userChoice = 0;
+        int userChoice;
         do {
             userChoice = userInput.getUserNumericInput();
             if (userChoice > 0 && userChoice <= getAllCategories(DrinksDatabase.getINSTANCE()).size()) {
@@ -153,7 +153,7 @@ public class DrinkService {
     private void setUserDrinkAlcoholStatus(Drink userDrink) {
         STDOUT.info("Choose alcohol status:\n");
         printAllAlcoholStatuses(DrinksDatabase.getINSTANCE());
-        int userChoice = 0;
+        int userChoice;
         do {
             userChoice = userInput.getUserNumericInput();
             if (userChoice > 0 && userChoice <= getAlcoholStatuses(DrinksDatabase.getINSTANCE()).size()) {

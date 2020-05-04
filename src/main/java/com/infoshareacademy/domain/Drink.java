@@ -115,18 +115,14 @@ public class Drink {
                 "-dd " +
                 "HH:mm:ss")) : null) +
                 "'}";
-                ", modifiedDate='" + modifiedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) +
-                "'}";
     }
 
-    public List<String> getIngridientsNamesList() {
-        List<String> ingridientsNames = new ArrayList<>();
+    public List<String> getIngredientsNamesList() {
+        List<String> ingredientsNames = new ArrayList<>();
         for (Ingredient ingredient : ingredients){
-            ingridientsNames.add(ingredient.getName());
+            ingredientsNames.add(ingredient.getName());
         }
-        return ingridientsNames;
+        return ingredientsNames;
     }
-
-
 }
 

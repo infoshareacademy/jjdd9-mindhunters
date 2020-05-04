@@ -4,7 +4,6 @@ import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.service.DrinkService;
 import com.infoshareacademy.service.DrinkServiceSz;
 import com.infoshareacademy.service.JsonWriter;
-import com.infoshareacademy.utilities.ChoiceYesNo;
 import com.infoshareacademy.utilities.UserInput;
 import com.infoshareacademy.utilities.Utilities;
 import org.slf4j.Logger;
@@ -49,7 +48,7 @@ public class MenuControl {
 
         DrinkService.loadDrinkList();
         DrinkServiceSz search = new DrinkServiceSz();
-                do {
+        do {
             DisplayMenu.displayBrowseMenu();
             switch (userInput.getUserNumericInput()) {
                 case 1:
@@ -61,7 +60,7 @@ public class MenuControl {
                     userInput.getUserInputAnyKey();
                     break;
                 case 3:
-                    search.searchDrinkByIngridient();
+                    search.searchDrinkByIngredient();
                     userInput.getUserInputAnyKey();
                     break;
                 case 4:
