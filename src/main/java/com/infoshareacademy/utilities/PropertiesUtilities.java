@@ -12,17 +12,18 @@ public class PropertiesUtilities {
     }
 
     public String getProperty(String key) {
-        String propertyValue = null;
+        loadProperties();
+        return properties.getProperty(key);
+    }
+    private void loadProperties() {
         try (InputStream input = new FileInputStream(PROPERTY_FILE)) {
             this.properties.load(input);
-            propertyValue = this.properties.getProperty(key);
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-        return propertyValue;
     }
-
     public void setProperties(String key, String value) {
+        loadProperties();
         try (OutputStream output = new FileOutputStream(PROPERTY_FILE)) {
             this.properties.setProperty(key, value);
             this.properties.store(output, null);
