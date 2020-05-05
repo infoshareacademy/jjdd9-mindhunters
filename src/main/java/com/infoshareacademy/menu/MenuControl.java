@@ -53,7 +53,9 @@ public class MenuControl {
                     userInput.getUserInputAnyKey();
                     break;
                 case 2:
-                    STDOUT.info("SEARCH BY NAME");
+                    STDOUT.info(" -------------SEARCH BY NAME------------------");
+
+                    userInput.getUserInputAnyKey();
                     break;
                 case 3:
                     STDOUT.info("SEARCH BY INGREDIENT");
