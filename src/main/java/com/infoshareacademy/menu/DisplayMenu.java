@@ -72,9 +72,9 @@ public class DisplayMenu {
         clearScreen();
         STDOUT.info("\n ---------------- Settings ------------------- ");
         STDOUT.info("\n|  [1] YYYY-MM-dd HH:mm                       |" +
-                "\n|  [2] dd-MM-YYYY HH:mm                       |"+
-        "\n|  [3] to return to previous menu             |"+
-        "\n|  [4] to EXIT                                |");
+                "\n|  [2] dd-MM-YYYY HH:mm                       |" +
+                "\n|  [3] to return to previous menu             |" +
+                "\n|  [4] to EXIT                                |");
         STDOUT.info(END_LINE);
     }
 

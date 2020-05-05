@@ -15,6 +15,7 @@ public class PropertiesUtilities {
         loadProperties();
         return properties.getProperty(key);
     }
+
     private void loadProperties() {
         try (InputStream input = new FileInputStream(PROPERTY_FILE)) {
             this.properties.load(input);
@@ -22,6 +23,7 @@ public class PropertiesUtilities {
             System.out.println(ex.getMessage());
         }
     }
+
     public void setProperties(String key, String value) {
         loadProperties();
         try (OutputStream output = new FileOutputStream(PROPERTY_FILE)) {

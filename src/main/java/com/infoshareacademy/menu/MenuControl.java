@@ -3,9 +3,8 @@ package com.infoshareacademy.menu;
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.service.DrinkService;
-import com.infoshareacademy.utilities.PropertiesUtilities;
 import com.infoshareacademy.service.JsonWriter;
-import com.infoshareacademy.utilities.ChoiceYesNo;
+import com.infoshareacademy.utilities.PropertiesUtilities;
 import com.infoshareacademy.utilities.UserInput;
 import com.infoshareacademy.utilities.Utilities;
 import org.slf4j.Logger;
@@ -231,6 +230,7 @@ public class MenuControl {
             }
         } while (cont && (!exit));
     }
+
     public void settingsDateFormatNavigation() {
         boolean cont = true;
         do {

@@ -2,28 +2,24 @@ package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.DrinksDatabase;
-import com.infoshareacademy.utilities.PropertiesUtilities;
 import com.infoshareacademy.domain.Ingredient;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.text.WordUtils;
 import com.infoshareacademy.menu.DisplayMenu;
+import com.infoshareacademy.utilities.PropertiesUtilities;
 import com.infoshareacademy.utilities.UserInput;
 import com.infoshareacademy.utilities.Utilities;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.WordUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.TreeSet;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.stream.Stream;
 
 import static com.infoshareacademy.service.Colours.ANSI_RED;
 import static com.infoshareacademy.service.Colours.ANSI_RESET;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class DrinkService {
 
@@ -66,63 +62,62 @@ public class DrinkService {
         }
 
         sorted.forEach(drink -> {
-                    STDOUT.info("\n{}\n *ID: {}, *Category: {}, {};", drink.getDrinkName().toUpperCase(),
-                            drink.getDrinkId(), drink.getCategoryName(), drink.getAlcoholStatus());
-                    STDOUT.info("\n");
+            STDOUT.info("\n{}\n *ID: {}, *Category: {}, {};", drink.getDrinkName().toUpperCase(),
+                    drink.getDrinkId(), drink.getCategoryName(), drink.getAlcoholStatus());
+            STDOUT.info("\n");
         });
 
+    }
+
+
+    public static void printSingleDrink(Drink drink) {
+        String alcoContColour;
+        if (drink.getAlcoholStatus().equals("Alcoholic")) {
+            alcoContColour = ANSI_RED;
+        } else {
+            alcoContColour = ANSI_RESET;
         }
+        STDOUT.info("\n" + Colours.ANSI_BACKGROUND_YELLOW_BLACK +
+                StringUtils.center(drink.getDrinkName().toUpperCase(), 46, "-")
+                + Colours.ANSI_RESET);
+        STDOUT.info("\n                              Drink Id :" + drink.getDrinkId() +
+                "\n  Category : " + drink.getCategoryName() + alcoContColour + "(" +
+                drink.getAlcoholStatus() + ")" + ANSI_RESET + "\n");
 
+        STDOUT.info("\n" + Colours.ANSI_BRIGHT_YELLOW +
+                StringUtils.rightPad("Recipe :", 46, "=")
+                + Colours.ANSI_RESET);
 
+        String wrapText = WordUtils.wrap(drink.getRecipe(), 46);
+        STDOUT.info("\n{}", wrapText + "\n");
 
-    public static void printSingleDrink(Drink drink){
-            String alcoContColour;
-            if (drink.getAlcoholStatus().equals("Alcoholic")) {
-                alcoContColour = ANSI_RED;
-            } else {
-                alcoContColour = ANSI_RESET;
-            }
-            STDOUT.info("\n" + Colours.ANSI_BACKGROUND_YELLOW_BLACK +
-                    StringUtils.center(drink.getDrinkName().toUpperCase(), 46, "-")
-                    + Colours.ANSI_RESET);
-            STDOUT.info("\n                              Drink Id :" + drink.getDrinkId() +
-                    "\n  Category : " + drink.getCategoryName() + alcoContColour + "(" +
-                    drink.getAlcoholStatus() + ")" + ANSI_RESET + "\n");
+        STDOUT.info(Colours.ANSI_BRIGHT_YELLOW +
+                StringUtils.rightPad("=", 46, "=")
+                + Colours.ANSI_RESET + "\n");
 
-            STDOUT.info("\n" + Colours.ANSI_BRIGHT_YELLOW +
-                    StringUtils.rightPad("Recipe :", 46, "=")
-                    + Colours.ANSI_RESET);
+        STDOUT.info("\n" + Colours.ANSI_BRIGHT_YELLOW +
+                StringUtils.rightPad("Ingredients :", 46, "=")
+                + Colours.ANSI_RESET);
 
-            String wrapText = WordUtils.wrap(drink.getRecipe(), 46);
-            STDOUT.info("\n{}", wrapText + "\n");
-
-            STDOUT.info(Colours.ANSI_BRIGHT_YELLOW +
-                    StringUtils.rightPad("=", 46, "=")
-                    + Colours.ANSI_RESET + "\n");
-
-            STDOUT.info("\n" + Colours.ANSI_BRIGHT_YELLOW +
-                    StringUtils.rightPad("Ingredients :", 46, "=")
-                    + Colours.ANSI_RESET);
-
-            List<Ingredient> ingredients = drink.getIngredients();
-            String emptySpaces = "                           ";
-            for (int j = 0; j < ingredients.size(); j++) {
-                String adjustedName = drink.getIngredients().get(j).getName() + emptySpaces;
-                STDOUT.info("\n" + adjustedName.substring(0, 24) +
-                        " : " + drink.getIngredients().get(j).getMeasure());
-            }
-            STDOUT.info("\n" + Colours.ANSI_BRIGHT_YELLOW +
-                    StringUtils.rightPad("=", 46, "=")
-                    + Colours.ANSI_RESET + "\n");
+        List<Ingredient> ingredients = drink.getIngredients();
+        String emptySpaces = "                           ";
+        for (int j = 0; j < ingredients.size(); j++) {
+            String adjustedName = drink.getIngredients().get(j).getName() + emptySpaces;
+            STDOUT.info("\n" + adjustedName.substring(0, 24) +
+                    " : " + drink.getIngredients().get(j).getMeasure());
+        }
+        STDOUT.info("\n" + Colours.ANSI_BRIGHT_YELLOW +
+                StringUtils.rightPad("=", 46, "=")
+                + Colours.ANSI_RESET + "\n");
 
         PropertiesUtilities propertiesUtilities = new PropertiesUtilities();
         String dateFormat = propertiesUtilities.getProperty("date.format");
 
-            STDOUT.info("\nPhoto link : " + "\n" + Colours.ANSI_BLUE + drink.getImageUrl() + ANSI_RESET +
-                    "\n" + "\n" + Colours.ANSI_BACKGROUND_YELLOW_BLACK + "          Last modification : " +
-                    drink.getModifiedDate().format(DateTimeFormatter.ofPattern(dateFormat)) +
-                    Colours.ANSI_RESET);
-        }
+        STDOUT.info("\nPhoto link : " + "\n" + Colours.ANSI_BLUE + drink.getImageUrl() + ANSI_RESET +
+                "\n" + "\n" + Colours.ANSI_BACKGROUND_YELLOW_BLACK + "          Last modification : " +
+                drink.getModifiedDate().format(DateTimeFormatter.ofPattern(dateFormat)) +
+                Colours.ANSI_RESET);
+    }
 
     public List<Integer> getAllDrinkIdNumbers(DrinksDatabase database) {
         List<Integer> idNumbers = new ArrayList<>();
@@ -213,7 +208,7 @@ public class DrinkService {
     private void setUserDrinkCategory(Drink userDrink) {
         STDOUT.info("Choose category number:\n");
         printAllCategories(DrinksDatabase.getINSTANCE());
-        int userChoice = 0;
+        int userChoice;
         do {
             userChoice = userInput.getUserNumericInput();
             if (userChoice > 0 && userChoice <= getAllCategories(DrinksDatabase.getINSTANCE()).size()) {
@@ -227,7 +222,7 @@ public class DrinkService {
     private void setUserDrinkAlcoholStatus(Drink userDrink) {
         STDOUT.info("Choose alcohol status:\n");
         printAllAlcoholStatuses(DrinksDatabase.getINSTANCE());
-        int userChoice = 0;
+        int userChoice;
         do {
             userChoice = userInput.getUserNumericInput();
             if (userChoice > 0 && userChoice <= getAlcoholStatuses(DrinksDatabase.getINSTANCE()).size()) {
