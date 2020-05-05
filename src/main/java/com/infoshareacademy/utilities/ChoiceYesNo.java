@@ -1,10 +1,10 @@
 package com.infoshareacademy.utilities;
 
 public enum ChoiceYesNo {
-    YES (true),
-    NO (false),
-    Y (true),
-    N (false);
+    YES(true),
+    NO(false),
+    Y(true),
+    N(false);
 
     private final boolean value;
 

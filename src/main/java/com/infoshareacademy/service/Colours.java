@@ -20,8 +20,7 @@ public class Colours {
     public static final String ANSI_BRIGHT_CYAN = "\u001b[36;1m";
     public static final String ANSI_BRIGHT_WHITE = "\u001b[37;1m";
     public static final String ANSI_BACKGROUND_REVERSED = "\u001b[7m";
-    public static final String ANSI_BACKGROUND_YELLOW_BLACK =  "\u001B[30m\u001b[43;1m";
-
+    public static final String ANSI_BACKGROUND_YELLOW_BLACK = "\u001B[30m\u001b[43;1m";
 
 
 }
