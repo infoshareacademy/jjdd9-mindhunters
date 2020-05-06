@@ -5,10 +5,13 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.infoshareacademy.domain.Drink;
+import com.infoshareacademy.domain.FavouritesDatabase;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Set;
 
 
 public class JsonReader {
@@ -16,7 +19,7 @@ public class JsonReader {
     public JsonReader() {
     }
 
-    public static List<Drink> objectMapper(String fileName) throws IOException {
+    public static List<Drink> jsonDrinkReader(String fileName) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
@@ -30,4 +33,15 @@ public class JsonReader {
 
         return drink;
     }
+
+
+    public static Set<String> jsonFavouritesReader(String fileName) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        File json = new File(fileName);
+        final Set<String> favouritesSet = mapper.readValue(json, FavouritesDatabase.class).getFavouritesIds();
+
+        return favouritesSet;
+    }
+
+
 }

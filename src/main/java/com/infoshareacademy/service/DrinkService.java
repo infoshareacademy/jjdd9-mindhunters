@@ -30,20 +30,14 @@ public class DrinkService {
 
     public void loadDrinkList() {
         DrinksDatabase database = DrinksDatabase.getINSTANCE();
-        if (database.getDrinks().isEmpty()) {
-            List<Drink> drinks = new ArrayList<>();
-            for (int i = 0; i <= 4; i++) {
-                char letter = (char) (97 + i);
-                String fileName = "LIST_" + letter + "LETTER.json";
-
-                try {
-                    drinks.addAll(JsonReader.objectMapper(fileName));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            database.addAllDrinks(drinks);
+        List<Drink> drinkList = database.getDrinks();
+        String fileName = "AllDrinks.json";
+        try {
+            drinkList.addAll(JsonReader.jsonDrinkReader(fileName));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        database.addAllDrinks(drinkList);
     }
 
     public void printAllDrinks(DrinksDatabase database) {

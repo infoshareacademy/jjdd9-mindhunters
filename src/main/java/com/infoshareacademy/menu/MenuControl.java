@@ -3,6 +3,7 @@ package com.infoshareacademy.menu;
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.service.DrinkService;
+import com.infoshareacademy.service.FavouritesService;
 import com.infoshareacademy.service.JsonWriter;
 import com.infoshareacademy.utilities.PropertiesUtilities;
 import com.infoshareacademy.utilities.UserInput;
@@ -10,7 +11,10 @@ import com.infoshareacademy.utilities.Utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Set;
+
 import static com.infoshareacademy.domain.DrinksDatabase.getINSTANCE;
+import static com.infoshareacademy.domain.FavouritesDatabase.*;
 
 public class MenuControl {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
@@ -19,9 +23,11 @@ public class MenuControl {
     private boolean exit = false;
     private final UserInput userInput = new UserInput();
     private final DrinkService drinkService = new DrinkService();
+    private final FavouritesService favouritesService = new FavouritesService();
 
     public void mainNavigation() {
         drinkService.loadDrinkList();
+        favouritesService.loadFavouritesList();
         do {
             DisplayMenu.displayMainMenu();
             switch (userInput.getUserNumericInput()) {
@@ -98,16 +104,35 @@ public class MenuControl {
                     break;
                 case 4:
                     STDOUT.info("ADD TO FAVOURITES");
+                    String temp = "17222";
+                    final Set<String> favouritesIds = getInstFavourites().getFavouritesIds();
+
+                    if (!favouritesIds.contains(temp)) {
+                        favouritesIds.add(temp);
+                    }
+                    STDOUT.info("Drink added to favourites.");
+
                     break;
                 case 5:
                     STDOUT.info("REMOVE FROM FAVOURITES");
+
+                    String temp2 = "17222";
+                    final Set<String> favourIds = getInstFavourites().getFavouritesIds();
+
+                    if (favourIds.contains(temp2)) {
+                        favourIds.remove(temp2);
+                    }
+                    STDOUT.info("Drink removed from favourites.");
+
                     break;
                 case 6:
-                    JsonWriter.writeJsonToFile(getINSTANCE(), "AllDrinks.json");
+                    JsonWriter.writeAllToJson(getINSTANCE(), "AllDrinksTEST.json");
+                    JsonWriter.writeAllToJson(getInstFavourites(), "Favourites.json");
                     cont = false;
                     break;
                 case 7:
-                    JsonWriter.writeJsonToFile(getINSTANCE(), "AllDrinks.json");
+                    JsonWriter.writeAllToJson(getINSTANCE(), "AllDrinksTEST.json");
+                    JsonWriter.writeAllToJson(getInstFavourites(), "Favourites.json");
                     DisplayMenu.displayExit();
                     exit = true;
                     break;
