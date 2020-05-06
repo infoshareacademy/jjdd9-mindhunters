@@ -1,5 +1,6 @@
 package com.infoshareacademy.utilities;
 
+import com.infoshareacademy.service.MenuPath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,5 +21,6 @@ public class Utilities {
 
     public static void clearScreen() {
         STDOUT.info("\033[H\033[2J");
+        STDOUT.info("\n" + MenuPath.getPath()+"\n");
     }
 }

@@ -7,10 +7,6 @@ public class MenuPath {
     private static List<String> menuPath = new ArrayList<>();
 
     public static List<String> getPath() {
-        for (int i = 0; i < menuPath.size(); i++) {
-
-        }
-
         return menuPath;
     }
 
@@ -22,6 +18,10 @@ public class MenuPath {
         menuPath.clear();
         menuPath.add("MENU");
     }
+    public static void remove() {
+        menuPath.remove(menuPath.get(menuPath.size()-1));
+    }
+
 
 
 }

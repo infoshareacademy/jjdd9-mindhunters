@@ -15,7 +15,7 @@ public class DisplayMenu {
 
     public static void displayMainMenu() {
         Utilities.clearScreen();
-        STDOUT.info("" + MenuPath.getPath());
+        //STDOUT.info("\n" + MenuPath.getPath()+"\n");
         STDOUT.info("\n --------------- Main Menu ------------------ ");
         STDOUT.info("\n|  [1] to browse drinks recipes              |" +
                 "\n|  [2] to manage recipes                     |" +
@@ -27,7 +27,7 @@ public class DisplayMenu {
 
     public static void displayBrowseMenu() {
         Utilities.clearScreen();
-        STDOUT.info("" + MenuPath.getPath());
+        //STDOUT.info("\n" + MenuPath.getPath()+"\n");
         STDOUT.info("\n ------------ Drink Browse Menu ------------- ");
         STDOUT.info("\n|  [1] to display all drinks list            |" +
                 "\n|  [2] to search drink by name               |" +
@@ -40,7 +40,7 @@ public class DisplayMenu {
 
     public static void displayManageMenu() {
         Utilities.clearScreen();
-        STDOUT.info("" + MenuPath.getPath());
+        //STDOUT.info("\n" + MenuPath.getPath()+"\n");
         STDOUT.info("\n ---------- Drink Management Menu ----------- ");
         STDOUT.info("\n|  [1] to add drink                          |" +
                 "\n|  [2] to delete drink                       |" +
@@ -54,7 +54,7 @@ public class DisplayMenu {
 
     public static void displaySettingsMenu() {
         Utilities.clearScreen();
-        STDOUT.info("" + MenuPath.getPath());
+        //STDOUT.info("\n" + MenuPath.getPath()+"\n");
         STDOUT.info("\n ---------------- Settings ------------------- ");
         STDOUT.info("\n|  [1] to load/change configuration           |" +
                 "\n|  [2] to change drinks sorting order         |" +
@@ -66,6 +66,7 @@ public class DisplayMenu {
 
     public static void displaySettingsOrderMenu() {
         clearScreen();
+        STDOUT.info("\n" + MenuPath.getPath()+"\n");
         STDOUT.info("\n ---------------- Settings ------------------- ");
         STDOUT.info("\n|  [1] Set ASC                                |" +
                 "\n|  [2] Set DESC                               |" +
@@ -76,6 +77,7 @@ public class DisplayMenu {
 
     public static void displaySettingsDateFormatMenu() {
         clearScreen();
+        STDOUT.info("\n" + MenuPath.getPath()+"\n");
         STDOUT.info("\n ---------------- Settings ------------------- ");
         STDOUT.info("\n|  [1] YYYY-MM-dd HH:mm                       |" +
                 "\n|  [2] dd-MM-YYYY HH:mm                       |" +
@@ -85,7 +87,7 @@ public class DisplayMenu {
     }
 
     public static void displayExit() {
-        Utilities.clearScreen();
+        clearScreen();
         STDOUT.info("\n ------------------ QUIT -------------------- ");
         STDOUT.info("\n|  Hope to see you again soon.               |" +
                 "\n|                                            |" +
@@ -139,7 +141,7 @@ public class DisplayMenu {
 
     public static void displayEditMenu() {
         Utilities.clearScreen();
-        STDOUT.info("" + MenuPath.getPath());
+        //STDOUT.info("\n" + MenuPath.getPath()+"\n");
         STDOUT.info("\n --------------- DRINK UPDATE ---------------- ");
         STDOUT.info("\n|  [1] to update drink name                   |" +
                 "\n|  [2] to update drink category               |" +
