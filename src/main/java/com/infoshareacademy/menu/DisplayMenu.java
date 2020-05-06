@@ -26,11 +26,12 @@ public class DisplayMenu {
         Utilities.clearScreen();
         STDOUT.info("\n ------------ Drink Browse Menu ------------- ");
         STDOUT.info("\n|  [1] to display all drinks list            |" +
-                "\n|  [2] to search drink by name               |" +
-                "\n|  [3] to search drink by ingredient         |" +
-                "\n|  [4] to search drink by category           |" +
-                "\n|  [5] to return to previous menu            |" +
-                "\n|  [6] to EXIT                               |");
+                "\n|  [2] to display favourites drinks          |" +
+                "\n|  [3] to search drink by name               |" +
+                "\n|  [4] to search drink by ingredient         |" +
+                "\n|  [5] to search drink by category           |" +
+                "\n|  [6] to return to previous menu            |" +
+                "\n|  [7] to EXIT                               |");
         STDOUT.info(END_LINE);
     }
 

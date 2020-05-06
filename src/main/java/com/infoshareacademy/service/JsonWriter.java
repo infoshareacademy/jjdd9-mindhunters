@@ -7,6 +7,9 @@ import java.io.IOException;
 
 public class JsonWriter {
 
+    private JsonWriter() {
+    }
+
     public static <T> void writeAllToJson(T obj, String jsonFilePath) {
 
         ObjectMapper mapper = new ObjectMapper();

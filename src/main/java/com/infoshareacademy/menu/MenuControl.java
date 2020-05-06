@@ -2,6 +2,7 @@ package com.infoshareacademy.menu;
 
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.DrinksDatabase;
+import com.infoshareacademy.domain.FavouritesDatabase;
 import com.infoshareacademy.service.DrinkService;
 import com.infoshareacademy.service.FavouritesService;
 import com.infoshareacademy.service.JsonWriter;
@@ -14,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Set;
 
 import static com.infoshareacademy.domain.DrinksDatabase.getINSTANCE;
-import static com.infoshareacademy.domain.FavouritesDatabase.*;
+import static com.infoshareacademy.domain.FavouritesDatabase.getInstFavourites;
 
 public class MenuControl {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
@@ -62,21 +63,26 @@ public class MenuControl {
                     userInput.getUserInputAnyKey();
                     break;
                 case 2:
+                    favouritesService.printAllFavourites(FavouritesDatabase.getInstFavourites());
+                    userInput.getUserInputAnyKey();
+                    break;
+                case 3:
                     STDOUT.info(" -------------SEARCH BY NAME------------------");
                     Drink drink = DrinksDatabase.getINSTANCE().getDrinks().get(0);
                     DrinkService.printSingleDrink(drink);
                     userInput.getUserInputAnyKey();
                     break;
-                case 3:
+                case 4:
                     STDOUT.info("SEARCH BY INGREDIENT");
                     break;
-                case 4:
+                case 5:
                     STDOUT.info("SEARCH BY CATEGORY");
                     break;
-                case 5:
+                case 6:
                     cont = false;
                     break;
-                case 6:
+
+                case 7:
                     DisplayMenu.displayExit();
                     exit = true;
                     break;
@@ -103,17 +109,23 @@ public class MenuControl {
                     update();
                     break;
                 case 4:
+                    //
                     STDOUT.info("ADD TO FAVOURITES");
                     String temp = "17222";
+                    String temp3 = "17228";
                     final Set<String> favouritesIds = getInstFavourites().getFavouritesIds();
 
                     if (!favouritesIds.contains(temp)) {
                         favouritesIds.add(temp);
                     }
+                    if (!favouritesIds.contains(temp3)) {
+                        favouritesIds.add(temp3);
+                    }
                     STDOUT.info("Drink added to favourites.");
 
                     break;
                 case 5:
+                    //
                     STDOUT.info("REMOVE FROM FAVOURITES");
 
                     String temp2 = "17222";
