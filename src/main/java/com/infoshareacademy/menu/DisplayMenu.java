@@ -1,5 +1,6 @@
 package com.infoshareacademy.menu;
 
+import com.infoshareacademy.service.MenuPath;
 import com.infoshareacademy.utilities.Utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,16 +17,19 @@ public class DisplayMenu {
 
     public static void displayMainMenu() {
         Utilities.clearScreen();
+        STDOUT.info("" + MenuPath.getPath());
         STDOUT.info("\n --------------- Main Menu ------------------ ");
         STDOUT.info("\n|  [1] to browse drinks recipes              |" +
                 "\n|  [2] to manage recipes                     |" +
                 "\n|  [3] to change settings                    |" +
                 "\n|  [4] to EXIT                               |");
         STDOUT.info(END_LINE);
+
     }
 
     public static void displayBrowseMenu() {
         Utilities.clearScreen();
+        STDOUT.info("" + MenuPath.getPath());
         STDOUT.info("\n ------------ Drink Browse Menu ------------- ");
         STDOUT.info("\n|  [1] to display all drinks list            |" +
                 "\n|  [2] to search drink by name               |" +
@@ -38,6 +42,7 @@ public class DisplayMenu {
 
     public static void displayManageMenu() {
         Utilities.clearScreen();
+        STDOUT.info("" + MenuPath.getPath());
         STDOUT.info("\n ---------- Drink Management Menu ----------- ");
         STDOUT.info("\n|  [1] to add drink                          |" +
                 "\n|  [2] to delete drink                       |" +
@@ -51,6 +56,7 @@ public class DisplayMenu {
 
     public static void displaySettingsMenu() {
         Utilities.clearScreen();
+        STDOUT.info("" + MenuPath.getPath());
         STDOUT.info("\n ---------------- Settings ------------------- ");
         STDOUT.info("\n|  [1] to load/change configuration           |" +
                 "\n|  [2] to change drinks sorting order         |" +
@@ -115,6 +121,7 @@ public class DisplayMenu {
 
     public static void displayEditMenu() {
         Utilities.clearScreen();
+        STDOUT.info("" + MenuPath.getPath());
         STDOUT.info("\n --------------- DRINK UPDATE ---------------- ");
         STDOUT.info("\n|  [1] to update drink name                   |" +
                 "\n|  [2] to update drink category               |" +

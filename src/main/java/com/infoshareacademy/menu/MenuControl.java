@@ -3,11 +3,15 @@ package com.infoshareacademy.menu;
 import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.service.DrinkService;
 import com.infoshareacademy.service.JsonWriter;
+import com.infoshareacademy.service.MenuPath;
 import com.infoshareacademy.utilities.ChoiceYesNo;
 import com.infoshareacademy.utilities.UserInput;
 import com.infoshareacademy.utilities.Utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MenuControl {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
@@ -16,8 +20,10 @@ public class MenuControl {
     private boolean exit = false;
     private final UserInput userInput = new UserInput();
     private final DrinkService drinkService = new DrinkService();
+    //private final MenuPath menuPath = new MenuPath();
 
     public void mainNavigation() {
+        MenuPath.reset();
         drinkService.loadDrinkList();
         do {
             DisplayMenu.displayMainMenu();
@@ -45,6 +51,7 @@ public class MenuControl {
 
     public void browseNavigation() {
         boolean cont = true;
+        MenuPath.add("BROWSE");
         do {
             DisplayMenu.displayBrowseMenu();
             switch (userInput.getUserNumericInput()) {
@@ -53,6 +60,7 @@ public class MenuControl {
                     userInput.getUserInputAnyKey();
                     break;
                 case 2:
+                    MenuPath.add("SEARCH");
                     STDOUT.info(" -------------SEARCH BY NAME------------------");
 
                     userInput.getUserInputAnyKey();
