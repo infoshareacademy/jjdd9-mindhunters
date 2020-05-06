@@ -26,6 +26,7 @@ public class DrinkServiceSz {
         List<Drink> outputSearch = new ArrayList<>();
 
         String inputSearch = userInput.getUserStringInput("\nInput drink name: ").toLowerCase();
+
         if (inputSearch.length() > 2) {
             for (Drink drink : database) {
                 String name = drink.getDrinkName().toLowerCase();
