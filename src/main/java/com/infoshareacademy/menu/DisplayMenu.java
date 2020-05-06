@@ -10,8 +10,6 @@ public class DisplayMenu {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     private static final String END_LINE = "\n -------------------------------------------- ";
 
-
-
     private DisplayMenu() {
     }
 
@@ -63,6 +61,26 @@ public class DisplayMenu {
                 "\n|  [3] to set recipe data modification format |" +
                 "\n|  [4] to return to previous menu             |" +
                 "\n|  [5] to EXIT                                |");
+        STDOUT.info(END_LINE);
+    }
+
+    public static void displaySettingsOrderMenu() {
+        clearScreen();
+        STDOUT.info("\n ---------------- Settings ------------------- ");
+        STDOUT.info("\n|  [1] Set ASC                                |" +
+                "\n|  [2] Set DESC                               |" +
+                "\n|  [3] to return to previous menu             |" +
+                "\n|  [4] to EXIT                                |");
+        STDOUT.info(END_LINE);
+    }
+
+    public static void displaySettingsDateFormatMenu() {
+        clearScreen();
+        STDOUT.info("\n ---------------- Settings ------------------- ");
+        STDOUT.info("\n|  [1] YYYY-MM-dd HH:mm                       |" +
+                "\n|  [2] dd-MM-YYYY HH:mm                       |" +
+                "\n|  [3] to return to previous menu             |" +
+                "\n|  [4] to EXIT                                |");
         STDOUT.info(END_LINE);
     }
 

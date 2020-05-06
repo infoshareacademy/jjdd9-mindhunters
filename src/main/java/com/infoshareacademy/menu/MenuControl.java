@@ -1,14 +1,18 @@
 package com.infoshareacademy.menu;
 
+import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.service.DrinkService;
 import com.infoshareacademy.service.JsonWriter;
+import com.infoshareacademy.utilities.PropertiesUtilities;
 import com.infoshareacademy.service.MenuPath;
 import com.infoshareacademy.utilities.ChoiceYesNo;
 import com.infoshareacademy.utilities.UserInput;
 import com.infoshareacademy.utilities.Utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static com.infoshareacademy.domain.DrinksDatabase.getINSTANCE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,13 +60,14 @@ public class MenuControl {
             DisplayMenu.displayBrowseMenu();
             switch (userInput.getUserNumericInput()) {
                 case 1:
-                    drinkService.printAllDrinks(DrinksDatabase.getINSTANCE());
+                    drinkService.printAllDrinks(getINSTANCE());
                     userInput.getUserInputAnyKey();
                     break;
                 case 2:
                     MenuPath.add("SEARCH");
                     STDOUT.info(" -------------SEARCH BY NAME------------------");
-
+                    Drink drink = DrinksDatabase.getINSTANCE().getDrinks().get(0);
+                    DrinkService.printSingleDrink(drink);
                     userInput.getUserInputAnyKey();
                     break;
                 case 3:
@@ -107,11 +112,11 @@ public class MenuControl {
                     STDOUT.info("REMOVE FROM FAVOURITES");
                     break;
                 case 6:
-                    JsonWriter.writeJsonToFile(DrinksDatabase.getINSTANCE(), "AllDrinks.json");
+                    JsonWriter.writeJsonToFile(getINSTANCE(), "AllDrinks.json");
                     cont = false;
                     break;
                 case 7:
-                    JsonWriter.writeJsonToFile(DrinksDatabase.getINSTANCE(), "AllDrinks.json");
+                    JsonWriter.writeJsonToFile(getINSTANCE(), "AllDrinks.json");
                     DisplayMenu.displayExit();
                     exit = true;
                     break;
@@ -189,15 +194,67 @@ public class MenuControl {
                     STDOUT.info("LOAD/CHANGE CONFIGURATION");
                     break;
                 case 2:
-                    STDOUT.info("CHANGE DRINKS SORTING ORDER");
+                    settingsOrderNavigation();
                     break;
                 case 3:
-                    STDOUT.info("SET RECIPE DATA MODIFICATION FORMAT");
+                    settingsDateFormatNavigation();
                     break;
                 case 4:
                     cont = false;
                     break;
                 case 5:
+                    DisplayMenu.displayExit();
+                    exit = true;
+                    break;
+                default:
+                    STDOUT.info(USER_MESSAGE);
+                    Utilities.freezeConsole();
+                    break;
+            }
+        } while (cont && (!exit));
+    }
+
+    public void settingsOrderNavigation() {
+        boolean cont = true;
+        do {
+            DisplayMenu.displaySettingsOrderMenu();
+            switch (userInput.getUserNumericInput()) {
+                case 1:
+                    (new PropertiesUtilities()).setProperties("orderby", "asc");
+                    break;
+                case 2:
+                    (new PropertiesUtilities()).setProperties("orderby", "desc");
+                    break;
+                case 3:
+                    cont = false;
+                    break;
+                case 4:
+                    DisplayMenu.displayExit();
+                    exit = true;
+                    break;
+                default:
+                    STDOUT.info(USER_MESSAGE);
+                    Utilities.freezeConsole();
+                    break;
+            }
+        } while (cont && (!exit));
+    }
+
+    public void settingsDateFormatNavigation() {
+        boolean cont = true;
+        do {
+            DisplayMenu.displaySettingsDateFormatMenu();
+            switch (userInput.getUserNumericInput()) {
+                case 1:
+                    (new PropertiesUtilities()).setProperties("date.format", "YYYY-MM-dd HH:mm");
+                    break;
+                case 2:
+                    (new PropertiesUtilities()).setProperties("date.format", "dd-MM-YYYY HH:mm");
+                    break;
+                case 3:
+                    cont = false;
+                    break;
+                case 4:
                     DisplayMenu.displayExit();
                     exit = true;
                     break;
