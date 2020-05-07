@@ -1,5 +1,6 @@
 package com.infoshareacademy.menu;
 
+import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.service.DrinkService;
 import com.infoshareacademy.service.SearchService;
@@ -56,7 +57,8 @@ public class MenuControl {
                     userInput.getUserInputAnyKey();
                     break;
                 case 2:
-                    search.searchDrinkByName();
+                    Drink foundDrink = search.searchDrinkByName();
+                    DrinkService.printSingleDrink(foundDrink);
                     userInput.getUserInputAnyKey();
                     break;
                 case 3:

@@ -21,11 +21,12 @@ public class SearchService {
     public SearchService() {
     }
 
-    public void searchDrinkByName() {
+    public Drink searchDrinkByName() {
 
         clearScreen();
         List<Drink> outputSearch = new ArrayList<>();
 
+        Drink foundDrink = new Drink();
 
         boolean isFound = false;
         do {
@@ -40,7 +41,7 @@ public class SearchService {
                 if (outputSearch.size() > 0) {
                     printFoundDrinkList(outputSearch);
                     STDOUT.info("\n");
-                    chooseDrinkFromList(outputSearch);
+                    foundDrink = chooseDrinkFromList(outputSearch);
                     isFound = true;
                 } else if (outputSearch.isEmpty()) {
                     STDOUT.info("No matching result found.\n");
@@ -62,6 +63,7 @@ public class SearchService {
                 STDOUT.info("Wrong input.\n");
             } else break;
         }
+        return foundDrink;
     }
 
     public void searchDrinkByIngredient() {
@@ -69,42 +71,51 @@ public class SearchService {
         clearScreen();
         List<String> foundIngredients = new ArrayList<>();
 
-        String ingredientName = userInput.getUserStringInput("\nInput ingredient name: ");
+        addIngredientToList(foundIngredients);
 
-        String search = findIngredient(ingredientName);
-        if (!search.isBlank()) {
-            foundIngredients.add(search);
-        }
-        boolean isCorrect = false;
-        while (!isCorrect) {
-            String input = userInput.getUserStringInput("Do you want to add next ingredient to search? <y/n>: ");
-            if (input.equalsIgnoreCase("y")) {
-                clearScreen();
-                String nextIngredientName = userInput.getUserStringInput("\nInput another ingredient: ");
-                String search2 = findIngredient(nextIngredientName);
-                if (!search2.isBlank()) {
-                    foundIngredients.add(search2);
-                }
-            } else if (!input.equalsIgnoreCase("n")) {
-                STDOUT.info("Wrong input. \n");
-            } else isCorrect = true;
-        }
+        addNextIngridientsToList(foundIngredients);
 
-        List<String> newInputList = foundIngredients.stream()
-                .filter(s -> !s.isBlank())
-                .distinct()
-                .map(String::toLowerCase)
-                .map(String::trim)
-                .map(word -> word.replaceAll(" ", ""))
-                .collect(Collectors.toList());
-
-        List<Drink> OutputSearch = getDrinks(database, newInputList);
+        List<String> ingredientsChosenByUser = normalizeIngridientsList(foundIngredients);
+        STDOUT.info(ingredientsChosenByUser.toString());
+        List<Drink> OutputSearch = getDrinks(database, ingredientsChosenByUser);
 
         if (OutputSearch.isEmpty()) {
             STDOUT.info("No matching drink name found.\n");
         } else {
             printFoundDrinkList(OutputSearch);
             chooseDrinkFromList(OutputSearch);
+        }
+    }
+
+    private List<String> normalizeIngridientsList(List<String> foundIngredients) {
+        return foundIngredients.stream()
+                    .filter(s -> !s.isBlank())
+                    .distinct()
+                    .map(String::toLowerCase)
+                    .map(String::trim)
+                    .map(word -> word.replaceAll(" ", ""))
+                    .collect(Collectors.toList());
+    }
+
+    private void addNextIngridientsToList(List<String> foundIngredients) {
+        boolean isCorrect = false;
+        while (!isCorrect) {
+            String input = userInput.getUserStringInput("Do you want to add next ingredient to search? <y/n>: ");
+            if (input.equalsIgnoreCase("y")) {
+                clearScreen();
+                addIngredientToList(foundIngredients);
+            } else if (!input.equalsIgnoreCase("n")) {
+                STDOUT.info("Wrong input. \n");
+            } else isCorrect = true;
+        }
+    }
+
+    private void addIngredientToList(List<String> foundIngredients) {
+        String ingredientName = userInput.getUserStringInput("\nInput ingredient name: ");
+
+        String search = findIngredient(ingredientName);
+        if (!search.isBlank()) {
+            foundIngredients.add(search);
         }
     }
 
@@ -134,16 +145,19 @@ public class SearchService {
         }
     }
 
-    private void chooseDrinkFromList(List<Drink> outputSearch) {
+    private Drink chooseDrinkFromList(List<Drink> outputSearch) {
+        Drink foundDrink = new Drink();
         boolean isCorrect = false;
         STDOUT.info("\nWhich recipe would you like to display? ");
         do {
             int recipeNumber = userInput.getUserNumericInput();
             if (recipeNumber >= 1 && recipeNumber <= outputSearch.size()) {
-                DrinkService.printSingleDrink(outputSearch.get(recipeNumber - 1));
+                //DrinkService.printSingleDrink(outputSearch.get(recipeNumber - 1));
+                foundDrink = outputSearch.get(recipeNumber-1);
                 isCorrect = true;
             } else STDOUT.info("\nInput correct number of desired recipe. ");
         } while (!isCorrect);
+        return foundDrink ;
     }
 
     public List<String> getAllIngredient(List<Drink> drinkList) {
@@ -164,9 +178,7 @@ public class SearchService {
 
         List<String> outputSearch = new ArrayList<>();
 
-        boolean flag = true;
 
-        do {
             if (inputSearch.length() > 2) {
                 for (String ingredient : allIngredients) {
                     if (ingredient.toLowerCase().contains(inputSearch.toLowerCase()) && !(inputSearch.length() == 0)) {
@@ -183,11 +195,11 @@ public class SearchService {
             } else {
                 STDOUT.info("Input min. 3 characters.\n");
                 String newInputSearch = userInput.getUserStringInput("\nInput ingredient name: ").toLowerCase();
-                findIngredient(newInputSearch);
-            }
-        } while (flag);
+                return findIngredient(newInputSearch);
 
-        return chooseIngredientFromList(outputSearch);
+            }
+
+        return "";
     }
 
     private void printFoundIngredientList(List<String> ingredientList) {
