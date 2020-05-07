@@ -69,13 +69,19 @@ public class MenuControl {
                     userInput.getUserInputAnyKey();
                     break;
                 case 3:
-                    Drink foundDrink = search.searchDrinkByName();
-                    DrinkService.printSingleDrink(foundDrink);
-                    userInput.getUserInputAnyKey();
+                    Drink foundDrinkByName = search.searchDrinkByName();
+                    if (foundDrinkByName.getDrinkId() != null){
+                        DrinkService.printSingleDrink(foundDrinkByName);
+                        userInput.getUserInputAnyKey();
+                    }
                     break;
                 case 4:
-                    search.searchDrinkByIngredient();
-                    userInput.getUserInputAnyKey();
+                    Drink foundDrinkByIngr = search.searchDrinkByIngredient();
+                    if (foundDrinkByIngr.getDrinkId() != null){
+                        DrinkService.printSingleDrink(foundDrinkByIngr);
+                        userInput.getUserInputAnyKey();
+                    }
+
                     break;
                 case 5:
                     STDOUT.info("SEARCH BY CATEGORY");

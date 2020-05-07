@@ -66,8 +66,8 @@ public class SearchService {
         return foundDrink;
     }
 
-    public void searchDrinkByIngredient() {
-
+    public Drink searchDrinkByIngredient() {
+        Drink foundDrink = new Drink();
         clearScreen();
         List<String> foundIngredients = new ArrayList<>();
 
@@ -83,8 +83,9 @@ public class SearchService {
             STDOUT.info("No matching drink name found.\n");
         } else {
             printFoundDrinkList(OutputSearch);
-            chooseDrinkFromList(OutputSearch);
+            foundDrink = chooseDrinkFromList(OutputSearch);
         }
+        return foundDrink;
     }
 
     private List<String> normalizeIngridientsList(List<String> foundIngredients) {
