@@ -98,14 +98,7 @@ public class SearchService {
                 .map(word -> word.replaceAll(" ", ""))
                 .collect(Collectors.toList());
 
-        List<Drink> OutputSearch = database.stream()
-                .filter(drink -> (drink.getIngredientsNamesList().stream()
-                        .map(String::toLowerCase)
-                        .filter(s -> !s.isBlank())
-                        .map(word -> word.replaceAll(" ", ""))
-                        .collect(Collectors.toList())
-                ).containsAll(newInputList))
-                .collect(Collectors.toList());
+        List<Drink> OutputSearch = getDrinks(database, newInputList);
 
         if (OutputSearch.isEmpty()) {
             STDOUT.info("No matching drink name found.\n");
@@ -113,6 +106,21 @@ public class SearchService {
             printFoundDrinkList(OutputSearch);
             chooseDrinkFromList(OutputSearch);
         }
+    }
+
+    List<Drink> getDrinks(List<Drink> drinks, List<String> ingredients) {
+        return drinks.stream()
+                .filter(drink -> containsIngredients(ingredients, drink))
+                .collect(Collectors.toList());
+    }
+
+    private boolean containsIngredients(List<String> ingredients, Drink drink) {
+
+        return drink.getIngredientsNamesList().stream()
+                //.map(String::toLowerCase)
+                //.map(word -> word.replaceAll(" ", ""))
+                .collect(Collectors.toList())
+                .containsAll(ingredients);
     }
 
     private void printFoundDrinkList(List<Drink> drinkList) {
