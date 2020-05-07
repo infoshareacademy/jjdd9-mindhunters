@@ -2,21 +2,16 @@ package com.infoshareacademy.menu;
 
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.DrinksDatabase;
-import com.infoshareacademy.domain.FavouritesDatabase;
 import com.infoshareacademy.service.DrinkService;
-import com.infoshareacademy.service.FavouritesService;
-import com.infoshareacademy.service.SearchService;
 import com.infoshareacademy.service.JsonWriter;
+import com.infoshareacademy.service.SearchService;
 import com.infoshareacademy.utilities.PropertiesUtilities;
 import com.infoshareacademy.utilities.UserInput;
 import com.infoshareacademy.utilities.Utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Set;
-
 import static com.infoshareacademy.domain.DrinksDatabase.getINSTANCE;
-import static com.infoshareacademy.domain.FavouritesDatabase.getInstFavourites;
 
 public class MenuControl {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
@@ -25,11 +20,9 @@ public class MenuControl {
     private boolean exit = false;
     private final UserInput userInput = new UserInput();
     private final DrinkService drinkService = new DrinkService();
-    private final FavouritesService favouritesService = new FavouritesService();
 
     public void mainNavigation() {
-        DrinkService.loadDrinkList();
-        favouritesService.loadFavouritesList();
+        drinkService.loadDrinkList();
         do {
             DisplayMenu.displayMainMenu();
             switch (userInput.getUserNumericInput()) {
@@ -65,19 +58,18 @@ public class MenuControl {
                     userInput.getUserInputAnyKey();
                     break;
                 case 2:
-                    favouritesService.printAllFavourites(FavouritesDatabase.getInstFavourites());
                     userInput.getUserInputAnyKey();
                     break;
                 case 3:
                     Drink foundDrinkByName = search.searchDrinkByName();
-                    if (foundDrinkByName.getDrinkId() != null){
+                    if (foundDrinkByName.getDrinkId() != null) {
                         DrinkService.printSingleDrink(foundDrinkByName);
                         userInput.getUserInputAnyKey();
                     }
                     break;
                 case 4:
                     Drink foundDrinkByIngr = search.searchDrinkByIngredient();
-                    if (foundDrinkByIngr.getDrinkId() != null){
+                    if (foundDrinkByIngr.getDrinkId() != null) {
                         DrinkService.printSingleDrink(foundDrinkByIngr);
                         userInput.getUserInputAnyKey();
                     }
@@ -117,42 +109,17 @@ public class MenuControl {
                     update();
                     break;
                 case 4:
-                    //
                     STDOUT.info("ADD TO FAVOURITES");
-                    String temp = "17222";
-                    String temp3 = "17228";
-                    final Set<String> favouritesIds = getInstFavourites().getFavouritesIds();
-
-                    if (!favouritesIds.contains(temp)) {
-                        favouritesIds.add(temp);
-                    }
-                    if (!favouritesIds.contains(temp3)) {
-                        favouritesIds.add(temp3);
-                    }
-                    STDOUT.info("Drink added to favourites.");
-
                     break;
                 case 5:
-                    //
                     STDOUT.info("REMOVE FROM FAVOURITES");
-
-                    String temp2 = "17222";
-                    final Set<String> favourIds = getInstFavourites().getFavouritesIds();
-
-                    if (favourIds.contains(temp2)) {
-                        favourIds.remove(temp2);
-                    }
-                    STDOUT.info("Drink removed from favourites.");
-
                     break;
                 case 6:
-                    JsonWriter.writeAllToJson(getINSTANCE(), "AllDrinksTEST.json");
-                    JsonWriter.writeAllToJson(getInstFavourites(), "Favourites.json");
+                    JsonWriter.writeJsonToFile(DrinksDatabase.getINSTANCE(), "AllDrinks.json");
                     cont = false;
                     break;
                 case 7:
-                    JsonWriter.writeAllToJson(getINSTANCE(), "AllDrinksTEST.json");
-                    JsonWriter.writeAllToJson(getInstFavourites(), "Favourites.json");
+                    JsonWriter.writeJsonToFile(getINSTANCE(), "AllDrinks.json");
                     DisplayMenu.displayExit();
                     exit = true;
                     break;
