@@ -5,6 +5,7 @@ import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.domain.FavouritesDatabase;
 import com.infoshareacademy.service.DrinkService;
 import com.infoshareacademy.service.FavouritesService;
+import com.infoshareacademy.service.SearchService;
 import com.infoshareacademy.service.JsonWriter;
 import com.infoshareacademy.utilities.PropertiesUtilities;
 import com.infoshareacademy.utilities.UserInput;
@@ -27,7 +28,7 @@ public class MenuControl {
     private final FavouritesService favouritesService = new FavouritesService();
 
     public void mainNavigation() {
-        drinkService.loadDrinkList();
+        DrinkService.loadDrinkList();
         favouritesService.loadFavouritesList();
         do {
             DisplayMenu.displayMainMenu();
@@ -55,6 +56,7 @@ public class MenuControl {
 
     public void browseNavigation() {
         boolean cont = true;
+        SearchService search = new SearchService();
         do {
             DisplayMenu.displayBrowseMenu();
             switch (userInput.getUserNumericInput()) {
@@ -67,13 +69,13 @@ public class MenuControl {
                     userInput.getUserInputAnyKey();
                     break;
                 case 3:
-                    STDOUT.info(" -------------SEARCH BY NAME------------------");
-                    Drink drink = DrinksDatabase.getINSTANCE().getDrinks().get(0);
-                    DrinkService.printSingleDrink(drink);
+                    Drink foundDrink = search.searchDrinkByName();
+                    DrinkService.printSingleDrink(foundDrink);
                     userInput.getUserInputAnyKey();
                     break;
                 case 4:
-                    STDOUT.info("SEARCH BY INGREDIENT");
+                    search.searchDrinkByIngredient();
+                    userInput.getUserInputAnyKey();
                     break;
                 case 5:
                     STDOUT.info("SEARCH BY CATEGORY");

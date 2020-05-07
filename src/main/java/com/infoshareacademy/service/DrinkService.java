@@ -28,7 +28,7 @@ public class DrinkService {
     private final UserInput userInput = new UserInput();
     private int maxExistingId = 0;
 
-    public void loadDrinkList() {
+    public static void loadDrinkList() {
         DrinksDatabase database = DrinksDatabase.getINSTANCE();
         if (database.getDrinks().isEmpty()) {
             List<Drink> drinkList = new ArrayList<>();
