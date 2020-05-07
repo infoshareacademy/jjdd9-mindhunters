@@ -2,7 +2,7 @@ package com.infoshareacademy.menu;
 
 import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.service.DrinkService;
-import com.infoshareacademy.service.DrinkServiceSz;
+import com.infoshareacademy.service.SearchService;
 import com.infoshareacademy.service.JsonWriter;
 import com.infoshareacademy.utilities.UserInput;
 import com.infoshareacademy.utilities.Utilities;
@@ -47,7 +47,7 @@ public class MenuControl {
         boolean cont = true;
 
         DrinkService.loadDrinkList();
-        DrinkServiceSz search = new DrinkServiceSz();
+        SearchService search = new SearchService();
         do {
             DisplayMenu.displayBrowseMenu();
             switch (userInput.getUserNumericInput()) {
