@@ -66,8 +66,8 @@ public class SearchService {
         return foundDrink;
     }
 
-    public void searchDrinkByIngredient() {
-
+    public Drink searchDrinkByIngredient() {
+        Drink foundDrink = new Drink();
         clearScreen();
         List<String> foundIngredients = new ArrayList<>();
 
@@ -83,18 +83,19 @@ public class SearchService {
             STDOUT.info("No matching drink name found.\n");
         } else {
             printFoundDrinkList(OutputSearch);
-            chooseDrinkFromList(OutputSearch);
+            foundDrink = chooseDrinkFromList(OutputSearch);
         }
+        return foundDrink;
     }
 
     private List<String> normalizeIngridientsList(List<String> foundIngredients) {
         return foundIngredients.stream()
-                    .filter(s -> !s.isBlank())
-                    .distinct()
-                    .map(String::toLowerCase)
-                    .map(String::trim)
-                    .map(word -> word.replaceAll(" ", ""))
-                    .collect(Collectors.toList());
+                .filter(s -> !s.isBlank())
+                .distinct()
+                .map(String::toLowerCase)
+                .map(String::trim)
+                .map(word -> word.replaceAll(" ", ""))
+                .collect(Collectors.toList());
     }
 
     private void addNextIngridientsToList(List<String> foundIngredients) {
@@ -179,25 +180,25 @@ public class SearchService {
         List<String> outputSearch = new ArrayList<>();
 
 
-            if (inputSearch.length() > 2) {
-                for (String ingredient : allIngredients) {
-                    if (ingredient.toLowerCase().contains(inputSearch.toLowerCase()) && !(inputSearch.length() == 0)) {
-                        outputSearch.add(ingredient);
-                    }
+        if (inputSearch.length() > 2) {
+            for (String ingredient : allIngredients) {
+                if (ingredient.toLowerCase().contains(inputSearch.toLowerCase()) && !(inputSearch.length() == 0)) {
+                    outputSearch.add(ingredient);
                 }
-                if (outputSearch.isEmpty()) {
-                    STDOUT.info("No matching ingredient found.\n");
-                } else {
-                    printFoundIngredientList(outputSearch);
-                    STDOUT.info("\n");
-                    return chooseIngredientFromList(outputSearch);
-                }
-            } else {
-                STDOUT.info("Input min. 3 characters.\n");
-                String newInputSearch = userInput.getUserStringInput("\nInput ingredient name: ").toLowerCase();
-                return findIngredient(newInputSearch);
-
             }
+            if (outputSearch.isEmpty()) {
+                STDOUT.info("No matching ingredient found.\n");
+            } else {
+                printFoundIngredientList(outputSearch);
+                STDOUT.info("\n");
+                return chooseIngredientFromList(outputSearch);
+            }
+        } else {
+            STDOUT.info("Input min. 3 characters.\n");
+            String newInputSearch = userInput.getUserStringInput("\nInput ingredient name: ").toLowerCase();
+            return findIngredient(newInputSearch);
+
+        }
 
         return "";
     }

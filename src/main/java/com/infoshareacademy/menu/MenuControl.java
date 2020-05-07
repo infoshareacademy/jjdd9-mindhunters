@@ -2,13 +2,21 @@ package com.infoshareacademy.menu;
 
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.DrinksDatabase;
+import com.infoshareacademy.domain.FavouritesDatabase;
 import com.infoshareacademy.service.DrinkService;
+import com.infoshareacademy.service.FavouritesService;
 import com.infoshareacademy.service.SearchService;
 import com.infoshareacademy.service.JsonWriter;
+import com.infoshareacademy.utilities.PropertiesUtilities;
 import com.infoshareacademy.utilities.UserInput;
 import com.infoshareacademy.utilities.Utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Set;
+
+import static com.infoshareacademy.domain.DrinksDatabase.getINSTANCE;
+import static com.infoshareacademy.domain.FavouritesDatabase.getInstFavourites;
 
 public class MenuControl {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
@@ -17,9 +25,11 @@ public class MenuControl {
     private boolean exit = false;
     private final UserInput userInput = new UserInput();
     private final DrinkService drinkService = new DrinkService();
+    private final FavouritesService favouritesService = new FavouritesService();
 
     public void mainNavigation() {
-        drinkService.loadDrinkList();
+        DrinkService.loadDrinkList();
+        favouritesService.loadFavouritesList();
         do {
             DisplayMenu.displayMainMenu();
             switch (userInput.getUserNumericInput()) {
@@ -46,32 +56,41 @@ public class MenuControl {
 
     public void browseNavigation() {
         boolean cont = true;
-
-        DrinkService.loadDrinkList();
         SearchService search = new SearchService();
         do {
             DisplayMenu.displayBrowseMenu();
             switch (userInput.getUserNumericInput()) {
                 case 1:
-                    drinkService.printAllDrinks(DrinksDatabase.getINSTANCE());
+                    drinkService.printAllDrinks(getINSTANCE());
                     userInput.getUserInputAnyKey();
                     break;
                 case 2:
-                    Drink foundDrink = search.searchDrinkByName();
-                    DrinkService.printSingleDrink(foundDrink);
+                    favouritesService.printAllFavourites(FavouritesDatabase.getInstFavourites());
                     userInput.getUserInputAnyKey();
                     break;
                 case 3:
-                    search.searchDrinkByIngredient();
-                    userInput.getUserInputAnyKey();
+                    Drink foundDrinkByName = search.searchDrinkByName();
+                    if (foundDrinkByName.getDrinkId() != null){
+                        DrinkService.printSingleDrink(foundDrinkByName);
+                        userInput.getUserInputAnyKey();
+                    }
                     break;
                 case 4:
-                    STDOUT.info("SEARCH BY CATEGORY");
+                    Drink foundDrinkByIngr = search.searchDrinkByIngredient();
+                    if (foundDrinkByIngr.getDrinkId() != null){
+                        DrinkService.printSingleDrink(foundDrinkByIngr);
+                        userInput.getUserInputAnyKey();
+                    }
+
                     break;
                 case 5:
-                    cont = false;
+                    STDOUT.info("SEARCH BY CATEGORY");
                     break;
                 case 6:
+                    cont = false;
+                    break;
+
+                case 7:
                     DisplayMenu.displayExit();
                     exit = true;
                     break;
@@ -98,17 +117,42 @@ public class MenuControl {
                     update();
                     break;
                 case 4:
+                    //
                     STDOUT.info("ADD TO FAVOURITES");
+                    String temp = "17222";
+                    String temp3 = "17228";
+                    final Set<String> favouritesIds = getInstFavourites().getFavouritesIds();
+
+                    if (!favouritesIds.contains(temp)) {
+                        favouritesIds.add(temp);
+                    }
+                    if (!favouritesIds.contains(temp3)) {
+                        favouritesIds.add(temp3);
+                    }
+                    STDOUT.info("Drink added to favourites.");
+
                     break;
                 case 5:
+                    //
                     STDOUT.info("REMOVE FROM FAVOURITES");
+
+                    String temp2 = "17222";
+                    final Set<String> favourIds = getInstFavourites().getFavouritesIds();
+
+                    if (favourIds.contains(temp2)) {
+                        favourIds.remove(temp2);
+                    }
+                    STDOUT.info("Drink removed from favourites.");
+
                     break;
                 case 6:
-                    JsonWriter.writeJsonToFile(DrinksDatabase.getINSTANCE(), "AllDrinks.json");
+                    JsonWriter.writeAllToJson(getINSTANCE(), "AllDrinksTEST.json");
+                    JsonWriter.writeAllToJson(getInstFavourites(), "Favourites.json");
                     cont = false;
                     break;
                 case 7:
-                    JsonWriter.writeJsonToFile(DrinksDatabase.getINSTANCE(), "AllDrinks.json");
+                    JsonWriter.writeAllToJson(getINSTANCE(), "AllDrinksTEST.json");
+                    JsonWriter.writeAllToJson(getInstFavourites(), "Favourites.json");
                     DisplayMenu.displayExit();
                     exit = true;
                     break;
@@ -186,15 +230,67 @@ public class MenuControl {
                     STDOUT.info("LOAD/CHANGE CONFIGURATION");
                     break;
                 case 2:
-                    STDOUT.info("CHANGE DRINKS SORTING ORDER");
+                    settingsOrderNavigation();
                     break;
                 case 3:
-                    STDOUT.info("SET RECIPE DATA MODIFICATION FORMAT");
+                    settingsDateFormatNavigation();
                     break;
                 case 4:
                     cont = false;
                     break;
                 case 5:
+                    DisplayMenu.displayExit();
+                    exit = true;
+                    break;
+                default:
+                    STDOUT.info(USER_MESSAGE);
+                    Utilities.freezeConsole();
+                    break;
+            }
+        } while (cont && (!exit));
+    }
+
+    public void settingsOrderNavigation() {
+        boolean cont = true;
+        do {
+            DisplayMenu.displaySettingsOrderMenu();
+            switch (userInput.getUserNumericInput()) {
+                case 1:
+                    (new PropertiesUtilities()).setProperties("orderby", "asc");
+                    break;
+                case 2:
+                    (new PropertiesUtilities()).setProperties("orderby", "desc");
+                    break;
+                case 3:
+                    cont = false;
+                    break;
+                case 4:
+                    DisplayMenu.displayExit();
+                    exit = true;
+                    break;
+                default:
+                    STDOUT.info(USER_MESSAGE);
+                    Utilities.freezeConsole();
+                    break;
+            }
+        } while (cont && (!exit));
+    }
+
+    public void settingsDateFormatNavigation() {
+        boolean cont = true;
+        do {
+            DisplayMenu.displaySettingsDateFormatMenu();
+            switch (userInput.getUserNumericInput()) {
+                case 1:
+                    (new PropertiesUtilities()).setProperties("date.format", "YYYY-MM-dd HH:mm");
+                    break;
+                case 2:
+                    (new PropertiesUtilities()).setProperties("date.format", "dd-MM-YYYY HH:mm");
+                    break;
+                case 3:
+                    cont = false;
+                    break;
+                case 4:
                     DisplayMenu.displayExit();
                     exit = true;
                     break;
