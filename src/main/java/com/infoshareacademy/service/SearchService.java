@@ -117,8 +117,8 @@ public class SearchService {
     private boolean containsIngredients(List<String> ingredients, Drink drink) {
 
         return drink.getIngredientsNamesList().stream()
-                //.map(String::toLowerCase)
-                //.map(word -> word.replaceAll(" ", ""))
+                .map(String::toLowerCase)
+                .map(word -> word.replaceAll(" ", ""))
                 .collect(Collectors.toList())
                 .containsAll(ingredients);
     }

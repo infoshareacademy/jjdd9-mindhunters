@@ -13,7 +13,7 @@ public class SearchServiceTest  {
     public void testGetDrinks() {
         //given
         Ingredient ingredient = new Ingredient();
-        String ingredientName = "TestName";
+        String ingredientName = "testname";
         ingredient.setName(ingredientName);
 
         Drink drink = new Drink();
