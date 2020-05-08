@@ -73,6 +73,18 @@ public class DrinkService {
     public static void printSingleDrink(Drink drink) {
         String alcoContColour;
         if (drink.getAlcoholStatus().equals("Alcoholic")) {
+            AgeVerification ageVerification = new AgeVerification();
+            if (!ageVerification.isAdultSessionActive()) {
+                STDOUT.info("\nAre You 18yo? Y/N: ");
+                Scanner scan = new Scanner(System.in);
+                String choice = scan.nextLine();
+                if (choice.equalsIgnoreCase("Y")) {
+                    ageVerification.saveAdultSessionTimestamp();
+                } else {
+                    return;
+                }
+            }
+
             alcoContColour = ANSI_RED;
         } else {
             alcoContColour = ANSI_RESET;
