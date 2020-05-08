@@ -21,6 +21,7 @@ public class SearchService {
     private final UserInput userInput = new UserInput();
     List<Drink> database = DrinksDatabase.getINSTANCE().getDrinks();
     List<String> allIngredients = getAllIngredient(database);
+    List<String> allCategories = getAllCategories(database);
     PropertiesUtilities propertiesUtilities = new PropertiesUtilities();
     String orderby = propertiesUtilities.getProperty("orderby");
 
@@ -157,15 +158,15 @@ public class SearchService {
     private Drink chooseDrinkFromList(List<Drink> outputSearch) {
         Drink foundDrink = new Drink();
 
-        Stream<Drink> sortedStream = outputSearch.stream();
+        Stream<Drink> drinkStream = outputSearch.stream();
         List<Drink> sortedList = null;
         switch (orderby) {
             case "asc":
-                sortedList = sortedStream.sorted(Comparator.comparing(Drink::getDrinkName)).collect(Collectors.toList());
+                sortedList = drinkStream.sorted(Comparator.comparing(Drink::getDrinkName)).collect(Collectors.toList());
                 printFoundDrinkList(Collections.unmodifiableList(sortedList));
                 break;
             case "desc":
-                sortedList = sortedStream.sorted(Comparator.comparing(Drink::getDrinkName).reversed()).collect(Collectors.toList());
+                sortedList = drinkStream.sorted(Comparator.comparing(Drink::getDrinkName).reversed()).collect(Collectors.toList());
                 printFoundDrinkList(Collections.unmodifiableList(sortedList));
                 break;
         }
@@ -249,6 +250,51 @@ public class SearchService {
             if (ingredientNumber >= 1 && ingredientNumber <= outputSearch.size()) {
                 return outputSearch.get(ingredientNumber - 1);
             } else STDOUT.info("\nInput correct number of desired ingredient. ");
+        } while (true);
+    }
+
+    protected List<String> getAllCategories(List<Drink> drinkList) {
+
+        return drinkList.stream()
+                .map(drink -> drink.getCategoryName())
+                .distinct()
+                .sorted()
+                .collect(Collectors.toList());
+    }
+
+    public void SearchByCategory(){
+
+
+        Stream<String> categoryStream = allCategories.stream();
+        List<String> sortedList = null;
+        switch (orderby) {
+            case "asc":
+                sortedList = categoryStream.sorted(Comparator.naturalOrder()).collect(Collectors.toList());
+                printFoundCategoryList(sortedList);
+                break;
+            case "desc":
+                sortedList = categoryStream.sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+                printFoundCategoryList(sortedList);
+                break;
+        }
+        chooseCategoryFromList(sortedList);
+    }
+
+    private void printFoundCategoryList(List<String> categoryList) {
+        int count = 1;
+        for (String category : categoryList) {
+            STDOUT.info("\n[{}] {}", count, category);
+            count++;
+        }
+    }
+
+    private String chooseCategoryFromList(List<String> categories) {
+        STDOUT.info("\nWhich category would you like to choose?\n ");
+        do {
+            int categoryNumber = userInput.getUserNumericInput();
+            if (categoryNumber >= 1 && categoryNumber <= categories.size()) {
+                return categories.get(categoryNumber - 1);
+            } else STDOUT.info("\nInput correct number of desired category. ");
         } while (true);
     }
 

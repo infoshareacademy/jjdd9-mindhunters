@@ -79,6 +79,7 @@ public class MenuControl {
                     break;
                 case 5:
                     STDOUT.info("SEARCH BY CATEGORY");
+                    search.SearchByCategory();
                     break;
                 case 6:
                     cont = false;
