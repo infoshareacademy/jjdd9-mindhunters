@@ -23,4 +23,10 @@ public class Utilities {
         STDOUT.info("\033[H\033[2J");
         STDOUT.info("\n" + MenuPath.getPath()+"\n");
     }
+
+    public static void clearScreenNoPath() {
+        STDOUT.info("\033[H\033[2J");
+    }
+
+
 }
