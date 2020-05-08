@@ -71,8 +71,8 @@ public class MenuControl {
                     Drink foundDrinkByName = search.searchDrinkByName();
                     if (foundDrinkByName.getDrinkId() != null) {
                         DrinkService.printSingleDrink(foundDrinkByName);
-                        if (userInput.getYesOrNo("Do you want to add this drink to favourites? Press [y/n] to " +
-                                "continue.")) {
+                        String input = userInput.getUserStringInput("Do you want to add this drink to favourites? [y/n]: ");
+                        if (userInput.getYesOrNo(input)) {
                             addToFavourites(foundDrinkByName.getDrinkId());
                         }
                         userInput.getUserInputAnyKey();
@@ -82,8 +82,8 @@ public class MenuControl {
                     Drink foundDrinkByIngr = search.searchDrinkByIngredient();
                     if (foundDrinkByIngr.getDrinkId() != null) {
                         DrinkService.printSingleDrink(foundDrinkByIngr);
-                        if (userInput.getYesOrNo("Do you want to add this drink to favourites? Press [y/n] to " +
-                                "continue.")) {
+                        String input = userInput.getUserStringInput("Do you want to add this drink to favourites? [y/n]: ");
+                        if (userInput.getYesOrNo(input)) {
                             addToFavourites(foundDrinkByIngr.getDrinkId());
                         }
                         userInput.getUserInputAnyKey();
@@ -125,16 +125,17 @@ public class MenuControl {
                     break;
                 case 4:
                     //
-                    STDOUT.info("ADD TO FAVOURITES");
-                    String id = "17222";
+                    String id = userInput.getUserStringInput("Type drink id to add to favourites: ");
+
                     addToFavourites(id);
                     userInput.getUserInputAnyKey();
                     break;
                 case 5:
                     //
-                    STDOUT.info("REMOVE FROM FAVOURITES");
-                    String id2 = "17222";
+
+                    String id2 = userInput.getUserStringInput("Type drink id to remove from favourites: ");
                     removeFromFavourites(id2);
+                    userInput.getUserInputAnyKey();
                     break;
                 case 6:
                     JsonWriter.writeAllToJson(getINSTANCE(), "AllDrinksTEST.json");
