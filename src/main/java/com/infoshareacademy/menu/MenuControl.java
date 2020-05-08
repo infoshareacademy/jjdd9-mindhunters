@@ -1,12 +1,11 @@
 package com.infoshareacademy.menu;
 
 import com.infoshareacademy.domain.Drink;
-import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.domain.FavouritesDatabase;
 import com.infoshareacademy.service.DrinkService;
 import com.infoshareacademy.service.FavouritesService;
-import com.infoshareacademy.service.SearchService;
 import com.infoshareacademy.service.JsonWriter;
+import com.infoshareacademy.service.SearchService;
 import com.infoshareacademy.utilities.PropertiesUtilities;
 import com.infoshareacademy.utilities.UserInput;
 import com.infoshareacademy.utilities.Utilities;
@@ -70,27 +69,35 @@ public class MenuControl {
                     break;
                 case 3:
                     Drink foundDrinkByName = search.searchDrinkByName();
-                    if (foundDrinkByName.getDrinkId() != null){
+                    if (foundDrinkByName.getDrinkId() != null) {
                         DrinkService.printSingleDrink(foundDrinkByName);
+                        if (userInput.getYesOrNo("Do you want to add this drink to favourites? Press [y/n] to " +
+                                "continue.")) {
+                            addToFavourites(foundDrinkByName.getDrinkId());
+                        }
                         userInput.getUserInputAnyKey();
                     }
                     break;
                 case 4:
                     Drink foundDrinkByIngr = search.searchDrinkByIngredient();
-                    if (foundDrinkByIngr.getDrinkId() != null){
+                    if (foundDrinkByIngr.getDrinkId() != null) {
                         DrinkService.printSingleDrink(foundDrinkByIngr);
+                        if (userInput.getYesOrNo("Do you want to add this drink to favourites? Press [y/n] to " +
+                                "continue.")) {
+                            addToFavourites(foundDrinkByIngr.getDrinkId());
+                        }
                         userInput.getUserInputAnyKey();
                     }
-
                     break;
                 case 5:
                     STDOUT.info("SEARCH BY CATEGORY");
                     break;
                 case 6:
+                    JsonWriter.writeAllToJson(getInstFavourites(), "Favourites.json");
                     cont = false;
                     break;
-
                 case 7:
+                    JsonWriter.writeAllToJson(getInstFavourites(), "Favourites.json");
                     DisplayMenu.displayExit();
                     exit = true;
                     break;
@@ -119,31 +126,15 @@ public class MenuControl {
                 case 4:
                     //
                     STDOUT.info("ADD TO FAVOURITES");
-                    String temp = "17222";
-                    String temp3 = "17228";
-                    final Set<String> favouritesIds = getInstFavourites().getFavouritesIds();
-
-                    if (!favouritesIds.contains(temp)) {
-                        favouritesIds.add(temp);
-                    }
-                    if (!favouritesIds.contains(temp3)) {
-                        favouritesIds.add(temp3);
-                    }
-                    STDOUT.info("Drink added to favourites.");
-
+                    String id = "17222";
+                    addToFavourites(id);
+                    userInput.getUserInputAnyKey();
                     break;
                 case 5:
                     //
                     STDOUT.info("REMOVE FROM FAVOURITES");
-
-                    String temp2 = "17222";
-                    final Set<String> favourIds = getInstFavourites().getFavouritesIds();
-
-                    if (favourIds.contains(temp2)) {
-                        favourIds.remove(temp2);
-                    }
-                    STDOUT.info("Drink removed from favourites.");
-
+                    String id2 = "17222";
+                    removeFromFavourites(id2);
                     break;
                 case 6:
                     JsonWriter.writeAllToJson(getINSTANCE(), "AllDrinksTEST.json");
@@ -162,6 +153,22 @@ public class MenuControl {
                     break;
             }
         } while (cont && (!exit));
+    }
+
+    private void removeFromFavourites(String id) {
+        final Set<String> favourIds = getInstFavourites().getFavouritesIds();
+        if (favourIds.contains(id)) {
+            favourIds.remove(id);
+        }
+        STDOUT.info("Drink removed from favourites.");
+    }
+
+    private void addToFavourites(String id) {
+        final Set<String> favouritesIds = getInstFavourites().getFavouritesIds();
+        if (!favouritesIds.contains(id)) {
+            favouritesIds.add(id);
+        }
+        STDOUT.info("Drink added to favourites.");
     }
 
     private void update() {

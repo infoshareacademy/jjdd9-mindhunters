@@ -31,14 +31,7 @@ public class FavouritesService {
 
     public void printAllFavourites(FavouritesDatabase database) {
 
-        List<Drink> allDrinks = DrinksDatabase.getINSTANCE().getDrinks();
-        List<Drink> favourDrinks = new ArrayList<>();
-        for (Drink drink : allDrinks) {
-            String drinkId = drink.getDrinkId();
-            if (database.getFavouritesIds().contains(drinkId)) {
-                favourDrinks.add(drink);
-            }
-        }
+        List<Drink> favourDrinks = getFavourDrinkList(database);
         if (favourDrinks.isEmpty()) {
             STDOUT.info("\nFavourites list empty.\n");
 
@@ -61,6 +54,18 @@ public class FavouritesService {
             });
         }
 
+    }
+
+    private List<Drink> getFavourDrinkList(FavouritesDatabase database) {
+        List<Drink> allDrinks = DrinksDatabase.getINSTANCE().getDrinks();
+        List<Drink> favourDrinks = new ArrayList<>();
+        for (Drink drink : allDrinks) {
+            String drinkId = drink.getDrinkId();
+            if (database.getFavouritesIds().contains(drinkId)) {
+                favourDrinks.add(drink);
+            }
+        }
+        return favourDrinks;
     }
 
 }
