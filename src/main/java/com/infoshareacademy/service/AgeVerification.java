@@ -12,7 +12,16 @@ public class AgeVerification {
     }
 
     public boolean isAdultSessionActive() {
-        return false;
+        PropertiesUtilities propertiesUtilities = new PropertiesUtilities();
+        String minutesString = propertiesUtilities.getProperty("adult.session.minutes");
+        Long minutes = Long.parseLong(minutesString);
+        String timestampString = propertiesUtilities.getProperty("adult.session.timestamp");
+        if(timestampString == null){
+            return false;
+        }
+        LocalDateTime timestamp = LocalDateTime.parse(timestampString);
+        LocalDateTime endOfAdultSession = timestamp.plusMinutes(minutes);
+        LocalDateTime now = LocalDateTime.now();
+        return endOfAdultSession.isAfter(now);
     }
 }
-
