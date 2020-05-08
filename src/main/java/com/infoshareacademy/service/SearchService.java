@@ -3,13 +3,17 @@ package com.infoshareacademy.service;
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.domain.Ingredient;
+import com.infoshareacademy.utilities.PropertiesUtilities;
 import com.infoshareacademy.utilities.UserInput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SearchService {
 
@@ -17,6 +21,8 @@ public class SearchService {
     private final UserInput userInput = new UserInput();
     List<Drink> database = DrinksDatabase.getINSTANCE().getDrinks();
     List<String> allIngredients = getAllIngredient(database);
+    PropertiesUtilities propertiesUtilities = new PropertiesUtilities();
+    String orderby = propertiesUtilities.getProperty("orderby");
 
     public SearchService() {
     }
@@ -39,11 +45,10 @@ public class SearchService {
                     }
                 }
                 if (outputSearch.size() > 0) {
-                    printFoundDrinkList(outputSearch);
                     STDOUT.info("\n");
                     foundDrink = chooseDrinkFromList(outputSearch);
                     isFound = true;
-                } else if (outputSearch.isEmpty()) {
+                } else  {
                     STDOUT.info("No matching result found.\n");
                     break;
                 }
@@ -52,13 +57,19 @@ public class SearchService {
             }
         } while (!isFound);
 
-        boolean isCorrect = false;
-        while (!isCorrect && !isFound) {
+        if (!isFound) {
+            foundDrink = repeatSearchDrinkByName();
+        }
+        return foundDrink;
+    }
+
+    private Drink repeatSearchDrinkByName() {
+        Drink foundDrink = new Drink();
+        while (true) {
             String input = userInput.getUserStringInput("\nDo you want to repeat the search? <y/n>: ");
             if (input.equalsIgnoreCase("y")) {
                 clearScreen();
-                searchDrinkByName();
-                isCorrect = true;
+                return searchDrinkByName();
             } else if (!input.equalsIgnoreCase("n")) {
                 STDOUT.info("Wrong input.\n");
             } else break;
@@ -73,32 +84,30 @@ public class SearchService {
 
         addIngredientToList(foundIngredients);
 
-        addNextIngridientsToList(foundIngredients);
+        addNextIngredientsToList(foundIngredients);
 
-        List<String> ingredientsChosenByUser = normalizeIngridientsList(foundIngredients);
-        STDOUT.info(ingredientsChosenByUser.toString());
+        List<String> ingredientsChosenByUser = normalizeIngredientsList(foundIngredients);
         List<Drink> OutputSearch = getDrinks(database, ingredientsChosenByUser);
 
-        if (OutputSearch.isEmpty()) {
+        if (OutputSearch.isEmpty() || ingredientsChosenByUser.isEmpty()) {
             STDOUT.info("No matching drink name found.\n");
         } else {
-            printFoundDrinkList(OutputSearch);
             foundDrink = chooseDrinkFromList(OutputSearch);
         }
         return foundDrink;
     }
 
-    private List<String> normalizeIngridientsList(List<String> foundIngredients) {
+    private List<String> normalizeIngredientsList(List<String> foundIngredients) {
         return foundIngredients.stream()
-                    .filter(s -> !s.isBlank())
-                    .distinct()
-                    .map(String::toLowerCase)
-                    .map(String::trim)
-                    .map(word -> word.replaceAll(" ", ""))
-                    .collect(Collectors.toList());
+                .filter(s -> !s.isBlank())
+                .distinct()
+                .map(String::toLowerCase)
+                .map(String::trim)
+                .map(word -> word.replaceAll(" ", ""))
+                .collect(Collectors.toList());
     }
 
-    private void addNextIngridientsToList(List<String> foundIngredients) {
+    private void addNextIngredientsToList(List<String> foundIngredients) {
         boolean isCorrect = false;
         while (!isCorrect) {
             String input = userInput.getUserStringInput("Do you want to add next ingredient to search? <y/n>: ");
@@ -112,9 +121,9 @@ public class SearchService {
     }
 
     private void addIngredientToList(List<String> foundIngredients) {
-        String ingredientName = userInput.getUserStringInput("\nInput ingredient name: ");
+        String inputIngredientName = userInput.getUserStringInput("\nInput ingredient name: ");
 
-        String search = findIngredient(ingredientName);
+        String search = findIngredient(inputIngredientName);
         if (!search.isBlank()) {
             foundIngredients.add(search);
         }
@@ -135,8 +144,39 @@ public class SearchService {
                 .containsAll(ingredients);
     }
 
+    private Drink chooseDrinkFromList(List<Drink> outputSearch) {
+        Drink foundDrink = new Drink();
+
+        Stream<Drink> sortedStream = outputSearch.stream();
+        List<Drink> sortedList = null;
+        switch (orderby) {
+            case "asc":
+                sortedList = sortedStream.sorted(Comparator.comparing(Drink::getDrinkName)).collect(Collectors.toList());
+                printFoundDrinkList(Collections.unmodifiableList(sortedList));
+                break;
+            case "desc":
+                sortedList = sortedStream.sorted(Comparator.comparing(Drink::getDrinkName).reversed()).collect(Collectors.toList());
+                printFoundDrinkList(Collections.unmodifiableList(sortedList));
+                break;
+        }
+
+        boolean isCorrectNumber = false;
+        STDOUT.info("\nWhich recipe would you like to display? ");
+        do {
+            int recipeNumber = userInput.getUserNumericInput();
+            if (recipeNumber >= 1 && recipeNumber <= outputSearch.size()) {
+                if (sortedList != null) {
+                    foundDrink = sortedList.get(recipeNumber - 1);
+                }
+                isCorrectNumber = true;
+            } else STDOUT.info("\nInput correct number of desired recipe. ");
+        } while (!isCorrectNumber);
+        return foundDrink;
+    }
+
     private void printFoundDrinkList(List<Drink> drinkList) {
         int count = 1;
+
         for (Drink drink : drinkList) {
             STDOUT.info("\n[{}] {}\n *ID: {}, *Category: {}, {};", count, drink.getDrinkName().toUpperCase(),
                     drink.getDrinkId(), drink.getCategoryName(), drink.getAlcoholStatus());
@@ -146,24 +186,9 @@ public class SearchService {
         }
     }
 
-    private Drink chooseDrinkFromList(List<Drink> outputSearch) {
-        Drink foundDrink = new Drink();
-        boolean isCorrect = false;
-        STDOUT.info("\nWhich recipe would you like to display? ");
-        do {
-            int recipeNumber = userInput.getUserNumericInput();
-            if (recipeNumber >= 1 && recipeNumber <= outputSearch.size()) {
-                //DrinkService.printSingleDrink(outputSearch.get(recipeNumber - 1));
-                foundDrink = outputSearch.get(recipeNumber-1);
-                isCorrect = true;
-            } else STDOUT.info("\nInput correct number of desired recipe. ");
-        } while (!isCorrect);
-        return foundDrink ;
-    }
+    protected List<String> getAllIngredient(List<Drink> drinkList) {
 
-    public List<String> getAllIngredient(List<Drink> drinkList) {
-
-        List<String> ingredients = drinkList.stream()
+        return drinkList.stream()
                 .flatMap(a -> a.getIngredients().stream())
                 .map(Ingredient::getName)
                 .map(String::toString)
@@ -171,7 +196,6 @@ public class SearchService {
                 .distinct()
                 .collect(Collectors.toList());
 
-        return ingredients;
     }
 
     private String findIngredient(String inputSearch) {
@@ -180,25 +204,24 @@ public class SearchService {
         List<String> outputSearch = new ArrayList<>();
 
 
-            if (inputSearch.length() > 2) {
-                for (String ingredient : allIngredients) {
-                    if (ingredient.toLowerCase().contains(inputSearch.toLowerCase()) && !(inputSearch.length() == 0)) {
-                        outputSearch.add(ingredient);
-                    }
+        if (inputSearch.length() > 2) {
+            for (String ingredient : allIngredients) {
+                if (ingredient.toLowerCase().contains(inputSearch.toLowerCase())) {
+                    outputSearch.add(ingredient);
                 }
-                if (outputSearch.isEmpty()) {
-                    STDOUT.info("No matching ingredient found.\n");
-                } else {
-                    printFoundIngredientList(outputSearch);
-                    STDOUT.info("\n");
-                    return chooseIngredientFromList(outputSearch);
-                }
-            } else {
-                STDOUT.info("Input min. 3 characters.\n");
-                String newInputSearch = userInput.getUserStringInput("\nInput ingredient name: ").toLowerCase();
-                return findIngredient(newInputSearch);
-
             }
+            if (outputSearch.isEmpty()) {
+                STDOUT.info("No matching ingredient found.\n");
+            } else {
+                printFoundIngredientList(outputSearch);
+                STDOUT.info("\n");
+                return chooseIngredientFromList(outputSearch);
+            }
+        } else {
+            STDOUT.info("Input min. 3 characters.\n");
+            String newInputSearch = userInput.getUserStringInput("\nInput ingredient name: ").toLowerCase();
+            return findIngredient(newInputSearch);
+        }
 
         return "";
     }
@@ -224,9 +247,6 @@ public class SearchService {
     private static void clearScreen() {
         STDOUT.info("\033[H\033[2J");
     }
-
-    //TODO wyswietlanie wszystkich drinków przy szukaniu błednego ingredients, kasowanie poprzedniego ingredients przy złym
-    // wyniku wyszukiwania - screen
 
 }
 

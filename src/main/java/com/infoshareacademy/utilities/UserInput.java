@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Scanner;
 
+import static com.infoshareacademy.utilities.Utilities.clearScreen;
+
 public class UserInput {
 
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
@@ -35,12 +37,18 @@ public class UserInput {
         scanner.nextLine();
     }
 
-    public boolean getYesOrNo(String input) {
-        for (ChoiceYesNo choice : ChoiceYesNo.values()) {
-            if (choice.toString().equalsIgnoreCase(input)) {
-                return choice.getValue();
+    public boolean getYesOrNo(String choiceMessage) {
+        STDOUT.info(choiceMessage);
+        String input = scanner.nextLine();
+        while (true) {
+            for (ChoiceYesNo choice : ChoiceYesNo.values()) {
+                if (choice.toString().equalsIgnoreCase(input)) {
+                    clearScreen();
+                    return choice.getValue();
+                }
             }
+
+            input = getUserStringInput("Unrecognised input. Try again: ");
         }
-        return false;
     }
 }

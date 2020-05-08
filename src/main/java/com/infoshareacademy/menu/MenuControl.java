@@ -71,22 +71,20 @@ public class MenuControl {
                     Drink foundDrinkByName = search.searchDrinkByName();
                     if (foundDrinkByName.getDrinkId() != null) {
                         DrinkService.printSingleDrink(foundDrinkByName);
-                        String input = userInput.getUserStringInput("Do you want to add this drink to favourites? [y/n]: ");
-                        if (userInput.getYesOrNo(input)) {
+                        if (userInput.getYesOrNo("Do you want to add this drink to favourites? <y/n>: ")){
                             addToFavourites(foundDrinkByName.getDrinkId());
+                            userInput.getUserInputAnyKey();
                         }
-                        userInput.getUserInputAnyKey();
                     }
                     break;
                 case 4:
                     Drink foundDrinkByIngr = search.searchDrinkByIngredient();
                     if (foundDrinkByIngr.getDrinkId() != null) {
                         DrinkService.printSingleDrink(foundDrinkByIngr);
-                        String input = userInput.getUserStringInput("Do you want to add this drink to favourites? [y/n]: ");
-                        if (userInput.getYesOrNo(input)) {
+                        if (userInput.getYesOrNo("Do you want to add this drink to favourites? <y/n>: ")){
                             addToFavourites(foundDrinkByIngr.getDrinkId());
+                            userInput.getUserInputAnyKey();
                         }
-                        userInput.getUserInputAnyKey();
                     }
                     break;
                 case 5:
@@ -166,9 +164,7 @@ public class MenuControl {
 
     private void addToFavourites(String id) {
         final Set<String> favouritesIds = getInstFavourites().getFavouritesIds();
-        if (!favouritesIds.contains(id)) {
-            favouritesIds.add(id);
-        }
+        favouritesIds.add(id);
         STDOUT.info("Drink added to favourites.");
     }
 
@@ -185,10 +181,8 @@ public class MenuControl {
                 checkId = true;
             } else {
                 Utilities.clearScreen();
-                String input = userInput.getUserStringInput("Drink ID not found. Press [Y] to try again: ");
-
-                if (!userInput.getYesOrNo(input)) {
-                    Utilities.clearScreen();
+                STDOUT.info("Drink ID not found. ");
+                if (!userInput.getYesOrNo("Do you want to try again? <y/n>")) {
                     STDOUT.info("Drink edit unsuccessful - drink not found. Press any key to continue: ");
                     userInput.getUserInputAnyKey();
                     checkId = true;
@@ -210,10 +204,8 @@ public class MenuControl {
                 checkId = true;
             } else {
                 Utilities.clearScreen();
-                String input = userInput.getUserStringInput("Drink ID not found. Press [Y] try again: ");
-
-                if (!userInput.getYesOrNo(input)) {
-                    Utilities.clearScreen();
+                STDOUT.info("Drink ID not found. ");
+                if (!userInput.getYesOrNo("Do you want to try again? <y/n>")) {
                     STDOUT.info("Drink removal unsuccessful - drink not found. Press any key to continue: ");
                     userInput.getUserInputAnyKey();
                     checkId = true;

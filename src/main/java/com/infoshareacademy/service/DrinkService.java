@@ -244,8 +244,7 @@ public class DrinkService {
             ingredients.add(new Ingredient(name, measure));
             STDOUT.info("\n");
             counter++;
-            choice = userInput.getUserStringInput("Do you want to add another ingredient [max 15], press [Y] / [N]: ");
-        } while (userInput.getYesOrNo(choice) && (ingredients.size() <= maxCapacity));
+        } while (userInput.getYesOrNo("Do you want to add another ingredient [max 15], <y/n>?") && (ingredients.size() <= maxCapacity));
         return ingredients;
     }
 
