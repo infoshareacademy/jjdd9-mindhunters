@@ -5,17 +5,19 @@ import com.infoshareacademy.utilities.PropertiesUtilities;
 import java.time.LocalDateTime;
 
 public class AgeVerification {
+    private static final String SESSION_LENGTH_KEY = "adult.session.minutes";
+    private static final String TIMESTAMP_KEY = "adult.session.timestamp";
+    private PropertiesUtilities propertiesUtilities = new PropertiesUtilities();
+
     public void saveAdultSessionTimestamp() {
         LocalDateTime now = LocalDateTime.now();
-        PropertiesUtilities propertiesUtilities = new PropertiesUtilities();
-        propertiesUtilities.setProperties("adult.session.timestamp", now.toString());
+        this.propertiesUtilities.setProperties(TIMESTAMP_KEY, now.toString());
     }
 
     public boolean isAdultSessionActive() {
-        PropertiesUtilities propertiesUtilities = new PropertiesUtilities();
-        String minutesString = propertiesUtilities.getProperty("adult.session.minutes");
+        String minutesString = this.propertiesUtilities.getProperty(SESSION_LENGTH_KEY);
         Long minutes = Long.parseLong(minutesString);
-        String timestampString = propertiesUtilities.getProperty("adult.session.timestamp");
+        String timestampString = this.propertiesUtilities.getProperty(TIMESTAMP_KEY);
         if(timestampString == null){
             return false;
         }
