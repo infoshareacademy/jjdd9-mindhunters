@@ -22,7 +22,7 @@ public class SearchServiceTest  {
         SearchService service = new SearchService();
 
         //when
-        List<Drink> result = service.getDrinks(drinks, List.of(ingredientName));
+        List<Drink> result = service.getDrinkList(drinks, List.of(ingredientName));
         //then
         Assertions.assertThat(result).containsExactly(drink);
 

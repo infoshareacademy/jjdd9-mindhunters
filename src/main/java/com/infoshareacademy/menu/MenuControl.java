@@ -63,14 +63,16 @@ public class MenuControl {
                 case 3:
                     Drink foundDrinkByName = search.searchDrinkByName();
                     if (foundDrinkByName.getDrinkId() != null) {
+                        Utilities.clearScreen();
                         DrinkService.printSingleDrink(foundDrinkByName);
                         userInput.getUserInputAnyKey();
                     }
                     break;
                 case 4:
-                    Drink foundDrinkByIngr = search.searchDrinkByIngredient();
-                    if (foundDrinkByIngr.getDrinkId() != null) {
-                        DrinkService.printSingleDrink(foundDrinkByIngr);
+                    Drink foundDrinkByIngredient = search.searchDrinkByIngredient();
+                    if (foundDrinkByIngredient.getDrinkId() != null) {
+                        Utilities.clearScreen();
+                        DrinkService.printSingleDrink(foundDrinkByIngredient);
                         userInput.getUserInputAnyKey();
                     }
 
