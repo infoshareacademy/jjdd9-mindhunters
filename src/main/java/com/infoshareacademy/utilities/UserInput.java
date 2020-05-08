@@ -47,7 +47,6 @@ public class UserInput {
                     return choice.getValue();
                 }
             }
-
             input = getUserStringInput("Unrecognised input. Try again: ");
         }
     }

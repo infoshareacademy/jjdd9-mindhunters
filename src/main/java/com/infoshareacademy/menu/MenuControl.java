@@ -12,7 +12,7 @@ import com.infoshareacademy.utilities.Utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Set;
+import java.util.List;
 
 import static com.infoshareacademy.domain.DrinksDatabase.getINSTANCE;
 import static com.infoshareacademy.domain.FavouritesDatabase.getInstFavourites;
@@ -64,15 +64,19 @@ public class MenuControl {
                     userInput.getUserInputAnyKey();
                     break;
                 case 2:
-                    favouritesService.printAllFavourites(FavouritesDatabase.getInstFavourites());
-                    userInput.getUserInputAnyKey();
+                    List<Drink> sortedList = favouritesService.getAllFavourites(FavouritesDatabase.getInstFavourites());
+                    Drink favDrink= favouritesService.chooseOneFavRecipeFromList(sortedList);
+                    if (favDrink.getDrinkId() != null) {
+                        DrinkService.printSingleDrink(favDrink);
+                        userInput.getUserInputAnyKey();
+                    }
                     break;
                 case 3:
                     Drink foundDrinkByName = search.searchDrinkByName();
                     if (foundDrinkByName.getDrinkId() != null) {
                         DrinkService.printSingleDrink(foundDrinkByName);
-                        if (userInput.getYesOrNo("Do you want to add this drink to favourites? <y/n>: ")){
-                            addToFavourites(foundDrinkByName.getDrinkId());
+                        if (userInput.getYesOrNo("\n\nDo you want to add this drink to favourites? <y/n>: ")) {
+                            favouritesService.addToFavourites(foundDrinkByName.getDrinkId());
                             userInput.getUserInputAnyKey();
                         }
                     }
@@ -81,8 +85,8 @@ public class MenuControl {
                     Drink foundDrinkByIngr = search.searchDrinkByIngredient();
                     if (foundDrinkByIngr.getDrinkId() != null) {
                         DrinkService.printSingleDrink(foundDrinkByIngr);
-                        if (userInput.getYesOrNo("Do you want to add this drink to favourites? <y/n>: ")){
-                            addToFavourites(foundDrinkByIngr.getDrinkId());
+                        if (userInput.getYesOrNo("\n\nDo you want to add this drink to favourites? <y/n>: ")) {
+                            favouritesService.addToFavourites(foundDrinkByIngr.getDrinkId());
                             userInput.getUserInputAnyKey();
                         }
                     }
@@ -122,17 +126,13 @@ public class MenuControl {
                     update();
                     break;
                 case 4:
-                    //
                     String id = userInput.getUserStringInput("Type drink id to add to favourites: ");
-
-                    addToFavourites(id);
+                    favouritesService.addToFavourites(id);
                     userInput.getUserInputAnyKey();
                     break;
                 case 5:
-                    //
-
                     String id2 = userInput.getUserStringInput("Type drink id to remove from favourites: ");
-                    removeFromFavourites(id2);
+                    favouritesService.removeFromFavourites(id2);
                     userInput.getUserInputAnyKey();
                     break;
                 case 6:
@@ -154,26 +154,12 @@ public class MenuControl {
         } while (cont && (!exit));
     }
 
-    private void removeFromFavourites(String id) {
-        final Set<String> favourIds = getInstFavourites().getFavouritesIds();
-        if (favourIds.contains(id)) {
-            favourIds.remove(id);
-        }
-        STDOUT.info("Drink removed from favourites.");
-    }
-
-    private void addToFavourites(String id) {
-        final Set<String> favouritesIds = getInstFavourites().getFavouritesIds();
-        favouritesIds.add(id);
-        STDOUT.info("Drink added to favourites.");
-    }
 
     private void update() {
         boolean checkId = false;
         while (!checkId) {
             Utilities.clearScreen();
             String drinkIdToEdit = userInput.getUserStringInput("Please type drink id to be edited: ");
-
             if (drinkService.editDrink(drinkIdToEdit)) {
                 Utilities.clearScreen();
                 STDOUT.info("Drink update complete. Press any key to continue: ");
@@ -227,18 +213,15 @@ public class MenuControl {
             DisplayMenu.displaySettingsMenu();
             switch (userInput.getUserNumericInput()) {
                 case 1:
-                    STDOUT.info("LOAD/CHANGE CONFIGURATION");
-                    break;
-                case 2:
                     settingsOrderNavigation();
                     break;
-                case 3:
+                case 2:
                     settingsDateFormatNavigation();
                     break;
-                case 4:
+                case 3:
                     cont = false;
                     break;
-                case 5:
+                case 4:
                     DisplayMenu.displayExit();
                     exit = true;
                     break;
