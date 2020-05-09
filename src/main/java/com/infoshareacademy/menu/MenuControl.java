@@ -73,12 +73,14 @@ public class MenuControl {
             switch (userInput.getUserNumericInput()) {
                 case 1:
                     MenuPath.add("ALL_DRINKS");
+                    Utilities.clearScreen();
                     drinkService.printAllDrinks(getINSTANCE());
                     userInput.getUserInputAnyKey();
                     MenuPath.remove();
                     break;
                 case 2:
-                    MenuPath.add("SEARCH_BY_NAME");
+                    MenuPath.add("FAVORITES_DRINKS");
+                    Utilities.clearScreen();
                     List<Drink> sortedList = favouritesService.getAllFavourites(FavouritesDatabase.getInstFavourites());
                     Drink favDrink= favouritesService.chooseOneFavRecipeFromList(sortedList);
                     if (favDrink.getDrinkId() != null) {
@@ -89,6 +91,7 @@ public class MenuControl {
                     break;
                 case 3:
                     MenuPath.add("SEARCH_BY_DRINK");
+                    Utilities.clearScreen();
                     Drink foundDrinkByName = search.searchDrinkByName();
                     if (foundDrinkByName.getDrinkId() != null) {
                         Utilities.clearScreen();
@@ -102,6 +105,7 @@ public class MenuControl {
                     break;
                 case 4:
                     MenuPath.add("SEARCH_BY_INGREDIENT");
+                    Utilities.clearScreen();
                     Drink foundDrinkByIngredient = search.searchDrinkByIngredient();
                     if (foundDrinkByIngredient.getDrinkId() != null) {
                         Utilities.clearScreen();
@@ -127,6 +131,7 @@ public class MenuControl {
                 case 6:
                     JsonWriter.writeAllToJson(getInstFavourites(), "Favourites.json");
                     cont = false;
+                    MenuPath.remove();
                     break;
                 case 7:
                     JsonWriter.writeAllToJson(getInstFavourites(), "Favourites.json");
@@ -223,7 +228,7 @@ public class MenuControl {
         boolean checkId = false;
         while (!checkId) {
             Utilities.clearScreen();
-            String drinkIdToDelete = userInput.getUserStringInput("Please type drink id to be removed: ");
+            String drinkIdToDelete = userInput.getUserStringInput("\nPlease type drink id to be removed: ");
 
             if (drinkService.removeDrink(drinkIdToDelete)) {
                 Utilities.clearScreen();

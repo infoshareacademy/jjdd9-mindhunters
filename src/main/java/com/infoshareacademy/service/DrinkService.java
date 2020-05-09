@@ -43,7 +43,6 @@ public class DrinkService {
     }
 
     public void printAllDrinks(DrinksDatabase database) {
-        STDOUT.info("\n" + MenuPath.getPath()+"\n");
         PropertiesUtilities propertiesUtilities = new PropertiesUtilities();
         String orderby = propertiesUtilities.getProperty("orderby");
         Stream<Drink> sorted = database.getDrinks().stream();
@@ -68,7 +67,7 @@ public class DrinkService {
 
 
     public static void printSingleDrink(Drink drink) {
-        STDOUT.info("\n" + MenuPath.getPath()+"\n");
+        Utilities.clearScreen(); //zmiana
         String alcoContColour;
         if (drink.getAlcoholStatus().equals("Alcoholic")) {
             alcoContColour = ANSI_RED;
@@ -114,7 +113,7 @@ public class DrinkService {
         STDOUT.info("\nPhoto link : " + "\n" + Colours.ANSI_BLUE + drink.getImageUrl() + ANSI_RESET +
                 "\n" + "\n" + Colours.ANSI_BACKGROUND_YELLOW_BLACK + "          Last modification : " +
                 drink.getModifiedDate().format(DateTimeFormatter.ofPattern(dateFormat)) +
-                Colours.ANSI_RESET);
+                Colours.ANSI_RESET+"\n");
     }
 
     public List<Integer> getAllDrinkIdNumbers(DrinksDatabase database) {

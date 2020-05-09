@@ -43,7 +43,7 @@ public class UserInput {
         while (true) {
             for (ChoiceYesNo choice : ChoiceYesNo.values()) {
                 if (choice.toString().equalsIgnoreCase(input)) {
-                    clearScreen();
+                    //Utilities.clearScreen();
                     return choice.getValue();
                 }
             }

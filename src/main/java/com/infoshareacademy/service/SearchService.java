@@ -5,6 +5,7 @@ import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.domain.Ingredient;
 import com.infoshareacademy.utilities.PropertiesUtilities;
 import com.infoshareacademy.utilities.UserInput;
+import com.infoshareacademy.utilities.Utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +31,7 @@ public class SearchService {
 
     public Drink searchDrinkByName() {
 
-        clearScreen();
+        Utilities.clearScreen();
         List<Drink> outputSearch = new ArrayList<>();
 
         Drink foundDrink = new Drink();
@@ -69,7 +70,7 @@ public class SearchService {
         while (true) {
             String input = userInput.getUserStringInput("\nDo you want to repeat the search? <y/n>: ");
             if (input.equalsIgnoreCase("y")) {
-                clearScreen();
+                Utilities.clearScreen();
                 return searchDrinkByName();
             } else if (!input.equalsIgnoreCase("n")) {
                 STDOUT.info("Wrong input.\n");
@@ -80,7 +81,7 @@ public class SearchService {
 
     public Drink searchDrinkByIngredient() {
         Drink foundDrink = new Drink();
-        clearScreen();
+        Utilities.clearScreen();
         List<String> foundIngredients = new ArrayList<>();
 
         addIngredientToList(foundIngredients);
@@ -114,7 +115,7 @@ public class SearchService {
         String search = findIngredient(inputIngredientName);
         if (!search.isBlank()) {
             foundIngredients.add(search);
-            clearScreen();
+            Utilities.clearScreen();
         }
     }
 
@@ -123,9 +124,9 @@ public class SearchService {
         while (!isCorrect) {
             printCurrentlyFoundIngredients(foundIngredients);
             String input = userInput.getUserStringInput("\nDo you want to add next ingredient to search? <y/n>: ");
-            clearScreen();
+            Utilities.clearScreen();
             if (input.equalsIgnoreCase("y")) {
-                clearScreen();
+                Utilities.clearScreen();
                 addIngredientToList(foundIngredients);
             } else if (!input.equalsIgnoreCase("n")) {
                 STDOUT.info("Wrong input. \n");
@@ -191,7 +192,7 @@ public class SearchService {
 
     private void printFoundDrinkList(List<Drink> drinkList) {
         int count = 1;
-        clearScreen();
+        Utilities.clearScreen();
         for (Drink drink : drinkList) {
             STDOUT.info("\n[{}] {}\n *ID: {}, *Category: {}, {};", count, drink.getDrinkName().toUpperCase(),
                     drink.getDrinkId(), drink.getCategoryName(), drink.getAlcoholStatus());
