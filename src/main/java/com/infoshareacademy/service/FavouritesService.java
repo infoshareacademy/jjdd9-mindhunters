@@ -64,7 +64,7 @@ public class FavouritesService {
         Drink foundDrink = new Drink();
         UserInput userInput = new UserInput();
         boolean isCorrectNumber = false;
-        if (userInput.getYesOrNo("\nWould you like to see details of recipe from the list? <y/n> ")){
+        if (userInput.getYesOrNo("\nWould you like to see details of recipe from the list? <y/n> ")) {
             STDOUT.info("\nWhich recipe would you like to display? ");
             do {
                 int recipeNumber = userInput.getUserNumericInput();
@@ -115,8 +115,8 @@ public class FavouritesService {
 
     public void addToFavourites(String id) {
         final Set<String> favouritesIds = getInstFavourites().getFavouritesIds();
-        for (Drink drink : DrinksDatabase.getINSTANCE().getDrinks()){
-            if (drink.getDrinkId().equals(id)){
+        for (Drink drink : DrinksDatabase.getINSTANCE().getDrinks()) {
+            if (drink.getDrinkId().equals(id)) {
                 favouritesIds.add(id);
                 STDOUT.info("Drink added to favourites.");
                 return;

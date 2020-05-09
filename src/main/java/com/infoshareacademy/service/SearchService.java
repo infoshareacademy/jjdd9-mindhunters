@@ -92,6 +92,7 @@ public class SearchService {
 
         if (OutputSearch.isEmpty() || ingredientsChosenByUser.isEmpty()) {
             STDOUT.info("No matching drink name found.\n");
+            userInput.getUserInputAnyKey();
         } else {
             foundDrink = chooseDrinkFromList(OutputSearch);
         }
