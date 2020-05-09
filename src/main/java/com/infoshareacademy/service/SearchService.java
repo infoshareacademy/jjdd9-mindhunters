@@ -49,7 +49,7 @@ public class SearchService {
                     STDOUT.info("\n");
                     foundDrink = chooseDrinkFromList(outputSearch);
                     isFound = true;
-                } else  {
+                } else {
                     STDOUT.info("No matching result found.\n");
                     break;
                 }
@@ -134,8 +134,8 @@ public class SearchService {
     }
 
     private void printCurrentlyFoundIngredients(List<String> foundIngredients) {
-        if (!foundIngredients.isEmpty()){
-            STDOUT.info("\nCurrently added ingredients to search: {}\n",foundIngredients.stream()
+        if (!foundIngredients.isEmpty()) {
+            STDOUT.info("\nCurrently added ingredients to search: {}\n", foundIngredients.stream()
                     .distinct().collect(Collectors.toList()).toString());
         }
     }
@@ -189,7 +189,7 @@ public class SearchService {
         int count = 1;
         clearScreen();
         for (Drink drink : drinkList) {
-            STDOUT.info("[{}] {}\n *ID: {}, *Category: {}, {};", count, drink.getDrinkName().toUpperCase(),
+            STDOUT.info("\n[{}] {}\n *ID: {}, *Category: {}, {};", count, drink.getDrinkName().toUpperCase(),
                     drink.getDrinkId(), drink.getCategoryName(), drink.getAlcoholStatus());
             STDOUT.info("\n {}", drink.getIngredientsNamesList());
             STDOUT.info("\n");
@@ -210,9 +210,7 @@ public class SearchService {
 
     private String findIngredient(String inputSearch) {
 
-
         List<String> outputSearch = new ArrayList<>();
-
 
         if (inputSearch.length() > 2) {
             for (String ingredient : allIngredients) {
@@ -262,8 +260,7 @@ public class SearchService {
                 .collect(Collectors.toList());
     }
 
-    public void SearchByCategory(){
-
+    public Drink SearchByCategory() {
 
         Stream<String> categoryStream = allCategories.stream();
         List<String> sortedList = null;
@@ -277,7 +274,11 @@ public class SearchService {
                 printFoundCategoryList(sortedList);
                 break;
         }
-        chooseCategoryFromList(sortedList);
+        String category = chooseCategoryFromList(sortedList);
+        List<Drink> drinks = searchDrinkByCategory(category);
+        clearScreen();
+        STDOUT.info("\nChosen category: {}\n", category);
+        return chooseDrinkFromList(drinks);
     }
 
     private void printFoundCategoryList(List<String> categoryList) {
@@ -289,13 +290,20 @@ public class SearchService {
     }
 
     private String chooseCategoryFromList(List<String> categories) {
-        STDOUT.info("\nWhich category would you like to choose?\n ");
+        STDOUT.info("\n\nWhich category would you like to choose?\n ");
         do {
             int categoryNumber = userInput.getUserNumericInput();
             if (categoryNumber >= 1 && categoryNumber <= categories.size()) {
                 return categories.get(categoryNumber - 1);
             } else STDOUT.info("\nInput correct number of desired category. ");
         } while (true);
+    }
+
+    private List<Drink> searchDrinkByCategory(String category) {
+
+        return database.stream()
+                .filter(drink -> drink.getCategoryName().equals(category))
+                .collect(Collectors.toList());
     }
 
     private static void clearScreen() {
