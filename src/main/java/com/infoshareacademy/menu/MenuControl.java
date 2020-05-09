@@ -94,7 +94,13 @@ public class MenuControl {
                     }
                     break;
                 case 5:
-                    STDOUT.info("SEARCH BY CATEGORY");
+                    Utilities.clearScreen();
+                    Drink foundDrinkByCategory = search.SearchByCategory();
+                    if (foundDrinkByCategory.getDrinkId() != null) {
+                        Utilities.clearScreen();
+                        DrinkService.printSingleDrink(foundDrinkByCategory);
+                        userInput.getUserInputAnyKey();
+                    }
                     break;
                 case 6:
                     JsonWriter.writeAllToJson(getInstFavourites(), "Favourites.json");
