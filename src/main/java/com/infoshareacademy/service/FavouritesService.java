@@ -107,14 +107,22 @@ public class FavouritesService {
         final Set<String> favourIds = getInstFavourites().getFavouritesIds();
         if (favourIds.contains(id)) {
             favourIds.remove(id);
+            STDOUT.info("Drink removed from favourites.");
+        } else {
+            STDOUT.info("Drink id not found. Try again. ");
         }
-        STDOUT.info("Drink removed from favourites.");
     }
 
     public void addToFavourites(String id) {
         final Set<String> favouritesIds = getInstFavourites().getFavouritesIds();
-        favouritesIds.add(id);
-        STDOUT.info("Drink added to favourites.");
+        for (Drink drink : DrinksDatabase.getINSTANCE().getDrinks()){
+            if (drink.getDrinkId().equals(id)){
+                favouritesIds.add(id);
+                STDOUT.info("Drink added to favourites.");
+                return;
+            }
+        }
+        STDOUT.info("Drink id not found. Try again. ");
     }
 
 }
