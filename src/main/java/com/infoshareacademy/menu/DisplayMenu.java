@@ -51,11 +51,10 @@ public class DisplayMenu {
     public static void displaySettingsMenu() {
         Utilities.clearScreen();
         STDOUT.info("\n ---------------- Settings ------------------- ");
-        STDOUT.info("\n|  [1] to load/change configuration           |" +
-                "\n|  [2] to change drinks sorting order         |" +
-                "\n|  [3] to set recipe data modification format |" +
-                "\n|  [4] to return to previous menu             |" +
-                "\n|  [5] to EXIT                                |");
+        STDOUT.info("\n|  [1] to change drinks sorting order         |" +
+                "\n|  [2] to set recipe data modification format |" +
+                "\n|  [3] to return to previous menu             |" +
+                "\n|  [4] to EXIT                                |");
         STDOUT.info(END_LINE);
     }
 
