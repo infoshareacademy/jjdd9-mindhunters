@@ -67,7 +67,7 @@ public class DrinkService {
 
 
     public static void printSingleDrink(Drink drink) {
-        Utilities.clearScreen(); //zmiana
+        Utilities.clearScreen();
         String alcoContColour;
         if (drink.getAlcoholStatus().equals("Alcoholic")) {
             alcoContColour = ANSI_RED;
@@ -113,7 +113,7 @@ public class DrinkService {
         STDOUT.info("\nPhoto link : " + "\n" + Colours.ANSI_BLUE + drink.getImageUrl() + ANSI_RESET +
                 "\n" + "\n" + Colours.ANSI_BACKGROUND_YELLOW_BLACK + "          Last modification : " +
                 drink.getModifiedDate().format(DateTimeFormatter.ofPattern(dateFormat)) +
-                Colours.ANSI_RESET+"\n");
+                Colours.ANSI_RESET + "\n");
     }
 
     public List<Integer> getAllDrinkIdNumbers(DrinksDatabase database) {

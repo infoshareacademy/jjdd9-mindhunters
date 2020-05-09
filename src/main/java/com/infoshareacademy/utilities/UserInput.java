@@ -6,8 +6,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Scanner;
 
-import static com.infoshareacademy.utilities.Utilities.clearScreen;
-
 public class UserInput {
 
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
@@ -43,7 +41,6 @@ public class UserInput {
         while (true) {
             for (ChoiceYesNo choice : ChoiceYesNo.values()) {
                 if (choice.toString().equalsIgnoreCase(input)) {
-                    //Utilities.clearScreen();
                     return choice.getValue();
                 }
             }

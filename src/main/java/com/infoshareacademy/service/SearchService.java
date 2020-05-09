@@ -92,7 +92,7 @@ public class SearchService {
         List<Drink> OutputSearch = getDrinkList(database, ingredientsChosenByUser);
 
         if (OutputSearch.isEmpty() || ingredientsChosenByUser.isEmpty()) {
-            STDOUT.info("No matching drink name found.\n");
+            STDOUT.info("\nNo matching drink name found.\n");
         } else {
             foundDrink = chooseDrinkFromList(OutputSearch);
         }
