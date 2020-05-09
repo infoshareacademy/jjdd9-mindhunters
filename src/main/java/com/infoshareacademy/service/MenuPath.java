@@ -31,6 +31,4 @@ public class MenuPath {
     public static void remove() {
         menuPath.remove(menuPath.get(menuPath.size() - 1));
     }
-
-
 }
