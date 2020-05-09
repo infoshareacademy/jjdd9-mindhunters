@@ -7,7 +7,10 @@ import java.io.IOException;
 
 public class JsonWriter {
 
-    public static <T> void writeJsonToFile(T obj, String jsonFilePath) {
+    private JsonWriter() {
+    }
+
+    public static <T> void writeAllToJson(T obj, String jsonFilePath) {
 
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -17,4 +20,5 @@ public class JsonWriter {
         }
 
     }
+
 }
