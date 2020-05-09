@@ -129,7 +129,9 @@ public class SearchService {
                 addIngredientToList(foundIngredients);
             } else if (!input.equalsIgnoreCase("n")) {
                 STDOUT.info("Wrong input. \n");
-            } else isCorrect = true;
+            } else {
+                isCorrect = true;
+            }
         }
     }
 
@@ -180,7 +182,9 @@ public class SearchService {
                     foundDrink = sortedList.get(recipeNumber - 1);
                 }
                 isCorrectNumber = true;
-            } else STDOUT.info("\nInput correct number of desired recipe. ");
+            } else {
+                STDOUT.info("\nInput correct number of desired recipe. ");
+            }
         } while (!isCorrectNumber);
         return foundDrink;
     }
