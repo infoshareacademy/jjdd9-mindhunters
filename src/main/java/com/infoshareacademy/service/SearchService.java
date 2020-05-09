@@ -48,7 +48,7 @@ public class SearchService {
                     STDOUT.info("\n");
                     foundDrink = chooseDrinkFromList(outputSearch);
                     isFound = true;
-                } else  {
+                } else {
                     STDOUT.info("No matching result found.\n");
                     break;
                 }
@@ -128,13 +128,15 @@ public class SearchService {
                 addIngredientToList(foundIngredients);
             } else if (!input.equalsIgnoreCase("n")) {
                 STDOUT.info("Wrong input. \n");
-            } else isCorrect = true;
+            } else {
+                isCorrect = true;
+            }
         }
     }
 
     private void printCurrentlyFoundIngredients(List<String> foundIngredients) {
-        if (!foundIngredients.isEmpty()){
-            STDOUT.info("\nCurrently added ingredients to search: {}\n",foundIngredients.stream()
+        if (!foundIngredients.isEmpty()) {
+            STDOUT.info("\nCurrently added ingredients to search: {}\n", foundIngredients.stream()
                     .distinct().collect(Collectors.toList()).toString());
         }
     }
@@ -179,7 +181,9 @@ public class SearchService {
                     foundDrink = sortedList.get(recipeNumber - 1);
                 }
                 isCorrectNumber = true;
-            } else STDOUT.info("\nInput correct number of desired recipe. ");
+            } else {
+                STDOUT.info("\nInput correct number of desired recipe. ");
+            }
         } while (!isCorrectNumber);
         return foundDrink;
     }

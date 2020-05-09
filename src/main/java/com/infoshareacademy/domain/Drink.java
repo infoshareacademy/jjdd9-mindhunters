@@ -120,7 +120,7 @@ public class Drink {
 
     public List<String> getIngredientsNamesList() {
         List<String> ingredientsNames = new ArrayList<>();
-        for (Ingredient ingredient : ingredients){
+        for (Ingredient ingredient : ingredients) {
             ingredientsNames.add(ingredient.getName());
         }
         return ingredientsNames;
@@ -128,8 +128,12 @@ public class Drink {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Drink drink = (Drink) o;
         return Objects.equals(drinkId, drink.drinkId) &&
                 Objects.equals(drinkName, drink.drinkName) &&
