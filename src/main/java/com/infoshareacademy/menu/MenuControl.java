@@ -74,6 +74,7 @@ public class MenuControl {
                 case 3:
                     Drink foundDrinkByName = search.searchDrinkByName();
                     if (foundDrinkByName.getDrinkId() != null) {
+                        Utilities.clearScreen();
                         DrinkService.printSingleDrink(foundDrinkByName);
                         if (userInput.getYesOrNo("\n\nDo you want to add this drink to favourites? <y/n>: ")) {
                             favouritesService.addToFavourites(foundDrinkByName.getDrinkId());
@@ -82,11 +83,12 @@ public class MenuControl {
                     }
                     break;
                 case 4:
-                    Drink foundDrinkByIngr = search.searchDrinkByIngredient();
-                    if (foundDrinkByIngr.getDrinkId() != null) {
-                        DrinkService.printSingleDrink(foundDrinkByIngr);
+                    Drink foundDrinkByIngredient = search.searchDrinkByIngredient();
+                    if (foundDrinkByIngredient.getDrinkId() != null) {
+                        Utilities.clearScreen();
+                        DrinkService.printSingleDrink(foundDrinkByIngredient);
                         if (userInput.getYesOrNo("\n\nDo you want to add this drink to favourites? <y/n>: ")) {
-                            favouritesService.addToFavourites(foundDrinkByIngr.getDrinkId());
+                            favouritesService.addToFavourites(foundDrinkByIngredient.getDrinkId());
                             userInput.getUserInputAnyKey();
                         }
                     }
@@ -153,7 +155,6 @@ public class MenuControl {
             }
         } while (cont && (!exit));
     }
-
 
     private void update() {
         boolean checkId = false;
