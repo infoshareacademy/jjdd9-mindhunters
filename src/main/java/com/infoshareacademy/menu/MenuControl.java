@@ -2,13 +2,8 @@ package com.infoshareacademy.menu;
 
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.FavouritesDatabase;
-import com.infoshareacademy.service.DrinkService;
-import com.infoshareacademy.service.FavouritesService;
-import com.infoshareacademy.service.JsonWriter;
-import com.infoshareacademy.service.SearchService;
+import com.infoshareacademy.service.*;
 import com.infoshareacademy.utilities.PropertiesUtilities;
-import com.infoshareacademy.service.MenuPath;
-import com.infoshareacademy.utilities.ChoiceYesNo;
 import com.infoshareacademy.utilities.UserInput;
 import com.infoshareacademy.utilities.Utilities;
 import org.slf4j.Logger;
@@ -16,13 +11,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import javax.swing.*;
-
 import static com.infoshareacademy.domain.DrinksDatabase.getINSTANCE;
 import static com.infoshareacademy.domain.FavouritesDatabase.getInstFavourites;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MenuControl {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
@@ -82,7 +72,7 @@ public class MenuControl {
                     MenuPath.add("FAVORITES_DRINKS");
                     Utilities.clearScreen();
                     List<Drink> sortedList = favouritesService.getAllFavourites(FavouritesDatabase.getInstFavourites());
-                    Drink favDrink= favouritesService.chooseOneFavRecipeFromList(sortedList);
+                    Drink favDrink = favouritesService.chooseOneFavRecipeFromList(sortedList);
                     if (favDrink.getDrinkId() != null) {
                         DrinkService.printSingleDrink(favDrink);
                         userInput.getUserInputAnyKey();
@@ -262,7 +252,6 @@ public class MenuControl {
                 case 1:
                     MenuPath.add("SORTING_ORDER");
                     settingsOrderNavigation();
-                    MenuPath.remove();
                     break;
                 case 2:
                     MenuPath.add("DATE_FORMAT");
