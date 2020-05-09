@@ -36,6 +36,9 @@ public class JsonDrinkDeserializer extends JsonDeserializer<Drink> {
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime formatDateTime = LocalDateTime.parse(dateAsString, dateFormatter);
             drink.setModifiedDate(formatDateTime);
+        } else {
+            LocalDateTime formatDateTime = LocalDateTime.now();
+            drink.setModifiedDate(formatDateTime);
         }
 
         Ingredient ingredient = new Ingredient();
@@ -46,7 +49,7 @@ public class JsonDrinkDeserializer extends JsonDeserializer<Drink> {
             String ingredientMeasureField = "strMeasure" + i;
             String ingredientNameField = "strIngredient" + i;
 
-            if (!readValueAsTree.get(ingredientNameField).asText().equals("null")) {
+            if (!readValueAsTree.get(ingredientNameField).asText().equals("null") && !readValueAsTree.get(ingredientNameField).asText().isEmpty()) {
                 if (!readValueAsTree.get(ingredientMeasureField).asText().equals("null")) {
                     ingredient.setName(readValueAsTree.get(ingredientNameField).asText());
                     ingredient.setMeasure(readValueAsTree.get(ingredientMeasureField).asText());

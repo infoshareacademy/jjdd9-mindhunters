@@ -28,11 +28,12 @@ public class DisplayMenu {
         Utilities.clearScreen();
         STDOUT.info("\n ------------ Drink Browse Menu ------------- ");
         STDOUT.info("\n|  [1] to display all drinks list            |" +
-                "\n|  [2] to search drink by name               |" +
-                "\n|  [3] to search drink by ingredient         |" +
-                "\n|  [4] to search drink by category           |" +
-                "\n|  [5] to return to previous menu            |" +
-                "\n|  [6] to EXIT                               |");
+                "\n|  [2] to display favourites drinks          |" +
+                "\n|  [3] to search drink by name               |" +
+                "\n|  [4] to search drink by ingredient         |" +
+                "\n|  [5] to search drink by category           |" +
+                "\n|  [6] to return to previous menu            |" +
+                "\n|  [7] to EXIT                               |");
         STDOUT.info(END_LINE);
     }
 
@@ -52,11 +53,10 @@ public class DisplayMenu {
     public static void displaySettingsMenu() {
         Utilities.clearScreen();
         STDOUT.info("\n ---------------- Settings ------------------- ");
-        STDOUT.info("\n|  [1] to load/change configuration           |" +
-                "\n|  [2] to change drinks sorting order         |" +
-                "\n|  [3] to set recipe data modification format |" +
-                "\n|  [4] to return to previous menu             |" +
-                "\n|  [5] to EXIT                                |");
+        STDOUT.info("\n|  [1] to change drinks sorting order         |" +
+                "\n|  [2] to set recipe data modification format |" +
+                "\n|  [3] to return to previous menu             |" +
+                "\n|  [4] to EXIT                                |");
         STDOUT.info(END_LINE);
     }
 

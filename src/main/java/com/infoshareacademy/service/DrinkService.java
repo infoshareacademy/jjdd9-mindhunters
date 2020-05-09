@@ -28,21 +28,17 @@ public class DrinkService {
     private final UserInput userInput = new UserInput();
     private int maxExistingId = 0;
 
-    public void loadDrinkList() {
+    public static void loadDrinkList() {
         DrinksDatabase database = DrinksDatabase.getINSTANCE();
         if (database.getDrinks().isEmpty()) {
-            List<Drink> drinks = new ArrayList<>();
-            for (int i = 0; i <= 4; i++) {
-                char letter = (char) (97 + i);
-                String fileName = "LIST_" + letter + "LETTER.json";
-
-                try {
-                    drinks.addAll(JsonReader.objectMapper(fileName));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            List<Drink> drinkList = new ArrayList<>();
+            String fileName = "AllDrinks.json";
+            try {
+                drinkList.addAll(JsonReader.jsonDrinkReader(fileName));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            database.addAllDrinks(drinks);
+            database.addAllDrinks(drinkList);
         }
     }
 
@@ -250,8 +246,7 @@ public class DrinkService {
             ingredients.add(new Ingredient(name, measure));
             STDOUT.info("\n");
             counter++;
-            choice = userInput.getUserStringInput("Do you want to add another ingredient [max 15], press [Y] / [N]: ");
-        } while (userInput.getYesOrNo(choice) && (ingredients.size() <= maxCapacity));
+        } while (userInput.getYesOrNo("Do you want to add another ingredient [max 15], <y/n>?") && (ingredients.size() <= maxCapacity));
         return ingredients;
     }
 
