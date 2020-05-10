@@ -29,7 +29,7 @@ class MenuControlTest {
 
 
     @Test
-    public void saveTest() {
+    public void saveIntoDatabaseTest() {
         //given
         DrinksDatabase database = DrinksDatabase.getINSTANCE();
         Drink drink = new Drink();
@@ -45,5 +45,26 @@ class MenuControlTest {
 
         //then
         Assertions.assertThat(drinks).containsOnly(drink);
+    }
+
+    @Test
+    public void deleteFromDatabaseTest() {
+        //given
+        DrinksDatabase database = DrinksDatabase.getINSTANCE();
+        Drink drink = new Drink();
+        drink.setDrinkId("17222");
+        drink.setDrinkName("TestTest");
+        drink.setModifiedDate(LocalDateTime.now());
+        drink.setImageUrl("TEST");
+        drink.setIngredients(List.of(new Ingredient(), new Ingredient()));
+        DrinksDatabase.getINSTANCE().addDrink(drink);
+        DrinksDatabase.getINSTANCE().getDrinks().remove(drink);
+
+
+        //when
+        final List<Drink> drinks = DrinksDatabase.getINSTANCE().getDrinks();
+
+        //then
+        Assertions.assertThat(drinks).isEmpty();
     }
 }
