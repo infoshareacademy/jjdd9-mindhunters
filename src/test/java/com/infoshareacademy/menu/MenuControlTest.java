@@ -5,6 +5,7 @@ import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.domain.FavouritesDatabase;
 import com.infoshareacademy.domain.Ingredient;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -12,6 +13,12 @@ import java.util.List;
 import java.util.Set;
 
 class MenuControlTest {
+
+    @AfterEach
+    public void clearDatabase() {
+        DrinksDatabase drinksDatabase = DrinksDatabase.getINSTANCE();
+        drinksDatabase.getDrinks().clear();
+    }
 
     @Test
     public void getAllFavouritesTest() {

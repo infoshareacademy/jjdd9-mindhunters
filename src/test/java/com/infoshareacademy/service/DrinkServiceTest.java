@@ -4,6 +4,7 @@ import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.domain.Ingredient;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -11,10 +12,15 @@ import java.util.List;
 
 class DrinkServiceTest {
 
+    @AfterEach
+    public void clearDatabase() {
+        DrinksDatabase drinksDatabase = DrinksDatabase.getINSTANCE();
+        drinksDatabase.getDrinks().clear();
+    }
+
     @Test
     public void drinkServiceDeleteFromDatabaseTest() {
         //given
-        DrinksDatabase database = DrinksDatabase.getINSTANCE();
         DrinkService service = new DrinkService();
         Drink drink = new Drink();
         drink.setDrinkId("17222");
@@ -25,6 +31,7 @@ class DrinkServiceTest {
         DrinksDatabase.getINSTANCE().addDrink(drink);
         service.removeDrink("17222");
 
+
         //when
         final List<Drink> drinks = DrinksDatabase.getINSTANCE().getDrinks();
 
@@ -33,8 +40,8 @@ class DrinkServiceTest {
     }
 
     @Test
-    public void getAlcoholStatusesTest() {
-        DrinksDatabase database = DrinksDatabase.getINSTANCE();
+    public void drinkServiceAddToDatabaseTest() {
+        //given
         DrinkService service = new DrinkService();
         Drink drink = new Drink();
         drink.setDrinkId("17222");
@@ -42,13 +49,13 @@ class DrinkServiceTest {
         drink.setModifiedDate(LocalDateTime.now());
         drink.setImageUrl("TEST");
         drink.setIngredients(List.of(new Ingredient(), new Ingredient()));
-        drink.setAlcoholStatus("Alcoholic");
         DrinksDatabase.getINSTANCE().addDrink(drink);
 
         //when
-        final List<String> alcoholStatuses = service.getAlcoholStatuses(database);
+        final List<Drink> drinks = DrinksDatabase.getINSTANCE().getDrinks();
 
         //then
-        Assertions.assertThat(alcoholStatuses).containsOnly("Alcoholic");
+        Assertions.assertThat(drinks).containsOnly(drink);
+
     }
 }

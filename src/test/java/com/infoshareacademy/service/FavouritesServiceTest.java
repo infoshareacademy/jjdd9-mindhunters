@@ -5,12 +5,25 @@ import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.domain.FavouritesDatabase;
 import com.infoshareacademy.domain.Ingredient;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 class FavouritesServiceTest {
+
+    @AfterEach
+    public void clearFavouritesDatabase() {
+        FavouritesDatabase favouritesDatabase = FavouritesDatabase.getInstFavourites();
+       favouritesDatabase.getFavouritesIds().clear();
+    }
+
+    @AfterEach
+    public void clearDatabase() {
+        DrinksDatabase drinksDatabase = DrinksDatabase.getINSTANCE();
+        drinksDatabase.getDrinks().clear();
+    }
 
     @Test
     public void removeFromFavouritesTest() {
@@ -29,6 +42,10 @@ class FavouritesServiceTest {
     public void addToFavouritesTest() {
         //given
         FavouritesDatabase instFavourites = FavouritesDatabase.getInstFavourites();
+        DrinksDatabase drinksDatabase = DrinksDatabase.getINSTANCE();
+        Drink drink = new Drink();
+        drink.setDrinkId("17222");
+        drinksDatabase.addDrink(drink);
 
         //when
         new FavouritesService().addToFavourites("17222");
