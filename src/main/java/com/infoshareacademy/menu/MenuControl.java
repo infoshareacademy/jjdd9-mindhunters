@@ -145,12 +145,12 @@ public class MenuControl {
                     userInput.getUserInputAnyKey();
                     break;
                 case 6:
-                    JsonWriter.writeAllToJson(getINSTANCE(), "AllDrinksTEST.json");
+                    JsonWriter.writeAllToJson(getINSTANCE(), "AllDrinks.json");
                     JsonWriter.writeAllToJson(getInstFavourites(), FAVOURITES_JSON);
                     cont = false;
                     break;
                 case 7:
-                    JsonWriter.writeAllToJson(getINSTANCE(), "AllDrinksTEST.json");
+                    JsonWriter.writeAllToJson(getINSTANCE(), "AllDrinks.json");
                     JsonWriter.writeAllToJson(getInstFavourites(), FAVOURITES_JSON);
                     DisplayMenu.displayExit();
                     exit = true;
