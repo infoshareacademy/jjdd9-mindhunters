@@ -99,7 +99,7 @@ public class SearchService {
         return foundDrink;
     }
 
-    private List<String> normalizeIngredientsList(List<String> foundIngredients) {
+    protected List<String> normalizeIngredientsList(List<String> foundIngredients) {
         return foundIngredients.stream()
                 .filter(s -> !s.isBlank())
                 .distinct()
