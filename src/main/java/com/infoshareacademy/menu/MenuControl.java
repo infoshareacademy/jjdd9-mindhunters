@@ -2,10 +2,7 @@ package com.infoshareacademy.menu;
 
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.FavouritesDatabase;
-import com.infoshareacademy.service.DrinkService;
-import com.infoshareacademy.service.FavouritesService;
-import com.infoshareacademy.service.JsonWriter;
-import com.infoshareacademy.service.SearchService;
+import com.infoshareacademy.service.*;
 import com.infoshareacademy.utilities.PropertiesUtilities;
 import com.infoshareacademy.utilities.UserInput;
 import com.infoshareacademy.utilities.Utilities;
@@ -26,20 +23,25 @@ public class MenuControl {
     private final UserInput userInput = new UserInput();
     private final DrinkService drinkService = new DrinkService();
     private final FavouritesService favouritesService = new FavouritesService();
+    private final MenuPath menuPath = new MenuPath();
 
     public void mainNavigation() {
         DrinkService.loadDrinkList();
         favouritesService.loadFavouritesList();
+        MenuPath.reset();
         do {
             DisplayMenu.displayMainMenu();
             switch (userInput.getUserNumericInput()) {
                 case 1:
+                    MenuPath.add("BROWSE");
                     browseNavigation();
                     break;
                 case 2:
+                    MenuPath.add("MANAGEMENT");
                     manageNavigation();
                     break;
                 case 3:
+                    MenuPath.add("SETTINGS");
                     settingsNavigation();
                     break;
                 case 4:
@@ -61,18 +63,26 @@ public class MenuControl {
             DisplayMenu.displayBrowseMenu();
             switch (userInput.getUserNumericInput()) {
                 case 1:
+                    MenuPath.add("ALL_DRINKS");
+                    Utilities.clearScreen();
                     drinkService.printAllDrinks(getINSTANCE());
                     userInput.getUserInputAnyKey();
+                    MenuPath.remove();
                     break;
                 case 2:
+                    MenuPath.add("FAVORITES_DRINKS");
+                    Utilities.clearScreen();
                     List<Drink> sortedList = favouritesService.getAllFavourites(FavouritesDatabase.getInstFavourites());
-                    Drink favDrink= favouritesService.chooseOneFavRecipeFromList(sortedList);
+                    Drink favDrink = favouritesService.chooseOneFavRecipeFromList(sortedList);
                     if (favDrink.getDrinkId() != null) {
                         DrinkService.printSingleDrink(favDrink);
                         userInput.getUserInputAnyKey();
                     }
+                    MenuPath.remove();
                     break;
                 case 3:
+                    MenuPath.add("SEARCH_BY_DRINK");
+                    Utilities.clearScreen();
                     Drink foundDrinkByName = search.searchDrinkByName();
                     if (foundDrinkByName.getDrinkId() != null) {
                         Utilities.clearScreen();
@@ -82,9 +92,13 @@ public class MenuControl {
                             userInput.getUserInputAnyKey();
                         }
                     }
+                    MenuPath.remove();
                     break;
                 case 4:
+                    MenuPath.add("SEARCH_BY_INGREDIENT");
+                    Utilities.clearScreen();
                     Drink foundDrinkByIngredient = search.searchDrinkByIngredient();
+                    userInput.getUserInputAnyKey();
                     if (foundDrinkByIngredient.getDrinkId() != null) {
                         Utilities.clearScreen();
                         DrinkService.printSingleDrink(foundDrinkByIngredient);
@@ -93,8 +107,10 @@ public class MenuControl {
                             userInput.getUserInputAnyKey();
                         }
                     }
+                    MenuPath.remove();
                     break;
                 case 5:
+                    MenuPath.add("SEARCH_BY_CATEGORY");
                     Utilities.clearScreen();
                     Drink foundDrinkByCategory = search.SearchByCategory();
                     if (foundDrinkByCategory.getDrinkId() != null) {
@@ -102,10 +118,12 @@ public class MenuControl {
                         DrinkService.printSingleDrink(foundDrinkByCategory);
                         userInput.getUserInputAnyKey();
                     }
+                    MenuPath.remove();
                     break;
                 case 6:
                     JsonWriter.writeAllToJson(getInstFavourites(), FAVOURITES_JSON);
                     cont = false;
+                    MenuPath.remove();
                     break;
                 case 7:
                     JsonWriter.writeAllToJson(getInstFavourites(), FAVOURITES_JSON);
@@ -126,30 +144,42 @@ public class MenuControl {
             DisplayMenu.displayManageMenu();
             switch (userInput.getUserNumericInput()) {
                 case 1:
+                    MenuPath.add("SAVE");
                     save();
+                    MenuPath.remove();
                     break;
                 case 2:
+                    MenuPath.add("DELETE");
                     delete();
+                    MenuPath.remove();
                     break;
                 case 3:
+                    MenuPath.add("UPDATE");
                     update();
+                    MenuPath.remove();
                     break;
                 case 4:
+                    MenuPath.add("ADD_FAVOURITE");
                     String id = userInput.getUserStringInput("Type drink id to add to favourites: ");
                     favouritesService.addToFavourites(id);
                     userInput.getUserInputAnyKey();
+                    MenuPath.remove();
                     break;
                 case 5:
+                    MenuPath.add("REMOVE_FAVORITE");
                     String id2 = userInput.getUserStringInput("Type drink id to remove from favourites: ");
                     favouritesService.removeFromFavourites(id2);
                     userInput.getUserInputAnyKey();
+                    MenuPath.remove();
                     break;
                 case 6:
                     JsonWriter.writeAllToJson(getINSTANCE(), "AllDrinks.json");
                     JsonWriter.writeAllToJson(getInstFavourites(), FAVOURITES_JSON);
                     cont = false;
+                    MenuPath.remove();
                     break;
                 case 7:
+                    MenuPath.remove();
                     JsonWriter.writeAllToJson(getINSTANCE(), "AllDrinks.json");
                     JsonWriter.writeAllToJson(getInstFavourites(), FAVOURITES_JSON);
                     DisplayMenu.displayExit();
@@ -167,7 +197,8 @@ public class MenuControl {
         boolean checkId = false;
         while (!checkId) {
             Utilities.clearScreen();
-            String drinkIdToEdit = userInput.getUserStringInput("Please type drink id to be edited: ");
+            String drinkIdToEdit = userInput.getUserStringInput("\nPlease type drink id to be edited: ");
+
             if (drinkService.editDrink(drinkIdToEdit)) {
                 Utilities.clearScreen();
                 STDOUT.info("Drink update complete. Press any key to continue: ");
@@ -175,9 +206,9 @@ public class MenuControl {
                 checkId = true;
             } else {
                 Utilities.clearScreen();
-                STDOUT.info("Drink ID not found. ");
+                STDOUT.info("\nDrink ID not found. ");
                 if (!userInput.getYesOrNo("Do you want to try again? <y/n>")) {
-                    STDOUT.info("Drink edit unsuccessful - drink not found. Press any key to continue: ");
+                    STDOUT.info("\nDrink edit unsuccessful - drink not found. Press any key to continue: ");
                     userInput.getUserInputAnyKey();
                     checkId = true;
                 }
@@ -189,7 +220,7 @@ public class MenuControl {
         boolean checkId = false;
         while (!checkId) {
             Utilities.clearScreen();
-            String drinkIdToDelete = userInput.getUserStringInput("Please type drink id to be removed: ");
+            String drinkIdToDelete = userInput.getUserStringInput("\nPlease type drink id to be removed: ");
 
             if (drinkService.removeDrink(drinkIdToDelete)) {
                 Utilities.clearScreen();
@@ -198,9 +229,9 @@ public class MenuControl {
                 checkId = true;
             } else {
                 Utilities.clearScreen();
-                STDOUT.info("Drink ID not found. ");
+                STDOUT.info("\nDrink ID not found. ");
                 if (!userInput.getYesOrNo("Do you want to try again? <y/n>")) {
-                    STDOUT.info("Drink removal unsuccessful - drink not found. Press any key to continue: ");
+                    STDOUT.info("\nDrink removal unsuccessful - drink not found. Press any key to continue: ");
                     userInput.getUserInputAnyKey();
                     checkId = true;
                 }
@@ -211,7 +242,7 @@ public class MenuControl {
     private void save() {
         drinkService.createDrink();
         Utilities.clearScreen();
-        STDOUT.info("Drink added to database. Press any key to continue: ");
+        STDOUT.info("\nDrink added to database. Press any key to continue: ");
         userInput.getUserInputAnyKey();
     }
 
@@ -221,13 +252,16 @@ public class MenuControl {
             DisplayMenu.displaySettingsMenu();
             switch (userInput.getUserNumericInput()) {
                 case 1:
+                    MenuPath.add("SORTING_ORDER");
                     settingsOrderNavigation();
                     break;
                 case 2:
+                    MenuPath.add("DATE_FORMAT");
                     settingsDateFormatNavigation();
                     break;
                 case 3:
                     cont = false;
+                    MenuPath.remove();
                     break;
                 case 4:
                     DisplayMenu.displayExit();
@@ -254,6 +288,7 @@ public class MenuControl {
                     break;
                 case 3:
                     cont = false;
+                    MenuPath.remove();
                     break;
                 case 4:
                     DisplayMenu.displayExit();
@@ -280,6 +315,7 @@ public class MenuControl {
                     break;
                 case 3:
                     cont = false;
+                    MenuPath.remove();
                     break;
                 case 4:
                     DisplayMenu.displayExit();
