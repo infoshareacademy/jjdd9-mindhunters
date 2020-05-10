@@ -17,6 +17,7 @@ import static com.infoshareacademy.domain.FavouritesDatabase.getInstFavourites;
 public class MenuControl {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     private static final String USER_MESSAGE = "Wrong input. Please choose number from the list.";
+    public static final String FAVOURITES_JSON = "Favourites.json";
 
     private boolean exit = false;
     private final UserInput userInput = new UserInput();
@@ -120,12 +121,12 @@ public class MenuControl {
                     MenuPath.remove();
                     break;
                 case 6:
-                    JsonWriter.writeAllToJson(getInstFavourites(), "Favourites.json");
+                    JsonWriter.writeAllToJson(getInstFavourites(), FAVOURITES_JSON);
                     cont = false;
                     MenuPath.remove();
                     break;
                 case 7:
-                    JsonWriter.writeAllToJson(getInstFavourites(), "Favourites.json");
+                    JsonWriter.writeAllToJson(getInstFavourites(), FAVOURITES_JSON);
                     DisplayMenu.displayExit();
                     exit = true;
                     break;
@@ -172,15 +173,15 @@ public class MenuControl {
                     MenuPath.remove();
                     break;
                 case 6:
-                    JsonWriter.writeAllToJson(getINSTANCE(), "AllDrinksTEST.json");
-                    JsonWriter.writeAllToJson(getInstFavourites(), "Favourites.json");
+                    JsonWriter.writeAllToJson(getINSTANCE(), "AllDrinks.json");
+                    JsonWriter.writeAllToJson(getInstFavourites(), FAVOURITES_JSON);
                     cont = false;
                     MenuPath.remove();
                     break;
                 case 7:
                     MenuPath.remove();
-                    JsonWriter.writeAllToJson(getINSTANCE(), "AllDrinksTEST.json");
-                    JsonWriter.writeAllToJson(getInstFavourites(), "Favourites.json");
+                    JsonWriter.writeAllToJson(getINSTANCE(), "AllDrinks.json");
+                    JsonWriter.writeAllToJson(getInstFavourites(), FAVOURITES_JSON);
                     DisplayMenu.displayExit();
                     exit = true;
                     break;
