@@ -65,19 +65,20 @@ public class DrinkService {
 
     }
 
-
     public static void printSingleDrink(Drink drink) {
-        Utilities.clearScreen();
         String alcoContColour;
         if (drink.getAlcoholStatus().equals("Alcoholic")) {
             AgeVerification ageVerification = new AgeVerification();
             if (!ageVerification.isAdultSessionActive()) {
-                STDOUT.info("\nAre You 18yo? Y/N: ");
+                STDOUT.info("\nAre You over 18 years old? Y/N: ");
                 Scanner scan = new Scanner(System.in);
                 String choice = scan.nextLine();
                 if (choice.equalsIgnoreCase("Y")) {
                     ageVerification.saveAdultSessionTimestamp();
+                } else if (choice.equalsIgnoreCase("N")) {
+                    return;
                 } else {
+                    STDOUT.info("Wrong input.\n");
                     return;
                 }
             }
