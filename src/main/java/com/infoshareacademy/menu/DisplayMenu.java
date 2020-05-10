@@ -20,6 +20,7 @@ public class DisplayMenu {
                 "\n|  [3] to change settings                    |" +
                 "\n|  [4] to EXIT                               |");
         STDOUT.info(END_LINE);
+
     }
 
     public static void displayBrowseMenu() {
@@ -59,7 +60,7 @@ public class DisplayMenu {
     }
 
     public static void displaySettingsOrderMenu() {
-        clearScreen();
+        Utilities.clearScreen();
         STDOUT.info("\n ---------------- Settings ------------------- ");
         STDOUT.info("\n|  [1] Set ASC                                |" +
                 "\n|  [2] Set DESC                               |" +
@@ -69,7 +70,7 @@ public class DisplayMenu {
     }
 
     public static void displaySettingsDateFormatMenu() {
-        clearScreen();
+        Utilities.clearScreen();
         STDOUT.info("\n ---------------- Settings ------------------- ");
         STDOUT.info("\n|  [1] YYYY-MM-dd HH:mm                       |" +
                 "\n|  [2] dd-MM-YYYY HH:mm                       |" +
@@ -79,7 +80,7 @@ public class DisplayMenu {
     }
 
     public static void displayExit() {
-        Utilities.clearScreen();
+        Utilities.clearScreenNoPath();
         STDOUT.info("\n ------------------ QUIT -------------------- ");
         STDOUT.info("\n|  Hope to see you again soon.               |" +
                 "\n|                                            |" +
@@ -89,7 +90,7 @@ public class DisplayMenu {
     }
 
     public static void logo() {
-        clearScreen();
+        Utilities.clearScreenNoPath();
         STDOUT.info("\n ------------- Welcome in Mindhunters World of Goodies ------------------ ");
         STDOUT.info("\n|                                                                        |" +
                 "\n|                                                                        |" +
@@ -125,10 +126,6 @@ public class DisplayMenu {
                 "\n|                                                                        |" +
                 "\n ------------------------------------------------------------------------");
         STDOUT.info("\n");
-    }
-
-    private static void clearScreen() {
-        STDOUT.info("\033[H\033[2J");
     }
 
     public static void displayEditMenu() {

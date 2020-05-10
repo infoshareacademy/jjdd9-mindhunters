@@ -67,6 +67,7 @@ public class DrinkService {
 
 
     public static void printSingleDrink(Drink drink) {
+        Utilities.clearScreen();
         String alcoContColour;
         if (drink.getAlcoholStatus().equals("Alcoholic")) {
             AgeVerification ageVerification = new AgeVerification();
@@ -124,7 +125,7 @@ public class DrinkService {
         STDOUT.info("\nPhoto link : " + "\n" + Colours.ANSI_BLUE + drink.getImageUrl() + ANSI_RESET +
                 "\n" + "\n" + Colours.ANSI_BACKGROUND_YELLOW_BLACK + "          Last modification : " +
                 drink.getModifiedDate().format(DateTimeFormatter.ofPattern(dateFormat)) +
-                Colours.ANSI_RESET);
+                Colours.ANSI_RESET + "\n");
     }
 
     public List<Integer> getAllDrinkIdNumbers(DrinksDatabase database) {
@@ -184,7 +185,7 @@ public class DrinkService {
         userDrink.setDrinkId(generateUserDrinkId());
 
         Utilities.clearScreen();
-        userDrink.setDrinkName(userInput.getUserStringInput("Type name of drink: "));
+        userDrink.setDrinkName(userInput.getUserStringInput("\nType name of drink: "));
 
         Utilities.clearScreen();
         setUserDrinkCategory(userDrink);
@@ -193,10 +194,10 @@ public class DrinkService {
         setUserDrinkAlcoholStatus(userDrink);
 
         Utilities.clearScreen();
-        userDrink.setRecipe(userInput.getUserStringInput("Type drink recipe: "));
+        userDrink.setRecipe(userInput.getUserStringInput("\nType drink recipe: "));
 
         Utilities.clearScreen();
-        userDrink.setImageUrl(userInput.getUserStringInput("Type drink image URL: "));
+        userDrink.setImageUrl(userInput.getUserStringInput("\nType drink image URL: "));
 
         Utilities.clearScreen();
         userDrink.setIngredients(setUserDrinkIngredientAndMeasure(15));
@@ -214,7 +215,7 @@ public class DrinkService {
     }
 
     private void setUserDrinkCategory(Drink userDrink) {
-        STDOUT.info("Choose category number:\n");
+        STDOUT.info("\nChoose category number:\n");
         printAllCategories(DrinksDatabase.getINSTANCE());
         int userChoice;
         do {
@@ -228,7 +229,7 @@ public class DrinkService {
     }
 
     private void setUserDrinkAlcoholStatus(Drink userDrink) {
-        STDOUT.info("Choose alcohol status:\n");
+        STDOUT.info("\nChoose alcohol status:\n");
         printAllAlcoholStatuses(DrinksDatabase.getINSTANCE());
         int userChoice;
         do {
@@ -248,7 +249,7 @@ public class DrinkService {
         String choice;
         int counter = 1;
         do {
-            name = userInput.getUserStringInput("Type ingredient no." + counter + " name: ");
+            name = userInput.getUserStringInput("\nnType ingredient no." + counter + " name: ");
             StringBuilder builder = new StringBuilder();
             String message =
                     builder.append("Type ").append("'").append(name).append("'").append(" measure: ").toString();
