@@ -116,7 +116,10 @@ public class MenuControl {
                     if (foundDrinkByCategory.getDrinkId() != null) {
                         Utilities.clearScreen();
                         DrinkService.printSingleDrink(foundDrinkByCategory);
-                        userInput.getUserInputAnyKey();
+                        if (userInput.getYesOrNo("\n\nDo you want to add this drink to favourites? <y/n>: ")) {
+                            favouritesService.addToFavourites(foundDrinkByCategory.getDrinkId());
+                            userInput.getUserInputAnyKey();
+                        }
                     }
                     MenuPath.remove();
                     break;
