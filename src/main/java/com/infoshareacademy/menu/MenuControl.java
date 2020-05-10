@@ -1,16 +1,21 @@
 package com.infoshareacademy.menu;
 
 import com.infoshareacademy.domain.Drink;
-import com.infoshareacademy.domain.DrinksDatabase;
+import com.infoshareacademy.domain.FavouritesDatabase;
 import com.infoshareacademy.service.DrinkService;
+import com.infoshareacademy.service.FavouritesService;
 import com.infoshareacademy.service.JsonWriter;
+import com.infoshareacademy.service.SearchService;
 import com.infoshareacademy.utilities.PropertiesUtilities;
 import com.infoshareacademy.utilities.UserInput;
 import com.infoshareacademy.utilities.Utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 import static com.infoshareacademy.domain.DrinksDatabase.getINSTANCE;
+import static com.infoshareacademy.domain.FavouritesDatabase.getInstFavourites;
 
 public class MenuControl {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
@@ -19,9 +24,11 @@ public class MenuControl {
     private boolean exit = false;
     private final UserInput userInput = new UserInput();
     private final DrinkService drinkService = new DrinkService();
+    private final FavouritesService favouritesService = new FavouritesService();
 
     public void mainNavigation() {
-        drinkService.loadDrinkList();
+        DrinkService.loadDrinkList();
+        favouritesService.loadFavouritesList();
         do {
             DisplayMenu.displayMainMenu();
             switch (userInput.getUserNumericInput()) {
@@ -48,6 +55,7 @@ public class MenuControl {
 
     public void browseNavigation() {
         boolean cont = true;
+        SearchService search = new SearchService();
         do {
             DisplayMenu.displayBrowseMenu();
             switch (userInput.getUserNumericInput()) {
@@ -56,21 +64,50 @@ public class MenuControl {
                     userInput.getUserInputAnyKey();
                     break;
                 case 2:
-                    STDOUT.info(" -------------SEARCH BY NAME------------------");
-                    Drink drink = DrinksDatabase.getINSTANCE().getDrinks().get(0);
-                    DrinkService.printSingleDrink(drink);
-                    userInput.getUserInputAnyKey();
+                    List<Drink> sortedList = favouritesService.getAllFavourites(FavouritesDatabase.getInstFavourites());
+                    Drink favDrink= favouritesService.chooseOneFavRecipeFromList(sortedList);
+                    if (favDrink.getDrinkId() != null) {
+                        DrinkService.printSingleDrink(favDrink);
+                        userInput.getUserInputAnyKey();
+                    }
                     break;
                 case 3:
-                    STDOUT.info("SEARCH BY INGREDIENT");
+                    Drink foundDrinkByName = search.searchDrinkByName();
+                    if (foundDrinkByName.getDrinkId() != null) {
+                        Utilities.clearScreen();
+                        DrinkService.printSingleDrink(foundDrinkByName);
+                        if (userInput.getYesOrNo("\n\nDo you want to add this drink to favourites? <y/n>: ")) {
+                            favouritesService.addToFavourites(foundDrinkByName.getDrinkId());
+                            userInput.getUserInputAnyKey();
+                        }
+                    }
                     break;
                 case 4:
-                    STDOUT.info("SEARCH BY CATEGORY");
+                    Drink foundDrinkByIngredient = search.searchDrinkByIngredient();
+                    if (foundDrinkByIngredient.getDrinkId() != null) {
+                        Utilities.clearScreen();
+                        DrinkService.printSingleDrink(foundDrinkByIngredient);
+                        if (userInput.getYesOrNo("\n\nDo you want to add this drink to favourites? <y/n>: ")) {
+                            favouritesService.addToFavourites(foundDrinkByIngredient.getDrinkId());
+                            userInput.getUserInputAnyKey();
+                        }
+                    }
                     break;
                 case 5:
-                    cont = false;
+                    Utilities.clearScreen();
+                    Drink foundDrinkByCategory = search.SearchByCategory();
+                    if (foundDrinkByCategory.getDrinkId() != null) {
+                        Utilities.clearScreen();
+                        DrinkService.printSingleDrink(foundDrinkByCategory);
+                        userInput.getUserInputAnyKey();
+                    }
                     break;
                 case 6:
+                    JsonWriter.writeAllToJson(getInstFavourites(), "Favourites.json");
+                    cont = false;
+                    break;
+                case 7:
+                    JsonWriter.writeAllToJson(getInstFavourites(), "Favourites.json");
                     DisplayMenu.displayExit();
                     exit = true;
                     break;
@@ -97,17 +134,23 @@ public class MenuControl {
                     update();
                     break;
                 case 4:
-                    STDOUT.info("ADD TO FAVOURITES");
+                    String id = userInput.getUserStringInput("Type drink id to add to favourites: ");
+                    favouritesService.addToFavourites(id);
+                    userInput.getUserInputAnyKey();
                     break;
                 case 5:
-                    STDOUT.info("REMOVE FROM FAVOURITES");
+                    String id2 = userInput.getUserStringInput("Type drink id to remove from favourites: ");
+                    favouritesService.removeFromFavourites(id2);
+                    userInput.getUserInputAnyKey();
                     break;
                 case 6:
-                    JsonWriter.writeJsonToFile(getINSTANCE(), "AllDrinks.json");
+                    JsonWriter.writeAllToJson(getINSTANCE(), "AllDrinksTEST.json");
+                    JsonWriter.writeAllToJson(getInstFavourites(), "Favourites.json");
                     cont = false;
                     break;
                 case 7:
-                    JsonWriter.writeJsonToFile(getINSTANCE(), "AllDrinks.json");
+                    JsonWriter.writeAllToJson(getINSTANCE(), "AllDrinksTEST.json");
+                    JsonWriter.writeAllToJson(getInstFavourites(), "Favourites.json");
                     DisplayMenu.displayExit();
                     exit = true;
                     break;
@@ -124,7 +167,6 @@ public class MenuControl {
         while (!checkId) {
             Utilities.clearScreen();
             String drinkIdToEdit = userInput.getUserStringInput("Please type drink id to be edited: ");
-
             if (drinkService.editDrink(drinkIdToEdit)) {
                 Utilities.clearScreen();
                 STDOUT.info("Drink update complete. Press any key to continue: ");
@@ -132,10 +174,8 @@ public class MenuControl {
                 checkId = true;
             } else {
                 Utilities.clearScreen();
-                String input = userInput.getUserStringInput("Drink ID not found. Press [Y] to try again: ");
-
-                if (!userInput.getYesOrNo(input)) {
-                    Utilities.clearScreen();
+                STDOUT.info("Drink ID not found. ");
+                if (!userInput.getYesOrNo("Do you want to try again? <y/n>")) {
                     STDOUT.info("Drink edit unsuccessful - drink not found. Press any key to continue: ");
                     userInput.getUserInputAnyKey();
                     checkId = true;
@@ -157,10 +197,8 @@ public class MenuControl {
                 checkId = true;
             } else {
                 Utilities.clearScreen();
-                String input = userInput.getUserStringInput("Drink ID not found. Press [Y] try again: ");
-
-                if (!userInput.getYesOrNo(input)) {
-                    Utilities.clearScreen();
+                STDOUT.info("Drink ID not found. ");
+                if (!userInput.getYesOrNo("Do you want to try again? <y/n>")) {
                     STDOUT.info("Drink removal unsuccessful - drink not found. Press any key to continue: ");
                     userInput.getUserInputAnyKey();
                     checkId = true;
@@ -182,18 +220,15 @@ public class MenuControl {
             DisplayMenu.displaySettingsMenu();
             switch (userInput.getUserNumericInput()) {
                 case 1:
-                    STDOUT.info("LOAD/CHANGE CONFIGURATION");
-                    break;
-                case 2:
                     settingsOrderNavigation();
                     break;
-                case 3:
+                case 2:
                     settingsDateFormatNavigation();
                     break;
-                case 4:
+                case 3:
                     cont = false;
                     break;
-                case 5:
+                case 4:
                     DisplayMenu.displayExit();
                     exit = true;
                     break;
