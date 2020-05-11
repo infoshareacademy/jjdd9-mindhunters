@@ -116,7 +116,10 @@ public class MenuControl {
                     if (foundDrinkByCategory.getDrinkId() != null) {
                         Utilities.clearScreen();
                         DrinkService.printSingleDrink(foundDrinkByCategory);
-                        userInput.getUserInputAnyKey();
+                        if (userInput.getYesOrNo("\n\nDo you want to add this drink to favourites? <y/n>: ")) {
+                            favouritesService.addToFavourites(foundDrinkByCategory.getDrinkId());
+                            userInput.getUserInputAnyKey();
+                        }
                     }
                     MenuPath.remove();
                     break;
@@ -167,9 +170,13 @@ public class MenuControl {
                     break;
                 case 5:
                     MenuPath.add("REMOVE_FAVORITE");
-                    String id2 = userInput.getUserStringInput("Type drink id to remove from favourites: ");
-                    favouritesService.removeFromFavourites(id2);
-                    userInput.getUserInputAnyKey();
+                    Utilities.clearScreen();
+                    List<Drink> sortedList = favouritesService.getAllFavourites(FavouritesDatabase.getInstFavourites());
+                    Drink favDrink = favouritesService.chooseOneFavouriteToRemoveFromList(sortedList);
+                    if (favDrink.getDrinkId() != null) {
+                        favouritesService.removeFromFavourites(favDrink.getDrinkId());
+                        userInput.getUserInputAnyKey();
+                    }
                     MenuPath.remove();
                     break;
                 case 6:

@@ -136,7 +136,7 @@ public class DrinkService {
         int counter = 0;
         for (String category : categories) {
             counter++;
-            STDOUT.info("[{}], {}\n", counter, category);
+            STDOUT.info("[{}] {}\n", counter, category);
         }
     }
 

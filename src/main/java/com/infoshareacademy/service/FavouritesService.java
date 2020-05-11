@@ -125,4 +125,24 @@ public class FavouritesService {
         STDOUT.info("Drink id not found. Try again. ");
     }
 
+    public Drink chooseOneFavouriteToRemoveFromList(List<Drink> sortedList) {
+        Drink foundDrink = new Drink();
+        UserInput userInput = new UserInput();
+        boolean isCorrectNumber = false;
+        if (userInput.getYesOrNo("\nWould you like to remove any recipe from favourites? <y/n> ")) {
+            STDOUT.info("\nWhich recipe would you like to remove? ");
+            do {
+                int recipeNumber = userInput.getUserNumericInput();
+                if (recipeNumber >= 1 && recipeNumber <= sortedList.size()) {
+                    if (sortedList != null) {
+                        foundDrink = sortedList.get(recipeNumber - 1);
+                    }
+                    isCorrectNumber = true;
+                } else
+                    STDOUT.info("\nInput correct number of desired recipe. ");
+            } while (!isCorrectNumber);
+        }
+        return foundDrink;
+    }
+
 }
