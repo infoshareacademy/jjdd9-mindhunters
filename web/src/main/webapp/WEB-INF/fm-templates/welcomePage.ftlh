@@ -226,9 +226,9 @@
 <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>-->
 <!--&lt;!&ndash; Third party plugin JS&ndash;&gt;-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-<script src="/jqBootstrapValidation.js"></script>
+<script src="./js/BootstrapValidation.js"></script>
 <!--&lt;!&ndash;&lt;!&ndash; Core theme JS&ndash;&gt;&ndash;&gt;-->
-<script type="text/javascript" src="js/homePage.js"></script>
+<script type="text/javascript" src="./js/homePage.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </body>
 </html>
