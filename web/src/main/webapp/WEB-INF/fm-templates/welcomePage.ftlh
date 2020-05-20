@@ -9,23 +9,23 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Mindhunters</title>
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
-    <style type="text/css">
-        .p2iframe{
-            /*width:100%;*/
-            /*height:100%;*/
-            /*float:left;*/
-            border:0px;
-            /*overflow:hidden;*/
-        }
-    </style>
-    <script type= "text/javascript">
-        function loadContent(){
-            document.getElementById("card1").innerHTML = "<iframe class=\"p2iframe\" " +
-                "src=\"Switchedcard.html\" name=\"p2iframe\"></iframe>";
-        }
-    </script>
+<#--    <style type="text/css">-->
+<#--        .p2iframe{-->
+<#--            /*width:100%;*/-->
+<#--            /*height:100%;*/-->
+<#--            /*float:left;*/-->
+<#--            border:0px;-->
+<#--            /*overflow:hidden;*/-->
+<#--        }-->
+<#--    </style>-->
+<#--    <script type= "text/javascript">-->
+<#--        function loadContent(){-->
+<#--            document.getElementById("card1").innerHTML = "<iframe class=\"p2iframe\" " +-->
+<#--                "src=\"Switchedcard.html\" name=\"p2iframe\"></iframe>";-->
+<#--        }-->
+<#--    </script>-->
 </head>
 <body id="page-top">
 
@@ -33,7 +33,7 @@
 <nav class="navbar navbar-expand-lg" id="mainNav" style="background-color: #1b1e21">
     <div class="container-fluid">
         <a class="navbar-brand " href="#page-top">
-            <img src="img/logomindhunters.jpg">
+            <img src="../../img/logomindhunters.jpg">
         </a>
         <div class="navbar-toggler  text-warning" type="button"
              data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
@@ -97,7 +97,7 @@
 <div class="body part1 top" id="body part1 top" style="background-color: #1b1e21">
     <div class="container-fluid" id="part1 top">
         <div style="position: relative">
-            <img style="width: 100%;height: auto" src="img/mindhunters.jpg">
+            <img style="width: 100%;height: auto" src="../../img/mindhunters.jpg">
             <div class="over-photo1" style="position:absolute;left: 71%;bottom:20%">
                 <header class="masthead">
                     <div class="container">
@@ -226,9 +226,9 @@
 <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>-->
 <!--&lt;!&ndash; Third party plugin JS&ndash;&gt;-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-<script src="/jqBootstrapValidation.js"></script>
+<script src="../../js/BootstrapValidation.js"></script>
 <!--&lt;!&ndash;&lt;!&ndash; Core theme JS&ndash;&gt;&ndash;&gt;-->
-<script type="text/javascript" src="js/homePage.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/homePage.js"></script>
+<#--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
 </body>
 </html>
