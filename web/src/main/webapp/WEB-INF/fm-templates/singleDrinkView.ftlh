@@ -8,24 +8,12 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <title>Mindhunters</title>
     <link href="../../css/style.css" rel="stylesheet">
+
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
-<#--    <style type="text/css">-->
-<#--        .p2iframe{-->
-<#--            /*width:100%;*/-->
-<#--            /*height:100%;*/-->
-<#--            /*float:left;*/-->
-<#--            border:0px;-->
-<#--            /*overflow:hidden;*/-->
-<#--        }-->
-<#--    </style>-->
-<#--    <script type= "text/javascript">-->
-<#--        function loadContent(){-->
-<#--            document.getElementById("card1").innerHTML = "<iframe class=\"p2iframe\" " +-->
-<#--                "src=\"Switchedcard.html\" name=\"p2iframe\"></iframe>";-->
-<#--        }-->
-<#--    </script>-->
+
+    <title>Drink ${drink.drinkName}</title>
+
 </head>
 <body id="page-top">
 
@@ -190,15 +178,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
-
-<!-- Bootstrap core JS-->
-
-<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>-->
-<!--&lt;!&ndash; Third party plugin JS&ndash;&gt;-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 <script src="../../js/BootstrapValidation.js"></script>
-<!--&lt;!&ndash;&lt;!&ndash; Core theme JS&ndash;&gt;&ndash;&gt;-->
 <script type="text/javascript" src="../../js/homePage.js"></script>
-<#--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
 </body>
 </html>
