@@ -57,33 +57,11 @@
     // Collapse the navbar when page is scrolled
     $(window).scroll(navbarCollapse);
 
-
-    // var myFunction =  function(){
-    //     // var element = document.getElementById("card1");
-    //     // element.classList.toggle("text warning");
-    //     $(".card-body1").load("Switchedcard.html")
-    //     $('.switchCard').click(myFunction);
-    // }
-    // var myFunction = function () {
-    //     fetch("./Switchedcard.html")
-    //         .then(response => {
-    //             return response.text()
-    //         })
-    //         .then(data => {
-    //             document.querySelector("card-body1").innerHTML = data;
-    //         });
-    // }
-    //
-    // $('.switchCard').click(myFunction());
-
-
 })(jQuery); // End of use strict
 
 $(document).ready(function () {
 
     $("#switch1").click(function () {
-        // $(document).getElementById("card1").innerHTML.innerHTML =
-        //     "<iframe class=\"p2iframe\" " + "src=\"Switchedcard.html\" name=\"p2iframe\"></iframe>";
 
         $("#card2").toggle(); // znika i pojawia sie selector
     });
@@ -100,7 +78,9 @@ $(document).ready(function () {
     });
 
     $("#switch31").click(function () {
-        $('#card3').find("p").load('Switchedcard.html');
+        // $('#card3').load('Switchedcard.html');
+        document.getElementById("card3").innerHTML =
+            $('#card3').load('../../Switchedcard.html')
     });
 
     $("#admin").click(function () {
@@ -109,15 +89,27 @@ $(document).ready(function () {
         }),
             $("#glasses").animate({
                 'opacity': '0.3',
-                'height': '800px'
+                'height': '790px'
             }, 2500),
 
-            $(".btn-admin").css({visibility:"visible", opacity: 0.0}).animate({
-                opacity: 1.0},800);
-
-
+            $(".btn-admin").css({visibility: "visible", opacity: 0.0}).animate({
+                opacity: 1.0
+            }, 800);
     });
 
+    $("#btn-admin-back").click(function () {
+        $("#card-deck,#services").each(function () {
+            $(this).fadeIn(2200);
+        }),
+            $("#glasses").animate({
+                'opacity': '1.0',
+                'height': '880'
+            }, 2500),
+
+            $(".btn-admin").css({visibility: "hide", opacity: 1.0}).animate({
+                opacity: 0.0
+            }, 800);
+    });
 });
 
 
