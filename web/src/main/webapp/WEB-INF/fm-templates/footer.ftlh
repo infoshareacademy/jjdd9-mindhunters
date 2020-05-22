@@ -22,7 +22,11 @@
                 </div>
             </div>
             <div class="row-copy">
-                <i style="color: white; text-align: center">Copywrite all reserved 2020.</i>
+                <i style="color: white; text-align: center">
+                    <#assign aDateTime = .now>
+                    <#assign aDate = aDateTime?date>
+                    Copyright &copy; all reserved ${aDate?string.yyyy}.
+                </i>
             </div>
         </div>
     </div>
