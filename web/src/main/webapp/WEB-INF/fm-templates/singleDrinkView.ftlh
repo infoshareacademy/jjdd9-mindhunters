@@ -91,7 +91,7 @@
 
         <div class="row justify-content-center">
             <div class="col-md-3">
-                <h4>Recipe: 'Sex on the beach'</h4>
+                <h4>Recipe: ${drink.drinkName}</h4>
                 <i class="icon-lock" title="Add/delete from favourites">
                     <svg class="bi bi-star-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="orange"
                          xmlns="http://www.w3.org/2000/svg">
@@ -122,12 +122,12 @@
                     </svg>
                 </i>
                 <br><br>
-                <div>ID number: '17222'</div>
-                <div>Category: 'Cocktail'</div>
-                <div style="color: red">'Alcoholic'</div>
+                <div>ID number: ${drink.drinkId}</div>
+                <div>Category: ${drink.categoryName}</div>
+                <div style="color: red">${drink.alcoholStatus}</div>
             </div>
             <div class="col-md-3">
-                <img src="https://www.thecocktaildb.com/images/media/drink/2x8thr1504816928.jpg" style="
+                <img src="${drink.imageUrl}" style="
                         border-radius: 10px;
   padding: 5px; width: 70%;" alt="">
             </div>
@@ -137,17 +137,21 @@
             <div class="col-md-3">
                 <br><br><br>
                 <div><h5>Ingredients and measure:<br><br></h5></div>
-                <div> 'Gin': '1 3/4 shot'</div>
-                <div> 'Grand Mariner': '1 Shot'</div>
-                <div> 'Lemon Juice': '1/4 Shot'</div>
-                <div> 'Grenadine': '1/8 Shot'</div>
+
+                <#list user.ingredients>
+
+                    <#items as ingredient>
+
+                        <div> ${ingredient.name} : ${ingredient.measure}</div>
+
+                    </#items>
+                </#list>
+
             </div>
             <div class="col-md-3">
                 <br><br><br>
                 <div><h5>Instructions:<br><br></h5></div>
-                <div>'Pour all ingredients into a cocktail shaker, mix and serve over ice into a
-                    chilled glass.'
-                </div>
+                <div>${drink.recipe}</div>
             </div>
         </div>
 
@@ -156,7 +160,7 @@
             <div class="col">
             </div>
             <div class="col-md-3" style="font-size: 12px">
-                <div> Modified: '2017-09-07 21:42:09'</div>
+                <div> Modified: ${drink.modifiedDate}</div>
             </div>
             <div class="col">
             </div>
