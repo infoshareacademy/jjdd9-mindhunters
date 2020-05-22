@@ -76,21 +76,50 @@
     //
     // $('.switchCard').click(myFunction());
 
-    // var div = document.getElementById("card1")
-    // $('#switch1').click(function () {
-    //     $("#div1").load("demo_text.txt");
-    // });
-    //
-    // $('#switch2').click(function () {
-    //     $(div).innerHTML += '<p>12</p>';
-    // });
-    // $('#switch3').click(function () {
-    //     $("<p>:last").remove();
-    //
-    //
-    // });
-
 
 })(jQuery); // End of use strict
+
+$(document).ready(function () {
+
+    $("#switch1").click(function () {
+        // $(document).getElementById("card1").innerHTML.innerHTML =
+        //     "<iframe class=\"p2iframe\" " + "src=\"Switchedcard.html\" name=\"p2iframe\"></iframe>";
+
+        $("#card2").toggle(); // znika i pojawia sie selector
+    });
+
+    $("#switch2").click(function () {
+        $("#card1").find("p").css('color', 'red');
+        $("#p-adddel").find("small").css('border', '1px solid black');
+        $("#card1").siblings().css('border', '4px solid yellow');
+
+    });
+
+    $("#switch3").click(function () {
+        $("#card1").find("p").remove();
+    });
+
+    $("#switch31").click(function () {
+        $('#card3').find("p").load('Switchedcard.html');
+    });
+
+    $("#admin").click(function () {
+        $("#card-deck,#services").each(function () {
+            $(this).fadeOut(2200);
+        }),
+            $("#glasses").animate({
+                'opacity': '0.3',
+                'height': '800px'
+            }, 2500),
+
+            $(".btn-admin").css({visibility:"visible", opacity: 0.0}).animate({
+                opacity: 1.0},800);
+
+
+    });
+
+});
+
+
 
 

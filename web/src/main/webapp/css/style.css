@@ -66,7 +66,7 @@
 }
 
 .navy-top {
-    background: url('../../../bootstrapIndex/img/mindhunters.jpg') no-repeat scroll center center;
+    background: url('../img/mindhunters.jpg') no-repeat scroll center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -159,9 +159,6 @@
 .collapse:not(.show) {
     display: none;
 }
-.over-photo1{
-    /*position: center;*/
-}
 .btn {
     display: inline-block;
     font-weight: 400;
@@ -180,6 +177,24 @@
     border-radius: 0.25rem;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+.btn-admin{
+    width: 140px;
+    margin-bottom: 6px;
+    visibility: collapse;
+}
+.backGround {
+    width: 100%;
+    height: auto;
+    max-height: 880px;
+}
+.card-body{
+    max-height: 250px;!important;
+}
+.card-img-top{
+    max-height: 160px;
+    width: auto;
+}
+
 @media (prefers-reduced-motion: reduce) {
     .btn {
         transition: none;
@@ -412,8 +427,8 @@ fieldset:disabled a.btn {
 
 .bottom-ft{
     background-color: #1b1e21;
-    padding-top: 15px;
-    padding-bottom: 10px;
+    padding-top: 12px;
+    padding-bottom: 12px;
 }
 .row-copy{
     text-align: center;!important;
@@ -421,6 +436,11 @@ fieldset:disabled a.btn {
 
 .col-sm-4 {
     color: #0f6674;
+
+}
+.icons-row {
+    width: 100%;
+    text-align: center;
 }
 .mr-auto,
 .mx-auto {
