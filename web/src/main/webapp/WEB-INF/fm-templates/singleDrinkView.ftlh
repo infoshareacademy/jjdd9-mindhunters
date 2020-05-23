@@ -10,90 +10,22 @@
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="../../css/style.css" rel="stylesheet">
 
-    <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
-
     <title>Drink</title>
 
 </head>
 <body id="page-top">
 
-<!--Navigation-->
-<nav class="navbar navbar-expand-lg" id="mainNav" style="background-color: #1b1e21">
-    <div class="container-fluid">
-        <a class="navbar-brand " href="#page-top">
-            <img src="../../img/logomindhunters.jpg">
-        </a>
-        <div class="navbar-toggler  text-warning" type="button"
-             data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
-             aria-expanded="false" aria-label="Toggle navigation" style="border-color:#fed136">
-            <a> Menu
-                <svg class="bi bi-justify" width="1.5em" height="1.4em" viewBox="0 0 16 16" fill="currentColor"
-                     xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                          d="M2 12.5a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0
-                          010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5
-                          0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
-                </svg>
-            </a>
-        </div>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav text-uppercase ml-auto">
-                <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="#part1 top">Home</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="#recipePage">Recipe</a>
-                </li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="#bottom-ft">Search</a>
-                </li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="#settingPage">Setting</a>
-                </li>
-                <div class="btn-group">
-                    <button type="button" class="btn dropdown-toggle btn-outline-warning btn-background"
-                            data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                        Login
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <form class="px-4 py-3">
-                            <div class="form-group">
-                                <label for="exampleDropdownFormEmail1">Email address</label>
-                                <input type="email" class="form-control" id="exampleDropdownFormEmail1"
-                                       placeholder="email@example.com">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleDropdownFormPassword1">Password</label>
-                                <input type="password" class="form-control" id="exampleDropdownFormPassword1"
-                                       placeholder="Password">
-                            </div>
-                            <div class="form-group">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="dropdownCheck">
-                                    <label class="form-check-label" for="dropdownCheck">
-                                        Remember me
-                                    </label>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-outline-warning">Sign in</button>
-                        </form>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">New around here? Sign up</a>
-                        <a class="dropdown-item" href="#">Forgot password?</a>
-                    </div>
-                </div>
-            </ul>
-        </div>
-    </div>
-</nav>
+<#include "navigation.ftlh">
 
-<!------------------------------------------------------------------------------------------------------->
 <section style="background-color: #1b1e21">
+
     <div class="container" style="color: white">
         <br><br><br>
-
-
         <div class="row justify-content-center">
             <div class="col-md-3">
-                <h4>Recipe: ${drink.drinkName}</h4>
+                <h4>${drink.drinkName}</h4>
                 <i class="icon-lock" title="Add/delete from favourites">
-                    <svg class="bi bi-star-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="orange"
+                    <svg class="bi bi-star-fill" id="star" width="1em" height="1em" viewBox="0 0 16 16" fill="orange"
                          xmlns="http://www.w3.org/2000/svg">
                         <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
                     </svg>
@@ -124,7 +56,14 @@
                 <br><br>
                 <div>ID number: ${drink.drinkId}</div>
                 <div>Category: ${drink.categoryName}</div>
-                <div style="color: red">${drink.alcoholStatus}</div>
+
+                <#if drink.alcoholStatus == "Alcoholic" || drink.alcoholStatus == "Optional alcohol">
+                    <#assign color="red">
+                <#else>
+                    <#assign color="white">
+                </#if>
+
+                <div style="color:${color}">${drink.alcoholStatus}</div>
             </div>
             <div class="col-md-3">
                 <img src="${drink.imageUrl}" style="
@@ -138,12 +77,9 @@
                 <br><br><br>
                 <div><h5>Ingredients and measure:<br><br></h5></div>
 
-                <#list user.ingredients>
-
+                <#list drink.ingredients>
                     <#items as ingredient>
-
                         <div> ${ingredient.name} : ${ingredient.measure}</div>
-
                     </#items>
                 </#list>
 
@@ -169,37 +105,11 @@
     </div>
 </section>
 
-<!------------------------------------------------------------------------------------------------------->
-<footer>
-    <div class="bottom-ft" id="bottom-ft">
-        <div class="container container-fluid">
-            <div class="row">
-                <div class="col-sm-2">
-                    <i class="fab fa-github text-warning">Github</i>
-                </div>
-                <div class="col-sm-2">
-                    <i class="fab fa-facebook-square text-warning">facebook</i>
-                </div>
-                <div class="col-sm-2">
-                    <i class="fab fa-twitter-square text-warning">twitter</i>
-                </div>
-                <div class="col-sm-2">
-                    <span class="fab fa-linkedin text-warning">linkedin</span>
-                </div>
-                <div class="col-sm-2">
-                    <span class="fab fa-instagram text-warning">insta</span>
-                </div>
-                <div class="row">
-                    <a class="btn far fa-caret-square-up js-scroll-trigger text-warning" href="#part1 top"></a>2
-                </div>
-            </div>
-            <div class="row-copy">
-                <i style="color: white; text-align: center">Copywrite all reserved 2020.</i>
-            </div>
-        </div>
-    </div>
-</footer>
+<#include "footer.ftlh">
 
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -208,7 +118,9 @@
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+<script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
 <script src="../../js/BootstrapValidation.js"></script>
-<script type="text/javascript" src="../../js/homePage.js"></script>
+<script src="../../js/singleDrinkView.js"></script>
+
 </body>
 </html>
