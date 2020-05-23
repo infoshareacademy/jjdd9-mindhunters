@@ -22,9 +22,9 @@ import java.util.Map;
 import java.util.Random;
 
 @WebServlet("/drink")
-public class TestSingleDrinkServlet extends HttpServlet {
+public class SingleDrinkServlet extends HttpServlet {
 
-    private static final Logger logger = LoggerFactory.getLogger(TestSingleDrinkServlet.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(SingleDrinkServlet.class.getName());
 
     @Inject
     private TemplateProvider templateProvider;

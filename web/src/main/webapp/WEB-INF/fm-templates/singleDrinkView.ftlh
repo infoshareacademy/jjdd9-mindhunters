@@ -75,7 +75,7 @@
             <div class="col-md-3">
                 <img src="${drink.imageUrl}" style="
                         border-radius: 10px;
-  padding: 5px; width: 70%;" alt="">
+  padding: 5px; width: 70%;" alt="" onerror="this.src='../../img/drinkimage-not-avail.jpg'">
             </div>
         </div>
 
