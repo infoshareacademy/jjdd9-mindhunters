@@ -1,10 +1,9 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.domain.Drink;
-import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.freemarker.TemplateProvider;
-import com.infoshareacademy.service.DrinkService;
-import com.infoshareacademy.service.SearchService;
+import com.infoshareacademy.testClasses.Drink;
+import com.infoshareacademy.testClasses.DrinkService;
+import com.infoshareacademy.testClasses.DrinksDatabase;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -19,6 +18,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 @WebServlet("/drink")
 public class TestSingleDrinkServlet extends HttpServlet {
@@ -34,21 +34,15 @@ public class TestSingleDrinkServlet extends HttpServlet {
 
         //wyciagamy liste drinkow
         final List<Drink> drinkList = DrinksDatabase.getINSTANCE().getDrinks();
-        Drink testDrink = drinkList.get(5);
 
+        //losujemy drinka
+        Integer randomNum = new Random().nextInt(101);
+        Drink testDrink = drinkList.get(randomNum);
 
         Map<String, Object> dataModel = new HashMap<>();
         dataModel.put("drink", testDrink);
 
-
-/*//        req.getParameter("name");
-
-        if (name == null || name.isEmpty()) {
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return;
-        }
-        dataModel.put("name", name);*/
-        Template template = templateProvider.getTemplate(getServletContext(),"singleDrinkView.ftlh");
+        Template template = templateProvider.getTemplate(getServletContext(), "singleDrinkView.ftlh");
 
         PrintWriter printWriter = resp.getWriter();
 
