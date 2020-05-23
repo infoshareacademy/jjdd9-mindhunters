@@ -17,6 +17,7 @@ import java.util.Map;
 
 @WebServlet("/welcome")
 public class WelcomeUserServlet extends HttpServlet {
+
     @Inject
     private TemplateProvider templateProvider;
 
@@ -25,7 +26,6 @@ public class WelcomeUserServlet extends HttpServlet {
 
         Map<String, Object> dataModel = new HashMap<>();
         String name = "Guest";
-//        req.getParameter("name");
 
         if (name == null || name.isEmpty()) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
