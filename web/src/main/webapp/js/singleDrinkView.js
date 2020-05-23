@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    $(document).on('click', "#star",
-    function() {
-        $(this).toggleClass('bi-star-fill bi-star');
+    $('.icon-lock-star').click(function() {
+        $('#star-fill').toggle();
+        $('#star-empty').toggle();
     });
 });
