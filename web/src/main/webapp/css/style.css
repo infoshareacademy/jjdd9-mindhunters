@@ -723,17 +723,14 @@ fieldset:disabled a.btn {
 
 
 .thumbnail_list {
-    max-width: 200px;
+    width: 200px;
     border-radius: 5px;
     min-margin: 5;
+    text-align: center;
 
 }
 
 
-.center {
-    width: 300px;
-    margin-block-start: 10px;
-}
 
 .container-list {
     width: 300px;
@@ -769,12 +766,46 @@ ul.space_list li {
 }
 
 
-.bi::before {
-    display: inline-block;
+.text-truncate{
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 2075ch;
+
+
+
+}
+
+
+.module {
+    width: 250px;
+    overflow: hidden;
+
+}
+
+.fade {
+    position: relative;
+    height: 3.6em; /* exactly three lines */
+}
+.fade:after {
     content: "";
-    background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='%23333' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z' clip-rule='evenodd'/></svg>");
-    background-repeat: no-repeat;
-    background-size: 1rem 1rem;
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 70%;
+    height: 1.2em;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgb(255, 255, 255) 50%);
+}
+
+.line-clamp {
+    max-width: 1000px;
+    width: 500px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 
 

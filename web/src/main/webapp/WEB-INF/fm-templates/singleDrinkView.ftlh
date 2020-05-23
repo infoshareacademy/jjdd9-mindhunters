@@ -18,7 +18,7 @@
 <#include "navigation.ftlh">
 
 <section style="background-color: #1b1e21">
-
+    <div class="container" style="color: white; height: max-content;">
     <div class="container" style="color: white">
         <br><br><br>
         <div class="row justify-content-center">

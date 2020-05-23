@@ -4,6 +4,7 @@ package com.infoshareacademy.testClasses;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DrinkService {
 
@@ -19,6 +20,15 @@ public class DrinkService {
             }
             database.addAllDrinks(drinkList);
         }
+    }
+
+    public static List<String> getAllCategories(List<Drink> drinkList) {
+
+        return drinkList.stream()
+                .map(drink -> drink.getCategoryName())
+                .distinct()
+                .sorted()
+                .collect(Collectors.toList());
     }
 }
 
