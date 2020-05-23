@@ -1,7 +1,6 @@
 package com.infoshareacademy.servlets;
 
-
-import com.infoshareacademy.cdi.DrinksDatabaseBean;
+import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -15,37 +14,38 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-@WebServlet("/drinks-list")
+@WebServlet("/drink")
 public class DrinkListServlet extends HttpServlet {
-
     @Inject
     private TemplateProvider templateProvider;
 
+
     @Inject
-    private DrinksDatabaseBean drinksDatabaseBean;
+    private DrinkServiceBEAN drinkServiceBEAN;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Drink> testDrink = drinkServiceBEAN.;
+
+
 
         Map<String, Object> dataModel = new HashMap<>();
-
-        String drink = req.getParameter("drink");
-
-        dataModel.put("drink", drink);
-
-        Template template = templateProvider.getTemplate(getServletContext(), "receipeList.ftlh");
-
+        dataModel.put("drink", testDrink);
+/*//        req.getParameter("name");
+        if (name == null || name.isEmpty()) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+        dataModel.put("name", name);*/
+        Template template = templateProvider.getTemplate(getServletContext(), "template.ftlh");
         PrintWriter printWriter = resp.getWriter();
-
         try {
             template.process(dataModel, printWriter);
         } catch (TemplateException e) {
             e.printStackTrace();
         }
-
-
-
     }
 }

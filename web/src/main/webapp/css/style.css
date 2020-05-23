@@ -763,7 +763,6 @@ fieldset:disabled a.btn {
 
 .thumbnail_list {
     max-width: 200px;
-    margin: auto;
     border-radius: 5px;
     min-margin: 5;
 
@@ -772,7 +771,6 @@ fieldset:disabled a.btn {
 
 .center {
     width: 300px;
-    margin: auto;
     margin-block-start: 10px;
 }
 
@@ -793,6 +791,31 @@ fieldset:disabled a.btn {
 ul.space_list li {
     margin-bottom: 1em;
     }
+
+.offset_img {
+    position: relative;
+}
+
+
+.container-box {
+    position: relative;
+}
+
+.top-left {
+    position: absolute;
+    top: 20px;
+    left: 35px;
+}
+
+
+.bi::before {
+    display: inline-block;
+    content: "";
+    background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='%23333' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z' clip-rule='evenodd'/></svg>");
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+}
+
 
 
 /*// Extra small devices (portrait phones, less than 576px)
