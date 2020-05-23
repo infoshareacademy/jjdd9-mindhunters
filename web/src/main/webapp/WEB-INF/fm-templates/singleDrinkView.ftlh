@@ -13,13 +13,13 @@
     <title>Drink</title>
 
 </head>
-<body id="page-top">
+<body>
 
 <#include "navigation.ftlh">
 
 <section style="background-color: #1b1e21">
 
-    <div class="container" style="color: white">
+    <div class="container" style="color: white; height: 83.6vh">
         <br><br><br>
         <div class="row justify-content-center">
             <div class="col-md-3">
