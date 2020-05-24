@@ -24,14 +24,12 @@ public class WelcomeUserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         Map<String, Object> dataModel = new HashMap<>();
-        String name = "Guest";
-//        req.getParameter("name");
+        String name = req.getParameter("name");
 
         if (name == null || name.isEmpty()) {
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return;
+            name = "Stranger";
         }
-        dataModel.put("name", name);
+        dataModel.put("name", name.toUpperCase());
         Template template = templateProvider.getTemplate(getServletContext(),"welcomePage.ftlh");
 
         PrintWriter printWriter = resp.getWriter();
