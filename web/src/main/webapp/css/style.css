@@ -812,7 +812,6 @@ ul.space_list li {
 }
 
 .list-element{
-    position: relative;
     background-color: #3e1010;
     background-clip: border-box;
     border-style: solid;
@@ -826,6 +825,22 @@ ul.space_list li {
 
 
 }
+
+
+.sidebar-list{
+
+    background-color: #3e1010;
+    color: #ffc107;
+    font-family: 'Cinzel', serif;
+
+}
+
+.sidebar-list:hover{
+    color: #ffffff;
+
+}
+
+
 
 
 

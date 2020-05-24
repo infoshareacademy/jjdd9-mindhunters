@@ -28,10 +28,10 @@
 
             <div class="d-none d-md-block">
 
-                <div class="list-group sticky-scroll">
+                <div class="list-group  list-element sticky-scroll  " >
                     <#list categories as category>
 
-                        <a href="#" class="list-group-item list-group-item-action active">${category}</a>
+                        <a href="#" class="list-group-item sidebar-list">${category}</a>
 
                     </#list>
 
