@@ -45,7 +45,7 @@ public class DrinkListServlet extends HttpServlet {
 
         dataModel.put("categories", categoryList);
 
-        Template template = templateProvider.getTemplate(getServletContext(), "receipeList.ftlh");
+        Template template = templateProvider.getTemplate(getServletContext(), "receipeList2.ftlh");
 
         try {
             template.process(dataModel, resp.getWriter());

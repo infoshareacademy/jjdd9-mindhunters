@@ -726,7 +726,13 @@ fieldset:disabled a.btn {
     width: 200px;
     border-radius: 5px;
     min-margin: 5;
+    border-style: solid;
+    border-color: #4a1717;
+    border-width: 2px;
     text-align: center;
+    -webkit-box-shadow: 0px 0px 20px 6px rgba(245,197,3,1);
+    -moz-box-shadow: 0px 0px 20px 6px rgba(245,197,3,1);
+    box-shadow: 0px 0px 20px 6px rgb(0, 0, 0);
 
 }
 
@@ -773,8 +779,6 @@ ul.space_list li {
     text-overflow: ellipsis;
     max-width: 2075ch;
 
-
-
 }
 
 
@@ -800,12 +804,27 @@ ul.space_list li {
 }
 
 .line-clamp {
-    max-width: 1000px;
-    width: 500px;
+    max-width: 1200px;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+}
+
+.list-element{
+    position: relative;
+    background-color: #3e1010;
+    background-clip: border-box;
+    border-style: solid;
+    border-color: #ffc107;
+    border-radius: 1rem;
+    margin-left: 1px;
+    margin-right: 1px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: 'Cinzel', serif;
+
+
 }
 
 
