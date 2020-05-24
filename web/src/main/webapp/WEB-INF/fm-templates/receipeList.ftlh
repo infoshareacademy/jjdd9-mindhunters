@@ -13,7 +13,7 @@
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
 
 </head>
-<body id="page-top">
+<body id="page-top" style="background-color: #1b1e21;">
 
 <!--Navigation-->
 <#include "navigation.ftlh">
@@ -31,7 +31,7 @@
                 <div class="list-group sticky-scroll">
                     <#list categories as category>
 
-                    <a href="#" class="list-group-item list-group-item-action active">${category}</a>
+                        <a href="#" class="list-group-item list-group-item-action active">${category}</a>
 
                     </#list>
 
@@ -39,22 +39,41 @@
             </div>
 
 
-            <div class="col-8 col-md-8 col-lg-8 col-xl-6">
+            <div class="col-12 col-md-8 col-lg-8 col-xl-8">
                 <ul class="list-unstyled  justify-content-center  ml-auto space_list ">
                     <#list drinkList as drink>
-                        <li class="media">
-                            <div class="d-none  d-sm-block">
-                                <img src="${drink.imageUrl}"
-                                     class="mr-3 thumbnail_list " alt="...">
-                            </div>
-                            <div class="media-body line-clamp">
-                                <div class="row">
-                                    <h5 class="mt-0 mb-1 col-sm-8 ">${drink.drinkName}</h5>
-                                    <h5 class="mt-0 mb-1 col-sm-4 text-md-right">
-                                        ${drink.categoryName}</h5>
+
+                        <li class="media ">
+                            <div class="container ml-0 pl-0 mr-0 pr-0 ">
+                                <div class="row list-element">
+                                    <div class="col-md-auto d-flex justify-content-center " style="min-width: 205px">
+                                        <img src="${drink.imageUrl}"
+                                             class=" thumbnail_list justify-content-center" alt="...">
+                                    </div>
+
+                                    <div class="media-body line-clamp col-sm-8 ml-0 pl-1 mr-0 pr-0" style="color: #ffc107">
+
+                                        <div class="row col-sm d-flex mt-4 mt-md-0 ">
+                                            <h5 class="col-md-6 mx-2 my-2  font-weight-bold text-center text-md-left"  >
+                                                ${drink.drinkName}
+                                            </h5>
+
+                                            <h5 class="col-md-5 mx-2 my-2   text-center text-md-right" style="
+                                                    padding-right: 0px;
+                                                    margin-right: 0px;">
+                                                ${drink.categoryName}
+
+                                            </h5>
+                                        </div>
+                                        <div class="line-clamp mx-2 my-2 mt-4 mr-4 d-none d-md-block">
+                                            ${drink.recipe}
+                                        </div>
+                                    </div>
+
                                 </div>
-                                ${drink.recipe}
+
                             </div>
+
                         </li>
                     </#list>
                 </ul>
@@ -80,6 +99,7 @@
 <!--Footer-->
 
 <#include "footer.ftlh">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
