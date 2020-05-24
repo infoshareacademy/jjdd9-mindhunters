@@ -23,14 +23,12 @@
             <img class="backGround" src="../../img/mindhunters.jpg" alt="background" id="glasses">
             <div class="over-photo1" style="position:absolute;left: 71%;bottom:20%">
                 <header class="masthead">
-                    <div class="container">
-                        <div class="masthead-subheading  text-warning glow " style=font-size:30px;text-align:center>
+                    <div class="container welcome-settings">
+                        <div class="masthead-subheading  text-warning glow " id="welcomeDiv" style=font-size:30px;text-align:center>
                             Welcome ${name}
                         </div>
-                        <a class="btn btn-background  js-scroll-trigger text-uppercase  text-warning"
+                        <a class="btn btn-background  js-scroll-trigger text-uppercase  text-warning tell-me"
                            href="#card-deck">Tell Me More</a>
-                        <a class="btn btn-background  text-uppercase  text-warning"
-                           id="admin">admin</a>
                     </div>
                 </header>
             </div>

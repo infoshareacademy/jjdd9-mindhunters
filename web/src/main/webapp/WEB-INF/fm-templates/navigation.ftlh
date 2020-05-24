@@ -51,7 +51,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-outline-warning">Sign in</button>
+                            <button type="submit" class="btn btn-outline-warning" id="submitLogin">Sign in</button>
                         </form>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">New around here? Sign up</a>
