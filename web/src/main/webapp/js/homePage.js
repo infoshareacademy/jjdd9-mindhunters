@@ -83,33 +83,6 @@ $(document).ready(function () {
             $('#card3').load('../../Switchedcard.html')
     });
 
-    // $("#admin").click(function () {
-    //     $("#card-deck,#services").each(function () {
-    //         $(this).fadeOut(2200);
-    //     }),
-    //         $("#glasses").animate({
-    //             'opacity': '0.3',
-    //             'height': '790px'
-    //         }, 2500),
-    //
-    //         $(".btn-admin").css({visibility: "visible", opacity: 0.0}).animate({
-    //             opacity: 1.0
-    //         }, 800);
-    // });
-    //
-    // $("#btn-admin-back").click(function () {
-    //     $("#card-deck,#services").each(function () {
-    //         $(this).fadeIn(2200);
-    //     }),
-    //         $("#glasses").animate({
-    //             'opacity': '1.0',
-    //             'height': '880'
-    //         }, 2500),
-    //
-    //         $(".btn-admin").css({visibility: "hide", opacity: 1.0}).animate({
-    //             opacity: 0.0
-    //         }, 800);
-    // });
     $("#submitLogin").click(function () {
     var val = document.getElementById("exampleDropdownFormEmail1").value;
     if (val== "admin") {
