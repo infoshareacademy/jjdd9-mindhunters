@@ -17,6 +17,7 @@ public class Drink {
     @Column(name = "api_id")
     private String drinkId;
 
+    @Column(name = "name")
     @NotNull
     private String drinkName;
 
@@ -24,18 +25,19 @@ public class Drink {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @Column(name = "alcohol_status")
     @NotNull
     private String alcoholStatus;
 
     @NotNull
     private String recipe;
 
-    private String imageUrl;
+    @OneToMany(mappedBy = "drinkId" )
+    private List<DrinkIngredient> drinkIngredient;
 
-    private LocalDateTime modifiedDate;
+    private String image;
 
-    @ManyToMany(mappedBy = "drinks", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<User> users = new ArrayList<>();
+    private LocalDateTime date;
 
     @ManyToMany(mappedBy = "drinks", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Ingredient> ingredients = new ArrayList<>();
@@ -44,30 +46,6 @@ public class Drink {
     @ManyToMany(mappedBy = "drinks", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Measure> measures = new ArrayList<>();
 
-
-    public List<Ingredient> getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-    }
-
-    public List<Measure> getMeasures() {
-        return measures;
-    }
-
-    public void setMeasures(List<Measure> measures) {
-        this.measures = measures;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
 
     public Long getId() {
         return id;
@@ -117,19 +95,43 @@ public class Drink {
         this.recipe = recipe;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public DrinkIngredientId getDrinkIngredientId() {
+        return drinkIngredientId;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setDrinkIngredientId(DrinkIngredientId drinkIngredientId) {
+        this.drinkIngredientId = drinkIngredientId;
     }
 
-    public LocalDateTime getModifiedDate() {
-        return modifiedDate;
+    public String getImage() {
+        return image;
     }
 
-    public void setModifiedDate(LocalDateTime modifiedDate) {
-        this.modifiedDate = modifiedDate;
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public List<Measure> getMeasures() {
+        return measures;
+    }
+
+    public void setMeasures(List<Measure> measures) {
+        this.measures = measures;
     }
 }
