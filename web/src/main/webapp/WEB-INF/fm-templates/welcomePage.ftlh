@@ -24,7 +24,8 @@
             <div class="over-photo1" style="position:absolute;left: 71%;bottom:20%">
                 <header class="masthead">
                     <div class="container welcome-settings">
-                        <div class="masthead-subheading  text-warning glow " id="welcomeDiv" style=font-size:30px;text-align:center>
+                        <div class="masthead-subheading  text-warning glow " id="welcomeDiv"
+                             style=font-size:30px;text-align:center>
                             Welcome ${name}
                         </div>
                         <a class="btn btn-background  js-scroll-trigger text-uppercase  text-warning tell-me"
