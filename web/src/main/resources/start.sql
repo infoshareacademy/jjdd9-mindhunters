@@ -142,3 +142,14 @@ INSERT INTO drink_ingredient (drink_id, ingredient_id, measure_id) VALUES (24,5,
 INSERT INTO drink_ingredient (drink_id, ingredient_id, measure_id) VALUES (25,6,12);
 INSERT INTO drink_ingredient (drink_id, ingredient_id, measure_id) VALUES (26,9,1);
 INSERT INTO drink_ingredient (drink_id, ingredient_id, measure_id) VALUES (27,2,1);
+
+INSERT INTO favourite (user_id, drink_id) VALUES (1, 2);
+INSERT INTO favourite (user_id, drink_id) VALUES (1, 3);
+INSERT INTO favourite (user_id, drink_id) VALUES (1, 8);
+INSERT INTO favourite (user_id, drink_id) VALUES (5, 10);
+INSERT INTO favourite (user_id, drink_id) VALUES (6, 12);
+INSERT INTO favourite (user_id, drink_id) VALUES (6, 13);
+INSERT INTO favourite (user_id, drink_id) VALUES (6, 15);
+INSERT INTO favourite (user_id, drink_id) VALUES (6, 18);
+INSERT INTO favourite (user_id, drink_id) VALUES (2, 18);
+INSERT INTO favourite (user_id, drink_id) VALUES (3, 15);
