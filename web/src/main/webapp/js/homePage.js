@@ -9,9 +9,9 @@
     // Smooth scrolling using jQuery easing
     $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function () {
         if (
-            location.pathname.replace(/^\//, "") ===
+            location.pathname.replace(/^\//, "") ==
             this.pathname.replace(/^\//, "") &&
-            location.hostname === this.hostname
+            location.hostname == this.hostname
         ) {
             var target = $(this.hash);
             target = target.length
@@ -57,40 +57,76 @@
     // Collapse the navbar when page is scrolled
     $(window).scroll(navbarCollapse);
 
-
-    // var myFunction =  function(){
-    //     // var element = document.getElementById("card1");
-    //     // element.classList.toggle("text warning");
-    //     $(".card-body1").load("Switchedcard.html")
-    //     $('.switchCard').click(myFunction);
-    // }
-    // var myFunction = function () {
-    //     fetch("./Switchedcard.html")
-    //         .then(response => {
-    //             return response.text()
-    //         })
-    //         .then(data => {
-    //             document.querySelector("card-body1").innerHTML = data;
-    //         });
-    // }
-    //
-    // $('.switchCard').click(myFunction());
-
-    // var div = document.getElementById("card1")
-    // $('#switch1').click(function () {
-    //     $("#div1").load("demo_text.txt");
-    // });
-    //
-    // $('#switch2').click(function () {
-    //     $(div).innerHTML += '<p>12</p>';
-    // });
-    // $('#switch3').click(function () {
-    //     $("<p>:last").remove();
-    //
-    //
-    // });
-
-
 })(jQuery); // End of use strict
+
+$(document).ready(function () {
+
+    $("#switch1").click(function () {
+
+        $("#card2").toggle(); // znika i pojawia sie selector
+    });
+
+    $("#switch2").click(function () {
+        $("#card1").find("p").css('color', 'red');
+        $("#p-adddel").find("small").css('border', '1px solid black');
+        $("#card1").siblings().css('border', '4px solid yellow');
+
+    });
+
+    $("#switch3").click(function () {
+        $("#card1").find("p").remove();
+    });
+
+    $("#switch31").click(function () {
+        // $('#card3').load('Switchedcard.html');
+        document.getElementById("card3").innerHTML =
+            $('#card3').load('../../Switchedcard.html')
+    });
+
+    $("#submitLogin").click(function () {
+        var val = document.getElementById("exampleDropdownFormEmail1").value;
+        if (val == "admin") {
+            $("#card-deck,#services").each(function () {
+                $(this).fadeOut(2200);
+            }),
+                $("#glasses").animate({
+                    'opacity': '0.3',
+                    'height': '790px'
+                }, 2500),
+
+                $(".btn-admin").css({visibility: "visible", opacity: 0.0}).animate({
+                    opacity: 1.0
+                }, 800),
+                $(".tell-me").css({visibility: "hide", opacity: 1.0}).animate({
+                    opacity: 0.0
+                }, 800),
+                document.getElementById("welcomeDiv").textContent = "Welcome Admin";
+
+        }
+        ;
+    });
+    $("#btn-admin-back").click(function () {
+        $("#card-deck,#services").each(function () {
+            $(this).fadeIn(2200);
+        }),
+            $("#glasses").animate({
+                'opacity': '1.0',
+                'height': '880'
+            }, 2500),
+
+            $(".btn-admin").css({visibility: "hide", opacity: 1.0}).animate({
+                opacity: 0.0
+            }, 800),
+            $(".tell-me").css({visibility: "visible", opacity: 0.0}).animate({
+                opacity: 1.0
+            }, 800),
+            setTimeout(() => {
+                window.location.href = 'http://localhost:8080/welcome'
+            }, 2200);
+    });
+
+});
+
+
 
 

@@ -1,8 +1,7 @@
-<!--Navigation-->
 <nav class="navbar navbar-expand-lg" id="mainNav" style="background-color: #1b1e21">
     <div class="container-fluid">
         <a class="navbar-brand " href="#page-top">
-            <img src="../../img/logomindhunters.jpg">
+            <img src="../../img/logomindhunters.jpg" alt="logo">
         </a>
         <div class="navbar-toggler  text-warning" type="button"
              data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
@@ -19,7 +18,7 @@
         </div>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ml-auto">
-                <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="#part1 top">Home</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="#part1-top">Home</a></li>
                 <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="#recipePage">Recipe</a>
                 </li>
                 <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="#bottom-ft">Search</a>
@@ -52,7 +51,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-outline-warning">Sign in</button>
+                            <button type="submit" class="btn btn-outline-warning" id="submitLogin">Sign in</button>
                         </form>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">New around here? Sign up</a>
