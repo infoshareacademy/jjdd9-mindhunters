@@ -21,7 +21,7 @@ public class Drink {
     @NotNull
     private String drinkName;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -32,7 +32,7 @@ public class Drink {
     @NotNull
     private String recipe;
 
-    @OneToMany(mappedBy = "drinkId" )
+    @OneToMany(mappedBy = "drinkId", fetch = FetchType.LAZY)
     private List<DrinkIngredient> drinkIngredient = new ArrayList<>();
 
     private String image;
