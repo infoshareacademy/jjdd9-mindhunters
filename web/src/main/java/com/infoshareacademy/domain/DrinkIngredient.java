@@ -1,23 +1,56 @@
 package com.infoshareacademy.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
+import javax.persistence.*;
 
 @Entity
-@IdClass(DrinkIngredientId.class)
+@Table(name = "drink_ingredient")
 public class DrinkIngredient {
 
     @Id
-    @JoinColumn
-    private Measure measureId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Id
-    @JoinColumn
-    private Ingredient ingredientId;
+    @ManyToOne
+    @JoinColumn(name = "measure_id")
+    private Measure measure;
 
-    @Id
+    @ManyToOne
+    @JoinColumn(name = "ingredient_id")
+    private Ingredient ingredient;
+
+    @ManyToOne
+    @JoinColumn(name = "drink_id")
     private Drink drinkId;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Measure getMeasure() {
+        return measure;
+    }
+
+    public void setMeasure(Measure measure) {
+        this.measure = measure;
+    }
+
+    public Ingredient getIngredient() {
+        return ingredient;
+    }
+
+    public void setIngredient(Ingredient ingredient) {
+        this.ingredient = ingredient;
+    }
+
+    public Drink getDrinkId() {
+        return drinkId;
+    }
+
+    public void setDrinkId(Drink drinkId) {
+        this.drinkId = drinkId;
+    }
 }

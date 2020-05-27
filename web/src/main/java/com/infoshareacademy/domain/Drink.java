@@ -33,19 +33,11 @@ public class Drink {
     private String recipe;
 
     @OneToMany(mappedBy = "drinkId" )
-    private List<DrinkIngredient> drinkIngredient;
+    private List<DrinkIngredient> drinkIngredient = new ArrayList<>();
 
     private String image;
 
     private LocalDateTime date;
-
-    @ManyToMany(mappedBy = "drinks", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<Ingredient> ingredients = new ArrayList<>();
-
-
-    @ManyToMany(mappedBy = "drinks", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<Measure> measures = new ArrayList<>();
-
 
     public Long getId() {
         return id;
@@ -95,12 +87,12 @@ public class Drink {
         this.recipe = recipe;
     }
 
-    public DrinkIngredientId getDrinkIngredientId() {
-        return drinkIngredientId;
+    public List<DrinkIngredient> getDrinkIngredient() {
+        return drinkIngredient;
     }
 
-    public void setDrinkIngredientId(DrinkIngredientId drinkIngredientId) {
-        this.drinkIngredientId = drinkIngredientId;
+    public void setDrinkIngredient(List<DrinkIngredient> drinkIngredient) {
+        this.drinkIngredient = drinkIngredient;
     }
 
     public String getImage() {
@@ -117,21 +109,5 @@ public class Drink {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
-    }
-
-    public List<Ingredient> getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-    }
-
-    public List<Measure> getMeasures() {
-        return measures;
-    }
-
-    public void setMeasures(List<Measure> measures) {
-        this.measures = measures;
     }
 }
