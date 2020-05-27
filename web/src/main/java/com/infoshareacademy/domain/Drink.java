@@ -6,6 +6,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+
+@NamedQueries({
+        @NamedQuery(name = "Drink.findDrinkByIngredients",
+                query = "select d from Drink d join d.drinkIngredients di where di.ingredient IN :ingredients")})
 @Entity
 @Table(name = "drink")
 public class Drink {
@@ -33,7 +39,7 @@ public class Drink {
     private String recipe;
 
     @OneToMany(mappedBy = "drinkId", fetch = FetchType.LAZY)
-    private List<DrinkIngredient> drinkIngredient = new ArrayList<>();
+    private List<DrinkIngredient> drinkIngredients = new ArrayList<>();
 
     private String image;
 
@@ -87,12 +93,12 @@ public class Drink {
         this.recipe = recipe;
     }
 
-    public List<DrinkIngredient> getDrinkIngredient() {
-        return drinkIngredient;
+    public List<DrinkIngredient> getDrinkIngredients() {
+        return drinkIngredients;
     }
 
-    public void setDrinkIngredient(List<DrinkIngredient> drinkIngredient) {
-        this.drinkIngredient = drinkIngredient;
+    public void setDrinkIngredients(List<DrinkIngredient> drinkIngredients) {
+        this.drinkIngredients = drinkIngredients;
     }
 
     public String getImage() {

@@ -1,11 +1,18 @@
 package com.infoshareacademy.repository;
 
 import com.infoshareacademy.domain.Drink;
+import com.infoshareacademy.domain.Ingredient;
 
+import javax.ejb.Local;
 import java.util.List;
 
+@Local
 public interface DrinkRepository {
-//zamimpltementowa reposytorium używające jako bazy danych singleton z app
+
+    Drink findDrinkByName(String drinkName);
+
+    List<Drink> findDrinkByIngredients(List<Ingredient> ingredients);
+
     void saveAllDrinks(List<Drink> drinkRecipes);
 
     void saveDrink(Drink drinkRecipe);
