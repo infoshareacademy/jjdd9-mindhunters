@@ -1,24 +1,24 @@
 <footer>
     <div class="bottom-ft" id="bottom-ft">
         <div class="container container-fluid">
-            <div class="row">
+            <div class="row icons-row">
                 <div class="col-sm-2">
-                    <i class="fab fa-github text-warning">Github</i>
+                    <span class="fab fa-github text-warning"> github</span>
                 </div>
                 <div class="col-sm-2">
-                    <i class="fab fa-facebook-square text-warning">facebook</i>
+                    <span class="fab fa-facebook-square text-warning"> facebook</span>
                 </div>
                 <div class="col-sm-2">
-                    <i class="fab fa-twitter-square text-warning">twitter</i>
+                    <span class="fab fa-twitter-square text-warning"> twitter</span>
                 </div>
                 <div class="col-sm-2">
-                    <span class="fab fa-linkedin text-warning">linkedin</span>
+                    <span class="fab fa-linkedin text-warning"> linkedin</span>
                 </div>
                 <div class="col-sm-2">
-                    <span class="fab fa-instagram text-warning">insta</span>
+                    <span class="fab fa-instagram text-warning"> insta</span>
                 </div>
-                <div class="row">
-                    <a class="btn far fa-caret-square-up js-scroll-trigger text-warning" href="#part1 top"></a>2
+                <div class="col-sm-2">
+                    <a class="btn far fa-caret-square-up js-scroll-trigger text-warning" href="#part1-top"> back</a>2
                 </div>
             </div>
             <div class="row-copy">
