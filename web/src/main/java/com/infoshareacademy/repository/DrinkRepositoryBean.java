@@ -2,6 +2,7 @@ package com.infoshareacademy.repository;
 
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.Ingredient;
+import org.hibernate.jpa.QueryHints;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -15,35 +16,22 @@ public class DrinkRepositoryBean implements DrinkRepository {
     @PersistenceContext
     EntityManager entityManager;
 
-    public Drink findDrinkByName(Long drinkName) {
+    public Drink findDrinkById(Long drinkId) {
 
-        return entityManager.find(Drink.class, drinkName);
+        return entityManager.find(Drink.class, drinkId);
     }
 
-    public List<Drink> findDrinkByIngredients(List<Ingredient> ingredients) {
+    public Drink findDrinkByName(String drinkName) {
+        Query drinkQuery = entityManager.createNamedQuery("Drink.findDrinkByName");
+        drinkQuery.setHint(QueryHints.HINT_PASS_DISTINCT_THROUGH, false);
+        drinkQuery.setParameter("drinkName", drinkName);
+        return (Drink)drinkQuery.getResultList().stream().findFirst().orElse(null);
+    }
+
+    public List<Drink> findDrinkByIngredients(List<String> ingredientNames) {
         Query drinkQuery = entityManager.createNamedQuery("Drink.findDrinkByIngredients");
-        drinkQuery.setParameter("ingredients", ingredients);
+        drinkQuery.setParameter("ingredients", ingredientNames);
         return drinkQuery.getResultList();
     }
 
-
-/*    @Override
-    public void saveAllDrinks(List<Drink> drinkRecipes) {
-
-    }
-
-    @Override
-    public void saveDrink(Drink drinkRecipe) {
-
-    }
-
-    @Override
-    public List<Drink> findAllDrinks() {
-        return null;
-    }
-
-    @Override
-    public Drink findDrink() {
-        return null;
-    }*/
 }

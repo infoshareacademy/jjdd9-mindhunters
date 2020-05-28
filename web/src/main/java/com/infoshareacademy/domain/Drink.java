@@ -12,7 +12,10 @@ import java.util.List;
 
 @NamedQueries({
         @NamedQuery(name = "Drink.findDrinkByIngredients",
-                query = "select d from Drink d join d.drinkIngredients di where di.ingredient IN :ingredients")})
+                query = "select distinct d from Drink d join d.drinkIngredients di where di.ingredient.name IN " +
+                        ":ingredients "),
+        @NamedQuery(name = "Drink.findDrinkByName",
+                query = "select d from Drink d where lower( d.drinkName) like lower(:drinkName)")})
 @Entity
 @Table(name = "drink")
 @Transactional
@@ -29,7 +32,7 @@ public class Drink {
     @NotNull
     private String drinkName;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -40,7 +43,7 @@ public class Drink {
     @NotNull
     private String recipe;
 
-    @OneToMany(mappedBy = "drinkId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "drinkId", fetch = FetchType.EAGER)
     private List<DrinkIngredient> drinkIngredients = new ArrayList<>();
 
     private String image;

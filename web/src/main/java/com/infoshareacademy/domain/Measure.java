@@ -6,7 +6,6 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "measure")
-@Transactional
 public class Measure {
 
     @Id

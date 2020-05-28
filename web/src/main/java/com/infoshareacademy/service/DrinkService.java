@@ -14,17 +14,24 @@ public class DrinkService {
     @EJB
     private DrinkRepository drinkRepository;
 
-    public Drink findDrinkByName(Long drinkName) {
+    public Drink findDrinkById(Long drinkId) {
+
+        return drinkRepository.findDrinkById(drinkId);
+    }
+
+    public Drink findDrinkByName(String drinkName) {
 
         return drinkRepository.findDrinkByName(drinkName);
     }
 
-    public List<Drink> findDrinkByIngredients(List<Ingredient> ingredients) {
+    public List<Drink> findDrinkByIngredients(List<String> ingredientNames) {
 
-        return drinkRepository.findDrinkByIngredients(ingredients);
+        return drinkRepository.findDrinkByIngredients(ingredientNames);
     }
 
-/*    public List<Drink> findDrinkByName(String partialDrinkName) {
+
+
+/*    public List<Drink> findDrinkById(String partialDrinkName) {
 
         if (partialDrinkName.length() < 2) {
             //pusta lista + brak resultatów albo error/wyjatek/za krótka nazwa

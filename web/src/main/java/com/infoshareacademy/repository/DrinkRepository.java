@@ -1,7 +1,6 @@
 package com.infoshareacademy.repository;
 
 import com.infoshareacademy.domain.Drink;
-import com.infoshareacademy.domain.Ingredient;
 
 import javax.ejb.Local;
 import java.util.List;
@@ -9,16 +8,10 @@ import java.util.List;
 @Local
 public interface DrinkRepository {
 
-    Drink findDrinkByName(Long drinkName);
+    Drink findDrinkById(Long id);
 
-    List<Drink> findDrinkByIngredients(List<Ingredient> ingredients);
+    Drink findDrinkByName(String drinkName);
 
-/*    void saveAllDrinks(List<Drink> drinkRecipes);
-
-    void saveDrink(Drink drinkRecipe);
-
-    List<Drink> findAllDrinks();
-
-    Drink findDrink();*/
+    List<Drink> findDrinkByIngredients(List<String> ingredientNames);
 
 }

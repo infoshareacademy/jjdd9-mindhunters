@@ -6,7 +6,6 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "category")
-@Transactional
 public class Category {
 
     @Id
