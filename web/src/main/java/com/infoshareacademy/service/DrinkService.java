@@ -19,14 +19,14 @@ public class DrinkService {
         return drinkRepository.findDrinkById(drinkId);
     }
 
-    public List<Drink> findDrinkByName(String partialDrinkName) {
+    public List<Drink> findDrinksByName(String partialDrinkName) {
 
-        return drinkRepository.findDrinkByName(partialDrinkName);
+        return drinkRepository.findDrinksByName(partialDrinkName);
     }
 
-    public List<Drink> findDrinkByIngredients(List<String> partialIngredientNames) {
+    public List<Drink> findDrinkByIngredients(List<Ingredient> ingredients) {
 
-        return drinkRepository.findDrinkByIngredients(partialIngredientNames);
+        return drinkRepository.findDrinkByIngredients(ingredients);
     }
 
 

@@ -21,17 +21,20 @@ public class DrinkRepositoryBean implements DrinkRepository {
         return entityManager.find(Drink.class, drinkId);
     }
 
-    public List<Drink> findDrinkByName(String partialDrinkName) {
-        Query drinkQuery = entityManager.createNamedQuery("Drink.findDrinkByName");
+    public List<Drink> findDrinksByName(String partialDrinkName) {
+        Query drinkQuery = entityManager.createNamedQuery("Drink.findDrinkByPartialName");
         drinkQuery.setHint(QueryHints.HINT_PASS_DISTINCT_THROUGH, false);
-        drinkQuery.setParameter("drinkName", "%" + partialDrinkName + "%");
+        drinkQuery.setParameter("partialDrinkName", "%" + partialDrinkName + "%");
         return drinkQuery.getResultList();
     }
 
-    public List<Drink> findDrinkByIngredients(List<String> partialIngredientNames) {
+    public List<Drink> findDrinkByIngredients(List<Ingredient> ingredients) {
         Query drinkQuery = entityManager.createNamedQuery("Drink.findDrinkByIngredients");
-        drinkQuery.setParameter("ingredients", "%" + partialIngredientNames + "%");
+        drinkQuery.setParameter("ingredients", ingredients);
         return drinkQuery.getResultList();
     }
+
+
+
 
 }

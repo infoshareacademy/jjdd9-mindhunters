@@ -12,10 +12,10 @@ import java.util.List;
 
 @NamedQueries({
         @NamedQuery(name = "Drink.findDrinkByIngredients",
-                query = "select distinct d from Drink d join d.drinkIngredients di where di.ingredient.name IN " +
+                query = "select distinct d from Drink d join d.drinkIngredients di where di.ingredient IN " +
                         ":ingredients "),
-        @NamedQuery(name = "Drink.findDrinkByName",
-                query = "select d from Drink d where lower( d.drinkName) like lower(:drinkName)")})
+        @NamedQuery(name = "Drink.findDrinkByPartialName",
+                query = "select d from Drink d where lower( d.drinkName) like lower(:partialDrinkName)")})
 @Entity
 @Table(name = "drink")
 @Transactional

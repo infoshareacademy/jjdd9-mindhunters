@@ -3,8 +3,10 @@ package com.infoshareacademy.servlets;
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.Ingredient;
 import com.infoshareacademy.service.DrinkService;
+import com.infoshareacademy.service.IngredientService;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +21,9 @@ public class SearchDrinkServlet extends HttpServlet {
 
     @EJB
     DrinkService drinkService;
+
+    @EJB
+    IngredientService ingredientService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -44,16 +49,16 @@ public class SearchDrinkServlet extends HttpServlet {
         //test findDrinkByIngredients
         Ingredient ingredient = new Ingredient();
         ingredient.setId(1L);
-        ingredient.setName("Lig");
-        final List<Drink> foundDrinksByIngredients = drinkService.findDrinkByIngredients(List.of(ingredient.getName()));
+        ingredient.setName("ru");
+        List<Ingredient> foundIngredientsByName = ingredientService.findIngredientsByName(ingredient.getName());
         writer.println("Found drinks by Ingredients: <br><br>");
-        foundDrinksByIngredients
+        drinkService.findDrinkByIngredients(foundIngredientsByName)
                 .forEach(d -> writer.println(d.getDrinkName() + "<br>"));
         writer.println("<br><br><br><br>");
 
 
-        //test findDrinkByName
-        final List<Drink> foundDrinksByName = drinkService.findDrinkByName("ca");
+        //test findDrinksByName
+        final List<Drink> foundDrinksByName = drinkService.findDrinksByName("ca");
         writer.println("Found drinks by Name: <br><br>");
         foundDrinksByName
                 .forEach(d -> writer.println(d.getDrinkName() + "<br>" + d.getImage() + "<br>" + d.getCategory().getName() + "<br><br>"));
