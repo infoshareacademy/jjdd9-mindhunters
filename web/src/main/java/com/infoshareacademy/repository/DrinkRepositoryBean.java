@@ -6,17 +6,27 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Transactional
+
 @Stateless
-public class DrinkRepositoryBean implements DrinkRepository {
+public class DrinkRepositoryBean {
 
     @PersistenceContext
     EntityManager entityManager;
 
-    @Override
-    public List<Drink> findAll() {
+    public List<Drink> findAllDrinks() {
         Query query = entityManager.createNamedQuery("Drink.findAll");
         return query.getResultList();
     }
+
+    public List<Drink> findAllDrinksByCategories(List<String> category) {
+        Query query = entityManager.createNamedQuery("Drink.findAllByCategories");
+        query.setParameter("category", category);
+        return query.getResultList();
+    }
+
+
 }

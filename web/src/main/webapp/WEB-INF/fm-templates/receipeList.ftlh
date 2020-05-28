@@ -29,7 +29,11 @@
             <div class="d-none d-md-block">
 
                 <div class="list-group  list-element sticky-scroll  " >
+                    <#list categories as category>
 
+                        <a href="#" class="list-group-item sidebar-list">${category}</a>
+
+                    </#list>
 
                 </div>
             </div>
@@ -57,6 +61,7 @@
                                             <h5 class="col-md-5 mx-2 my-2   text-center text-md-right" style="
                                                     padding-right: 0px;
                                                     margin-right: 0px;">
+                                                ${drink.category.name}
 
                                             </h5>
                                         </div>

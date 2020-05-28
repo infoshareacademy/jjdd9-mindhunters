@@ -16,12 +16,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
-@WebServlet("/list")
-public class DrinkListServlet extends HttpServlet {
+@WebServlet("/list-category")
+public class DrinkListByCategoriesServlet extends HttpServlet {
 
     private static final Logger packageLogger = LoggerFactory.getLogger(LoggerServlet.class.getName());
 
@@ -38,7 +37,10 @@ public class DrinkListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html; charset=UTF-8");
 
-        final List<Drink> drinkList = drinkService.findAllDrinks();
+        List<String> category = Arrays.stream(req.getParameterValues("category"))
+                .collect(Collectors.toList());
+
+        final List<Drink> drinkList = drinkService.findAllDrinksByCategories(category);
 
         final List<String> categoryList = categoryService.findAllNames();
 
