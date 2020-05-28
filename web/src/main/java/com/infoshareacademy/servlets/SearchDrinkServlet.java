@@ -37,33 +37,26 @@ public class SearchDrinkServlet extends HttpServlet {
         writer.println("<br>");
         writer.println("Ingredients: ");
         foundDrinkById.getDrinkIngredients()
-                .forEach( d -> writer.println(d.getIngredient().getName() + " | "));
+                .forEach(d -> writer.println(d.getIngredient().getName() + " | "));
         writer.println("<br><br><br><br>");
 
 
         //test findDrinkByIngredients
         Ingredient ingredient = new Ingredient();
         ingredient.setId(1L);
-        ingredient.setName("Light rum");
+        ingredient.setName("Lig");
         final List<Drink> foundDrinksByIngredients = drinkService.findDrinkByIngredients(List.of(ingredient.getName()));
         writer.println("Found drinks by Ingredients: <br><br>");
         foundDrinksByIngredients
-                .forEach( d-> writer.println(d.getDrinkName() + "<br>"));
+                .forEach(d -> writer.println(d.getDrinkName() + "<br>"));
         writer.println("<br><br><br><br>");
 
 
         //test findDrinkByName
-        final Drink foundDrinkByName = drinkService.findDrinkByName("cream soda");
-        writer.println("Find by Name:<br><br>");
-        writer.println(foundDrinkByName.getDrinkName());
-        writer.println("<br>");
-        writer.println(foundDrinkByName.getAlcoholStatus());
-        writer.println("<br>");
-        writer.println(foundDrinkByName.getCategory().getName());
-        writer.println("<br>");
-        writer.println("Ingredients: ");
-        foundDrinkByName.getDrinkIngredients()
-                .forEach( d -> writer.println(d.getIngredient().getName() + " | "));
-        writer.println("<br><br>");
+        final List<Drink> foundDrinksByName = drinkService.findDrinkByName("ca");
+        writer.println("Found drinks by Name: <br><br>");
+        foundDrinksByName
+                .forEach(d -> writer.println(d.getDrinkName() + "<br>" + d.getImage() + "<br>" + d.getCategory().getName() + "<br><br>"));
+        writer.println("<br><br><br><br>");
     }
 }

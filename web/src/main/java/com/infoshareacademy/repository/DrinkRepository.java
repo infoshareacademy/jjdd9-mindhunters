@@ -10,8 +10,8 @@ public interface DrinkRepository {
 
     Drink findDrinkById(Long id);
 
-    Drink findDrinkByName(String drinkName);
+    List<Drink> findDrinkByName(String partialDrinkName);
 
-    List<Drink> findDrinkByIngredients(List<String> ingredientNames);
+    List<Drink> findDrinkByIngredients(List<String> partialIngredientNames);
 
 }
