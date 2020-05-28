@@ -1,6 +1,6 @@
 package com.infoshareacademy.service;
 
-import com.infoshareacademy.domain.Drink;
+import com.infoshareacademy.domain.DrinkJson;
 import com.infoshareacademy.domain.Ingredient;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -17,13 +17,13 @@ public class SearchServiceTest  {
         String ingredientName = "testname";
         ingredient.setName(ingredientName);
 
-        Drink drink = new Drink();
+        DrinkJson drink = new DrinkJson();
         drink.setIngredients(List.of(ingredient));
-        List<Drink> drinks = List.of(drink);
+        List<DrinkJson> drinks = List.of(drink);
         SearchService service = new SearchService();
 
         //when
-        List<Drink> result = service.getDrinkList(drinks, List.of(ingredientName));
+        List<DrinkJson> result = service.getDrinkList(drinks, List.of(ingredientName));
         //then
         Assertions.assertThat(result).containsExactly(drink);
 

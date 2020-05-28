@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.infoshareacademy.domain.Drink;
+import com.infoshareacademy.domain.DrinkJson;
 import com.infoshareacademy.domain.Ingredient;
 
 import java.io.IOException;
@@ -14,13 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class JsonDrinkDeserializer extends JsonDeserializer<Drink> {
+public class JsonDrinkDeserializer extends JsonDeserializer<DrinkJson> {
 
 
     @Override
-    public Drink deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+    public DrinkJson deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
 
-        Drink drink = new Drink();
+        DrinkJson drink = new DrinkJson();
 
         JsonNode readValueAsTree = jsonParser.readValueAsTree();
 

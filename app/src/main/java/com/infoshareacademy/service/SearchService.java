@@ -1,6 +1,6 @@
 package com.infoshareacademy.service;
 
-import com.infoshareacademy.domain.Drink;
+import com.infoshareacademy.domain.DrinkJson;
 import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.domain.Ingredient;
 import com.infoshareacademy.utilities.PropertiesUtilities;
@@ -20,7 +20,7 @@ public class SearchService {
 
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     private final UserInput userInput = new UserInput();
-    List<Drink> database = DrinksDatabase.getINSTANCE().getDrinks();
+    List<DrinkJson> database = DrinksDatabase.getINSTANCE().getDrinks();
     List<String> allIngredients = getAllIngredient(database);
     List<String> allCategories = getAllCategories(database);
     PropertiesUtilities propertiesUtilities = new PropertiesUtilities();
@@ -29,18 +29,18 @@ public class SearchService {
     public SearchService() {
     }
 
-    public Drink searchDrinkByName() {
+    public DrinkJson searchDrinkByName() {
 
         Utilities.clearScreen();
-        List<Drink> outputSearch = new ArrayList<>();
+        List<DrinkJson> outputSearch = new ArrayList<>();
 
-        Drink foundDrink = new Drink();
+        DrinkJson foundDrink = new DrinkJson();
 
         boolean isFound = false;
         do {
             String inputSearch = userInput.getUserStringInput("\nInput drink name: ").toLowerCase();
             if (inputSearch.length() > 2) {
-                for (Drink drink : database) {
+                for (DrinkJson drink : database) {
                     String name = drink.getDrinkName().toLowerCase();
                     if (name.contains(inputSearch)) {
                         outputSearch.add(drink);
@@ -65,8 +65,8 @@ public class SearchService {
         return foundDrink;
     }
 
-    private Drink repeatSearchDrinkByName() {
-        Drink foundDrink = new Drink();
+    private DrinkJson repeatSearchDrinkByName() {
+        DrinkJson foundDrink = new DrinkJson();
         while (true) {
             String input = userInput.getUserStringInput("\nDo you want to repeat the search? <y/n>: ");
             if (input.equalsIgnoreCase("y")) {
@@ -79,8 +79,8 @@ public class SearchService {
         return foundDrink;
     }
 
-    public Drink searchDrinkByIngredient() {
-        Drink foundDrink = new Drink();
+    public DrinkJson searchDrinkByIngredient() {
+        DrinkJson foundDrink = new DrinkJson();
         Utilities.clearScreen();
         List<String> foundIngredients = new ArrayList<>();
 
@@ -89,7 +89,7 @@ public class SearchService {
         addNextIngredientsToList(foundIngredients);
 
         List<String> ingredientsChosenByUser = normalizeIngredientsList(foundIngredients);
-        List<Drink> OutputSearch = getDrinkList(database, ingredientsChosenByUser);
+        List<DrinkJson> OutputSearch = getDrinkList(database, ingredientsChosenByUser);
 
         if (OutputSearch.isEmpty() || ingredientsChosenByUser.isEmpty()) {
             STDOUT.info("\nNo matching drink name found.\n");
@@ -143,13 +143,13 @@ public class SearchService {
         }
     }
 
-    List<Drink> getDrinkList(List<Drink> drinks, List<String> ingredients) {
+    List<DrinkJson> getDrinkList(List<DrinkJson> drinks, List<String> ingredients) {
         return drinks.stream()
                 .filter(drink -> containsIngredients(ingredients, drink))
                 .collect(Collectors.toList());
     }
 
-    private boolean containsIngredients(List<String> ingredients, Drink drink) {
+    private boolean containsIngredients(List<String> ingredients, DrinkJson drink) {
 
         return drink.getIngredientsNamesList().stream()
                 .map(String::toLowerCase)
@@ -158,18 +158,18 @@ public class SearchService {
                 .containsAll(ingredients);
     }
 
-    private Drink chooseDrinkFromList(List<Drink> outputSearch) {
-        Drink foundDrink = new Drink();
+    private DrinkJson chooseDrinkFromList(List<DrinkJson> outputSearch) {
+        DrinkJson foundDrink = new DrinkJson();
 
-        Stream<Drink> drinkStream = outputSearch.stream();
-        List<Drink> sortedList = null;
+        Stream<DrinkJson> drinkStream = outputSearch.stream();
+        List<DrinkJson> sortedList = null;
         switch (orderby) {
             case "asc":
-                sortedList = drinkStream.sorted(Comparator.comparing(Drink::getDrinkName)).collect(Collectors.toList());
+                sortedList = drinkStream.sorted(Comparator.comparing(DrinkJson::getDrinkName)).collect(Collectors.toList());
                 printFoundDrinkList(Collections.unmodifiableList(sortedList));
                 break;
             case "desc":
-                sortedList = drinkStream.sorted(Comparator.comparing(Drink::getDrinkName).reversed()).collect(Collectors.toList());
+                sortedList = drinkStream.sorted(Comparator.comparing(DrinkJson::getDrinkName).reversed()).collect(Collectors.toList());
                 printFoundDrinkList(Collections.unmodifiableList(sortedList));
                 break;
         }
@@ -190,10 +190,10 @@ public class SearchService {
         return foundDrink;
     }
 
-    private void printFoundDrinkList(List<Drink> drinkList) {
+    private void printFoundDrinkList(List<DrinkJson> drinkList) {
         int count = 1;
         Utilities.clearScreen();
-        for (Drink drink : drinkList) {
+        for (DrinkJson drink : drinkList) {
             STDOUT.info("\n[{}] {}\n *ID: {}, *Category: {}, {};", count, drink.getDrinkName().toUpperCase(),
                     drink.getDrinkId(), drink.getCategoryName(), drink.getAlcoholStatus());
             STDOUT.info("\n {}", drink.getIngredientsNamesList());
@@ -202,7 +202,7 @@ public class SearchService {
         }
     }
 
-    protected List<String> getAllIngredient(List<Drink> drinkList) {
+    protected List<String> getAllIngredient(List<DrinkJson> drinkList) {
 
         return drinkList.stream()
                 .flatMap(a -> a.getIngredients().stream())
@@ -256,7 +256,7 @@ public class SearchService {
         } while (true);
     }
 
-    protected List<String> getAllCategories(List<Drink> drinkList) {
+    protected List<String> getAllCategories(List<DrinkJson> drinkList) {
 
         return drinkList.stream()
                 .map(drink -> drink.getCategoryName())
@@ -265,7 +265,7 @@ public class SearchService {
                 .collect(Collectors.toList());
     }
 
-    public Drink SearchByCategory() {
+    public DrinkJson SearchByCategory() {
 
         Stream<String> categoryStream = allCategories.stream();
         List<String> sortedList = null;
@@ -280,7 +280,7 @@ public class SearchService {
                 break;
         }
         String category = chooseCategoryFromList(sortedList);
-        List<Drink> drinks = searchDrinkByCategory(category);
+        List<DrinkJson> drinks = searchDrinkByCategory(category);
         clearScreen();
         STDOUT.info("\nChosen category: {}\n", category);
         return chooseDrinkFromList(drinks);
@@ -304,7 +304,7 @@ public class SearchService {
         } while (true);
     }
 
-    private List<Drink> searchDrinkByCategory(String category) {
+    private List<DrinkJson> searchDrinkByCategory(String category) {
 
         return database.stream()
                 .filter(drink -> drink.getCategoryName().equals(category))

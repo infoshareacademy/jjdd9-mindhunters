@@ -1,6 +1,6 @@
 package com.infoshareacademy.service;
 
-import com.infoshareacademy.domain.Drink;
+import com.infoshareacademy.domain.DrinkJson;
 import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.domain.Ingredient;
 import org.assertj.core.api.Assertions;
@@ -22,7 +22,7 @@ class DrinkServiceTest {
     public void drinkServiceDeleteFromDatabaseTest() {
         //given
         DrinkService service = new DrinkService();
-        Drink drink = new Drink();
+        DrinkJson drink = new DrinkJson();
         drink.setDrinkId("17222");
         drink.setDrinkName("TestTest");
         drink.setModifiedDate(LocalDateTime.now());
@@ -33,7 +33,7 @@ class DrinkServiceTest {
 
 
         //when
-        final List<Drink> drinks = DrinksDatabase.getINSTANCE().getDrinks();
+        final List<DrinkJson> drinks = DrinksDatabase.getINSTANCE().getDrinks();
 
         //then
         Assertions.assertThat(drinks).isEmpty();
@@ -43,7 +43,7 @@ class DrinkServiceTest {
     public void drinkServiceAddToDatabaseTest() {
         //given
         DrinkService service = new DrinkService();
-        Drink drink = new Drink();
+        DrinkJson drink = new DrinkJson();
         drink.setDrinkId("17222");
         drink.setDrinkName("TestTest");
         drink.setModifiedDate(LocalDateTime.now());
@@ -52,7 +52,7 @@ class DrinkServiceTest {
         DrinksDatabase.getINSTANCE().addDrink(drink);
 
         //when
-        final List<Drink> drinks = DrinksDatabase.getINSTANCE().getDrinks();
+        final List<DrinkJson> drinks = DrinksDatabase.getINSTANCE().getDrinks();
 
         //then
         Assertions.assertThat(drinks).containsOnly(drink);

@@ -1,6 +1,6 @@
 package com.infoshareacademy.service;
 
-import com.infoshareacademy.domain.Drink;
+import com.infoshareacademy.domain.DrinkJson;
 import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.domain.Ingredient;
 import com.infoshareacademy.menu.DisplayMenu;
@@ -31,7 +31,7 @@ public class DrinkService {
     public static void loadDrinkList() {
         DrinksDatabase database = DrinksDatabase.getINSTANCE();
         if (database.getDrinks().isEmpty()) {
-            List<Drink> drinkList = new ArrayList<>();
+            List<DrinkJson> drinkList = new ArrayList<>();
             String fileName = "AllDrinks.json";
             try {
                 drinkList.addAll(JsonReader.jsonDrinkReader(fileName));
@@ -45,14 +45,14 @@ public class DrinkService {
     public void printAllDrinks(DrinksDatabase database) {
         PropertiesUtilities propertiesUtilities = new PropertiesUtilities();
         String orderby = propertiesUtilities.getProperty("orderby");
-        Stream<Drink> sorted = database.getDrinks().stream();
+        Stream<DrinkJson> sorted = database.getDrinks().stream();
         switch (orderby) {
             case "asc":
-                sorted = sorted.sorted(Comparator.comparing(Drink::getDrinkName));
+                sorted = sorted.sorted(Comparator.comparing(DrinkJson::getDrinkName));
 
                 break;
             case "desc":
-                sorted = sorted.sorted(Comparator.comparing(Drink::getDrinkName).reversed());
+                sorted = sorted.sorted(Comparator.comparing(DrinkJson::getDrinkName).reversed());
 
                 break;
         }
@@ -65,7 +65,7 @@ public class DrinkService {
 
     }
 
-    public static void printSingleDrink(Drink drink) {
+    public static void printSingleDrink(DrinkJson drink) {
         String alcoContColour;
         if (drink.getAlcoholStatus().equals("Alcoholic")) {
             AgeVerification ageVerification = new AgeVerification();
@@ -161,14 +161,14 @@ public class DrinkService {
         return List.copyOf(alcoholStatuses);
     }
 
-    public void printDrinkIngrAndMeasures(Drink drink) {
+    public void printDrinkIngrAndMeasures(DrinkJson drink) {
         drink.getIngredients().forEach(i -> STDOUT.info("Ingredient: {}, measure: {}\n", i.getName(), i.getMeasure()));
         STDOUT.info("\n");
     }
 
     public boolean removeDrink(String id) {
         DrinksDatabase database = DrinksDatabase.getINSTANCE();
-        for (Drink drink : database.getDrinks()) {
+        for (DrinkJson drink : database.getDrinks()) {
             if (drink.getDrinkId().trim().equalsIgnoreCase(id)) {
                 database.getDrinks().remove(drink);
                 return true;
@@ -178,7 +178,7 @@ public class DrinkService {
     }
 
     public void createDrink() {
-        Drink userDrink = new Drink();
+        DrinkJson userDrink = new DrinkJson();
         userDrink.setDrinkId(generateUserDrinkId());
 
         Utilities.clearScreen();
@@ -211,7 +211,7 @@ public class DrinkService {
         return String.valueOf(maxExistingId);
     }
 
-    private void setUserDrinkCategory(Drink userDrink) {
+    private void setUserDrinkCategory(DrinkJson userDrink) {
         STDOUT.info("\nChoose category number:\n");
         printAllCategories(DrinksDatabase.getINSTANCE());
         int userChoice;
@@ -225,7 +225,7 @@ public class DrinkService {
         userDrink.setCategoryName(getAllCategories(DrinksDatabase.getINSTANCE()).get(userChoice - 1));
     }
 
-    private void setUserDrinkAlcoholStatus(Drink userDrink) {
+    private void setUserDrinkAlcoholStatus(DrinkJson userDrink) {
         STDOUT.info("\nChoose alcohol status:\n");
         printAllAlcoholStatuses(DrinksDatabase.getINSTANCE());
         int userChoice;
@@ -259,7 +259,7 @@ public class DrinkService {
     }
 
     public boolean editDrink(String drinkId) {
-        for (Drink drink : DrinksDatabase.getINSTANCE().getDrinks()) {
+        for (DrinkJson drink : DrinksDatabase.getINSTANCE().getDrinks()) {
             if (drink.getDrinkId().trim().equalsIgnoreCase(drinkId)) {
                 editNavigation(drink);
                 return true;
@@ -268,7 +268,7 @@ public class DrinkService {
         return false;
     }
 
-    private void editNavigation(Drink editedDrink) {
+    private void editNavigation(DrinkJson editedDrink) {
         boolean cont = true;
         do {
             DisplayMenu.displayEditMenu();

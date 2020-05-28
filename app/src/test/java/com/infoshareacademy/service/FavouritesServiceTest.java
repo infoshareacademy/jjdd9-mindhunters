@@ -1,6 +1,6 @@
 package com.infoshareacademy.service;
 
-import com.infoshareacademy.domain.Drink;
+import com.infoshareacademy.domain.DrinkJson;
 import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.domain.FavouritesDatabase;
 import com.infoshareacademy.domain.Ingredient;
@@ -43,7 +43,7 @@ class FavouritesServiceTest {
         //given
         FavouritesDatabase instFavourites = FavouritesDatabase.getInstFavourites();
         DrinksDatabase drinksDatabase = DrinksDatabase.getINSTANCE();
-        Drink drink = new Drink();
+        DrinkJson drink = new DrinkJson();
         drink.setDrinkId("17222");
         drinksDatabase.addDrink(drink);
 
@@ -57,7 +57,7 @@ class FavouritesServiceTest {
     @Test
     public void getFavourDrinkListTest() {
         //given
-        Drink drink = new Drink();
+        DrinkJson drink = new DrinkJson();
         drink.setDrinkId("17222");
         drink.setDrinkName("TestTest");
         drink.setModifiedDate(LocalDateTime.now());

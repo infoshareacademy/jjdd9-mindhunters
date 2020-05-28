@@ -20,7 +20,7 @@ import java.util.Objects;
 
 @JsonDeserialize(using = JsonDrinkDeserializer.class)
 @JsonSerialize(using = JsonDrinkSerializer.class)
-public class Drink {
+public class DrinkJson {
 
     @JsonProperty("idDrink")
     private String drinkId;
@@ -134,7 +134,7 @@ public class Drink {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Drink drink = (Drink) o;
+        DrinkJson drink = (DrinkJson) o;
         return Objects.equals(drinkId, drink.drinkId) &&
                 Objects.equals(drinkName, drink.drinkName) &&
                 Objects.equals(categoryName, drink.categoryName) &&
