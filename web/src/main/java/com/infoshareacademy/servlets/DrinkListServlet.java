@@ -42,12 +42,18 @@ public class DrinkListServlet extends HttpServlet {
 
         final List<String> categoryList = categoryService.findAllNames();
 
-
         Map<String, Object> dataModel = new HashMap<>();
-        dataModel.put("drinkList", drinkList);
-
-
         dataModel.put("categories", categoryList);
+
+        String page = req.getParameter("page");
+        if (page != null && !page.isEmpty()){
+            final List<Drink> paginatedDrinkList = drinkService.paginationDrinkList(Integer.parseInt(req.getParameter("page")));
+            dataModel.put("drinkList", paginatedDrinkList);
+        } else{
+
+            dataModel.put("drinkList", drinkList);
+        }
+
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeList.ftlh");
 

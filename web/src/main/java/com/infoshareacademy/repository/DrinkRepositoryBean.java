@@ -24,8 +24,20 @@ public class DrinkRepositoryBean {
 
     public List<Drink> findAllDrinksByCategories(List<String> category) {
         Query query = entityManager.createNamedQuery("Drink.findAllByCategories");
+
         query.setParameter("category", category);
         return query.getResultList();
+    }
+
+    public List<Drink> paginationDrinkList(int pageNumber) {
+        Query query = entityManager.createQuery("select d from Drink d");
+
+        int pageSize = 4;
+        query.setFirstResult((pageNumber-1) * pageSize);
+        query.setMaxResults(pageSize);
+
+       return  query.getResultList();
+
     }
 
 

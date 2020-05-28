@@ -22,4 +22,9 @@ public class DrinkService {
     public List<Drink> findAllDrinksByCategories(List<String> category) {
         return drinkRepository.findAllDrinksByCategories(category);
     }
+
+    public List<Drink> paginationDrinkList(int pageNumber) {
+        return drinkRepository.paginationDrinkList(pageNumber);
+    }
+
 }
