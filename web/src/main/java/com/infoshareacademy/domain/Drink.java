@@ -6,6 +6,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedQueries({
+        @NamedQuery(
+                name = "Drink.findAll",
+                query = "SELECT d FROM Drink d"
+        )
+})
+
 @Entity
 @Table(name = "drink")
 public class Drink {

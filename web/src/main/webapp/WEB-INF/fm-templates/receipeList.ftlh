@@ -29,11 +29,7 @@
             <div class="d-none d-md-block">
 
                 <div class="list-group  list-element sticky-scroll  " >
-                    <#list categories as category>
 
-                        <a href="#" class="list-group-item sidebar-list">${category}</a>
-
-                    </#list>
 
                 </div>
             </div>
@@ -47,7 +43,7 @@
                             <div class="container ml-0 pl-0 mr-0 pr-0 ">
                                 <div class="row list-element">
                                     <div class="col-md-auto d-flex justify-content-center " style="min-width: 205px">
-                                        <img src="${drink.imageUrl}"
+                                        <img src="${drink.image}"
                                              class=" thumbnail_list justify-content-center" alt="...">
                                     </div>
 
@@ -61,7 +57,6 @@
                                             <h5 class="col-md-5 mx-2 my-2   text-center text-md-right" style="
                                                     padding-right: 0px;
                                                     margin-right: 0px;">
-                                                ${drink.categoryName}
 
                                             </h5>
                                         </div>
