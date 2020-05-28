@@ -9,16 +9,16 @@ import java.util.List;
 @Local
 public interface DrinkRepository {
 
-    Drink findDrinkByName(String drinkName);
+    Drink findDrinkByName(Long drinkName);
 
     List<Drink> findDrinkByIngredients(List<Ingredient> ingredients);
 
-    void saveAllDrinks(List<Drink> drinkRecipes);
+/*    void saveAllDrinks(List<Drink> drinkRecipes);
 
     void saveDrink(Drink drinkRecipe);
 
     List<Drink> findAllDrinks();
 
-    Drink findDrink();
+    Drink findDrink();*/
 
 }

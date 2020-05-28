@@ -15,7 +15,8 @@ public class DrinkRepositoryBean implements DrinkRepository {
     @PersistenceContext
     EntityManager entityManager;
 
-    public Drink findDrinkByName(String drinkName) {
+    public Drink findDrinkByName(Long drinkName) {
+
         return entityManager.find(Drink.class, drinkName);
     }
 
@@ -26,7 +27,7 @@ public class DrinkRepositoryBean implements DrinkRepository {
     }
 
 
-    @Override
+/*    @Override
     public void saveAllDrinks(List<Drink> drinkRecipes) {
 
     }
@@ -44,5 +45,5 @@ public class DrinkRepositoryBean implements DrinkRepository {
     @Override
     public Drink findDrink() {
         return null;
-    }
+    }*/
 }

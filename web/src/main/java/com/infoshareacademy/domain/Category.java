@@ -1,10 +1,12 @@
 package com.infoshareacademy.domain;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "category")
+@Transactional
 public class Category {
 
     @Id

@@ -3,11 +3,9 @@ package com.infoshareacademy.service;
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.Ingredient;
 import com.infoshareacademy.repository.DrinkRepository;
-import com.infoshareacademy.repository.DrinkRepositoryBean;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.Query;
 import java.util.List;
 
 @Stateless
@@ -16,7 +14,7 @@ public class DrinkService {
     @EJB
     private DrinkRepository drinkRepository;
 
-    public Drink findDrinkByName(String drinkName) {
+    public Drink findDrinkByName(Long drinkName) {
 
         return drinkRepository.findDrinkByName(drinkName);
     }

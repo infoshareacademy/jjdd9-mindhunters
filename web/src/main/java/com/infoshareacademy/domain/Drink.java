@@ -1,6 +1,7 @@
 package com.infoshareacademy.domain;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.List;
                 query = "select d from Drink d join d.drinkIngredients di where di.ingredient IN :ingredients")})
 @Entity
 @Table(name = "drink")
+@Transactional
 public class Drink {
 
     @Id
@@ -27,7 +29,7 @@ public class Drink {
     @NotNull
     private String drinkName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -38,7 +40,7 @@ public class Drink {
     @NotNull
     private String recipe;
 
-    @OneToMany(mappedBy = "drinkId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "drinkId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<DrinkIngredient> drinkIngredients = new ArrayList<>();
 
     private String image;

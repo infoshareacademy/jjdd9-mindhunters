@@ -20,9 +20,9 @@ public class DrinkSearchServlet extends HttpServlet  {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String partialDrinkName = "ada";
+/*        String partialDrinkName = "ada";
 
-        List<Drink> drinks = drinkService.findDrinkByName(partialDrinkName);
+        List<Drink> drinks = drinkService.findDrinkByName(partialDrinkName);*/
 
 
     }
