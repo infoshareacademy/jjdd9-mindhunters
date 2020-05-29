@@ -1,13 +1,20 @@
 package com.infoshareacademy.domain;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @NamedQueries({
+        @NamedQuery(
+                name = "Drink.findDrinkByIngredients",
+                query = "select distinct d from Drink d join d.drinkIngredients di where di.ingredient IN " +
+                        ":ingredients "),
+        @NamedQuery(
+                name = "Drink.findDrinkByPartialName",
+                query = "select d from Drink d where lower( d.drinkName) like lower(:partialDrinkName)"),
         @NamedQuery(
                 name = "Drink.findAll",
                 query = "SELECT d FROM Drink d"
@@ -15,14 +22,14 @@ import java.util.List;
         @NamedQuery(
                 name = "Drink.findAllByCategories",
                 query = "select d from Drink d where d.category.name in :category"
-
         )
-
 })
 
 @Entity
 @Table(name = "drink")
 public class Drink {
+//DTO simpleDrinkView - pola tylko wymagane bez interackji z baza - do listy
+//DTO full wymaga wszystkich danych - do drinka
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +42,7 @@ public class Drink {
     @NotNull
     private String drinkName;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -46,8 +53,8 @@ public class Drink {
     @NotNull
     private String recipe;
 
-    @OneToMany(mappedBy = "drinkId", fetch = FetchType.EAGER)
-    private List<DrinkIngredient> drinkIngredient = new ArrayList<>();
+    @OneToMany(mappedBy = "drinkId", fetch = FetchType.LAZY)
+    private List<DrinkIngredient> drinkIngredients = new ArrayList<>();
 
     private String image;
 
@@ -101,12 +108,12 @@ public class Drink {
         this.recipe = recipe;
     }
 
-    public List<DrinkIngredient> getDrinkIngredient() {
-        return drinkIngredient;
+    public List<DrinkIngredient> getDrinkIngredients() {
+        return drinkIngredients;
     }
 
-    public void setDrinkIngredient(List<DrinkIngredient> drinkIngredient) {
-        this.drinkIngredient = drinkIngredient;
+    public void setDrinkIngredients(List<DrinkIngredient> drinkIngredients) {
+        this.drinkIngredients = drinkIngredients;
     }
 
     public String getImage() {

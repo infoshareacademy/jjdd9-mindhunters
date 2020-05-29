@@ -1,30 +1,72 @@
 package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.Drink;
-import com.infoshareacademy.repository.DrinkRepositoryBean;
+import com.infoshareacademy.domain.Ingredient;
+import com.infoshareacademy.domain.dto.FullDrinkView;
+import com.infoshareacademy.domain.dto.IngredientView;
+import com.infoshareacademy.repository.DrinkRepository;
+import com.infoshareacademy.service.mapper.FullDrinkMapper;
+import com.infoshareacademy.service.mapper.IngredientMapper;
 
-import javax.enterprise.context.RequestScoped;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.management.Query;
 import java.util.List;
-import java.util.Optional;
 
-@RequestScoped
+@Stateless
 public class DrinkService {
 
+    @EJB
+    private DrinkRepository drinkRepository;
+
     @Inject
-    DrinkRepositoryBean drinkRepository;
+    private FullDrinkMapper fullDrinkMapper;
 
-    public List<Drink> findAllDrinks() {
-        return drinkRepository.findAllDrinks();
+    @Inject
+    private IngredientMapper ingredientMapper;
+
+    public FullDrinkView findDrinkById(Long drinkId) {
+        Drink foundDrink = drinkRepository.findDrinkById(drinkId);
+        return fullDrinkMapper.toView(foundDrink);
     }
 
-    public List<Drink> findAllDrinksByCategories(List<String> category) {
-        return drinkRepository.findAllDrinksByCategories(category);
+    public List<FullDrinkView> findDrinksByName(String partialDrinkName) {
+        List<Drink> foundDrinks = drinkRepository.findDrinksByName(partialDrinkName);
+        return fullDrinkMapper.toView(foundDrinks);
     }
 
-    public List<Drink> paginationDrinkList(int pageNumber) {
-        return drinkRepository.paginationDrinkList(pageNumber);
+    public List<FullDrinkView> findDrinkByIngredients(List<IngredientView> ingredientViews) {
+        final List<Ingredient> ingredients = ingredientMapper.toEntity(ingredientViews);
+        final List<Drink> foundDrinksByIngredients = drinkRepository.findDrinkByIngredients(ingredients);
+        return fullDrinkMapper.toView(foundDrinksByIngredients);
+    }
+
+
+
+/*    public List<Drink> findDrinkById(String partialDrinkName) {
+
+        if (partialDrinkName.length() < 2) {
+            //pusta lista + brak resultatów albo error/wyjatek/za krótka nazwa
+
+        }
+
+        return drinkRepository.findAllDrinks().stream();
+    }*/
+
+
+    public List<FullDrinkView> findAllDrinks() {
+        List<Drink> drinks = drinkRepository.findAllDrinks();
+        return fullDrinkMapper.toView(drinks);
+    }
+
+    public List<FullDrinkView> findAllDrinksByCategories(List<String> category) {
+        List<Drink> drinks = drinkRepository.findAllDrinksByCategories(category);
+        return fullDrinkMapper.toView(drinks);
+    }
+
+    public List<FullDrinkView> paginationDrinkList(int pageNumber) {
+        List<Drink> drinks = drinkRepository.paginationDrinkList(pageNumber);
+        return fullDrinkMapper.toView(drinks);
     }
 
 }

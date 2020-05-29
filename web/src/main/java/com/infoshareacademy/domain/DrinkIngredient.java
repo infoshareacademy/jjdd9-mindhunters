@@ -1,9 +1,11 @@
 package com.infoshareacademy.domain;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 
 @Entity
 @Table(name = "drink_ingredient")
+
 public class DrinkIngredient {
 
     @Id

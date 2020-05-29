@@ -1,6 +1,7 @@
 package com.infoshareacademy.servlets;
 
 import com.infoshareacademy.domain.Drink;
+import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.CategoryService;
 import com.infoshareacademy.service.DrinkService;
@@ -40,7 +41,7 @@ public class DrinkListByCategoriesServlet extends HttpServlet {
         List<String> category = Arrays.stream(req.getParameterValues("category"))
                 .collect(Collectors.toList());
 
-        final List<Drink> drinkList = drinkService.findAllDrinksByCategories(category);
+        final List<FullDrinkView> drinkList = drinkService.findAllDrinksByCategories(category);
 
         final List<String> categoryList = categoryService.findAllNames();
 
