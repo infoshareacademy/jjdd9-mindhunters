@@ -20,6 +20,8 @@ import java.util.List;
 @Table(name = "drink")
 @Transactional
 public class Drink {
+//DTO simpleDrinkView - pola tylko wymagane bez interackji z baza - do listy
+//DTO full wymaga wszystkich danych - do drinka
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

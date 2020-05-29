@@ -2,10 +2,13 @@ package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.Ingredient;
+import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.repository.DrinkRepository;
+import com.infoshareacademy.service.mapper.FullDrinkMapper;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import java.util.List;
 
 @Stateless
@@ -14,18 +17,20 @@ public class DrinkService {
     @EJB
     private DrinkRepository drinkRepository;
 
-    public Drink findDrinkById(Long drinkId) {
+    @Inject
+    private FullDrinkMapper fullDrinkMapper;
 
-        return drinkRepository.findDrinkById(drinkId);
+    public FullDrinkView findDrinkById(Long drinkId) {
+        Drink foundDrink = drinkRepository.findDrinkById(drinkId);
+        return fullDrinkMapper.toView(foundDrink);
     }
 
-    public List<Drink> findDrinksByName(String partialDrinkName) {
-
-        return drinkRepository.findDrinksByName(partialDrinkName);
+    public List<FullDrinkView> findDrinksByName(String partialDrinkName) {
+        List<Drink> foundDrinks = drinkRepository.findDrinksByName(partialDrinkName);
+        return fullDrinkMapper.toView(foundDrinks);
     }
 
     public List<Drink> findDrinkByIngredients(List<Ingredient> ingredients) {
-
         return drinkRepository.findDrinkByIngredients(ingredients);
     }
 
