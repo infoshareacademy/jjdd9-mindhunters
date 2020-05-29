@@ -1,6 +1,7 @@
 package com.infoshareacademy.servlets;
 
 import com.infoshareacademy.domain.dto.FullDrinkView;
+import com.infoshareacademy.domain.dto.IngredientView;
 import com.infoshareacademy.service.DrinkService;
 import com.infoshareacademy.service.IngredientService;
 
@@ -16,8 +17,6 @@ import java.util.List;
 
 @WebServlet("/search-drink")
 public class SearchDrinkServlet extends HttpServlet {
-
-
 
     @EJB
     DrinkService drinkService;
@@ -46,14 +45,15 @@ public class SearchDrinkServlet extends HttpServlet {
 
 
         //test findDrinkByIngredients
-/*        Ingredient ingredient = new Ingredient();
-        ingredient.setId(1L);
-        ingredient.setName("ru");
-        List<Ingredient> foundIngredientsByName = ingredientService.findIngredientsByName(ingredient.getName());
+        IngredientView ingredientView = new IngredientView();
+        ingredientView.setId(1L);
+        ingredientView.setName("ru");
+        List<IngredientView> foundIngredientsByName = ingredientService.findIngredientsByName(ingredientView.getName());
         writer.println("Found drinks by Ingredients: <br><br>");
+
         drinkService.findDrinkByIngredients(foundIngredientsByName)
                 .forEach(d -> writer.println(d.getDrinkName() + "<br>"));
-        writer.println("<br><br><br><br>");*/
+        writer.println("<br><br><br><br>");
 
 
         //test findDrinksByName
