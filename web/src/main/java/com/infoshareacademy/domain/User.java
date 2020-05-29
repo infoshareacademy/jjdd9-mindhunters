@@ -24,7 +24,7 @@ public class User {
     @JoinTable(name = "favourite",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "drink_id", referencedColumnName = "id"))
-    List<Drink> drinks = new ArrayList<>();
+    List<DrinkJson> drinks = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -50,11 +50,11 @@ public class User {
         this.email = email;
     }
 
-    public List<Drink> getDrinks() {
+    public List<DrinkJson> getDrinks() {
         return drinks;
     }
 
-    public void setDrinks(List<Drink> drinks) {
+    public void setDrinks(List<DrinkJson> drinks) {
         this.drinks = drinks;
     }
 }
