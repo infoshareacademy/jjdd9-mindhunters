@@ -5,22 +5,22 @@ import javax.transaction.Transactional;
 
 @Entity
 @Table(name = "drink_ingredient")
-@Transactional
+
 public class DrinkIngredient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "measure_id")
     private Measure measure;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ingredient_id")
     private Ingredient ingredient;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "drink_id")
     private Drink drinkId;
 

@@ -1,8 +1,6 @@
 package com.infoshareacademy.service.mapper;
 
-import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.Ingredient;
-import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.domain.dto.IngredientView;
 
 import javax.enterprise.context.RequestScoped;
@@ -27,7 +25,7 @@ public class IngredientMapper {
         return ingredientViews;
     }
 
-    public Ingredient toEntity(IngredientView ingredientView){
+    public Ingredient toEntity(IngredientView ingredientView) {
         Ingredient ingredient = new Ingredient();
         ingredient.setName(ingredientView.getName());
         ingredient.setId(ingredientView.getId());

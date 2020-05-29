@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
-
 @NamedQueries({
         @NamedQuery(name = "Drink.findDrinkByIngredients",
                 query = "select distinct d from Drink d join d.drinkIngredients di where di.ingredient IN " +
@@ -18,7 +16,6 @@ import java.util.List;
                 query = "select d from Drink d where lower( d.drinkName) like lower(:partialDrinkName)")})
 @Entity
 @Table(name = "drink")
-@Transactional
 public class Drink {
 //DTO simpleDrinkView - pola tylko wymagane bez interackji z baza - do listy
 //DTO full wymaga wszystkich danych - do drinka
@@ -34,7 +31,7 @@ public class Drink {
     @NotNull
     private String drinkName;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -45,7 +42,7 @@ public class Drink {
     @NotNull
     private String recipe;
 
-    @OneToMany(mappedBy = "drinkId", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "drinkId", fetch = FetchType.LAZY)
     private List<DrinkIngredient> drinkIngredients = new ArrayList<>();
 
     private String image;

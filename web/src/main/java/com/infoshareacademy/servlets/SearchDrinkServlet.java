@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Random;
 
 @WebServlet("/search-drink")
 public class SearchDrinkServlet extends HttpServlet {
@@ -29,8 +30,10 @@ public class SearchDrinkServlet extends HttpServlet {
         resp.setContentType("text/html; charset=UTF-8");
         final PrintWriter writer = resp.getWriter();
 
+        Integer randomInt = new Random().nextInt(27) + 1;
+        Long randomLong = randomInt.longValue();
         //test findDrinkById
-        final FullDrinkView foundDrinkById = drinkService.findDrinkById(3L);
+        final FullDrinkView foundDrinkById = drinkService.findDrinkById(randomLong);
         writer.println("Find by Id:<br><br>");
         writer.println(foundDrinkById.getDrinkName());
         writer.println("<br>");
@@ -60,7 +63,7 @@ public class SearchDrinkServlet extends HttpServlet {
         final List<FullDrinkView> foundDrinksByName = drinkService.findDrinksByName("ca");
         writer.println("Found drinks by Name: <br><br>");
         foundDrinksByName
-                .forEach(d -> writer.println(d.getDrinkName() + "<br>" + d.getImage() + "<br>" + d.getCategoryView() + "<br><br>"));
+                .forEach(d -> writer.println(d.getDrinkName() + "<br>" + d.getImage() + "<br>" + d.getCategoryView().getName() + "<br><br>"));
         writer.println("<br><br><br><br>");
     }
 }
