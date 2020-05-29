@@ -1,4 +1,4 @@
-package com.infoshareacademy.servlets;
+package com.infoshareacademy.servlet;
 
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.domain.dto.IngredientView;
@@ -13,8 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @WebServlet("/search-drink")
 public class SearchDrinkServlet extends HttpServlet {
@@ -50,14 +49,20 @@ public class SearchDrinkServlet extends HttpServlet {
         //test findDrinkByIngredients
         IngredientView ingredientView = new IngredientView();
         ingredientView.setId(1L);
-        ingredientView.setName("ru");
-        List<IngredientView> foundIngredientsByName = ingredientService.findIngredientsByName(ingredientView.getName());
-        writer.println("Found drinks by Ingredients: <br><br>");
+        ingredientView.setName("rum");
+        IngredientView ingredientView2 = new IngredientView();
+        ingredientView2.setId(2L);
+        ingredientView2.setName("sweet");
+        List<String> ingredientNamesList = new ArrayList<>();
+        ingredientNamesList.add(ingredientView.getName());
+        ingredientNamesList.add(ingredientView2.getName());
+        List<IngredientView> foundIngredientsByName = ingredientService.findIngredientsByName(ingredientNamesList);
+        writer.println("Found drinks by Ingredients - 1 ingredient: <br><br>");
+        final List<FullDrinkView> drinkByIngredients = drinkService.findDrinkByIngredients(foundIngredientsByName);
 
-        drinkService.findDrinkByIngredients(foundIngredientsByName)
-                .forEach(d -> writer.println(d.getDrinkName() + "<br>"));
+
+        drinkByIngredients.forEach(d -> writer.println(d.getDrinkName() + "<br>"));
         writer.println("<br><br><br><br>");
-
 
         //test findDrinksByName
         final List<FullDrinkView> foundDrinksByName = drinkService.findDrinksByName("ca");

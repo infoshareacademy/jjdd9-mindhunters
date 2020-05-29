@@ -31,7 +31,7 @@ public class DrinkRepositoryBean implements DrinkRepository {
     public List<Drink> findDrinkByIngredients(List<Ingredient> ingredients) {
         Query drinkQuery = entityManager.createNamedQuery("Drink.findDrinkByIngredients");
         drinkQuery.setParameter("ingredients", ingredients);
-        return drinkQuery.getResultList();
+        return drinkQuery.setMaxResults(10).getResultList();
     }
 
 

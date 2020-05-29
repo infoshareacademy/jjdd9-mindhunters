@@ -1,7 +1,6 @@
 package com.infoshareacademy.domain;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -10,8 +9,8 @@ import java.util.List;
 
 @NamedQueries({
         @NamedQuery(name = "Drink.findDrinkByIngredients",
-                query = "select distinct d from Drink d join d.drinkIngredients di where di.ingredient IN " +
-                        ":ingredients "),
+                query = "select d from Drink d join d.drinkIngredients di where di.ingredient IN :ingredients group " +
+                        "by d order by count (di.ingredient) desc "),
         @NamedQuery(name = "Drink.findDrinkByPartialName",
                 query = "select d from Drink d where lower( d.drinkName) like lower(:partialDrinkName)")})
 @Entity

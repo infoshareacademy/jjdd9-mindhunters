@@ -21,6 +21,4 @@ public class IngredientRepositoryBean implements IngredientRepository {
         ingredientQuery.setParameter("partialIngredientName", "%" + partialIngredientName + "%");
         return ingredientQuery.getResultList();
     }
-
-
 }

@@ -41,15 +41,4 @@ public class DrinkService {
         return fullDrinkMapper.toView(foundDrinksByIngredients);
     }
 
-
-
-/*    public List<Drink> findDrinkById(String partialDrinkName) {
-
-        if (partialDrinkName.length() < 2) {
-            //pusta lista + brak resultatów albo error/wyjatek/za krótka nazwa
-
-        }
-
-        return drinkRepository.findAllDrinks().stream();
-    }*/
 }
