@@ -51,18 +51,6 @@ public class DrinkRepositoryBean implements DrinkRepository {
 
     public List<Drink> paginationDrinkList(int pageNumber) {
         Query query = entityManager.createQuery("select d from Drink d");
-
-        int pageSize = 4;
-        query.setFirstResult((pageNumber-1) * pageSize);
-        query.setMaxResults(pageSize);
-
-       return  query.getResultList();
-
-    }
-
-
-    public List<Drink> paginationDrinkList(int pageNumber) {
-        Query query = entityManager.createQuery("select d from Drink d");
         query.setFirstResult((pageNumber-1) * PAGE_SIZE);
         query.setMaxResults(PAGE_SIZE);
 

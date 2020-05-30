@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 @WebServlet("/list")
 public class DrinkListServlet extends HttpServlet {
 
-    private static final Logger packageLogger = LoggerFactory.getLogger(LoggerServlet.class.getName());
+    private static final Logger packageLogger = LoggerFactory.getLogger(DrinkListServlet.class.getName());
 
     @EJB
     private DrinkService drinkService;
