@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.infoshareacademy.domain.DrinkJson;
-import com.infoshareacademy.domain.Ingredient;
+import com.infoshareacademy.domain.IngredientJson;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -41,9 +41,9 @@ public class JsonDrinkDeserializer extends JsonDeserializer<DrinkJson> {
             drink.setModifiedDate(formatDateTime);
         }
 
-        Ingredient ingredient = new Ingredient();
+        IngredientJson ingredient = new IngredientJson();
 
-        List<Ingredient> ingredientsList = new ArrayList<>();
+        List<IngredientJson> ingredientsList = new ArrayList<>();
 
         for (int i = 1; i <= 15; i++) {
             String ingredientMeasureField = "strMeasure" + i;
@@ -54,12 +54,12 @@ public class JsonDrinkDeserializer extends JsonDeserializer<DrinkJson> {
                     ingredient.setName(readValueAsTree.get(ingredientNameField).asText());
                     ingredient.setMeasure(readValueAsTree.get(ingredientMeasureField).asText());
                     ingredientsList.add(ingredient);
-                    ingredient = new Ingredient();
+                    ingredient = new IngredientJson();
                 } else {
                     ingredient.setName(readValueAsTree.get(ingredientNameField).asText());
                     ingredient.setMeasure("no measures");
                     ingredientsList.add(ingredient);
-                    ingredient = new Ingredient();
+                    ingredient = new IngredientJson();
                 }
 
             } else break;

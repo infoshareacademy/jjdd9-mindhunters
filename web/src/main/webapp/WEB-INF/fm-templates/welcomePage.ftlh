@@ -35,24 +35,23 @@
                     </header>
                 </div>
                 <div class="over-photo2" style="position:absolute;left: 14%;bottom:42%">
-                <span class="admin-btn-block">
+                <span class="admin-btn-block vis-of-btn">
                     <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin" id="btn-admin1"
                     >USERS</a><br>
-
-
                     <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin offlineDb"
-                       id="btn-admin2">Load DB from file</a>
-                    <form method="post" action="/welcome" enctype="multipart/form-data">
+                       id="btn-admin2">RECIPES</a>
+                    <form method="post" action="/welcome" enctype="multipart/form-data" class="vis-of-btn">
 
                         <label for="myfile">Select files:</label>
                         <input type="file" id="jsonFile" name="jsonFile" multiple><br><br>
-                         <input type="submit">
+                         <input
+<#--                                 class="btn btn-background  text-uppercase  text-warning glow  btn-admin"-->
+                                type="submit">
 
                     </form>
-                    <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin" id="btn-admin3"
-                    >Load DB from API</a><br>
+
                     <br>
-                    <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin" id="btn-admin4"
+                    <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin" id="btn-admin3"
                     >SETTINGS</a><br>
                     <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin" id="btn-admin-back"
                     >BACK</a>

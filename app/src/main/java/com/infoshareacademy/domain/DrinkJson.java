@@ -34,7 +34,7 @@ public class DrinkJson {
     private String recipe;
     @JsonProperty("strDrinkThumb")
     private String imageUrl;
-    private List<Ingredient> ingredients;
+    private List<IngredientJson> ingredients;
     @JsonProperty("dateModified")
     private LocalDateTime modifiedDate;
 
@@ -86,11 +86,11 @@ public class DrinkJson {
         this.imageUrl = imageUrl;
     }
 
-    public List<Ingredient> getIngredients() {
+    public List<IngredientJson> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
+    public void setIngredients(List<IngredientJson> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -120,7 +120,7 @@ public class DrinkJson {
 
     public List<String> getIngredientsNamesList() {
         List<String> ingredientsNames = new ArrayList<>();
-        for (Ingredient ingredient : ingredients) {
+        for (IngredientJson ingredient : ingredients) {
             ingredientsNames.add(ingredient.getName());
         }
         return ingredientsNames;

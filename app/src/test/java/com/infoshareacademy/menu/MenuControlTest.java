@@ -3,7 +3,7 @@ package com.infoshareacademy.menu;
 import com.infoshareacademy.domain.DrinkJson;
 import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.domain.FavouritesDatabase;
-import com.infoshareacademy.domain.Ingredient;
+import com.infoshareacademy.domain.IngredientJson;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -44,7 +44,7 @@ class MenuControlTest {
         drink.setDrinkName("TestTest");
         drink.setModifiedDate(LocalDateTime.now());
         drink.setImageUrl("TEST");
-        drink.setIngredients(List.of(new Ingredient(), new Ingredient()));
+        drink.setIngredients(List.of(new IngredientJson(), new IngredientJson()));
         DrinksDatabase.getINSTANCE().addDrink(drink);
 
         //when
@@ -63,7 +63,7 @@ class MenuControlTest {
         drink.setDrinkName("TestTest");
         drink.setModifiedDate(LocalDateTime.now());
         drink.setImageUrl("TEST");
-        drink.setIngredients(List.of(new Ingredient(), new Ingredient()));
+        drink.setIngredients(List.of(new IngredientJson(), new IngredientJson()));
         DrinksDatabase.getINSTANCE().addDrink(drink);
         DrinksDatabase.getINSTANCE().getDrinks().remove(drink);
 

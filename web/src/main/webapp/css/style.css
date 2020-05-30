@@ -202,8 +202,8 @@
 .backGround {
     width: 100%;
     height: auto;
-    max-height: 880px;
-    max-width: 1900px;
+    /*max-height: 880px;*/
+    /*max-width: 2200px;*/
 }
 
 .card-body {

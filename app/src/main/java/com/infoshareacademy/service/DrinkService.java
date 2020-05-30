@@ -2,7 +2,7 @@ package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.DrinkJson;
 import com.infoshareacademy.domain.DrinksDatabase;
-import com.infoshareacademy.domain.Ingredient;
+import com.infoshareacademy.domain.IngredientJson;
 import com.infoshareacademy.menu.DisplayMenu;
 import com.infoshareacademy.utilities.PropertiesUtilities;
 import com.infoshareacademy.utilities.UserInput;
@@ -105,7 +105,7 @@ public class DrinkService {
                 StringUtils.rightPad("Ingredients :", 46, "=")
                 + Colours.ANSI_RESET);
 
-        List<Ingredient> ingredients = drink.getIngredients();
+        List<IngredientJson> ingredients = drink.getIngredients();
         String emptySpaces = "                           ";
         for (int j = 0; j < ingredients.size(); j++) {
             String adjustedName = drink.getIngredients().get(j).getName() + emptySpaces;
@@ -239,8 +239,8 @@ public class DrinkService {
         userDrink.setAlcoholStatus((getAlcoholStatuses(DrinksDatabase.getINSTANCE()).get(userChoice - 1)));
     }
 
-    private List<Ingredient> setUserDrinkIngredientAndMeasure(int maxCapacity) {
-        List<Ingredient> ingredients = new ArrayList<>();
+    private List<IngredientJson> setUserDrinkIngredientAndMeasure(int maxCapacity) {
+        List<IngredientJson> ingredients = new ArrayList<>();
         String name;
         String measure;
         String choice;
@@ -251,7 +251,7 @@ public class DrinkService {
             String message =
                     builder.append("Type ").append("'").append(name).append("'").append(" measure: ").toString();
             measure = userInput.getUserStringInput(message);
-            ingredients.add(new Ingredient(name, measure));
+            ingredients.add(new IngredientJson(name, measure));
             STDOUT.info("\n");
             counter++;
         } while (userInput.getYesOrNo("Do you want to add another ingredient [max 15], <y/n>?") && (ingredients.size() <= maxCapacity));

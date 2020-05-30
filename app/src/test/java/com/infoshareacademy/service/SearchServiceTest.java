@@ -1,7 +1,7 @@
 package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.DrinkJson;
-import com.infoshareacademy.domain.Ingredient;
+import com.infoshareacademy.domain.IngredientJson;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,7 @@ public class SearchServiceTest  {
     @Test
     public void testGetDrinks() {
         //given
-        Ingredient ingredient = new Ingredient();
+        IngredientJson ingredient = new IngredientJson();
         String ingredientName = "testname";
         ingredient.setName(ingredientName);
 

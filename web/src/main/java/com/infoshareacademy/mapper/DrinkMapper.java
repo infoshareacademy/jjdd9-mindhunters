@@ -1,6 +1,7 @@
 package com.infoshareacademy.mapper;
 
 import com.infoshareacademy.domain.*;
+import com.infoshareacademy.repository.CategoryRepositoryBean;
 
 import javax.enterprise.context.RequestScoped;
 import java.util.ArrayList;
@@ -9,34 +10,36 @@ import java.util.List;
 @RequestScoped
 public class DrinkMapper {
 
+//    @EJB
+    CategoryRepositoryBean categoryRepositoryBean;
+
+//    @Inject
+    CategoryMapper categoryMapper;
+
+//    @Inject
     IngredientMapper ingredientMapper;
 
     public Drink toEntity(DrinkJson drinkJson){
 
-        Drink drinkMapped = new Drink();
-        Category category = new Category();
+        Drink drink = new Drink();
 
-        drinkMapped.setDrinkId(drinkJson.getDrinkId());
-        drinkMapped.setDrinkName(drinkJson.getDrinkName());
-//        drinkMapped.setCategory(drinkJson.cat);             cos nie tak
-        drinkMapped.setAlcoholStatus(drinkJson.getAlcoholStatus());
-        drinkMapped.setRecipe(drinkJson.getRecipe());
-        drinkMapped.setImage(drinkJson.getImageUrl());
+        String categoryName = drinkJson.getCategoryName();
+        Category category = categoryRepositoryBean.getByName(categoryName);
 
+        drink.setDrinkId(drinkJson.getDrinkId());
+        drink.setDrinkName(drinkJson.getDrinkName());
+        drink.setCategory(category);
+        drink.setAlcoholStatus(drinkJson.getAlcoholStatus());
+        drink.setRecipe(drinkJson.getRecipe());
+        drink.setImage(drinkJson.getImageUrl());
 
-
-
-
-
-
-        List<Ingredient> ingredientsList = new ArrayList<>();
-        DrinkIngredient drinkIngredient = new DrinkIngredient();
-        for (Ingredient ingredient : drinkJson.getIngredients()) {
-             drinkIngredient = ingredientMapper.toEntity(ingredient);
+        List<DrinkIngredient> ingredientsList = new ArrayList<>();
+        for (IngredientJson ingredientJson : drinkJson.getIngredients()) {
+            DrinkIngredient ingredient = ingredientMapper.toEntity(ingredientJson);
             ingredientsList.add(ingredient);
         }
 //        drinkMapped.setDrinkIngredient();
 
-        return drinkMapped;
+        return drink;
     }
 }

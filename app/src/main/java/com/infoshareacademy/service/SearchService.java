@@ -2,7 +2,7 @@ package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.DrinkJson;
 import com.infoshareacademy.domain.DrinksDatabase;
-import com.infoshareacademy.domain.Ingredient;
+import com.infoshareacademy.domain.IngredientJson;
 import com.infoshareacademy.utilities.PropertiesUtilities;
 import com.infoshareacademy.utilities.UserInput;
 import com.infoshareacademy.utilities.Utilities;
@@ -206,7 +206,7 @@ public class SearchService {
 
         return drinkList.stream()
                 .flatMap(a -> a.getIngredients().stream())
-                .map(Ingredient::getName)
+                .map(IngredientJson::getName)
                 .map(String::toString)
                 .map(String::toUpperCase)
                 .distinct()
