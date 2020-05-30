@@ -30,7 +30,8 @@
                 <form enctype="text/plain" method="post" action="/list">
                     <div class="list-group  list-element">
                         <div class="list-group-item sidebar-list">
-                            <input type="text" name="drink-name" id="" placeholder="Search by name...">
+                            <input type="text" required minlength="2" name="drink-name" id="" placeholder="Search by
+                            name...">
                         </div>
                     </div>
                     <br>
@@ -42,7 +43,8 @@
                     <div class="list-group  list-element add-group">
 
                         <div class="list-group-item sidebar-list">
-                            <input type="text" name="field_name[]" value="" placeholder="Search by ingredients..."/>
+                            <input type="text" required minlength="2" name="drink-ingredients" value=""
+                                   placeholder="Search by ingredients..."/>
                             <a href="javascript:void(0);" class="add_button " id="remove_blue" title="Add field">
                                 <svg class="bi bi-plus-square-fill" id="remove_blue" width="1em" height="1em"
                                      viewBox="0 0 16 16"

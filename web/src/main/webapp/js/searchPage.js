@@ -2,7 +2,9 @@ $(document).ready(function () {
     var maxField = 10; //Input fields increment limitation
     var addButton = $('.add_button'); //Add button selector
     var wrapper = $('.add-group'); //Input field wrapper
-    var fieldHTML = '<div class="list-group-item sidebar-list"><input type="text" name="field_name[]" value=""' +
+    var fieldHTML = '<div class="list-group-item sidebar-list"><input type="text" minlength="2"' +
+        ' name="drink-ingredients"' +
+        ' value=""' +
         ' placeholder="Add ingredient"/><a' +
         ' id="remove_blue" href="javascript:void(0);"' +
         ' class="remove_button"><svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\n' +
