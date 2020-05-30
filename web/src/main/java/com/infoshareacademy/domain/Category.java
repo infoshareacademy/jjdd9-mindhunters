@@ -1,13 +1,16 @@
 package com.infoshareacademy.domain;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 
 @NamedQueries({
         @NamedQuery(
                 name = "Category.findAllNames",
                 query = "SELECT c.name FROM Category c"
+        ),
+        @NamedQuery(
+                name = "Category.getByname",
+                query = "SELECT c FROM Category c where c.name= :name"
         )
 })
 @Entity

@@ -1,6 +1,6 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.domain.Drink;
+import com.infoshareacademy.domain.DrinkJson;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.CategoryService;
 import com.infoshareacademy.service.DrinkService;
@@ -16,13 +16,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @WebServlet("/list-category")
 public class DrinkListByCategoriesServlet extends HttpServlet {
 
-    private static final Logger packageLogger = LoggerFactory.getLogger(LoggerServlet.class.getName());
+    private static final Logger packageLogger = LoggerFactory.getLogger(DrinkListByCategoriesServlet.class.getName());
 
     @Inject
     private DrinkService drinkService;
@@ -40,7 +43,7 @@ public class DrinkListByCategoriesServlet extends HttpServlet {
         List<String> category = Arrays.stream(req.getParameterValues("category"))
                 .collect(Collectors.toList());
 
-        final List<Drink> drinkList = drinkService.findAllDrinksByCategories(category);
+        final List<DrinkJson> drinkList = drinkService.findAllDrinksByCategories(category);
 
         final List<String> categoryList = categoryService.findAllNames();
 

@@ -1,6 +1,6 @@
 package com.infoshareacademy.repository;
 
-import com.infoshareacademy.domain.Drink;
+import com.infoshareacademy.domain.DrinkJson;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -17,19 +17,19 @@ public class DrinkRepositoryBean {
     @PersistenceContext
     EntityManager entityManager;
 
-    public List<Drink> findAllDrinks() {
+    public List<DrinkJson> findAllDrinks() {
         Query query = entityManager.createNamedQuery("Drink.findAll");
         return query.getResultList();
     }
 
-    public List<Drink> findAllDrinksByCategories(List<String> category) {
+    public List<DrinkJson> findAllDrinksByCategories(List<String> category) {
         Query query = entityManager.createNamedQuery("Drink.findAllByCategories");
 
         query.setParameter("category", category);
         return query.getResultList();
     }
 
-    public List<Drink> paginationDrinkList(int pageNumber) {
+    public List<DrinkJson> paginationDrinkList(int pageNumber) {
         Query query = entityManager.createQuery("select d from Drink d");
 
         int pageSize = 4;

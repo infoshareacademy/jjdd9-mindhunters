@@ -1,5 +1,6 @@
 package com.infoshareacademy.service;
 
+import com.infoshareacademy.domain.Category;
 import com.infoshareacademy.repository.CategoryRepositoryBean;
 
 import javax.enterprise.context.RequestScoped;
@@ -17,4 +18,13 @@ public class CategoryService {
     }
 
 
+    public Category getOrCreate(String name) {
+        Category category = categoryRepositoryBean.getByName(name);
+        if (category==null) {
+            category = new Category();
+            category.setName(name);
+            categoryRepositoryBean.save(category);
+        }
+        return category;
+    }
 }
