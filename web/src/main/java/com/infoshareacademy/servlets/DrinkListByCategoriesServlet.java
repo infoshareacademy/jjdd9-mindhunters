@@ -1,6 +1,6 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.domain.Drink;
+import com.infoshareacademy.domain.dto.CategoryView;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.CategoryService;
@@ -43,7 +43,7 @@ public class DrinkListByCategoriesServlet extends HttpServlet {
 
         final List<FullDrinkView> drinkList = drinkService.findAllDrinksByCategories(category);
 
-        final List<String> categoryList = categoryService.findAllNames();
+        final List<CategoryView> categoryList = categoryService.findAllCategories();
 
 
         Map<String, Object> dataModel = new HashMap<>();

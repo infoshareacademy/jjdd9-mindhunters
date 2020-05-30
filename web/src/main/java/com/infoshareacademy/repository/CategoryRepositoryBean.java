@@ -1,5 +1,7 @@
 package com.infoshareacademy.repository;
 
+import com.infoshareacademy.domain.Category;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,8 +14,8 @@ public class CategoryRepositoryBean {
     @PersistenceContext
     EntityManager entityManager;
 
-    public List<String> findAllNames() {
-        Query query = entityManager.createNamedQuery("Category.findAllNames");
+    public List<Category> findAllNames() {
+        Query query = entityManager.createNamedQuery("Category.findAllCategories");
         return query.getResultList();
     }
 }

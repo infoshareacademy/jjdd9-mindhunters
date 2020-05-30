@@ -29,12 +29,12 @@
             <div class="d-none d-md-block">
 
                 <div class="list-group  list-element sticky-scroll  " >
-                    <#list categories as category>
+
+           <#list categories as category>
 
                         <a href="#" class="list-group-item sidebar-list">${category}</a>
 
                     </#list>
-
                 </div>
             </div>
 
@@ -61,7 +61,7 @@
                                             <h5 class="col-md-5 mx-2 my-2   text-center text-md-right" style="
                                                     padding-right: 0px;
                                                     margin-right: 0px;">
-                                                ${drink.category.name}
+                                                ${drink.categoryView.name}
 
                                             </h5>
                                         </div>
@@ -80,6 +80,30 @@
             </div>
         </div>
     </div>
+    <button onclick="changeURLa()">zmien saadaaatronke</button>
+
+
+    <script type="text/javascript">
+
+        async function changeURLa() {
+            let url = new URL(window.location); // or construct from window.location
+
+            let params = new URLSearchParams(url.search.slice(1));
+
+            for (let p of params) {
+                console.log(p);
+            }
+
+            params.set('page', '3');
+            console.log(params.has('page'));
+
+
+            location.replace('http://localhost:8080/list?'+params.toString());
+
+        }
+
+
+    </script>
 
     <ul class="pagination justify-content-center">
         <li class="page-item disabled">

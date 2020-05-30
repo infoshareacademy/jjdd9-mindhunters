@@ -77,7 +77,7 @@
           var el = self.render(true);
 
           // Add extra className to the pagination element
-            if (attributes.className) {
+          if (attributes.className) {
             el.addClass(attributes.className);
           }
 
@@ -848,20 +848,20 @@
           case 'destroy':
             container.trigger.apply(this, args);
             break;
-          // Get selected page number
+            // Get selected page number
           case 'getSelectedPageNum':
             if (container.data('pagination').model) {
               return container.data('pagination').model.pageNumber;
             } else {
               return container.data('pagination').attributes.pageNumber;
             }
-          // Get total page
+            // Get total page
           case 'getTotalPage':
             return Math.ceil(container.data('pagination').model.totalNumber / container.data('pagination').model.pageSize);
-          // Get data of selected page
+            // Get data of selected page
           case 'getSelectedPageData':
             return container.data('pagination').currentPageData;
-          // Whether pagination has been disabled
+            // Whether pagination has been disabled
           case 'isDisabled':
             return container.data('pagination').model.disabled === true;
           default:

@@ -1,6 +1,7 @@
 package com.infoshareacademy.servlets;
 
 import com.infoshareacademy.domain.Drink;
+import com.infoshareacademy.domain.dto.CategoryView;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.CategoryService;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @WebServlet("/list")
 public class DrinkListServlet extends HttpServlet {
@@ -42,10 +44,11 @@ public class DrinkListServlet extends HttpServlet {
 
         final List<FullDrinkView> drinkList = drinkService.findAllDrinks();
 
-        final List<String> categoryList = categoryService.findAllNames();
+        final List<String> categoryNameList = categoryService.findAllCategories().stream()
+                  .map(categoryView -> categoryView.getName()).collect(Collectors.toList());
 
         Map<String, Object> dataModel = new HashMap<>();
-        dataModel.put("categories", categoryList);
+        dataModel.put("categories", categoryNameList);
 
         String page = req.getParameter("page");
         if (page != null && !page.isEmpty()){
