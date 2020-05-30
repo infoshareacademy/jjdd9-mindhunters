@@ -8,11 +8,21 @@ import java.util.List;
 
 
 @NamedQueries({
-        @NamedQuery(name = "Drink.findDrinkByIngredients",
+        @NamedQuery(
+                name = "Drink.findDrinkByIngredients",
                 query = "select d from Drink d join d.drinkIngredients di where di.ingredient IN :ingredients group " +
                         "by d order by count (di.ingredient) desc "),
-        @NamedQuery(name = "Drink.findDrinkByPartialName",
-                query = "select d from Drink d where lower( d.drinkName) like lower(:partialDrinkName)")})
+        @NamedQuery(
+                name = "Drink.findDrinkByPartialName",
+                query = "select d from Drink d where lower( d.drinkName) like lower(:partialDrinkName)"),
+        @NamedQuery(
+                name = "Drink.findAll",
+                query = "SELECT d FROM Drink d"),
+        @NamedQuery(
+                name = "Drink.findAllByCategories",
+                query = "select d from Drink d where d.category.name in :category")
+})
+
 @Entity
 @Table(name = "drink")
 public class Drink {

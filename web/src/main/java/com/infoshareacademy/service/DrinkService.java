@@ -40,5 +40,15 @@ public class DrinkService {
         final List<Drink> foundDrinksByIngredients = drinkRepository.findDrinkByIngredients(ingredients);
         return fullDrinkMapper.toView(foundDrinksByIngredients);
     }
+    public List<Drink> findAllDrinks() {
+        return drinkRepository.findAllDrinks();
+    }
 
+    public List<Drink> findAllDrinksByCategories(List<String> category) {
+        return drinkRepository.findAllDrinksByCategories(category);
+    }
+
+    public List<Drink> paginationDrinkList(int pageNumber) {
+        return drinkRepository.paginationDrinkList(pageNumber);
+    }
 }

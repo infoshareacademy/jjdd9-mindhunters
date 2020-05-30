@@ -16,6 +16,8 @@
     </parent>
 
     <dependencies>
+
+        <!--app dependency for tests-->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
