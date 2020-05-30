@@ -27,12 +27,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 
-@WebServlet(
-        urlPatterns = "/list",
-        initParams = {
-                @WebInitParam(name = "page", value = "1"),
-        }
-)
+@WebServlet("/list")
 public class DrinkListServlet extends HttpServlet {
 
     private static final Logger packageLogger = LoggerFactory.getLogger(LoggerServlet.class.getName());
@@ -50,6 +45,7 @@ public class DrinkListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
+
         final int currentPage = Integer.parseInt(req.getParameter("page"));
 
         final int maxPage = drinkService.maxPageNumber();
@@ -60,6 +56,7 @@ public class DrinkListServlet extends HttpServlet {
                   .map(categoryView -> categoryView.getName()).collect(Collectors.toList());
 
         Map<String, Object> dataModel = new HashMap<>();
+
         dataModel.put("categories", categoryNameList);
         dataModel.put("maxPageSize", maxPage);
 

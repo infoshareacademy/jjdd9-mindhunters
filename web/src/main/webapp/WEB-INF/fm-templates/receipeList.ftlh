@@ -183,6 +183,7 @@
             <a onclick="previousPage()" class="page-link" aria-hidden="true" id="previous">&lsaquo;</a>
             </#if>
 
+
             <#list currentPage-2..currentPage+2 as i>
             <#if (i > 0 && i < maxPageSize) >
         <li class="page-item"><a class="page-link" href="${"/list?page=" + i}">${i}</a></li>
