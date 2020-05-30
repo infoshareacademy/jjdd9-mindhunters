@@ -20,7 +20,7 @@ public class DrinkIngredient {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "drink_id")
-    private DrinkJson drinkId;
+    private Drink drinkId;
 
     public Long getId() {
         return id;
@@ -46,11 +46,11 @@ public class DrinkIngredient {
         this.ingredient = ingredient;
     }
 
-    public DrinkJson getDrinkId() {
+    public Drink getDrinkId() {
         return drinkId;
     }
 
-    public void setDrinkId(DrinkJson drinkId) {
+    public void setDrinkId(Drink drinkId) {
         this.drinkId = drinkId;
     }
 }
