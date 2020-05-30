@@ -61,7 +61,6 @@ public class SearchDrinkServlet extends HttpServlet {
         writer.println("Found drinks by Ingredients - 1 ingredient: <br><br>");
         final List<FullDrinkView> drinkByIngredients = drinkService.findDrinkByIngredients(foundIngredientsByName);
 
-
         drinkByIngredients.forEach(d -> writer.println(d.getDrinkName() + "<br>"));
         writer.println("<br><br><br><br>");
 
