@@ -36,13 +36,10 @@
 
 
 
-<button onclick="changeURLa()">zmien saadaaatronke</button>
-
 
 <script type="text/javascript">
 
-    async function changeURL() {
-
+    async function changeURLa() {
         let url = new URL(window.location); // or construct from window.location
 
         let params = new URLSearchParams(url.search.slice(1));
@@ -50,24 +47,20 @@
         for (let p of params) {
             console.log(p);
         }
+        let pageNumber = parseInt(params.get('page'));
 
-        params.set('page', '3');
-
-
+        console.log(params.set('page', (pageNumber+1).toString()));
         console.log(params.has('page'));
 
-        params.append('category', 'shot');
-        console.log(params.getAll('category'));
 
-        console.log(params.toString());
-        console.log(params);
-        window.history.replaceState({}, '', '/?' + params);
+        location.replace('http://localhost:8080/list?'+params.toString());
 
     }
 
 
 </script>
 
+<button onclick="changeURLa()">zmien saadaaatronke</button>
 
 <script>
 /*
@@ -150,7 +143,7 @@
         </li>
         <li class="page-item"><a class="page-link" href="#">3</a></li>
         <li class="page-item">
-            <a class="page-link" href="#">Next</a>
+            <a class="ui-button" href="#" onclick="changeURLa()">Next</a>
         </li>
     </ul>
 </div>

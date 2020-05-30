@@ -4,6 +4,7 @@ import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.Ingredient;
 
 import javax.ejb.Local;
+import javax.persistence.Query;
 import java.util.List;
 
 @Local
@@ -20,4 +21,7 @@ public interface DrinkRepository {
     List<Drink> findAllDrinksByCategories(List<String> category);
 
     List<Drink> paginationDrinkList(int pageNumber);
+
+    int maxPageNumber();
+
 }

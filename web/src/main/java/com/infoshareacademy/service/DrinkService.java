@@ -11,6 +11,7 @@ import com.infoshareacademy.service.mapper.IngredientMapper;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.Query;
 import java.util.List;
 
 @Stateless
@@ -69,4 +70,9 @@ public class DrinkService {
         return fullDrinkMapper.toView(drinks);
     }
 
+    public int maxPageNumber() {
+        int maxPageNumber = drinkRepository.maxPageNumber();
+        return maxPageNumber;
+
+    }
 }

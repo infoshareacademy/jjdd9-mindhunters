@@ -13,7 +13,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +26,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@WebServlet("/list")
+
+@WebServlet(
+        urlPatterns = "/list",
+        initParams = {
+                @WebInitParam(name = "page", value = "1"),
+        }
+)
 public class DrinkListServlet extends HttpServlet {
 
     private static final Logger packageLogger = LoggerFactory.getLogger(LoggerServlet.class.getName());
@@ -40,7 +48,11 @@ public class DrinkListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html; charset=UTF-8");
+
+
+        final int currentPage = Integer.parseInt(req.getParameter("page"));
+
+        final int maxPage = drinkService.maxPageNumber();
 
         final List<FullDrinkView> drinkList = drinkService.findAllDrinks();
 
@@ -49,11 +61,16 @@ public class DrinkListServlet extends HttpServlet {
 
         Map<String, Object> dataModel = new HashMap<>();
         dataModel.put("categories", categoryNameList);
+        dataModel.put("maxPageSize", maxPage);
+
+
 
         String page = req.getParameter("page");
         if (page != null && !page.isEmpty()){
             final List<FullDrinkView> paginatedDrinkList = drinkService.paginationDrinkList(Integer.parseInt(req.getParameter("page")));
             dataModel.put("drinkList", paginatedDrinkList);
+            dataModel.put("currentPage", currentPage);
+
         } else{
 
             dataModel.put("drinkList", drinkList);

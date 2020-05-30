@@ -14,10 +14,9 @@
 
 </head>
 <body id="page-top" style="background-color: #1b1e21;">
-
 <!--Navigation-->
-<#include "navigation.ftlh">
 
+<#include "navigation.ftlh">
 
 <!--List-->
 <nav aria-label="LIST">
@@ -28,9 +27,9 @@
 
             <div class="d-none d-md-block">
 
-                <div class="list-group  list-element sticky-scroll  " >
+                <div class="list-group  list-element sticky-scroll  ">
 
-           <#list categories as category>
+                    <#list categories as category>
 
                         <a href="#" class="list-group-item sidebar-list">${category}</a>
 
@@ -51,10 +50,11 @@
                                              class=" thumbnail_list justify-content-center" alt="...">
                                     </div>
 
-                                    <div class="media-body line-clamp col-sm-8 ml-0 pl-1 mr-0 pr-0" style="color: #ffc107">
+                                    <div class="media-body line-clamp col-sm-8 ml-0 pl-1 mr-0 pr-0"
+                                         style="color: #ffc107">
 
                                         <div class="row col-sm d-flex mt-4 mt-md-0 ">
-                                            <h5 class="col-md-6 mx-2 my-2  font-weight-bold text-center text-md-left"  >
+                                            <h5 class="col-md-6 mx-2 my-2  font-weight-bold text-center text-md-left">
                                                 ${drink.drinkName}
                                             </h5>
 
@@ -80,43 +80,122 @@
             </div>
         </div>
     </div>
-    <button onclick="changeURLa()">zmien saadaaatronke</button>
 
 
     <script type="text/javascript">
+        let maxNumber = ${maxPageSize};
 
-        async function changeURLa() {
+
+        async function nextPage() {
+            let url = new URL(window.location); // or construct from window.location
+            //   this.addClass("disabled");
+
+            let params = new URLSearchParams(url.search.slice(1));
+
+            let pageNumber = parseInt(params.get('page'));
+
+
+            let newPageNumber = pageNumber + 1;
+
+            if (newPageNumber <= maxNumber) {
+                params.set('page', (newPageNumber).toString());
+                let newURL = 'http://localhost:8080/list?' + params.toString();
+
+
+                location.replace(newURL);
+
+                if (pageNumber == 5) {
+
+                    var element = document.getElementById("next");
+                    element.classList.add("disabled");
+                }
+
+            }
+
+
+        }
+
+        async function previousPage() {
             let url = new URL(window.location); // or construct from window.location
 
             let params = new URLSearchParams(url.search.slice(1));
 
-            for (let p of params) {
-                console.log(p);
+            let pageNumber = parseInt(params.get('page'));
+
+            let newPageNumber = pageNumber - 1;
+            if (newPageNumber > 0) {
+                params.set('page', (newPageNumber).toString());
+                let newURL = 'http://localhost:8080/list?' + params.toString();
+                location.replace(newURL);
+
             }
-
-            params.set('page', '3');
-            console.log(params.has('page'));
+        }
 
 
-            location.replace('http://localhost:8080/list?'+params.toString());
+        async function setPage() {
+            let url = new URL(window.location); // or construct from window.location
 
+            let params = new URLSearchParams(url.search.slice(1));
+
+            let pageNumber = parseInt(params.get('page'));
+
+            let newPageNumber = pageNumber - 1;
+            if (newPageNumber > 0) {
+                params.set('page', (newPageNumber).toString());
+                let newURL = 'http://localhost:8080/list?' + params.toString();
+                location.replace(newURL);
+
+            }
+        }
+
+
+        function toDisabled() {
+
+            let url = new URL(window.location);
+            var element = document.getElementById("next");
+            element.classList.add("disabled");
+
+            let params = new URLSearchParams(url.search.slice(1));
+
+            let pageNumber = parseInt(params.get('page'));
+
+            console.info(pageNumber);
+
+            if (pageNumber == 5) {
+
+                var element = document.getElementById("next");
+                element.classList.add("disabled");
+            }
         }
 
 
     </script>
 
+
     <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+
+        <li class="page-item"><a class="page-link" href="${"/list?page=" + 1}">&laquo;</a></li>
+
+        <li class="page-item ">
         </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item active" aria-current="page">
-            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+        <#if (currentPage >=  2) >
+        <li class="page-item" id="next">
+            <a onclick="previousPage()" class="page-link" aria-hidden="true" id="previous">&lsaquo;</a>
+            </#if>
+
+            <#list currentPage-2..currentPage+2 as i>
+            <#if (i > 0 && i < maxPageSize) >
+        <li class="page-item"><a class="page-link" href="${"/list?page=" + i}">${i}</a></li>
+        </#if>
+
+        </#list>
+
+        <#if (currentPage <=  (maxPageSize-1)) >
+        <li class="page-item" id="next">
+            <a onclick="nextPage()" class="page-link">&rsaquo;</a>
+            </#if>
         </li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-        </li>
+        <li class="page-item"><a class="page-link" href="${"/list?page=" + maxPageSize}">&raquo;</a></li>
     </ul>
 </nav>
 
