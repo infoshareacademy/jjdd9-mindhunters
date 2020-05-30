@@ -1,6 +1,7 @@
-package com.infoshareacademy.servlets;
+package com.infoshareacademy.servlet;
 
 import com.infoshareacademy.domain.Drink;
+import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.CategoryService;
 import com.infoshareacademy.service.DrinkService;
@@ -20,16 +21,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/list")
-public class DrinkListServlet extends HttpServlet {
+@WebServlet("/search")
+public class DrinkSearchServlet extends HttpServlet {
 
-    private static final Logger packageLogger = LoggerFactory.getLogger(LoggerServlet.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(DrinkSearchServlet.class.getName());
 
     @Inject
     private DrinkService drinkService;
-
-    @Inject
-    private CategoryService categoryService;
 
     @Inject
     private TemplateProvider templateProvider;
@@ -37,30 +35,24 @@ public class DrinkListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html; charset=UTF-8");
-
-        final List<Drink> drinkList = drinkService.findAllDrinks();
-
-        final List<String> categoryList = categoryService.findAllNames();
-
+        Template template = templateProvider.getTemplate(getServletContext(), "receipeSearchList.ftlh");
         Map<String, Object> dataModel = new HashMap<>();
-        dataModel.put("categories", categoryList);
+        final String drinkName = req.getParameter("drinkName");
+        //final Map<String, String[]> ingredientNames = req.getParameterMap();
 
-        String page = req.getParameter("page");
-        if (page != null && !page.isEmpty()){
-            final List<Drink> paginatedDrinkList = drinkService.paginationDrinkList(Integer.parseInt(req.getParameter("page")));
-            dataModel.put("drinkList", paginatedDrinkList);
-        } else{
-
-            dataModel.put("drinkList", drinkList);
-        }
-
-
-        Template template = templateProvider.getTemplate(getServletContext(), "receipeList.ftlh");
+        //test findDrinksByName
+/*        if (drinkName == null || drinkName.isEmpty()) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }*/
+        final List<FullDrinkView> foundDrinksByName = drinkService.findDrinksByName("cas");
+        dataModel.put("drinkList", foundDrinksByName);
+        dataModel.put("categories", List.of("testooooooooooooooooooo", "test", "test", "test" ));
 
         try {
             template.process(dataModel, resp.getWriter());
         } catch (TemplateException e) {
-            packageLogger.error(e.getMessage());
+            logger.error(e.getMessage());
         }
     }
 }

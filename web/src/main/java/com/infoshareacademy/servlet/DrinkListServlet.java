@@ -1,4 +1,4 @@
-package com.infoshareacademy.servlets;
+package com.infoshareacademy.servlet;
 
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.freemarker.TemplateProvider;
@@ -16,11 +16,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-@WebServlet("/list-category")
-public class DrinkListByCategoriesServlet extends HttpServlet {
+@WebServlet("/list")
+public class DrinkListServlet extends HttpServlet {
 
     private static final Logger packageLogger = LoggerFactory.getLogger(LoggerServlet.class.getName());
 
@@ -35,21 +36,24 @@ public class DrinkListByCategoriesServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html; charset=UTF-8");
+/*        resp.setContentType("text/html; charset=UTF-8");
 
-        List<String> category = Arrays.stream(req.getParameterValues("category"))
-                .collect(Collectors.toList());
-
-        final List<Drink> drinkList = drinkService.findAllDrinksByCategories(category);
+        final List<Drink> drinkList = drinkService.findAllDrinks();
 
         final List<String> categoryList = categoryService.findAllNames();
 
-
         Map<String, Object> dataModel = new HashMap<>();
-        dataModel.put("drinkList", drinkList);
-
-
         dataModel.put("categories", categoryList);
+
+        String page = req.getParameter("page");
+        if (page != null && !page.isEmpty()){
+            final List<Drink> paginatedDrinkList = drinkService.paginationDrinkList(Integer.parseInt(req.getParameter("page")));
+            dataModel.put("drinkList", paginatedDrinkList);
+        } else{
+
+            dataModel.put("drinkList", drinkList);
+        }
+
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeList.ftlh");
 
@@ -58,5 +62,6 @@ public class DrinkListByCategoriesServlet extends HttpServlet {
         } catch (TemplateException e) {
             packageLogger.error(e.getMessage());
         }
+    }*/
     }
 }

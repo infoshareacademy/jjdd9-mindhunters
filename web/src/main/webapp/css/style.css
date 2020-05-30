@@ -842,8 +842,20 @@ ul.space_list li {
 
 
 }
+#remove_blue{
+    color: darkgoldenrod ! important;
+}
 
+.rounded-input{
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+}
 
+a {
+    color: inherit; /* blue colors for links too */
+    text-decoration: inherit; /* no underline */
+}
 
 
 
@@ -866,4 +878,6 @@ ul.space_list li {
     .navbar {
         display: none;
     }
+
+
 }
