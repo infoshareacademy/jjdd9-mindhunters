@@ -61,8 +61,8 @@ public class DrinkSearchServlet extends HttpServlet {
         resp.setContentType("text/html; charset=UTF-8");
         Template template = templateProvider.getTemplate(getServletContext(), "receipeSearchList.ftlh");
         Map<String, Object> dataModel = new HashMap<>();
-
-        switch (req.getParameter("search-type")) {
+        final String search = req.getParameter("search-type");
+        switch (search) {
             case "name":
                 final String partialDrinkName = req.getParameter("drink-name");
                 if (partialDrinkName == null || partialDrinkName.isEmpty()) {
