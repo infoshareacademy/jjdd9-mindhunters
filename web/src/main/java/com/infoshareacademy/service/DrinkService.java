@@ -11,6 +11,7 @@ import com.infoshareacademy.service.mapper.IngredientMapper;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.Query;
 import java.util.List;
 
 @Stateless
@@ -41,4 +42,24 @@ public class DrinkService {
         return fullDrinkMapper.toView(foundDrinksByIngredients);
     }
 
+    public List<FullDrinkView> findAllDrinks() {
+        List<Drink> drinks = drinkRepository.findAllDrinks();
+        return fullDrinkMapper.toView(drinks);
+    }
+
+    public List<FullDrinkView> findAllDrinksByCategories(List<String> category) {
+        List<Drink> drinks = drinkRepository.findAllDrinksByCategories(category);
+        return fullDrinkMapper.toView(drinks);
+    }
+
+    public List<FullDrinkView> paginationDrinkList(int pageNumber) {
+        List<Drink> drinks = drinkRepository.paginationDrinkList(pageNumber);
+        return fullDrinkMapper.toView(drinks);
+    }
+
+    public int maxPageNumber() {
+        int maxPageNumber = drinkRepository.maxPageNumber();
+        return maxPageNumber;
+
+    }
 }

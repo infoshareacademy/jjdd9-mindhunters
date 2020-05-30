@@ -31,6 +31,90 @@
 </div>-->
 
 
+
+
+
+
+
+
+<script type="text/javascript">
+
+    async function changeURLa() {
+        let url = new URL(window.location); // or construct from window.location
+
+        let params = new URLSearchParams(url.search.slice(1));
+
+        for (let p of params) {
+            console.log(p);
+        }
+        let pageNumber = parseInt(params.get('page'));
+
+        console.log(params.set('page', (pageNumber+1).toString()));
+        console.log(params.has('page'));
+
+
+        location.replace('http://localhost:8080/list?'+params.toString());
+
+    }
+
+
+</script>
+
+<button onclick="changeURLa()">zmien saadaaatronke</button>
+
+<script>
+/*
+    function getUrlParameter(url, parameter){
+        parameter = parameter.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?|&]' + parameter.toLowerCase() + '=([^&#]*)');
+        var results = regex.exec('?' + url.toLowerCase().split('?')[1]);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g,''));
+    }
+
+
+    function setUrlParameter(url, key, value) {
+        var key = encodeURIComponent(key),
+            value = encodeURIComponent(value);
+
+        var baseUrl = url.split('?')[0],
+            newParam = key + '=' + value,
+            params = '?' + newParam;
+
+        if (url.split('?')[1] === undefined){ // if there are no query strings, make urlQueryString empty
+            urlQueryString = '';
+        } else {
+            urlQueryString = '?' + url.split('?')[1];
+        }
+
+        // If the "search" string exists, then build params from it
+        if (urlQueryString) {
+            var updateRegex = new RegExp('([\?&])' + key + '=[^&]*');
+            var removeRegex = new RegExp('([\?&])' + key + '=[^&;]+[&;]?');
+
+            if (value === undefined || value === null || value === '') { // Remove param if value is empty
+                params = urlQueryString.replace(removeRegex, "$1");
+                params = params.replace(/[&;]$/, "");
+
+            } else if (urlQueryString.match(updateRegex) !== null) { // If param exists already, update it
+                params = urlQueryString.replace(updateRegex, "$1" + newParam);
+
+            } else if (urlQueryString == '') { // If there are no query strings
+                params = '?' + newParam;
+            } else { // Otherwise, add it to end of query string
+                params = urlQueryString + '&' + newParam;
+            }
+        }
+
+        // no parameter was set so we don't need the question mark
+        params = params === '?' ? '' : params;
+
+        return baseUrl + params;
+    }*/
+
+</script>
+
+
+
 <div class="module line-clamp">
 
     <div>
@@ -48,7 +132,20 @@
         akljsadkljsadkljsad
 
     </div>
+    <ul class="pagination justify-content-center">
 
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item active" aria-current="page">
+            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="ui-button" href="#" onclick="changeURLa()">Next</a>
+        </li>
+    </ul>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -63,6 +160,7 @@
 
 <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>-->
 <!--&lt;!&ndash; Third party plugin JS&ndash;&gt;-->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 <script src="../../js/BootstrapValidation.js"></script>
 <!--&lt;!&ndash;&lt;!&ndash; Core theme JS&ndash;&gt;&ndash;&gt;-->

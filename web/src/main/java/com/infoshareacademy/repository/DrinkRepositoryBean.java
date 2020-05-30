@@ -16,6 +16,9 @@ public class DrinkRepositoryBean implements DrinkRepository {
     @PersistenceContext
     EntityManager entityManager;
 
+    final static Integer PAGE_SIZE  = 5;
+
+
     public Drink findDrinkById(Long drinkId) {
 
         return entityManager.find(Drink.class, drinkId);
@@ -53,6 +56,29 @@ public class DrinkRepositoryBean implements DrinkRepository {
         query.setFirstResult((pageNumber-1) * pageSize);
         query.setMaxResults(pageSize);
 
-        return  query.getResultList();
+       return  query.getResultList();
+
     }
+
+
+    public List<Drink> paginationDrinkList(int pageNumber) {
+        Query query = entityManager.createQuery("select d from Drink d");
+        query.setFirstResult((pageNumber-1) * PAGE_SIZE);
+        query.setMaxResults(PAGE_SIZE);
+
+       return  query.getResultList();
+
+    }
+
+    public int maxPageNumber(){
+        Query query = entityManager.createQuery("select d from Drink d");
+        int maxPageNumber = (int) Math.ceil( (query.getResultList().size()/PAGE_SIZE + 1.0));
+    return maxPageNumber;
+
+    }
+
+
+
+
+
 }

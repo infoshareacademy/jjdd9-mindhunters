@@ -1,6 +1,5 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.dto.CategoryView;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.freemarker.TemplateProvider;
@@ -11,31 +10,25 @@ import freemarker.template.TemplateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ejb.EJB;
 import javax.inject.Inject;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
-
-@WebServlet("/list")
-public class DrinkListServlet extends HttpServlet {
+@WebServlet("/list-category")
+public class DrinkListByCategoriesServlet extends HttpServlet {
 
     private static final Logger packageLogger = LoggerFactory.getLogger(LoggerServlet.class.getName());
 
-    @EJB
+    @Inject
     private DrinkService drinkService;
 
-    @EJB
+    @Inject
     private CategoryService categoryService;
 
     @Inject
@@ -43,36 +36,21 @@ public class DrinkListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html; charset=UTF-8");
 
+        List<String> category = Arrays.stream(req.getParameterValues("category"))
+                .collect(Collectors.toList());
 
+        final List<FullDrinkView> drinkList = drinkService.findAllDrinksByCategories(category);
 
-        final int currentPage = Integer.parseInt(req.getParameter("page"));
+        final List<CategoryView> categoryList = categoryService.findAllCategories();
 
-        final int maxPage = drinkService.maxPageNumber();
-
-        final List<FullDrinkView> drinkList = drinkService.findAllDrinks();
-
-        final List<String> categoryNameList = categoryService.findAllCategories().stream()
-                  .map(categoryView -> categoryView.getName()).collect(Collectors.toList());
 
         Map<String, Object> dataModel = new HashMap<>();
-
-        dataModel.put("categories", categoryNameList);
-        dataModel.put("maxPageSize", maxPage);
+        dataModel.put("drinkList", drinkList);
 
 
-
-        String page = req.getParameter("page");
-        if (page != null && !page.isEmpty()){
-            final List<FullDrinkView> paginatedDrinkList = drinkService.paginationDrinkList(Integer.parseInt(req.getParameter("page")));
-            dataModel.put("drinkList", paginatedDrinkList);
-            dataModel.put("currentPage", currentPage);
-
-        } else{
-
-            dataModel.put("drinkList", drinkList);
-        }
-
+        dataModel.put("categories", categoryList);
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeList.ftlh");
 
