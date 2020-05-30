@@ -30,6 +30,7 @@
                 <form enctype="text/plain" method="post" action="/list">
                     <div class="list-group  list-element">
                         <div class="list-group-item sidebar-list">
+                            <input type="hidden" name="search-type" values="name"/>
                             <input type="text" required minlength="2" name="drink-name" id="" placeholder="Search by
                             name...">
                         </div>
@@ -43,6 +44,7 @@
                     <div class="list-group  list-element add-group">
 
                         <div class="list-group-item sidebar-list">
+                            <input type="hidden" name="search-type" values="ingredient"/>
                             <input type="text" required minlength="2" name="drink-ingredients" value=""
                                    placeholder="Search by ingredients..."/>
                             <a href="javascript:void(0);" class="add_button " id="remove_blue" title="Add field">

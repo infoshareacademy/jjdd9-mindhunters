@@ -1,10 +1,10 @@
 package com.infoshareacademy.servlet;
 
-import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.dto.FullDrinkView;
+import com.infoshareacademy.domain.dto.IngredientView;
 import com.infoshareacademy.freemarker.TemplateProvider;
-import com.infoshareacademy.service.CategoryService;
 import com.infoshareacademy.service.DrinkService;
+import com.infoshareacademy.service.IngredientService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -17,11 +17,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
-@WebServlet("/search")
+@WebServlet("/search-drinks")
 public class DrinkSearchServlet extends HttpServlet {
 
     private static final Logger logger = LoggerFactory.getLogger(DrinkSearchServlet.class.getName());
@@ -30,29 +32,71 @@ public class DrinkSearchServlet extends HttpServlet {
     private DrinkService drinkService;
 
     @Inject
+    private IngredientService ingredientService;
+
+    @Inject
     private TemplateProvider templateProvider;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        //test purposes
         resp.setContentType("text/html; charset=UTF-8");
         Template template = templateProvider.getTemplate(getServletContext(), "receipeSearchList.ftlh");
         Map<String, Object> dataModel = new HashMap<>();
         final String drinkName = req.getParameter("drinkName");
-        //final Map<String, String[]> ingredientNames = req.getParameterMap();
-
-        //test findDrinksByName
-/*        if (drinkName == null || drinkName.isEmpty()) {
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return;
-        }*/
         final List<FullDrinkView> foundDrinksByName = drinkService.findDrinksByName("cas");
         dataModel.put("drinkList", foundDrinksByName);
-        dataModel.put("categories", List.of("testooooooooooooooooooo", "test", "test", "test" ));
 
         try {
             template.process(dataModel, resp.getWriter());
         } catch (TemplateException e) {
             logger.error(e.getMessage());
+        }
+    }
+
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html; charset=UTF-8");
+        Template template = templateProvider.getTemplate(getServletContext(), "receipeSearchList.ftlh");
+        Map<String, Object> dataModel = new HashMap<>();
+
+        switch (req.getParameter("search-type")) {
+            case "name":
+                final String partialDrinkName = req.getParameter("drink-name");
+                if (partialDrinkName == null || partialDrinkName.isEmpty()) {
+                    resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    return;
+                }
+                final List<FullDrinkView> foundDrinksByName = drinkService.findDrinksByName(partialDrinkName.trim());
+                dataModel.put("drinkList", foundDrinksByName);
+                logger.info("Drink list found by name sent to ftlh view");
+                break;
+            case "ingredient":
+                final String[] ingredientNames = req.getParameterValues("drink-ingredients");
+                if (ingredientNames == null || ingredientNames.length == 0) {
+                    resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    return;
+                }
+                final List<String> ingredientNamesFiltered = Arrays.stream(ingredientNames)
+                        .filter(i -> !(i.isBlank()))
+                        .map(String::trim)
+                        .collect(Collectors.toList());
+
+                List<IngredientView> foundIngredientsByName = ingredientService.findIngredientsByName(ingredientNamesFiltered);
+                final List<FullDrinkView> foundDrinksByIngredients =
+                        drinkService.findDrinkByIngredients(foundIngredientsByName);
+                dataModel.put("drinkList", foundDrinksByIngredients);
+                logger.info("Drink list found by ingredient sent to ftlh view");
+                break;
+        }
+
+        try {
+            template.process(dataModel, resp.getWriter());
+        } catch (TemplateException e) {
+            logger.error(e.getMessage());
+
         }
     }
 }
