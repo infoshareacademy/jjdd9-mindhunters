@@ -199,12 +199,7 @@
     visibility: collapse;
 }
 
-.backGround {
-    width: 100%;
-    height: auto;
-    /*max-height: 880px;*/
-    /*max-width: 2200px;*/
-}
+
 
 .card-body {
     max-height: 250px;
@@ -214,6 +209,28 @@
 .card-img-top {
     max-height: 160px;
     width: auto;
+}
+
+.soft-tasks {
+    font-size: 20px;
+}
+
+.soft-tasks-pad {
+    padding-bottom: 40px;
+    padding-top: 20px;
+}
+
+.head-pad {
+    padding-bottom: 30px;
+    padding-top: 30px;
+}
+
+.submit-btn {
+    background-color: #fed136;
+}
+
+.vis-of-btn{
+    visibility: visible;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -438,6 +455,8 @@ fieldset:disabled a.btn {
     margin-bottom: 15px;
 }
 
+
+
 @media (min-width: 576px) {
     .card-deck {
         -ms-flex-flow: row wrap;
@@ -537,6 +556,21 @@ fieldset:disabled a.btn {
         padding-right: 0;
         padding-left: 0;
     }
+    .over-photo2 {
+        position: absolute;
+        left: 10%;
+        bottom: 10%;
+    }
+    .over-photo1 {
+        position: absolute;
+        left: 50%;
+        bottom: 10%;
+    }
+    .backGround {
+        width: 100%;
+        height: auto;
+    }
+
 }
 
 @media (min-width: 768px) {
@@ -569,6 +603,21 @@ fieldset:disabled a.btn {
         display: flex !important;
         -ms-flex-preferred-size: auto;
         flex-basis: auto;
+    }
+    .over-photo1{
+        position:absolute;
+        left: 71%;
+        bottom:20%;
+    }
+    .over-photo2{
+        position:absolute;
+        left: 14%;
+        bottom:42%;
+    }
+    .backGround {
+        width: 100%;
+        height: auto;
+        max-height: 1102px;
     }
 }
 
@@ -665,6 +714,20 @@ fieldset:disabled a.btn {
         flex-basis: auto;
     }
 }
+
+@media (min-width: 2500px) {
+    .over-photo2 {
+        position: relative;
+        left: 80%;
+        bottom: 42%;
+    }
+    .backGround {
+        max-width: 2000px;
+        height: auto;
+        max-height: 1102px;
+    }
+}
+
 
 .navbar-expand > .container,
 .navbar-expand > .container-fluid {

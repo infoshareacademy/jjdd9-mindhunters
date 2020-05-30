@@ -91,7 +91,7 @@ $(document).ready(function () {
             }),
                 $("#glasses").animate({
                     'opacity': '0.3',
-                    'height': '790px'
+                    'height': '1032px'
                 }, 2500),
 
                 $(".btn-admin").css({visibility: "visible", opacity: 0.0}).animate({
@@ -111,7 +111,7 @@ $(document).ready(function () {
         }),
             $("#glasses").animate({
                 'opacity': '1.0',
-                'height': '880'
+                'height': '1103'
             }, 2500),
 
             $(".btn-admin").css({visibility: "hide", opacity: 1.0}).animate({
@@ -174,12 +174,4 @@ $(document).ready(function () {
     //     }
     //     animalContainer.insertAdjacentHTML('beforeend', htmlString);
     // }
-
-
-
-})
-;
-
-
-
-
+});
