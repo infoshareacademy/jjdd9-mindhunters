@@ -841,6 +841,15 @@ ul.space_list li {
 }
 
 
+.sidebar-list:active{
+    background-color: #1b1e21;
+}
+
+
+
+
+
+
 
 
 

@@ -13,12 +13,12 @@
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
 
 </head>
-<body id="page-top" style="background-color: #1b1e21;">
+<body id="page-top" style="background-color: #1b1e21;" >
 <!--Navigation-->
 
 <#include "navigation.ftlh">
 <!--List-->
-<nav aria-label="LIST">
+<nav aria-label="LIST" style="cursor: pointer;">
 
     <div class="container-fluid  ">
 
@@ -26,11 +26,15 @@
 
             <div class="d-none d-md-block">
 
-                <div class="list-group  list-element sticky-scroll sidebar-list p-0 " id="myID2">
+                <div class="list-group  list-element sticky-scroll sidebar-list p-0 " id="myID2"   >
 
                     <#list categories as category>
 
-                        <a class="list-group-item sidebar-list">
+                        <a class="list-group-item sidebar-list"
+                    <#if queryName!?contains(category)>
+                    style="background-color: #1b1e21"
+                    </#if>
+                        >
                             ${category}
                         </a>
 
@@ -88,8 +92,9 @@
     </script>
 
 
+<#if (maxPageSize > 1) >
 
-    <ul class="pagination justify-content-center">
+    <ul class="pagination justify-content-center ">
 
         <li class="page-item"><a class="page-link" href="${"/list?page=" + 1 + "&&" +  queryName!}">&laquo;</a></li>
 
@@ -119,7 +124,11 @@
         <li class="page-item">
             <a class="page-link" href="${"/list?page=" + maxPageSize + "&&" +  queryName!}">&raquo;</a>
         </li>
+
     </ul>
+
+</#if>
+
 </nav>
 
 <!--Footer-->
