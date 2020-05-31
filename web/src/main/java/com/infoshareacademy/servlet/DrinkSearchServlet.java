@@ -10,6 +10,7 @@ import freemarker.template.TemplateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,10 +29,10 @@ public class DrinkSearchServlet extends HttpServlet {
 
     private static final Logger logger = LoggerFactory.getLogger(DrinkSearchServlet.class.getName());
 
-    @Inject
+    @EJB
     private DrinkService drinkService;
 
-    @Inject
+    @EJB
     private IngredientService ingredientService;
 
     @Inject
@@ -40,11 +41,11 @@ public class DrinkSearchServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        //test purposes
+        //test żeby nie wyswietlala się pusta strona
         resp.setContentType("text/html; charset=UTF-8");
         Template template = templateProvider.getTemplate(getServletContext(), "receipeSearchList.ftlh");
         Map<String, Object> dataModel = new HashMap<>();
-        final String drinkName = req.getParameter("drinkName");
+
         final List<FullDrinkView> foundDrinksByName = drinkService.findDrinksByName("cas");
         dataModel.put("drinkList", foundDrinksByName);
 
