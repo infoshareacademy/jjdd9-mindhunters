@@ -18,10 +18,12 @@ public interface DrinkRepository {
 
     List<Drink> findAllDrinks();
 
-    List<Drink> findAllDrinksByCategories(List<String> category);
+    List<Drink> findAllDrinksByCategories(List<String> category,int pageNumber);
 
     List<Drink> paginationDrinkList(int pageNumber);
 
-    int maxPageNumber();
+    int maxPageNumberDrinkList();
+
+    int maxPageNumberDrinksByCategories(List<String> category);
 
 }

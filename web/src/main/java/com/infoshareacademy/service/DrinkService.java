@@ -11,11 +11,11 @@ import com.infoshareacademy.service.mapper.IngredientMapper;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.Query;
 import java.util.List;
 
 @Stateless
 public class DrinkService {
+
 
     @EJB
     private DrinkRepository drinkRepository;
@@ -25,6 +25,8 @@ public class DrinkService {
 
     @Inject
     private IngredientMapper ingredientMapper;
+
+
 
     public FullDrinkView findDrinkById(Long drinkId) {
         Drink foundDrink = drinkRepository.findDrinkById(drinkId);
@@ -60,8 +62,8 @@ public class DrinkService {
         return fullDrinkMapper.toView(drinks);
     }
 
-    public List<FullDrinkView> findAllDrinksByCategories(List<String> category) {
-        List<Drink> drinks = drinkRepository.findAllDrinksByCategories(category);
+    public List<FullDrinkView> findAllDrinksByCategories(List<String> category,int pageNumber) {
+        List<Drink> drinks = drinkRepository.findAllDrinksByCategories(category, pageNumber);
         return fullDrinkMapper.toView(drinks);
     }
 
@@ -70,8 +72,15 @@ public class DrinkService {
         return fullDrinkMapper.toView(drinks);
     }
 
-    public int maxPageNumber() {
-        int maxPageNumber = drinkRepository.maxPageNumber();
+    public int maxPageNumberDrinkList() {
+        int maxPageNumber = drinkRepository.maxPageNumberDrinkList();
+        return maxPageNumber;
+
+    }
+
+
+    public int maxPageNumberDrinksByCategories(List<String> category) {
+        int maxPageNumber = drinkRepository.maxPageNumberDrinksByCategories(category);
         return maxPageNumber;
 
     }
