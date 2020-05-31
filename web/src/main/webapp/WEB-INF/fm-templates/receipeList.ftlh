@@ -13,35 +13,20 @@
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
 
 </head>
-<body id="page-top" style="background-color: #1b1e21;" >
+<body id="page-top" style="background-color: #1b1e21;">
 <!--Navigation-->
 
 <#include "navigation.ftlh">
 <!--List-->
 <nav aria-label="LIST" style="cursor: pointer;">
 
-    <div class="container-fluid  ">
+    <div class="container-fluid">
 
         <div class="row mx-2 my-2 justify-content-center">
 
-            <div class="d-none d-md-block">
+            <!--categoriesSidebar-->
 
-                <div class="list-group  list-element sticky-scroll sidebar-list p-0 " id="myID2"   >
-
-                    <#list categories as category>
-
-                        <a class="list-group-item sidebar-list"
-                    <#if queryName!?contains(category)>
-                    style="background-color: #1b1e21"
-                    </#if>
-                        >
-                            ${category}
-                        </a>
-
-                    </#list>
-                </div>
-            </div>
-
+            <#include "categoriesSidebar.ftlh">
 
             <div class="col-12 col-md-8 col-lg-8 col-xl-8">
                 <ul class="list-unstyled  justify-content-center  ml-auto space_list ">
@@ -74,11 +59,8 @@
                                             ${drink.recipe}
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
-
                         </li>
                     </#list>
                 </ul>
@@ -87,47 +69,9 @@
     </div>
 
 
-    <script>
-        let maxNumber = ${maxPageSize!};
-    </script>
+    <!--Pagination-->
 
-
-<#if (maxPageSize > 1) >
-
-    <ul class="pagination justify-content-center ">
-
-        <li class="page-item"><a class="page-link" href="${"/list?page=" + 1 + "&&" +  queryName!}">&laquo;</a></li>
-
-        <li class="page-item "></li>
-        <#if (currentPage >=  2) >
-        <li class="page-item" id="next">
-            <a onclick="previousPage()" class="page-link" aria-hidden="true" id="previous">&lsaquo;</a>
-            </#if>
-
-
-            <#list currentPage-2..currentPage+2 as i>
-
-            <#if (i > 0 && i <= maxPageSize) >
-        <li class="page-item <#if i = currentPage> active </#if>">
-            <a class="page-link"
-               href="${"/list?page=" + i + "&&" +  queryName!}">${i}</a>
-        </li>
-        </#if>
-
-        </#list>
-
-        <#if (currentPage <=  (maxPageSize-1)) >
-        <li class="page-item" id="next">
-            <a onclick="nextPage()" class="page-link">&rsaquo;</a>
-            </#if>
-        </li>
-        <li class="page-item">
-            <a class="page-link" href="${"/list?page=" + maxPageSize + "&&" +  queryName!}">&raquo;</a>
-        </li>
-
-    </ul>
-
-</#if>
+    <#include "pagination.ftlh">
 
 </nav>
 
