@@ -1,7 +1,5 @@
-package com.infoshareacademy.servlets;
+package com.infoshareacademy.servlet;
 
-import com.infoshareacademy.domain.Drink;
-import com.infoshareacademy.domain.dto.CategoryView;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.CategoryService;
@@ -13,9 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -45,7 +41,6 @@ public class DrinkListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-
         final int currentPage = Integer.parseInt(req.getParameter("page"));
 
         final int maxPage = drinkService.maxPageNumber();
@@ -53,7 +48,7 @@ public class DrinkListServlet extends HttpServlet {
         final List<FullDrinkView> drinkList = drinkService.findAllDrinks();
 
         final List<String> categoryNameList = categoryService.findAllCategories().stream()
-                  .map(categoryView -> categoryView.getName()).collect(Collectors.toList());
+                .map(categoryView -> categoryView.getName()).collect(Collectors.toList());
 
         Map<String, Object> dataModel = new HashMap<>();
 
@@ -61,14 +56,13 @@ public class DrinkListServlet extends HttpServlet {
         dataModel.put("maxPageSize", maxPage);
 
 
-
         String page = req.getParameter("page");
-        if (page != null && !page.isEmpty()){
+        if (page != null && !page.isEmpty()) {
             final List<FullDrinkView> paginatedDrinkList = drinkService.paginationDrinkList(Integer.parseInt(req.getParameter("page")));
             dataModel.put("drinkList", paginatedDrinkList);
             dataModel.put("currentPage", currentPage);
 
-        } else{
+        } else {
 
             dataModel.put("drinkList", drinkList);
         }

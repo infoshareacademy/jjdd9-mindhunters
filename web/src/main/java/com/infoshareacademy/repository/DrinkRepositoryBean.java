@@ -2,6 +2,7 @@ package com.infoshareacademy.repository;
 
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.Ingredient;
+import com.infoshareacademy.domain.dto.FullDrinkView;
 import org.hibernate.jpa.QueryHints;
 
 import javax.ejb.Stateless;
@@ -65,8 +66,10 @@ public class DrinkRepositoryBean implements DrinkRepository {
 
     }
 
-
-
+    @Override
+    public int maxPageSearchResultNumber(Integer numberOfDrinks) {
+        return (int) Math.ceil( (numberOfDrinks/PAGE_SIZE + 1.0));
+    }
 
 
 }

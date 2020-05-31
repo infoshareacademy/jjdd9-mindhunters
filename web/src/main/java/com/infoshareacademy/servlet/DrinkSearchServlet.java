@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@WebServlet("/search-drinks")
+@WebServlet("/search")
 public class DrinkSearchServlet extends HttpServlet {
 
     private static final Logger logger = LoggerFactory.getLogger(DrinkSearchServlet.class.getName());
@@ -40,13 +40,29 @@ public class DrinkSearchServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        //test purposes
-        resp.setContentType("text/html; charset=UTF-8");
-        Template template = templateProvider.getTemplate(getServletContext(), "receipeSearchList.ftlh");
+        final int currentPage = Integer.parseInt(req.getParameter("page"));
+
+        final int maxPage = drinkService.maxPageNumber();
+
+        final List<FullDrinkView> drinkList = drinkService.findAllDrinks();
+
         Map<String, Object> dataModel = new HashMap<>();
-        final String drinkName = req.getParameter("drinkName");
-        final List<FullDrinkView> foundDrinksByName = drinkService.findDrinksByName("cas");
-        dataModel.put("drinkList", foundDrinksByName);
+
+        dataModel.put("maxPageSize", maxPage);
+
+
+        String page = req.getParameter("page");
+        if (page != null && !page.isEmpty()) {
+            final List<FullDrinkView> paginatedDrinkList = drinkService.paginationDrinkList(Integer.parseInt(req.getParameter("page")));
+            dataModel.put("drinkList", paginatedDrinkList);
+            dataModel.put("currentPage", currentPage);
+
+        } else {
+
+            dataModel.put("drinkList", drinkList);
+        }
+
+        Template template = templateProvider.getTemplate(getServletContext(), "recipeSearchList.ftlh");
 
         try {
             template.process(dataModel, resp.getWriter());
@@ -59,8 +75,9 @@ public class DrinkSearchServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html; charset=UTF-8");
-        Template template = templateProvider.getTemplate(getServletContext(), "receipeSearchList.ftlh");
+        Template template = templateProvider.getTemplate(getServletContext(), "recipeSearchList.ftlh");
         Map<String, Object> dataModel = new HashMap<>();
+
         final String search = req.getParameter("search-type");
         switch (search) {
             case "name":
@@ -71,6 +88,7 @@ public class DrinkSearchServlet extends HttpServlet {
                 }
                 final List<FullDrinkView> foundDrinksByName = drinkService.findDrinksByName(partialDrinkName.trim());
                 dataModel.put("drinkList", foundDrinksByName);
+                dataModel.put("search-type", "name");
                 logger.info("Drink list found by name sent to ftlh view");
                 break;
             case "ingredient":
@@ -88,6 +106,7 @@ public class DrinkSearchServlet extends HttpServlet {
                 final List<FullDrinkView> foundDrinksByIngredients =
                         drinkService.findDrinkByIngredients(foundIngredientsByName);
                 dataModel.put("drinkList", foundDrinksByIngredients);
+                dataModel.put("search-type", "ingredient");
                 logger.info("Drink list found by ingredient sent to ftlh view");
                 break;
         }

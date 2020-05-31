@@ -2,9 +2,9 @@ package com.infoshareacademy.repository;
 
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.Ingredient;
+import com.infoshareacademy.domain.dto.FullDrinkView;
 
 import javax.ejb.Local;
-import javax.persistence.Query;
 import java.util.List;
 
 @Local
@@ -23,5 +23,7 @@ public interface DrinkRepository {
     List<Drink> paginationDrinkList(int pageNumber);
 
     int maxPageNumber();
+
+    int maxPageSearchResultNumber(Integer numberOfDrinks);
 
 }

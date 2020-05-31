@@ -10,7 +10,7 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(
                 name = "Drink.findDrinkByPartialName",
-                query = "select d from Drink d where lower( d.drinkName) like lower(:partialDrinkName)"),
+                query = "select distinct d from Drink d where lower( d.drinkName) like lower(:partialDrinkName)"),
         @NamedQuery(
                 name = "Drink.findDrinkByIngredients",
                 query = "select d from Drink d join d.drinkIngredients di where di.ingredient IN :ingredients group " +

@@ -7,12 +7,12 @@ import javax.servlet.annotation.WebInitParam;
 import java.io.IOException;
 
 @WebFilter(
-        filterName = "PageNumberFilter",
-        urlPatterns = {"/list"},
+        filterName = "PageSearchNumberFilter",
+        urlPatterns = {"/search"},
         initParams = {
                 @WebInitParam(name = "page", value = "1")
         })
-public class InitialPageNumberFilter implements Filter {
+public class InitialSearchPageNumberFilter implements Filter {
 
 
     @Override
@@ -31,7 +31,7 @@ public class InitialPageNumberFilter implements Filter {
         String reqParameter = servletRequest.getParameter("page");
         if (reqParameter == null || reqParameter.isEmpty()) {
 
-                RequestDispatcher requestDispatcher = servletRequest.getRequestDispatcher("/list?page=1");
+                RequestDispatcher requestDispatcher = servletRequest.getRequestDispatcher("/search?page=1");
                 requestDispatcher.forward(servletRequest, servletResponse);
         }
 
