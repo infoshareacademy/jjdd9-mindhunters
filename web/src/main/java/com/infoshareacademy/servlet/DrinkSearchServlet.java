@@ -78,6 +78,7 @@ public class DrinkSearchServlet extends HttpServlet {
         Template template = templateProvider.getTemplate(getServletContext(), "recipeSearchList.ftlh");
         Map<String, Object> dataModel = new HashMap<>();
 
+
         final String search = req.getParameter("search-type");
         switch (search) {
             case "name":
@@ -110,6 +111,9 @@ public class DrinkSearchServlet extends HttpServlet {
                 logger.info("Drink list found by ingredient sent to ftlh view");
                 break;
         }
+
+
+        final int currentPage = Integer.parseInt(req.getParameter("page"));
 
         try {
             template.process(dataModel, resp.getWriter());

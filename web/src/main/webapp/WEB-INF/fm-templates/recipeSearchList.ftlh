@@ -27,7 +27,7 @@
         <div class="row mx-2 my-2 justify-content-center">
 
             <div>
-                <form method="post" action="/search-drinks">
+                <form method="post" action="/search">
                     <div class="list-group  list-element">
                         <div class="list-group-item sidebar-list">
                             <input type="hidden" name="search-type" value="name"/>
@@ -40,7 +40,7 @@
                     <br><br><br>
                 </form>
 
-                <form method="post" action="/search-drinks">
+                <form method="post" action="/search">
                     <div class="list-group  list-element add-group">
 
                         <div class="list-group-item sidebar-list">
