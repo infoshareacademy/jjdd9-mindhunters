@@ -17,7 +17,6 @@
 <!--Navigation-->
 
 <#include "navigation.ftlh">
-
 <!--List-->
 <nav aria-label="LIST">
 
@@ -31,7 +30,14 @@
 
                     <#list categories as category>
 
-                        <a href="#" class="list-group-item sidebar-list">${category}</a>
+                        <a href="${"/list?" + "category=" + category + "&&" +  queryName!}"
+                           class="list-group-item sidebar-list
+                    <#if queryName!?contains(category)>
+                    active
+                    </#if>
+                        ">
+                            ${category}
+                        </a>
 
                     </#list>
                 </div>
@@ -82,102 +88,17 @@
     </div>
 
 
-    <script type="text/javascript">
-        let maxNumber = ${maxPageSize};
-
-
-        async function nextPage() {
-            let url = new URL(window.location); // or construct from window.location
-            //   this.addClass("disabled");
-
-            let params = new URLSearchParams(url.search.slice(1));
-
-            let pageNumber = parseInt(params.get('page'));
-
-
-            let newPageNumber = pageNumber + 1;
-
-            if (newPageNumber <= maxNumber) {
-                params.set('page', (newPageNumber).toString());
-                let newURL = 'http://localhost:8080/list?' + params.toString();
-
-
-                location.replace(newURL);
-
-                if (pageNumber == 5) {
-
-                    var element = document.getElementById("next");
-                    element.classList.add("disabled");
-                }
-
-            }
-
-
-        }
-
-        async function previousPage() {
-            let url = new URL(window.location); // or construct from window.location
-
-            let params = new URLSearchParams(url.search.slice(1));
-
-            let pageNumber = parseInt(params.get('page'));
-
-            let newPageNumber = pageNumber - 1;
-            if (newPageNumber > 0) {
-                params.set('page', (newPageNumber).toString());
-                let newURL = 'http://localhost:8080/list?' + params.toString();
-                location.replace(newURL);
-
-            }
-        }
-
-
-        async function setPage() {
-            let url = new URL(window.location); // or construct from window.location
-
-            let params = new URLSearchParams(url.search.slice(1));
-
-            let pageNumber = parseInt(params.get('page'));
-
-            let newPageNumber = pageNumber - 1;
-            if (newPageNumber > 0) {
-                params.set('page', (newPageNumber).toString());
-                let newURL = 'http://localhost:8080/list?' + params.toString();
-                location.replace(newURL);
-
-            }
-        }
-
-
-        function toDisabled() {
-
-            let url = new URL(window.location);
-            var element = document.getElementById("next");
-            element.classList.add("disabled");
-
-            let params = new URLSearchParams(url.search.slice(1));
-
-            let pageNumber = parseInt(params.get('page'));
-
-            console.info(pageNumber);
-
-            if (pageNumber == 5) {
-
-                var element = document.getElementById("next");
-                element.classList.add("disabled");
-            }
-        }
-
-
+    <script>
+        let maxNumber = ${maxPageSize!};
     </script>
+
 
 
     <ul class="pagination justify-content-center">
 
-        <li class="page-item"><a class="page-link" href="${"/list?page=" + 1}">&laquo;</a></li>
+        <li class="page-item"><a class="page-link" href="${"/list?page=" + 1 + "&&" +  queryName!}">&laquo;</a></li>
 
-        <li class="page-item ">
-        </li>
+        <li class="page-item "></li>
         <#if (currentPage >=  2) >
         <li class="page-item" id="next">
             <a onclick="previousPage()" class="page-link" aria-hidden="true" id="previous">&lsaquo;</a>
@@ -185,8 +106,12 @@
 
 
             <#list currentPage-2..currentPage+2 as i>
-            <#if (i > 0 && i < maxPageSize) >
-        <li class="page-item"><a class="page-link" href="${"/list?page=" + i}">${i}</a></li>
+
+            <#if (i > 0 && i <= maxPageSize) >
+        <li class="page-item <#if i = currentPage> active </#if>">
+            <a class="page-link"
+               href="${"/list?page=" + i + "&&" +  queryName!}">${i}</a>
+        </li>
         </#if>
 
         </#list>
@@ -196,7 +121,9 @@
             <a onclick="nextPage()" class="page-link">&rsaquo;</a>
             </#if>
         </li>
-        <li class="page-item"><a class="page-link" href="${"/list?page=" + maxPageSize}">&raquo;</a></li>
+        <li class="page-item">
+            <a class="page-link" href="${"/list?page=" + maxPageSize + "&&" +  queryName!}">&raquo;</a>
+        </li>
     </ul>
 </nav>
 
@@ -221,7 +148,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 <script src="../../js/BootstrapValidation.js"></script>
 <!--&lt;!&ndash;&lt;!&ndash; Core theme JS&ndash;&gt;&ndash;&gt;-->
-<script type="text/javascript" src="../../js/homePage.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.js"></script>
+-->
+<script src="../../js/receipeList.js"></script>
 <#--
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 -->

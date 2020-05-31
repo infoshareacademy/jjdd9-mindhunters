@@ -1,4 +1,4 @@
-package com.infoshareacademy.servlets;
+package com.infoshareacademy.servlet;
 
 import com.infoshareacademy.domain.dto.CategoryView;
 import com.infoshareacademy.domain.dto.FullDrinkView;
@@ -41,15 +41,14 @@ public class DrinkListByCategoriesServlet extends HttpServlet {
         List<String> category = Arrays.stream(req.getParameterValues("category"))
                 .collect(Collectors.toList());
 
-        final List<FullDrinkView> drinkList = drinkService.findAllDrinksByCategories(category);
+        final List<FullDrinkView> drinkList = drinkService.findAllDrinksByCategories(category,1);
 
         final List<CategoryView> categoryList = categoryService.findAllCategories();
 
 
         Map<String, Object> dataModel = new HashMap<>();
+
         dataModel.put("drinkList", drinkList);
-
-
         dataModel.put("categories", categoryList);
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeList.ftlh");
@@ -59,5 +58,7 @@ public class DrinkListByCategoriesServlet extends HttpServlet {
         } catch (TemplateException e) {
             packageLogger.error(e.getMessage());
         }
+
+
     }
 }

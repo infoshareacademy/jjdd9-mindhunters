@@ -16,7 +16,7 @@ public class DrinkRepositoryBean implements DrinkRepository {
     @PersistenceContext
     EntityManager entityManager;
 
-    final static Integer PAGE_SIZE  = 5;
+    public final static Integer PAGE_SIZE  = 5;
 
     public Drink findDrinkById(Long drinkId) {
 
@@ -42,11 +42,22 @@ public class DrinkRepositoryBean implements DrinkRepository {
         return query.getResultList();
     }
 
-    public List<Drink> findAllDrinksByCategories(List<String> category) {
+    public List<Drink> findAllDrinksByCategories(List<String> category,int pageNumber) {
         Query query = entityManager.createNamedQuery("Drink.findAllByCategories");
+
+        query.setFirstResult((pageNumber-1) * PAGE_SIZE);
+        query.setMaxResults(PAGE_SIZE);
 
         query.setParameter("category", category);
         return query.getResultList();
+    }
+
+    public int maxPageNumberDrinksByCategories(List<String> category) {
+        Query query = entityManager.createNamedQuery("Drink.findAllByCategories");
+        query.setParameter("category", category);
+
+        int maxPageNumber = (int) Math.ceil((query.getResultList().size() / PAGE_SIZE + 1.0));
+        return maxPageNumber;
     }
 
     public List<Drink> paginationDrinkList(int pageNumber) {
@@ -58,7 +69,7 @@ public class DrinkRepositoryBean implements DrinkRepository {
 
     }
 
-    public int maxPageNumber(){
+    public int maxPageNumberDrinkList(){
         Query query = entityManager.createQuery("select d from Drink d");
         int maxPageNumber = (int) Math.ceil( (query.getResultList().size()/PAGE_SIZE + 1.0));
     return maxPageNumber;
