@@ -1,0 +1,29 @@
+version: '3'
+services:
+  mysql:
+    image: mysql
+    ports:
+      - 4411:3306
+    environment:
+        MYSQL_DATABASE: "mindhunters_db"
+        MYSQL_USER: "root"
+        MYSQL_PASSWORD: "mysql_pwd"
+        MYSQL_ROOT_PASSWORD: "root"
+    command: ["mysqld",
+              "--character-set-server=utf8",
+              "--collation-server=utf8_unicode_ci",
+              "--init-connect='SET NAMES UTF-8;'",
+              "--innodb-flush-log-at-trx-commit=0"]
+
+  wildfly:
+    build:
+      context: ./web
+    links:
+      - mysql
+    depends_on:
+      - mysql
+    ports:
+    - 4410:8080
+    - 4412:9990
+    environment:
+    - TZ=Europe/Warsaw
