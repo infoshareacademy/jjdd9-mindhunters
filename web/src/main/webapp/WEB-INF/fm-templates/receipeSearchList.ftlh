@@ -27,7 +27,7 @@
         <div class="row mx-2 my-2 justify-content-center">
 
             <div>
-                <form method="post" action="/search-drinks">
+                <form method="post" action="/search">
                     <div class="list-group  list-element">
                         <div class="list-group-item sidebar-list">
                             <input type="hidden" name="search-type" value="name"/>
@@ -40,7 +40,7 @@
                     <br><br><br>
                 </form>
 
-                <form method="post" action="/search-drinks">
+                <form method="post" action="/search">
                     <div class="list-group  list-element add-group">
 
                         <div class="list-group-item sidebar-list">
@@ -67,44 +67,62 @@
             </div>
 
             <div class="col-12 col-md-8 col-lg-8 col-xl-8">
+
                 <ul class="list-unstyled  justify-content-center  ml-auto space_list ">
-                    <#list drinkList as drink>
 
-                        <li class="media ">
-                            <div class="container ml-0 pl-0 mr-0 pr-0 ">
-                                <div class="row list-element">
-                                    <div class="col-md-auto d-flex justify-content-center " style="min-width: 205px">
-                                        <img src="${drink.image}"
-                                             class=" thumbnail_list justify-content-center" alt="...">
-                                    </div>
+                    <#if errorMessage??>
+                        <div class="container ml-0 pl-0 mr-0 pr-0 ">
 
-                                    <div class="media-body line-clamp col-sm-8 ml-0 pl-1 mr-0 pr-0"
-                                         style="color: #ffc107">
+                                <div class="container ml-0 pl-0 mr-0 pr-0 ">
+                                    <h3 style="color: red">${errorMessage}</h3>
+                                </div>
 
-                                        <div class="row col-sm d-flex mt-4 mt-md-0 ">
-                                            <h5 class="col-md-6 mx-2 my-2  font-weight-bold text-center text-md-left">
-                                                ${drink.drinkName}
-                                            </h5>
+                        </div>
 
-                                            <h5 class="col-md-5 mx-2 my-2   text-center text-md-right" style="
+                    <#else>
+
+                        <#list drinkList as drink>
+
+                            <li class="media ">
+                                <div class="container ml-0 pl-0 mr-0 pr-0 ">
+                                    <div class="row list-element">
+                                        <div class="col-md-auto d-flex justify-content-center "
+                                             style="min-width: 205px">
+                                            <img src="${drink.image}"
+                                                 class=" thumbnail_list justify-content-center" alt="...">
+                                        </div>
+
+                                        <div class="media-body line-clamp col-sm-8 ml-0 pl-1 mr-0 pr-0"
+                                             style="color: #ffc107">
+
+                                            <div class="row col-sm d-flex mt-4 mt-md-0 ">
+                                                <h5 class="col-md-6 mx-2 my-2  font-weight-bold text-center text-md-left">
+                                                    ${drink.drinkName}
+                                                </h5>
+
+                                                <h5 class="col-md-5 mx-2 my-2   text-center text-md-right" style="
                                                     padding-right: 0px;
                                                     margin-right: 0px;">
-                                                ${drink.categoryView.name}
+                                                    ${drink.categoryView.name}
 
-                                            </h5>
+                                                </h5>
+                                            </div>
+                                            <div class="line-clamp mx-2 my-2 mt-4 mr-4 d-none d-md-block">
+                                                ${drink.recipe}
+                                            </div>
                                         </div>
-                                        <div class="line-clamp mx-2 my-2 mt-4 mr-4 d-none d-md-block">
-                                            ${drink.recipe}
-                                        </div>
+
                                     </div>
 
                                 </div>
 
-                            </div>
+                            </li>
+                        </#list>
 
-                        </li>
-                    </#list>
+                    </#if>
+
                 </ul>
+
             </div>
         </div>
     </div>

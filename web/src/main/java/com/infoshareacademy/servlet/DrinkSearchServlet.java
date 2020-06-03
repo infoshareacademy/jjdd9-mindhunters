@@ -5,6 +5,7 @@ import com.infoshareacademy.domain.dto.IngredientView;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.DrinkService;
 import com.infoshareacademy.service.IngredientService;
+import com.infoshareacademy.service.validator.UserInputValidator;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -24,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@WebServlet("/search-drinks")
+@WebServlet("/search")
 public class DrinkSearchServlet extends HttpServlet {
 
     private static final Logger logger = LoggerFactory.getLogger(DrinkSearchServlet.class.getName());
@@ -37,6 +38,9 @@ public class DrinkSearchServlet extends HttpServlet {
 
     @Inject
     private TemplateProvider templateProvider;
+
+    @Inject
+    private UserInputValidator userInputValidator;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -63,33 +67,48 @@ public class DrinkSearchServlet extends HttpServlet {
         Template template = templateProvider.getTemplate(getServletContext(), "receipeSearchList.ftlh");
         Map<String, Object> dataModel = new HashMap<>();
         final String search = req.getParameter("search-type");
+
         switch (search) {
+
             case "name":
                 final String partialDrinkName = req.getParameter("drink-name");
-                if (partialDrinkName == null || partialDrinkName.isEmpty()) {
-                    resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                    return;
+
+                if (partialDrinkName == null || partialDrinkName.isEmpty() || !userInputValidator.validateSpecialChars(partialDrinkName.trim())) {
+                    dataModel.put("errorMessage", "Name not found.\n");
+                    break;
                 }
+
                 final List<FullDrinkView> foundDrinksByName = drinkService.findDrinksByName(partialDrinkName.trim());
                 dataModel.put("drinkList", foundDrinksByName);
                 logger.info("Drink list found by name sent to ftlh view");
                 break;
+
             case "ingredient":
                 final String[] ingredientNames = req.getParameterValues("drink-ingredients");
-                if (ingredientNames == null || ingredientNames.length == 0) {
-                    resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                    return;
+
+                if (ingredientNames == null || ingredientNames.length == 0 ) {
+                    dataModel.put("errorMessage", "Wrong input.\n");
+                    break;
                 }
+
                 final List<String> ingredientNamesFiltered = Arrays.stream(ingredientNames)
                         .filter(i -> !(i.isBlank()))
+                        .filter(s->userInputValidator.validateSpecialChars(s))
                         .map(String::trim)
                         .collect(Collectors.toList());
 
                 List<IngredientView> foundIngredientsByName = ingredientService.findIngredientsByName(ingredientNamesFiltered);
+
+                if (foundIngredientsByName == null || foundIngredientsByName.size() == 0){
+                    dataModel.put("errorMessage", "Ingredients not found.\n");
+                    logger.info("Ingredients input not found in database.");
+                    break;
+                }
+
                 final List<FullDrinkView> foundDrinksByIngredients =
                         drinkService.findDrinkByIngredients(foundIngredientsByName);
                 dataModel.put("drinkList", foundDrinksByIngredients);
-                logger.info("Drink list found by ingredient sent to ftlh view");
+                logger.info("Drink list found by ingredient sent to ftlh view.");
                 break;
         }
 
