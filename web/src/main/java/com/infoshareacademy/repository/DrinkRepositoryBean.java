@@ -16,7 +16,7 @@ public class DrinkRepositoryBean implements DrinkRepository {
     @PersistenceContext
     EntityManager entityManager;
 
-    public final static Integer PAGE_SIZE  = 5;
+    public final static Integer PAGE_SIZE = 5;
 
     public Drink findDrinkById(Long drinkId) {
 
@@ -42,10 +42,10 @@ public class DrinkRepositoryBean implements DrinkRepository {
         return query.getResultList();
     }
 
-    public List<Drink> findAllDrinksByCategories(List<String> category,int pageNumber) {
-        Query query = entityManager.createNamedQuery("Drink.findAllByCategories");
+    public List<Drink> paginatedDrinksByCategories(List<String> category, int pageNumber) {
+        Query query = entityManager.createNamedQuery("Drink.findDrinksByCategories");
 
-        query.setFirstResult((pageNumber-1) * PAGE_SIZE);
+        query.setFirstResult((pageNumber - 1) * PAGE_SIZE);
         query.setMaxResults(PAGE_SIZE);
 
         query.setParameter("category", category);
@@ -53,26 +53,27 @@ public class DrinkRepositoryBean implements DrinkRepository {
     }
 
     public int maxPageNumberDrinksByCategories(List<String> category) {
-        Query query = entityManager.createNamedQuery("Drink.findAllByCategories");
+        Query query = entityManager.createNamedQuery("Drink.findDrinksByCategories.count");
         query.setParameter("category", category);
-
-        int maxPageNumber = (int) Math.ceil((query.getResultList().size() / PAGE_SIZE + 1.0));
+        String querySize = query.getSingleResult().toString();
+        int maxPageNumber = (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
         return maxPageNumber;
     }
 
-    public List<Drink> paginationDrinkList(int pageNumber) {
-        Query query = entityManager.createQuery("select d from Drink d");
-        query.setFirstResult((pageNumber-1) * PAGE_SIZE);
+    public List paginatedDrinksList(int pageNumber) {
+        Query query = entityManager.createNamedQuery("Drink.findAll");
+        query.setFirstResult((pageNumber - 1) * PAGE_SIZE);
         query.setMaxResults(PAGE_SIZE);
 
-       return  query.getResultList();
+        return query.getResultList();
 
     }
 
-    public int maxPageNumberDrinkList(){
-        Query query = entityManager.createQuery("select d from Drink d");
-        int maxPageNumber = (int) Math.ceil( (query.getResultList().size()/PAGE_SIZE + 1.0));
-    return maxPageNumber;
+    public int maxPageNumberDrinkList() {
+        Query query = entityManager.createQuery("select count (d) from Drink d");
+        String querySize = query.getSingleResult().toString();
+        int maxPageNumber = (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
+        return maxPageNumber;
 
     }
 

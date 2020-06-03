@@ -63,12 +63,12 @@ public class DrinkService {
     }
 
     public List<FullDrinkView> findAllDrinksByCategories(List<String> category,int pageNumber) {
-        List<Drink> drinks = drinkRepository.findAllDrinksByCategories(category, pageNumber);
+        List<Drink> drinks = drinkRepository.paginatedDrinksByCategories(category, pageNumber);
         return fullDrinkMapper.toView(drinks);
     }
 
     public List<FullDrinkView> paginationDrinkList(int pageNumber) {
-        List<Drink> drinks = drinkRepository.paginationDrinkList(pageNumber);
+        List<Drink> drinks = drinkRepository.paginatedDrinksList(pageNumber);
         return fullDrinkMapper.toView(drinks);
     }
 

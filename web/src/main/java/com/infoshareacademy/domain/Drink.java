@@ -20,8 +20,12 @@ import java.util.List;
                 query = "SELECT d FROM Drink d"
         ),
         @NamedQuery(
-                name = "Drink.findAllByCategories",
+                name = "Drink.findDrinksByCategories",
                 query = "select d from Drink d where d.category.name in :category"
+        ),
+        @NamedQuery(
+                name = "Drink.findDrinksByCategories.count",
+                query = "select count (d) from Drink d where d.category.name in :category"
         )
 })
 
