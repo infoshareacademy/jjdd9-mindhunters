@@ -39,7 +39,7 @@
                     <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin offlineDb"
                        id="btn-admin2" style=" ">LOAD DB FROM FILE</a>
                     <div class="custom-file">
-                        <form method="post" action="/welcome" enctype="multipart/form-data" class="vis-of-btn">
+                        <form method="post" action="/welcome" enctype="multipart/form-data" class="vis-of-btn" id="vis-of-btn">
 
                         <label class="submit-btn" for="myfile"></label><br>
                         <input type="file" id="jsonFile" name="jsonFile" multiple><br><br>
@@ -96,26 +96,6 @@
         </div>
     </div>
 </section>
-<#--    <div class="card-deck card-deck-high" id="card-deck">-->
-<#--        <div class="card card-body">-->
-<#--            <img src="../../img/fullstock.jpg" class="card-img-top" alt="fullStock">-->
-<#--            <div class="card" id="card1">-->
-
-<#--            </div>-->
-<#--        </div>-->
-<#--        <div class="card card-body">-->
-<#--            <img src="../../img/search.jpg" class="card-img-top" alt="search">-->
-<#--            <div class="card" id="card2">-->
-
-<#--            </div>-->
-<#--        </div>-->
-<#--        <div class="card card-body">-->
-<#--            <img src="../../img/settings.png" class="card-img-top" alt="settings">-->
-<#--            <div class="card" id="card3">-->
-
-<#--            </div>-->
-<#--        </div>-->
-<#--    </div>-->
 
 <#include "footer.ftlh">
 

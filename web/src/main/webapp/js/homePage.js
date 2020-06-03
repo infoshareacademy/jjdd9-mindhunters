@@ -61,31 +61,32 @@
 
 $(document).ready(function () {
 
-    $("#switch1").click(function () {
-
-        $("#card2").toggle(); // znika i pojawia sie selector
-    });
-
-    $("#switch2").click(function () {
-        $("#card1").find("p").css('color', 'red');
-        $("#p-adddel").find("small").css('border', '1px solid black');
-        $("#card1").siblings().css('border', '4px solid yellow');
-
-    });
-
-    $("#switch3").click(function () {
-        $("#card1").find("p").remove();
-    });
-
-    $("#switch31").click(function () {
-        // $('#card3').load('Switchedcard.html');
-        document.getElementById("card3").innerHTML =
-            $('#card3').load('../../Switchedcard.html')
-    });
+    // $("#switch1").click(function () {
+    //
+    //     $("#card2").toggle();
+    // });
+    //
+    // $("#switch2").click(function () {
+    //     $("#card1").find("p").css('color', 'red');
+    //     $("#p-adddel").find("small").css('border', '1px solid black');
+    //     $("#card1").siblings().css('border', '4px solid yellow');
+    //
+    // });
+    //
+    // $("#switch3").click(function () {
+    //     $("#card1").find("p").remove();
+    // });
+    //
+    // $("#switch31").click(function () {
+    //     // $('#card3').load('Switchedcard.html');
+    //     document.getElementById("card3").innerHTML =
+    //         $('#card3').load('../../Switchedcard.html')
+    // });
 
     $("#submitLogin").click(function () {
         var val = document.getElementById("exampleDropdownFormEmail1").value;
         if (val == "admin") {
+            if($(window).width() >= 700) {
             $("#card-deck,#services").each(function () {
                 $(this).fadeOut(2200);
             }),
@@ -102,76 +103,65 @@ $(document).ready(function () {
                 }, 800),
                 document.getElementById("welcomeDiv").textContent = "Welcome Admin";
 
+        } else {
+                $("#card-deck,#services").each(function () {
+                    $(this).fadeOut(2200);
+                }),
+                    $("#glasses").animate({
+                        'opacity': '0.3',
+                        'height': '550px'
+                    }, 2500),
+
+                    $(".btn-admin").css({visibility: "visible", opacity: 0.0}).animate({
+                        opacity: 1.0
+                    }, 800),
+                    $(".tell-me").css({visibility: "hide", opacity: 1.0}).animate({
+                        opacity: 0.0
+                    }, 800),
+                    document.getElementById("welcomeDiv").textContent = "Welcome Admin";
+            }
         }
         ;
     });
-    $("#btn-admin-back").click(function () {
-        $("#card-deck,#services").each(function () {
-            $(this).fadeIn(2200);
-        }),
-            $("#glasses").animate({
-                'opacity': '1.0',
-                'height': '1103'
-            }, 2500),
+    if($(window).width() >= 700) {
+        $("#btn-admin-back").click(function () {
+            $("#card-deck,#services").each(function () {
+                $(this).fadeIn(2200);
+            }),
+                $("#glasses").animate({
+                    'opacity': '1.0',
+                    'height': '1103'
+                }, 2500),
 
-            $(".btn-admin").css({visibility: "hide", opacity: 1.0}).animate({
-                opacity: 0.0
-            }, 800),
-            $(".tell-me").css({visibility: "visible", opacity: 0.0}).animate({
-                opacity: 1.0
-            }, 800),
-            setTimeout(() => {
-                window.location.href = 'http://localhost:8080/welcome'
-            }, 2200);
-    });
+                $(".btn-admin").css({visibility: "hide", opacity: 1.0}).animate({
+                    opacity: 0.0
+                }, 800),
+                $(".tell-me").css({visibility: "visible", opacity: 0.0}).animate({
+                    opacity: 1.0
+                }, 800),
+                setTimeout(() => {
+                    window.location.href = 'http://localhost:8080/welcome'
+                }, 2200);
+        });
+    }else {
+        $("#btn-admin-back").click(function () {
+            $("#card-deck,#services").each(function () {
+                $(this).fadeIn(2200);
+            }),
+                $("#glasses").animate({
+                    'opacity': '1.0',
+                    'height': '480'
+                }, 2200),
 
-    // var pageCounter = a;
-    // var jsonContainer = document.getElementById("animal-info");
-    // var btn = document.getElementById("btn-admin3");
-    // btn.addEventListener("click", function () {
-    //     var ourRequest = new XMLHttpRequest();
-    //     ourRequest.open('GET', 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f='
-    //         + pageCounter);
-    //     ourRequest.onload = function () {
-    //         if (ourRequest.status >= 200 && ourRequest.status < 400) {
-    //             var ourData = JSON.parse(ourRequest.responseText);
-    //             renderHTML(ourData);
-    //             // console.log(ourRequest.responseText);
-    //         } else {
-    //             console.log("We connect to the server, but it return an error")
-    //         }
-    //     };
-    //     ourRequest.onerror = function () {
-    //         console.log("Connection error");
-    //     };
-    //     ourRequest.send();
-    //     // pageCounter++;
-    //     // if (pageCounter > 3) {
-    //     //     btn.classList.add("hide-me");
-    //     // }
-    // });
-    //
-    // function renderHTML(data) {
-    //     var htmlString = "";
-    //     for (i = 0; i < data.length; i++) {
-    //         htmlString += "<p>" + data[i].name + " is a " + data[i].species + " that likes ";
-    //         for (ii = 0; ii < data[i].foods.likes.length; ii++) {
-    //             if (ii == 0) {
-    //                 htmlString += data[i].foods.likes[ii];
-    //             } else {
-    //                 htmlString += " and " + data[i].foods.likes[ii];
-    //             }
-    //         }
-    //         htmlString += ' and dislikes ';
-    //         for (ii = 0; ii < data[i].foods.dislikes.length; ii++) {
-    //             if (ii == 0) {
-    //                 htmlString += data[i].foods.dislikes[ii];
-    //             } else {
-    //                 htmlString += " and " + data[i].foods.dislikes[ii];
-    //             }
-    //         }
-    //         htmlString += ' .</p>';
-    //     }
-    //     animalContainer.insertAdjacentHTML('beforeend', htmlString);
-    // }
+                $(".btn-admin").css({visibility: "hide", opacity: 1.0}).animate({
+                    opacity: 0.0
+                }, 800),
+                $(".tell-me").css({visibility: "visible", opacity: 0.0}).animate({
+                    opacity: 1.0
+                }, 800),
+                setTimeout(() => {
+                    window.location.href = 'http://localhost:8080/welcome'
+                }, 2200);
+        });
+    }
 });
