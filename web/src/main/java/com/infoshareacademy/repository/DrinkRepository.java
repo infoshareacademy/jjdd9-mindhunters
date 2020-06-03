@@ -15,4 +15,6 @@ public interface DrinkRepository {
 
     List<Drink> findDrinkByIngredients(List<Ingredient> ingredients);
 
+    Long findTotalDrinksAmount();
+
 }

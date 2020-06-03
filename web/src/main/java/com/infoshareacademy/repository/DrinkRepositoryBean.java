@@ -34,9 +34,10 @@ public class DrinkRepositoryBean implements DrinkRepository {
         return drinkQuery.getResultList();
     }
 
-    public List<Drink> findAllDrinks() {
-        Query query = entityManager.createNamedQuery("Drink.findAll");
-        return query.getResultList();
+    @Override
+    public Long findTotalDrinksAmount() {
+        Query drinkQuery = entityManager.createNamedQuery("Drink.findTotalDrinksAmount");
+        return (Long)drinkQuery.getSingleResult();
     }
 
     public List<Drink> findAllDrinksByCategories(List<String> category) {

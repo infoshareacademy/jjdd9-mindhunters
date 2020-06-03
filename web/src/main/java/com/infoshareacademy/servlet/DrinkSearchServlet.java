@@ -19,10 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @WebServlet("/search")
@@ -45,13 +42,21 @@ public class DrinkSearchServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        //test żeby nie wyswietlala się pusta strona
+        //3 losowe drinki
         resp.setContentType("text/html; charset=UTF-8");
         Template template = templateProvider.getTemplate(getServletContext(), "receipeSearchList.ftlh");
         Map<String, Object> dataModel = new HashMap<>();
 
-        final List<FullDrinkView> foundDrinksByName = drinkService.findDrinksByName("cas");
-        dataModel.put("drinkList", foundDrinksByName);
+
+        Long allDrinks = drinkService.findTotalDrinksAmount();
+        List<FullDrinkView> foundDrinksById = new ArrayList<>();
+
+        for (int i = 0; i < 3 ; i++) {
+            long v = (long) (Math.random() * allDrinks + 1);
+            foundDrinksById.add(drinkService.findDrinkById(v));
+        }
+
+        dataModel.put("drinkList", foundDrinksById);
 
         try {
             template.process(dataModel, resp.getWriter());

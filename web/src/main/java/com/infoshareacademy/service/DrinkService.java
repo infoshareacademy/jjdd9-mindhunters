@@ -41,4 +41,7 @@ public class DrinkService {
         return fullDrinkMapper.toView(foundDrinksByIngredients);
     }
 
+    public Long findTotalDrinksAmount() {
+        return drinkRepository.findTotalDrinksAmount();
+    }
 }
