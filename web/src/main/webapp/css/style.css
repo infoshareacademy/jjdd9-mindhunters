@@ -230,7 +230,7 @@
 }
 
 .vis-of-btn{
-    visibility: visible;
+    visibility: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -715,16 +715,23 @@ fieldset:disabled a.btn {
     }
 }
 
-@media (min-width: 2500px) {
+@media (min-width: 2300px) {
     .over-photo2 {
-        position: relative;
-        left: 80%;
-        bottom: 42%;
+        position: page;
+        left: 85%;
+        bottom: 50%;
+    }
+
+    .over-photo1 {
+        position: page;
+        left: 60%;
+        bottom: 40%;
     }
     .backGround {
-        max-width: 2000px;
+        max-width: 2200px;!important;
         height: auto;
-        max-height: 1102px;
+        max-height: 1500px;
+        alignment: center;
     }
 }
 

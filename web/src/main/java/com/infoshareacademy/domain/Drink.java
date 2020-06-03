@@ -1,10 +1,24 @@
 package com.infoshareacademy.domain;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+@NamedQueries({
+        @NamedQuery(
+                name = "Drink.findAll",
+                query = "SELECT d FROM Drink d"
+        ),
+        @NamedQuery(
+                name = "Drink.findAllByCategories",
+                query = "select d from Drink d where d.category.name in :category"
+
+        )
+
+})
 
 @Entity
 @Table(name = "drink")
@@ -21,7 +35,7 @@ public class Drink {
     @NotNull
     private String drinkName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -32,7 +46,7 @@ public class Drink {
     @NotNull
     private String recipe;
 
-    @OneToMany(mappedBy = "drinkId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "drinkId", fetch = FetchType.EAGER)
     private List<DrinkIngredient> drinkIngredient = new ArrayList<>();
 
     private String image;

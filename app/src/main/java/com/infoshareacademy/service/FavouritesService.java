@@ -1,6 +1,6 @@
 package com.infoshareacademy.service;
 
-import com.infoshareacademy.domain.Drink;
+import com.infoshareacademy.domain.DrinkJson;
 import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.domain.FavouritesDatabase;
 import com.infoshareacademy.utilities.PropertiesUtilities;
@@ -33,25 +33,25 @@ public class FavouritesService {
         }
     }
 
-    public List<Drink> getAllFavourites(FavouritesDatabase database) {
+    public List<DrinkJson> getAllFavourites(FavouritesDatabase database) {
 
-        List<Drink> favourDrinks = getFavourDrinkList(database);
-        List<Drink> sortedList = new ArrayList<>();
+        List<DrinkJson> favourDrinks = getFavourDrinkList(database);
+        List<DrinkJson> sortedList = new ArrayList<>();
         if (favourDrinks.isEmpty()) {
             STDOUT.info("\nFavourites list empty.\n");
 
         } else {
             PropertiesUtilities propertiesUtilities = new PropertiesUtilities();
             String orderby = propertiesUtilities.getProperty("orderby");
-            Stream<Drink> sortedStream = favourDrinks.stream();
+            Stream<DrinkJson> sortedStream = favourDrinks.stream();
             switch (orderby) {
                 case "asc":
-                    sortedStream = sortedStream.sorted(Comparator.comparing(Drink::getDrinkName));
+                    sortedStream = sortedStream.sorted(Comparator.comparing(DrinkJson::getDrinkName));
                     sortedList = sortedStream.collect(Collectors.toList());
                     printSortedFavouritesList(Collections.unmodifiableList(sortedList));
                     break;
                 case "desc":
-                    sortedStream = sortedStream.sorted(Comparator.comparing(Drink::getDrinkName).reversed());
+                    sortedStream = sortedStream.sorted(Comparator.comparing(DrinkJson::getDrinkName).reversed());
                     sortedList = sortedStream.collect(Collectors.toList());
                     printSortedFavouritesList(Collections.unmodifiableList(sortedList));
                     break;
@@ -60,8 +60,8 @@ public class FavouritesService {
         return sortedList;
     }
 
-    public Drink chooseOneFavRecipeFromList(List<Drink> sortedList) {
-        Drink foundDrink = new Drink();
+    public DrinkJson chooseOneFavRecipeFromList(List<DrinkJson> sortedList) {
+        DrinkJson foundDrink = new DrinkJson();
         UserInput userInput = new UserInput();
         boolean isCorrectNumber = false;
         if (userInput.getYesOrNo("\nWould you like to see details of recipe from the list? <y/n> ")) {
@@ -80,9 +80,9 @@ public class FavouritesService {
         return foundDrink;
     }
 
-    private void printSortedFavouritesList(List<Drink> sortedList) {
+    private void printSortedFavouritesList(List<DrinkJson> sortedList) {
         int counter = 1;
-        for (Drink drink : sortedList) {
+        for (DrinkJson drink : sortedList) {
             STDOUT.info("\n[{}] {}\n *ID: {}, *Category: {}, {};", counter, drink.getDrinkName().toUpperCase(),
                     drink.getDrinkId(), drink.getCategoryName(), drink.getAlcoholStatus());
             STDOUT.info("\n {}", drink.getIngredientsNamesList());
@@ -91,10 +91,10 @@ public class FavouritesService {
         }
     }
 
-    private List<Drink> getFavourDrinkList(FavouritesDatabase database) {
-        List<Drink> allDrinks = DrinksDatabase.getINSTANCE().getDrinks();
-        List<Drink> favourDrinks = new ArrayList<>();
-        for (Drink drink : allDrinks) {
+    private List<DrinkJson> getFavourDrinkList(FavouritesDatabase database) {
+        List<DrinkJson> allDrinks = DrinksDatabase.getINSTANCE().getDrinks();
+        List<DrinkJson> favourDrinks = new ArrayList<>();
+        for (DrinkJson drink : allDrinks) {
             String drinkId = drink.getDrinkId();
             if (database.getFavouritesIds().contains(drinkId)) {
                 favourDrinks.add(drink);
@@ -115,7 +115,7 @@ public class FavouritesService {
 
     public void addToFavourites(String id) {
         final Set<String> favouritesIds = getInstFavourites().getFavouritesIds();
-        for (Drink drink : DrinksDatabase.getINSTANCE().getDrinks()) {
+        for (DrinkJson drink : DrinksDatabase.getINSTANCE().getDrinks()) {
             if (drink.getDrinkId().equals(id)) {
                 favouritesIds.add(id);
                 STDOUT.info("Drink added to favourites.");
@@ -125,8 +125,8 @@ public class FavouritesService {
         STDOUT.info("Drink id not found. Try again. ");
     }
 
-    public Drink chooseOneFavouriteToRemoveFromList(List<Drink> sortedList) {
-        Drink foundDrink = new Drink();
+    public DrinkJson chooseOneFavouriteToRemoveFromList(List<DrinkJson> sortedList) {
+        DrinkJson foundDrink = new DrinkJson();
         UserInput userInput = new UserInput();
         boolean isCorrectNumber = false;
         if (userInput.getYesOrNo("\nWould you like to remove any recipe from favourites? <y/n> ")) {

@@ -61,31 +61,32 @@
 
 $(document).ready(function () {
 
-    $("#switch1").click(function () {
-
-        $("#card2").toggle(); // znika i pojawia sie selector
-    });
-
-    $("#switch2").click(function () {
-        $("#card1").find("p").css('color', 'red');
-        $("#p-adddel").find("small").css('border', '1px solid black');
-        $("#card1").siblings().css('border', '4px solid yellow');
-
-    });
-
-    $("#switch3").click(function () {
-        $("#card1").find("p").remove();
-    });
-
-    $("#switch31").click(function () {
-        // $('#card3').load('Switchedcard.html');
-        document.getElementById("card3").innerHTML =
-            $('#card3').load('../../Switchedcard.html')
-    });
+    // $("#switch1").click(function () {
+    //
+    //     $("#card2").toggle();
+    // });
+    //
+    // $("#switch2").click(function () {
+    //     $("#card1").find("p").css('color', 'red');
+    //     $("#p-adddel").find("small").css('border', '1px solid black');
+    //     $("#card1").siblings().css('border', '4px solid yellow');
+    //
+    // });
+    //
+    // $("#switch3").click(function () {
+    //     $("#card1").find("p").remove();
+    // });
+    //
+    // $("#switch31").click(function () {
+    //     // $('#card3').load('Switchedcard.html');
+    //     document.getElementById("card3").innerHTML =
+    //         $('#card3').load('../../Switchedcard.html')
+    // });
 
     $("#submitLogin").click(function () {
         var val = document.getElementById("exampleDropdownFormEmail1").value;
         if (val == "admin") {
+            if($(window).width() >= 700) {
             $("#card-deck,#services").each(function () {
                 $(this).fadeOut(2200);
             }),
@@ -102,31 +103,65 @@ $(document).ready(function () {
                 }, 800),
                 document.getElementById("welcomeDiv").textContent = "Welcome Admin";
 
+        } else {
+                $("#card-deck,#services").each(function () {
+                    $(this).fadeOut(2200);
+                }),
+                    $("#glasses").animate({
+                        'opacity': '0.3',
+                        'height': '550px'
+                    }, 2500),
+
+                    $(".btn-admin").css({visibility: "visible", opacity: 0.0}).animate({
+                        opacity: 1.0
+                    }, 800),
+                    $(".tell-me").css({visibility: "hide", opacity: 1.0}).animate({
+                        opacity: 0.0
+                    }, 800),
+                    document.getElementById("welcomeDiv").textContent = "Welcome Admin";
+            }
         }
         ;
     });
-    $("#btn-admin-back").click(function () {
-        $("#card-deck,#services").each(function () {
-            $(this).fadeIn(2200);
-        }),
-            $("#glasses").animate({
-                'opacity': '1.0',
-                'height': '1103'
-            }, 2500),
+    if($(window).width() >= 700) {
+        $("#btn-admin-back").click(function () {
+            $("#card-deck,#services").each(function () {
+                $(this).fadeIn(2200);
+            }),
+                $("#glasses").animate({
+                    'opacity': '1.0',
+                    'height': '1103'
+                }, 2500),
 
-            $(".btn-admin").css({visibility: "hide", opacity: 1.0}).animate({
-                opacity: 0.0
-            }, 800),
-            $(".tell-me").css({visibility: "visible", opacity: 0.0}).animate({
-                opacity: 1.0
-            }, 800),
-            setTimeout(() => {
-                window.location.href = 'http://localhost:8080/welcome'
-            }, 2200);
-    });
+                $(".btn-admin").css({visibility: "hide", opacity: 1.0}).animate({
+                    opacity: 0.0
+                }, 800),
+                $(".tell-me").css({visibility: "visible", opacity: 0.0}).animate({
+                    opacity: 1.0
+                }, 800),
+                setTimeout(() => {
+                    window.location.href = 'http://localhost:8080/welcome'
+                }, 2200);
+        });
+    }else {
+        $("#btn-admin-back").click(function () {
+            $("#card-deck,#services").each(function () {
+                $(this).fadeIn(2200);
+            }),
+                $("#glasses").animate({
+                    'opacity': '1.0',
+                    'height': '480'
+                }, 2200),
 
+                $(".btn-admin").css({visibility: "hide", opacity: 1.0}).animate({
+                    opacity: 0.0
+                }, 800),
+                $(".tell-me").css({visibility: "visible", opacity: 0.0}).animate({
+                    opacity: 1.0
+                }, 800),
+                setTimeout(() => {
+                    window.location.href = 'http://localhost:8080/welcome'
+                }, 2200);
+        });
+    }
 });
-
-
-
-

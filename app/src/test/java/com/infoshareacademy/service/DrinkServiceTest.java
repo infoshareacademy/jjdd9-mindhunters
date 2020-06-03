@@ -1,8 +1,8 @@
 package com.infoshareacademy.service;
 
-import com.infoshareacademy.domain.Drink;
+import com.infoshareacademy.domain.DrinkJson;
 import com.infoshareacademy.domain.DrinksDatabase;
-import com.infoshareacademy.domain.Ingredient;
+import com.infoshareacademy.domain.IngredientJson;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -22,18 +22,18 @@ class DrinkServiceTest {
     public void drinkServiceDeleteFromDatabaseTest() {
         //given
         DrinkService service = new DrinkService();
-        Drink drink = new Drink();
+        DrinkJson drink = new DrinkJson();
         drink.setDrinkId("17222");
         drink.setDrinkName("TestTest");
         drink.setModifiedDate(LocalDateTime.now());
         drink.setImageUrl("TEST");
-        drink.setIngredients(List.of(new Ingredient(), new Ingredient()));
+        drink.setIngredients(List.of(new IngredientJson(), new IngredientJson()));
         DrinksDatabase.getINSTANCE().addDrink(drink);
         service.removeDrink("17222");
 
 
         //when
-        final List<Drink> drinks = DrinksDatabase.getINSTANCE().getDrinks();
+        final List<DrinkJson> drinks = DrinksDatabase.getINSTANCE().getDrinks();
 
         //then
         Assertions.assertThat(drinks).isEmpty();
@@ -43,16 +43,16 @@ class DrinkServiceTest {
     public void drinkServiceAddToDatabaseTest() {
         //given
         DrinkService service = new DrinkService();
-        Drink drink = new Drink();
+        DrinkJson drink = new DrinkJson();
         drink.setDrinkId("17222");
         drink.setDrinkName("TestTest");
         drink.setModifiedDate(LocalDateTime.now());
         drink.setImageUrl("TEST");
-        drink.setIngredients(List.of(new Ingredient(), new Ingredient()));
+        drink.setIngredients(List.of(new IngredientJson(), new IngredientJson()));
         DrinksDatabase.getINSTANCE().addDrink(drink);
 
         //when
-        final List<Drink> drinks = DrinksDatabase.getINSTANCE().getDrinks();
+        final List<DrinkJson> drinks = DrinksDatabase.getINSTANCE().getDrinks();
 
         //then
         Assertions.assertThat(drinks).containsOnly(drink);

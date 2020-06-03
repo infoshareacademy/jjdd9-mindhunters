@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.infoshareacademy.domain.Drink;
-import com.infoshareacademy.domain.Ingredient;
+import com.infoshareacademy.domain.DrinkJson;
+import com.infoshareacademy.domain.IngredientJson;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -14,13 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class JsonDrinkDeserializer extends JsonDeserializer<Drink> {
+public class JsonDrinkDeserializer extends JsonDeserializer<DrinkJson> {
 
 
     @Override
-    public Drink deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+    public DrinkJson deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
 
-        Drink drink = new Drink();
+        DrinkJson drink = new DrinkJson();
 
         JsonNode readValueAsTree = jsonParser.readValueAsTree();
 
@@ -41,9 +41,9 @@ public class JsonDrinkDeserializer extends JsonDeserializer<Drink> {
             drink.setModifiedDate(formatDateTime);
         }
 
-        Ingredient ingredient = new Ingredient();
+        IngredientJson ingredient = new IngredientJson();
 
-        List<Ingredient> ingredientsList = new ArrayList<>();
+        List<IngredientJson> ingredientsList = new ArrayList<>();
 
         for (int i = 1; i <= 15; i++) {
             String ingredientMeasureField = "strMeasure" + i;
@@ -54,12 +54,12 @@ public class JsonDrinkDeserializer extends JsonDeserializer<Drink> {
                     ingredient.setName(readValueAsTree.get(ingredientNameField).asText());
                     ingredient.setMeasure(readValueAsTree.get(ingredientMeasureField).asText());
                     ingredientsList.add(ingredient);
-                    ingredient = new Ingredient();
+                    ingredient = new IngredientJson();
                 } else {
                     ingredient.setName(readValueAsTree.get(ingredientNameField).asText());
                     ingredient.setMeasure("no measures");
                     ingredientsList.add(ingredient);
-                    ingredient = new Ingredient();
+                    ingredient = new IngredientJson();
                 }
 
             } else break;
