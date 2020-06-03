@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 @MultipartConfig
-@WebServlet("/")
+@WebServlet("")
 public class WelcomeUserServlet extends HttpServlet {
 
     private final static Logger logger = Logger.getLogger(WelcomeUserServlet.class.getName());
