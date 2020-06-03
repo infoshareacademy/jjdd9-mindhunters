@@ -44,7 +44,6 @@
                         <label class="submit-btn" for="myfile"></label><br>
                         <input type="file" id="jsonFile" name="jsonFile" multiple><br><br>
                          <input
-<#--                                 class="btn btn-background  text-uppercase  text-warning glow  btn-admin"-->
                                 class="submit-btn" type="submit">
 
                     </form>
