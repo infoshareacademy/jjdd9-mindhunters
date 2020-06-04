@@ -2,10 +2,11 @@ package com.infoshareacademy.domain;
 
 import java.util.*;
 
+
 public final class DrinksDatabase {
 
     private static DrinksDatabase INSTANCE;
-    private List<Drink> drinks;
+    private List<DrinkJson> drinks;
 
     private DrinksDatabase() {
         drinks = new ArrayList<>();
@@ -18,15 +19,15 @@ public final class DrinksDatabase {
         return INSTANCE;
     }
 
-    public void addAllDrinks(List<Drink> drinkRecipes) {
+    public void addAllDrinks(List<DrinkJson> drinkRecipes) {
         drinks.addAll(drinkRecipes);
     }
 
-    public void addDrink(Drink drinkRecipe) {
+    public void addDrink(DrinkJson drinkRecipe) {
         drinks.add(drinkRecipe);
     }
 
-    public List<Drink> getDrinks() {
+    public List<DrinkJson> getDrinks() {
         return this.drinks;
     }
 

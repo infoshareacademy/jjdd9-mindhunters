@@ -20,7 +20,7 @@ import java.util.Objects;
 
 @JsonDeserialize(using = JsonDrinkDeserializer.class)
 @JsonSerialize(using = JsonDrinkSerializer.class)
-public class Drink {
+public class DrinkJson {
 
     @JsonProperty("idDrink")
     private String drinkId;
@@ -34,7 +34,7 @@ public class Drink {
     private String recipe;
     @JsonProperty("strDrinkThumb")
     private String imageUrl;
-    private List<Ingredient> ingredients;
+    private List<IngredientJson> ingredients;
     @JsonProperty("dateModified")
     private LocalDateTime modifiedDate;
 
@@ -86,11 +86,11 @@ public class Drink {
         this.imageUrl = imageUrl;
     }
 
-    public List<Ingredient> getIngredients() {
+    public List<IngredientJson> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
+    public void setIngredients(List<IngredientJson> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -120,7 +120,7 @@ public class Drink {
 
     public List<String> getIngredientsNamesList() {
         List<String> ingredientsNames = new ArrayList<>();
-        for (Ingredient ingredient : ingredients) {
+        for (IngredientJson ingredient : ingredients) {
             ingredientsNames.add(ingredient.getName());
         }
         return ingredientsNames;
@@ -134,7 +134,7 @@ public class Drink {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Drink drink = (Drink) o;
+        DrinkJson drink = (DrinkJson) o;
         return Objects.equals(drinkId, drink.drinkId) &&
                 Objects.equals(drinkName, drink.drinkName) &&
                 Objects.equals(categoryName, drink.categoryName) &&

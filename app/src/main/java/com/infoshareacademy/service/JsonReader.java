@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.infoshareacademy.domain.Drink;
+import com.infoshareacademy.domain.DrinkJson;
 import com.infoshareacademy.domain.FavouritesDatabase;
 
 import java.io.File;
@@ -18,7 +18,7 @@ public class JsonReader {
     private JsonReader() {
     }
 
-    public static List<Drink> jsonDrinkReader(String fileName) throws IOException {
+    public static List<DrinkJson> jsonDrinkReader(String fileName) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
@@ -26,8 +26,8 @@ public class JsonReader {
         JsonNode jsonNode = mapper.readTree(json);
 
 
-        List<Drink> drink = (List<Drink>) mapper.readValue(jsonNode.get("drinks").toString(),
-                new TypeReference<List<Drink>>() {
+        List<DrinkJson> drink = (List<DrinkJson>) mapper.readValue(jsonNode.get("drinks").toString(),
+                new TypeReference<List<DrinkJson>>() {
                 });
 
         return drink;

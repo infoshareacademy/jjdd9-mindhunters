@@ -13,13 +13,13 @@
     <title>Drink</title>
 
 </head>
-<body>
+<body id="page-top">
 
 <#include "navigation.ftlh">
 
 <section style="background-color: #1b1e21">
-
-    <div class="container" style="color: white; height: 83.6vh">
+    <div class="container" style="color: white; height: max-content;">
+    <div class="container" style="color: white">
         <br><br><br>
         <div class="row justify-content-center">
             <div class="col-md-3">
@@ -75,7 +75,7 @@
             <div class="col-md-3">
                 <img src="${drink.imageUrl}" style="
                         border-radius: 10px;
-  padding: 5px; width: 70%;" alt="" onerror="this.src='../../img/drinkimage-not-avail.jpg'">
+  padding: 5px; width: 70%;" alt="">
             </div>
         </div>
 
