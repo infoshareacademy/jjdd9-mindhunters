@@ -16,6 +16,7 @@ import java.util.List;
 @Stateless
 public class DrinkService {
 
+
     @EJB
     private DrinkRepository drinkRepository;
 
@@ -24,6 +25,8 @@ public class DrinkService {
 
     @Inject
     private IngredientMapper ingredientMapper;
+
+
 
     public FullDrinkView findDrinkById(Long drinkId) {
         Drink foundDrink = drinkRepository.findDrinkById(drinkId);
@@ -43,5 +46,33 @@ public class DrinkService {
 
     public Long findTotalDrinksAmount() {
         return drinkRepository.findTotalDrinksAmount();
+    }
+
+    public List<FullDrinkView> findAllDrinks() {
+        List<Drink> drinks = drinkRepository.findAllDrinks();
+        return fullDrinkMapper.toView(drinks);
+    }
+
+    public List<FullDrinkView> findAllDrinksByCategories(List<Long> category,int pageNumber) {
+        List<Drink> drinks = drinkRepository.paginatedDrinksByCategories(category, pageNumber);
+        return fullDrinkMapper.toView(drinks);
+    }
+
+    public List<FullDrinkView> paginationDrinkList(int pageNumber) {
+        List<Drink> drinks = drinkRepository.paginatedDrinksList(pageNumber);
+        return fullDrinkMapper.toView(drinks);
+    }
+
+    public int maxPageNumberDrinkList() {
+        int maxPageNumber = drinkRepository.maxPageNumberDrinkList();
+        return maxPageNumber;
+
+    }
+
+
+    public int maxPageNumberDrinksByCategories(List<Long> category) {
+        int maxPageNumber = drinkRepository.maxPageNumberDrinksByCategories(category);
+        return maxPageNumber;
+
     }
 }

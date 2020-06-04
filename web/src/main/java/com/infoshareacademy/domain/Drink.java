@@ -10,21 +10,27 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(
                 name = "Drink.findDrinkByIngredients",
-                query = "select d from Drink d join d.drinkIngredients di where di.ingredient IN :ingredients group " +
-                        "by d order by count (di.ingredient) desc "),
+                query = "select distinct d from Drink d join d.drinkIngredients di where di.ingredient IN " +
+                        ":ingredients "),
         @NamedQuery(
                 name = "Drink.findDrinkByPartialName",
                 query = "select d from Drink d where lower( d.drinkName) like lower(:partialDrinkName)"),
         @NamedQuery(
                 name = "Drink.findAll",
-                query = "SELECT d FROM Drink d"),
+                query = "SELECT d FROM Drink d"
+        ),
         @NamedQuery(
                 name = "Drink.findTotalDrinksAmount",
                 query = "SELECT count(*) FROM Drink d"),
 
         @NamedQuery(
-                name = "Drink.findAllByCategories",
-                query = "select d from Drink d where d.category.name in :category")
+                name = "Drink.findDrinksByCategories",
+                query = "select d from Drink d where d.category.id in (:category)"
+        ),
+        @NamedQuery(
+                name = "Drink.findDrinksByCategories.count",
+                query = "select count (d) from Drink d where d.category.id in (:category)"
+        )
 })
 
 @Entity

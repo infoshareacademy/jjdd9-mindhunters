@@ -9,35 +9,24 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Mindhunters</title>
-    <link href="../../css/style.css" rel="stylesheet">
+    <link href="../../css/styleSingleViewSearch.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
 
 </head>
 <body id="page-top" style="background-color: #1b1e21;">
-
 <!--Navigation-->
+
 <#include "navigation.ftlh">
-
-
 <!--List-->
-<nav aria-label="LIST">
+<nav aria-label="LIST" style="cursor: pointer;">
 
-    <div class="container-fluid  ">
+    <div class="container-fluid">
 
         <div class="row mx-2 my-2 justify-content-center">
 
-            <div class="d-none d-md-block">
+            <!--categoriesSidebar-->
 
-                <div class="list-group  list-element sticky-scroll  " >
-                    <#list categories as category>
-
-                        <a href="#" class="list-group-item sidebar-list">${category}</a>
-
-                    </#list>
-
-                </div>
-            </div>
-
+            <#include "categoriesSidebar.ftlh">
 
             <div class="col-12 col-md-8 col-lg-8 col-xl-8">
                 <ul class="list-unstyled  justify-content-center  ml-auto space_list ">
@@ -51,17 +40,18 @@
                                              class=" thumbnail_list justify-content-center" alt="...">
                                     </div>
 
-                                    <div class="media-body line-clamp col-sm-8 ml-0 pl-1 mr-0 pr-0" style="color: #ffc107">
+                                    <div class="media-body line-clamp col-sm-8 ml-0 pl-1 mr-0 pr-0"
+                                         style="color: #ffc107">
 
                                         <div class="row col-sm d-flex mt-4 mt-md-0 ">
-                                            <h5 class="col-md-6 mx-2 my-2  font-weight-bold text-center text-md-left"  >
+                                            <h5 class="col-md-6 mx-2 my-2  font-weight-bold text-center text-md-left">
                                                 ${drink.drinkName}
                                             </h5>
 
                                             <h5 class="col-md-5 mx-2 my-2   text-center text-md-right" style="
                                                     padding-right: 0px;
                                                     margin-right: 0px;">
-                                                ${drink.category.name}
+                                                ${drink.categoryView.name}
 
                                             </h5>
                                         </div>
@@ -69,11 +59,8 @@
                                             ${drink.recipe}
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
-
                         </li>
                     </#list>
                 </ul>
@@ -81,19 +68,11 @@
         </div>
     </div>
 
-    <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item active" aria-current="page">
-            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-        </li>
-    </ul>
+
+    <!--Pagination-->
+
+    <#include "pagination.ftlh">
+
 </nav>
 
 <!--Footer-->
@@ -117,7 +96,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 <script src="../../js/BootstrapValidation.js"></script>
 <!--&lt;!&ndash;&lt;!&ndash; Core theme JS&ndash;&gt;&ndash;&gt;-->
-<script type="text/javascript" src="../../js/homePage.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.js"></script>
+-->
+<script src="../../js/receipeList.js"></script>
 <#--
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 -->

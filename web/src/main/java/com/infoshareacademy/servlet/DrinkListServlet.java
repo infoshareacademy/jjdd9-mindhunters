@@ -1,6 +1,8 @@
 package com.infoshareacademy.servlet;
 
-import com.infoshareacademy.domain.Drink;
+import com.infoshareacademy.domain.Category;
+import com.infoshareacademy.domain.dto.CategoryView;
+import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.CategoryService;
 import com.infoshareacademy.service.DrinkService;
@@ -9,6 +11,7 @@ import freemarker.template.TemplateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,19 +19,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 
 @WebServlet("/list")
 public class DrinkListServlet extends HttpServlet {
 
-    private static final Logger packageLogger = LoggerFactory.getLogger(LoggerServlet.class.getName());
+    private static final Logger packageLogger = LoggerFactory.getLogger(DrinkListServlet.class.getName());
 
-    @Inject
+    @EJB
     private DrinkService drinkService;
 
-    @Inject
+    @EJB
     private CategoryService categoryService;
 
     @Inject
@@ -36,23 +42,56 @@ public class DrinkListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-/*        resp.setContentType("text/html; charset=UTF-8");
 
-        final List<Drink> drinkList = drinkService.findAllDrinks();
 
-        final List<String> categoryList = categoryService.findAllNames();
+
+        final int currentPage = Integer.parseInt(req.getParameter("page"));
+
+        final int maxPage ;
+
+        final List<FullDrinkView> allDrinks = drinkService.findAllDrinks();
+
+        final List<CategoryView> categories = categoryService.findAllCategories();
 
         Map<String, Object> dataModel = new HashMap<>();
-        dataModel.put("categories", categoryList);
 
-        String page = req.getParameter("page");
-        if (page != null && !page.isEmpty()){
-            final List<Drink> paginatedDrinkList = drinkService.paginationDrinkList(Integer.parseInt(req.getParameter("page")));
-            dataModel.put("drinkList", paginatedDrinkList);
+        dataModel.put("categories", categories);
+
+        String categoriesParam = req.getParameter("category");
+
+        if (categoriesParam != null && !categoriesParam.isEmpty()){
+
+            String[] query = req.getParameterValues("category");
+
+            List<Long> searchingCategory = Arrays.stream(query).map(s -> Long.valueOf(s))
+                    .collect(Collectors.toList());
+
+
+            final List<FullDrinkView> drinksByCategories = drinkService.findAllDrinksByCategories(searchingCategory,currentPage);
+            dataModel.put("drinkList", drinksByCategories);
+
+
+            String queryName = "category=" + Arrays.stream(query).collect(Collectors.joining("&&category="));
+
+
+            maxPage = drinkService.maxPageNumberDrinksByCategories(searchingCategory);
+
+            dataModel.put("maxPageSize", maxPage);
+            dataModel.put("queryName", queryName);
+
+
         } else{
 
-            dataModel.put("drinkList", drinkList);
+            final List<FullDrinkView> paginatedDrinkList = drinkService.paginationDrinkList(currentPage);
+
+            dataModel.put("drinkList", paginatedDrinkList);
+
+            maxPage = drinkService.maxPageNumberDrinkList();
+            dataModel.put("maxPageSize", maxPage);
+
         }
+        dataModel.put("currentPage", currentPage);
+
 
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeList.ftlh");
@@ -62,6 +101,6 @@ public class DrinkListServlet extends HttpServlet {
         } catch (TemplateException e) {
             packageLogger.error(e.getMessage());
         }
-    }*/
     }
+
 }

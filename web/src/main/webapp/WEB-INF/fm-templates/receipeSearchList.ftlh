@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Mindhunters</title>
-    <link href="../../css/style.css" rel="stylesheet">
+    <link href="../../css/styleSingleViewSearch.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
 
 </head>
@@ -20,51 +20,15 @@
 
 
 <!--List-->
-<nav aria-label="LIST">
+<nav aria-label="LIST" style="cursor:pointer;">
 
-    <div class="container-fluid  ">
+    <div class="container-fluid">
 
         <div class="row mx-2 my-2 justify-content-center">
 
-            <div>
-                <form method="post" action="/search">
-                    <div class="list-group  list-element">
-                        <div class="list-group-item sidebar-list">
-                            <input type="hidden" name="search-type" value="name"/>
-                            <input type="text" required minlength="2" name="drink-name" id=""
-                                   placeholder="Search by name...">
-                        </div>
-                    </div>
-                    <br>
-                    <input class="rounded-input" type="submit" name="search-by-name" value="Search by name">
-                    <br><br><br>
-                </form>
+            <!--searchSidebar-->
 
-                <form method="post" action="/search">
-                    <div class="list-group  list-element add-group">
-
-                        <div class="list-group-item sidebar-list">
-                            <input type="hidden" name="search-type" value="ingredient"/>
-                            <input type="text" required minlength="2" name="drink-ingredients" value=""
-                                   placeholder="Search by ingredients..."/>
-                            <a href="javascript:void(0);" class="add_button " id="remove_blue" title="Add field">
-                                <svg class="bi bi-plus-square-fill" id="remove_blue" width="1em" height="1em"
-                                     viewBox="0 0 16 16"
-                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                          d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4a.5.5 0 0 0-1 0v3.5H4a.5.5 0 0 0 0 1h3.5V12a.5.5 0 0 0 1 0V8.5H12a.5.5 0 0 0 0-1H8.5V4z"/>
-                                </svg>
-                            </a>
-                            <br>
-                        </div>
-
-                    </div>
-                    <br>
-                    <input type="submit" name="search-by-ingredients" class="rounded-input"
-                           value="Search by ingredients"/>
-                    <br/><br><br>
-                </form>
-            </div>
+            <#include "searchSidebar.ftlh">
 
             <div class="col-12 col-md-8 col-lg-8 col-xl-8">
 
@@ -127,19 +91,10 @@
         </div>
     </div>
 
-    <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item active" aria-current="page">
-            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-        </li>
-    </ul>
+    <!--Pagination-->
+
+    <#include "paginationSearch.ftlh">
+
 </nav>
 
 <!--Footer-->

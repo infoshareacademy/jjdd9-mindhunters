@@ -17,4 +17,14 @@ public interface DrinkRepository {
 
     Long findTotalDrinksAmount();
 
+    List<Drink> findAllDrinks();
+
+    List<Drink> paginatedDrinksByCategories(List<Long> category, int pageNumber);
+
+    List<Drink> paginatedDrinksList(int pageNumber);
+
+    int maxPageNumberDrinkList();
+
+    int maxPageNumberDrinksByCategories(List<Long> category);
+
 }

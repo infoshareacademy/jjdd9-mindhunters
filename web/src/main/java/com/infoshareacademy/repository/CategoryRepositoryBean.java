@@ -15,8 +15,8 @@ public class CategoryRepositoryBean {
     @PersistenceContext
     EntityManager entityManager;
 
-    public List<String> findAllNames() {
-        Query query = entityManager.createNamedQuery("Category.findAllNames");
+    public List<Category> findAllNames() {
+        Query query = entityManager.createNamedQuery("Category.findAllCategories");
         return query.getResultList();
     }
 }
