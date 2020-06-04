@@ -1,5 +1,6 @@
 package com.infoshareacademy.servlet;
 
+import com.infoshareacademy.domain.dto.CategoryView;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.domain.dto.IngredientView;
 import com.infoshareacademy.freemarker.TemplateProvider;
@@ -42,7 +43,80 @@ public class DrinkSearchServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        //3 losowe drinki
+        final int currentPage = Integer.parseInt(req.getParameter("page"));
+
+        final int maxPage ;
+
+        final List<FullDrinkView> allDrinks = drinkService.findAllDrinks();
+
+        final List<CategoryView> categories = categoryService.findAllCategories();
+
+        Map<String, Object> dataModel = new HashMap<>();
+
+        dataModel.put("categories", categories);
+
+        String categoriesParam = req.getParameter("category");
+
+        if (categoriesParam != null && !categoriesParam.isEmpty()){
+
+            String[] query = req.getParameterValues("category");
+
+            List<Long> searchingCategory = Arrays.stream(query).map(s -> Long.valueOf(s))
+                    .collect(Collectors.toList());
+
+
+            final List<FullDrinkView> drinksByCategories = drinkService.findAllDrinksByCategories(searchingCategory,currentPage);
+            dataModel.put("drinkList", drinksByCategories);
+
+
+            String queryName = "category=" + Arrays.stream(query).collect(Collectors.joining("&&category="));
+
+
+            maxPage = drinkService.maxPageNumberDrinksByCategories(searchingCategory);
+
+            dataModel.put("maxPageSize", maxPage);
+            dataModel.put("queryName", queryName);
+
+
+        } else{
+
+            final List<FullDrinkView> paginatedDrinkList = drinkService.paginationDrinkList(currentPage);
+
+            dataModel.put("drinkList", paginatedDrinkList);
+
+            maxPage = drinkService.maxPageNumberDrinkList();
+            dataModel.put("maxPageSize", maxPage);
+
+        }
+        dataModel.put("currentPage", currentPage);
+
+
+
+        Template template = templateProvider.getTemplate(getServletContext(), "receipeList.ftlh");
+
+        try {
+            template.process(dataModel, resp.getWriter());
+        } catch (TemplateException e) {
+            packageLogger.error(e.getMessage());
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*//3 losowe drinki
         resp.setContentType("text/html; charset=UTF-8");
         Template template = templateProvider.getTemplate(getServletContext(), "receipeSearchList.ftlh");
         Map<String, Object> dataModel = new HashMap<>();
@@ -62,7 +136,7 @@ public class DrinkSearchServlet extends HttpServlet {
             template.process(dataModel, resp.getWriter());
         } catch (TemplateException e) {
             logger.error(e.getMessage());
-        }
+        }*/
     }
 
 
