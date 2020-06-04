@@ -13,15 +13,24 @@ import java.util.List;
                 query = "select distinct d from Drink d join d.drinkIngredients di where di.ingredient IN " +
                         ":ingredients "),
         @NamedQuery(
+                name = "Drink.countDrinkByIngredients",
+                query = "select distinct COUNT(d) from Drink d join d.drinkIngredients di where di.ingredient IN " +
+                        ":ingredients "),
+        @NamedQuery(
                 name = "Drink.findDrinkByPartialName",
-                query = "select d from Drink d where lower( d.drinkName) like lower(:partialDrinkName)"),
+                query = "SELECT d FROM Drink d WHERE LOWER( d.drinkName) LIKE LOWER(:partialDrinkName)"),
+
+        @NamedQuery(
+                name = "Drink.countDrinksByPartialName",
+                query = "SELECT COUNT(d) FROM Drink d WHERE LOWER( d.drinkName) LIKE LOWER(:partialDrinkName)"),
+
         @NamedQuery(
                 name = "Drink.findAll",
                 query = "SELECT d FROM Drink d"
         ),
         @NamedQuery(
                 name = "Drink.findTotalDrinksAmount",
-                query = "SELECT count(*) FROM Drink d"),
+                query = "SELECT COUNT(d) FROM Drink d"),
 
         @NamedQuery(
                 name = "Drink.findDrinksByCategories",

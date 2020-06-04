@@ -24,15 +24,33 @@ public class DrinkRepositoryBean implements DrinkRepository {
         return entityManager.find(Drink.class, drinkId);
     }
 
-    public List<Drink> findDrinksByName(String partialDrinkName) {
+    public List<Drink> paginatedFindDrinksByName(String partialDrinkName, int pageNumber) {
         Query drinkQuery = entityManager.createNamedQuery("Drink.findDrinkByPartialName");
         drinkQuery.setHint(QueryHints.HINT_PASS_DISTINCT_THROUGH, false);
+
+        drinkQuery.setFirstResult((pageNumber - 1) * PAGE_SIZE);
+        drinkQuery.setMaxResults(PAGE_SIZE);
+
         drinkQuery.setParameter("partialDrinkName", "%" + partialDrinkName + "%");
         return drinkQuery.getResultList();
     }
 
-    public List<Drink> findDrinkByIngredients(List<Ingredient> ingredients) {
+    @Override
+    public int maxPageNumberDrinksByName(String partialDrinkName) {
+        Query drinkQuery = entityManager.createNamedQuery("Drink.countDrinksByPartialName");
+        String querySize =  drinkQuery.getSingleResult().toString();
+        int maxPageNumber = (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
+        return maxPageNumber;
+
+    }
+
+    public List<Drink> paginatedFindDrinkByIngredients(List<Ingredient> ingredients, int pageNumber) {
         Query drinkQuery = entityManager.createNamedQuery("Drink.findDrinkByIngredients");
+        drinkQuery.setHint(QueryHints.HINT_PASS_DISTINCT_THROUGH, false);
+
+        drinkQuery.setFirstResult((pageNumber - 1) * PAGE_SIZE);
+        drinkQuery.setMaxResults(PAGE_SIZE);
+
         drinkQuery.setParameter("ingredients", ingredients);
         return drinkQuery.getResultList();
     }
@@ -68,6 +86,18 @@ public class DrinkRepositoryBean implements DrinkRepository {
         int maxPageNumber = (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
         return maxPageNumber;
     }
+
+    @Override
+    public int maxPageNumberDrinksByIngredients(List<Ingredient> ingredients) {
+        Query query = entityManager.createNamedQuery("Drink.countDrinksByIngredients");
+
+
+        query.setParameter("ingredients", ingredients);
+        String querySize = query.getSingleResult().toString();
+        int maxPageNumber = (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
+        return maxPageNumber;
+    }
+
 
     public List paginatedDrinksList(int pageNumber) {
         Query query = entityManager.createNamedQuery("Drink.findAll");

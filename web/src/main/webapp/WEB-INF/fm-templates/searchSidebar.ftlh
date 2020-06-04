@@ -3,12 +3,12 @@
         <div class="list-group  list-element">
             <div class="list-group-item sidebar-list">
                 <input type="hidden" name="search-type" value="name"/>
-                <input type="text" required minlength="2" name="drink-name" id=""
+                <input type="text" required minlength="2" name="name" id=""
                        placeholder="Search by name...">
             </div>
         </div>
         <br>
-        <input class="rounded-input" type="submit" name="search-by-name" value="Search by name">
+        <input id="search-by-name" class="rounded-input" type="submit" name="search-by-name" value="Search by name">
         <br><br><br>
     </form>
 
@@ -17,7 +17,7 @@
 
             <div class="list-group-item sidebar-list">
                 <input type="hidden" name="search-type" value="ingredient"/>
-                <input type="text" required minlength="2" name="drink-ingredients" value=""
+                <input type="text" required minlength="2" name="ingr" value=""
                        placeholder="Search by ingredients..."/>
                 <a href="javascript:void(0);" class="add_button " id="remove_blue" title="Add field">
                     <svg class="bi bi-plus-square-fill" id="remove_blue" width="1em" height="1em"

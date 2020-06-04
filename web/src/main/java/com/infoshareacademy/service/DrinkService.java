@@ -33,19 +33,15 @@ public class DrinkService {
         return fullDrinkMapper.toView(foundDrink);
     }
 
-    public List<FullDrinkView> findDrinksByName(String partialDrinkName) {
-        List<Drink> foundDrinks = drinkRepository.findDrinksByName(partialDrinkName);
+    public List<FullDrinkView> findDrinksByName(String partialDrinkName, int pageNumber) {
+        List<Drink> foundDrinks = drinkRepository.paginatedFindDrinksByName(partialDrinkName, pageNumber);
         return fullDrinkMapper.toView(foundDrinks);
     }
 
-    public List<FullDrinkView> findDrinkByIngredients(List<IngredientView> ingredientViews) {
+    public List<FullDrinkView> findDrinkByIngredients(List<IngredientView> ingredientViews, int pageNumber) {
         final List<Ingredient> ingredients = ingredientMapper.toEntity(ingredientViews);
-        final List<Drink> foundDrinksByIngredients = drinkRepository.findDrinkByIngredients(ingredients);
+        final List<Drink> foundDrinksByIngredients = drinkRepository.paginatedFindDrinkByIngredients(ingredients, pageNumber);
         return fullDrinkMapper.toView(foundDrinksByIngredients);
-    }
-
-    public Long findTotalDrinksAmount() {
-        return drinkRepository.findTotalDrinksAmount();
     }
 
     public List<FullDrinkView> findAllDrinks() {
@@ -69,10 +65,19 @@ public class DrinkService {
 
     }
 
-
     public int maxPageNumberDrinksByCategories(List<Long> category) {
         int maxPageNumber = drinkRepository.maxPageNumberDrinksByCategories(category);
         return maxPageNumber;
+    }
 
+    public int maxPageNumberDrinksByName(String name) {
+        int maxPageNumber = drinkRepository.maxPageNumberDrinksByName(name);
+        return maxPageNumber;
+    }
+
+    public int maxPageNumberDrinksByIngredients(List<IngredientView> ingredientViews) {
+        final List<Ingredient> ingredients = ingredientMapper.toEntity(ingredientViews);
+        int maxPageNumber = drinkRepository.maxPageNumberDrinksByIngredients(ingredients);
+        return maxPageNumber;
     }
 }

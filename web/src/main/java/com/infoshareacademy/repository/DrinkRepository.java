@@ -11,9 +11,9 @@ public interface DrinkRepository {
 
     Drink findDrinkById(Long id);
 
-    List<Drink> findDrinksByName(String partialDrinkName);
+    List<Drink> paginatedFindDrinksByName(String partialDrinkName, int pageNumber);
 
-    List<Drink> findDrinkByIngredients(List<Ingredient> ingredients);
+    List<Drink> paginatedFindDrinkByIngredients(List<Ingredient> ingredients, int pageNumer);
 
     Long findTotalDrinksAmount();
 
@@ -26,5 +26,10 @@ public interface DrinkRepository {
     int maxPageNumberDrinkList();
 
     int maxPageNumberDrinksByCategories(List<Long> category);
+
+    int maxPageNumberDrinksByIngredients(List<Ingredient> ingredients);
+
+    int maxPageNumberDrinksByName(String name);
+
 
 }
