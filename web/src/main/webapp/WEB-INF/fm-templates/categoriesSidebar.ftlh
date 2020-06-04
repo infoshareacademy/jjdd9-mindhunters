@@ -4,7 +4,7 @@
 
         <#list categories as category>
             <a class="list-group-item sidebar-list "
-                    <#if queryName!?contains(category.name)>
+                    <#if queryName!?contains((category.id)?string)>
                         style="background-color: #1b1e21"
                     </#if>
                >
