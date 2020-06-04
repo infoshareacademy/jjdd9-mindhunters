@@ -8,7 +8,6 @@
                         style="background-color: #1b1e21"
                     </#if>
                >
-
                 ${category.name}
                 <p hidden > ${category.id} </p>
 

@@ -3,15 +3,15 @@ package com.infoshareacademy.service;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.infoshareacademy.domain.Drink;
+import com.infoshareacademy.domain.DrinkJson;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
-public class JsonDrinkSerializer extends JsonSerializer<Drink> {
+public class JsonDrinkSerializer extends JsonSerializer<DrinkJson> {
 
     @Override
-    public void serialize(Drink drink, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+    public void serialize(DrinkJson drink, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
 
         jsonGenerator.writeStartObject();
         jsonGenerator.writeStringField("idDrink", drink.getDrinkId());
@@ -29,7 +29,7 @@ public class JsonDrinkSerializer extends JsonSerializer<Drink> {
         jsonGenerator.writeEndObject();
     }
 
-    private void writeIngredientsToJson(Drink drink, JsonGenerator jsonGenerator, String valueName) throws IOException {
+    private void writeIngredientsToJson(DrinkJson drink, JsonGenerator jsonGenerator, String valueName) throws IOException {
         int counter = 1;
         for (int i = 0; i < drink.getIngredients().size(); i++) {
 
