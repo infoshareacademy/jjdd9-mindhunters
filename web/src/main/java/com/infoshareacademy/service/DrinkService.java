@@ -62,7 +62,7 @@ public class DrinkService {
         return fullDrinkMapper.toView(drinks);
     }
 
-    public List<FullDrinkView> findAllDrinksByCategories(List<String> category,int pageNumber) {
+    public List<FullDrinkView> findAllDrinksByCategories(List<Long> category,int pageNumber) {
         List<Drink> drinks = drinkRepository.paginatedDrinksByCategories(category, pageNumber);
         return fullDrinkMapper.toView(drinks);
     }
@@ -79,7 +79,7 @@ public class DrinkService {
     }
 
 
-    public int maxPageNumberDrinksByCategories(List<String> category) {
+    public int maxPageNumberDrinksByCategories(List<Long> category) {
         int maxPageNumber = drinkRepository.maxPageNumberDrinksByCategories(category);
         return maxPageNumber;
 

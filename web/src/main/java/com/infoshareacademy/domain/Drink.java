@@ -21,11 +21,11 @@ import java.util.List;
         ),
         @NamedQuery(
                 name = "Drink.findDrinksByCategories",
-                query = "select d from Drink d where d.category.name in :category"
+                query = "select d from Drink d where d.category.id in (:category)"
         ),
         @NamedQuery(
                 name = "Drink.findDrinksByCategories.count",
-                query = "select count (d) from Drink d where d.category.name in :category"
+                query = "select count (d) from Drink d where d.category.id in (:category)"
         )
 })
 

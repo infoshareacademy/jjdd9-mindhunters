@@ -1,5 +1,7 @@
 package com.infoshareacademy.servlet;
 
+import com.infoshareacademy.domain.Category;
+import com.infoshareacademy.domain.dto.CategoryView;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.CategoryService;
@@ -27,7 +29,7 @@ import java.util.stream.Collectors;
 @WebServlet("/list")
 public class DrinkListServlet extends HttpServlet {
 
-    private static final Logger packageLogger = LoggerFactory.getLogger(LoggerServlet.class.getName());
+    private static final Logger packageLogger = LoggerFactory.getLogger(DrinkListServlet.class.getName());
 
     @EJB
     private DrinkService drinkService;
@@ -49,21 +51,19 @@ public class DrinkListServlet extends HttpServlet {
 
         final List<FullDrinkView> allDrinks = drinkService.findAllDrinks();
 
-        final List<String> categoryNameList = categoryService.findAllCategories().stream()
-                  .map(categoryView -> categoryView.getName()).collect(Collectors.toList());
-
+        final List<CategoryView> categories = categoryService.findAllCategories();
 
         Map<String, Object> dataModel = new HashMap<>();
 
-        dataModel.put("categories", categoryNameList);
+        dataModel.put("categories", categories);
 
-        String categories = req.getParameter("category");
+        String categoriesParam = req.getParameter("category");
 
-        if (categories != null && !categories.isEmpty()){
+        if (categoriesParam != null && !categoriesParam.isEmpty()){
 
             String[] query = req.getParameterValues("category");
 
-            List<String> searchingCategory = Arrays.stream(query)
+            List<Long> searchingCategory = Arrays.stream(query).map(s -> Long.valueOf(s))
                     .collect(Collectors.toList());
 
 

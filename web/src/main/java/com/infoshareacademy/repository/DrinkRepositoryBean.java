@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.lang.reflect.Array;
 import java.util.List;
 
 @Stateless
@@ -42,7 +43,7 @@ public class DrinkRepositoryBean implements DrinkRepository {
         return query.getResultList();
     }
 
-    public List<Drink> paginatedDrinksByCategories(List<String> category, int pageNumber) {
+    public List<Drink> paginatedDrinksByCategories(List<Long> category, int pageNumber) {
         Query query = entityManager.createNamedQuery("Drink.findDrinksByCategories");
 
         query.setFirstResult((pageNumber - 1) * PAGE_SIZE);
@@ -52,8 +53,11 @@ public class DrinkRepositoryBean implements DrinkRepository {
         return query.getResultList();
     }
 
-    public int maxPageNumberDrinksByCategories(List<String> category) {
+    public int maxPageNumberDrinksByCategories(List<Long> category) {
         Query query = entityManager.createNamedQuery("Drink.findDrinksByCategories.count");
+
+
+
         query.setParameter("category", category);
         String querySize = query.getSingleResult().toString();
         int maxPageNumber = (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));

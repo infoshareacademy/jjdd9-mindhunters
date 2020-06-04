@@ -1,35 +1,41 @@
-$("#myID2").click(function myFunction() {
+$(document).ready(function () {
 
-    let url = new URL(window.location);
+    let content = null;
 
-    let content = $(event.target).text().trim();
+        $('#ID01').on('click', '*', function () {
+            content = $(this).children('p').text().trim();
 
-    var searchParams = url.searchParams;
+        let url = new URL(window.location);
 
-    searchParams.set("page", "1")
 
-    if (!searchParams.getAll("category").includes(content)) {
+        var searchParams = url.searchParams;
 
-        searchParams.append("category", content);
-        window.location = url;
 
-    } else {
+        searchParams.set("page", "1");
 
-        let searchArray = searchParams.getAll("category");
+        if (!searchParams.getAll("category").includes(content)) {
 
-        searchArray.splice(searchArray.indexOf(content), 1);
-        if (searchArray.length >= 1) {
-            var newUrl = "&category=" + searchArray.join("&category=");
+            searchParams.append("category", content);
 
+            window.location = url;
         } else {
-            newUrl = "";
+
+            let searchArray = searchParams.getAll("category");
+
+            searchArray.splice(searchArray.indexOf(content), 1);
+            if (searchArray.length >= 1) {
+                var newUrl = "&category=" + searchArray.join("&category=");
+
+            } else {
+                newUrl = "";
+            }
+
+            window.location = '/list?page=1' + newUrl;
         }
-
-        window.location = '/list?page=1' + newUrl;
-    }
-
+    });
 
 })
+
 
 async function nextPage() {
     let url = new URL(window.location); // or construct from window.location
