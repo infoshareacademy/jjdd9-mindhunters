@@ -58,6 +58,13 @@
                                         <div class="line-clamp mx-2 my-2 mt-4 mr-4 d-none d-md-block">
                                             ${drink.recipe}
                                         </div>
+                                        <div class="line-clamp mx-2 my-2 mt-4 mr-4 ml-4 text-center text-md-right"
+                                            <#if drink.alcoholStatus == "Alcoholic">
+                                            style="color: #dc3545"
+                                            </#if>
+                                            >
+                                            ${drink.alcoholStatus}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

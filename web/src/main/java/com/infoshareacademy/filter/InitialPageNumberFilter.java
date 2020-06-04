@@ -34,6 +34,8 @@ public class InitialPageNumberFilter implements Filter {
             RequestDispatcher requestDispatcher = servletRequest.getRequestDispatcher("/list?page=1");
             requestDispatcher.forward(servletRequest, servletResponse);
 
+        } else if (!reqParameter.matches("-?(0|[1-9]\\d*)")){
+            servletRequest.setAttribute("page", 1);
         }
 
         filterChain.doFilter(servletRequest, servletResponse);

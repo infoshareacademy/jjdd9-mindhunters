@@ -8,6 +8,8 @@ import com.infoshareacademy.service.CategoryService;
 import com.infoshareacademy.service.DrinkService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.engine.jdbc.StreamUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,10 +21,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -44,8 +43,17 @@ public class DrinkListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
+        String pageNumberReq = req.getParameter("page");
+        int currentPage = 0;
 
-        final int currentPage = Integer.parseInt(req.getParameter("page"));
+        if (pageNumberReq.matches("-?(0|[1-9]\\d*)")){
+            currentPage = Integer.parseInt(req.getParameter("page"));
+
+        } else {
+            currentPage = 1;
+        }
+
+
 
         final int maxPage ;
 
@@ -63,9 +71,12 @@ public class DrinkListServlet extends HttpServlet {
 
             String[] query = req.getParameterValues("category");
 
-            List<Long> searchingCategory = Arrays.stream(query).map(s -> Long.valueOf(s))
+            List<Long> searchingCategory = Arrays.stream(query)
+                    .filter(Objects::nonNull)
+                    .filter(StringUtils::isNoneBlank)
+                    .filter(s -> s.matches("[0-9]+"))
+                    .map(s -> Long.valueOf(s))
                     .collect(Collectors.toList());
-
 
             final List<FullDrinkView> drinksByCategories = drinkService.findAllDrinksByCategories(searchingCategory,currentPage);
             dataModel.put("drinkList", drinksByCategories);

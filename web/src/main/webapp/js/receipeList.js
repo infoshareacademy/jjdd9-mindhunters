@@ -1,3 +1,5 @@
+
+
 $(document).ready(function () {
 
     let content = null;
@@ -35,6 +37,38 @@ $(document).ready(function () {
     });
 
 })
+
+$(document).ready(function () {
+
+    let content = null;
+
+    $('#ID02').on('click', '*', function () {
+        content = $(this).text().trim();
+
+        let url = new URL(window.location);
+
+
+        var searchParams = url.searchParams;
+
+
+        searchParams.set("page", "1");
+
+        if (searchParams.get("alcoholicStatus") == content){
+            searchParams.delete("alcoholicStatus");
+        } else searchParams.set("alcoholicStatus", content);
+
+        window.location = url;
+
+
+    });
+
+})
+
+
+
+
+
+
 
 
 async function nextPage() {
