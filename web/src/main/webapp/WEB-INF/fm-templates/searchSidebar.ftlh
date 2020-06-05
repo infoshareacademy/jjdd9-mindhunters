@@ -8,7 +8,7 @@
             </div>
         </div>
         <br>
-        <input id="search-by-name" class="rounded-input" type="submit" name="search-by-name" value="Search by name">
+        <input id="search-by-name" class="rounded-input" type="submit" value="Search by name">
         <br><br><br>
     </form>
 
@@ -32,7 +32,7 @@
 
         </div>
         <br>
-        <input type="submit" name="search-by-ingredients" class="rounded-input"
+        <input type="submit" class="rounded-input"
                value="Search by ingredients"/>
         <br/><br><br>
     </form>
