@@ -7,7 +7,7 @@
 
 <ul class="pagination justify-content-center ">
 
-    <li class="page-item"><a class="page-link" href="${"/list?page=" + 1 + "&&" +  queryName!}">&laquo;</a></li>
+    <li class="page-item altColor"><a class="page-link" href="${"/list?page=" + 1 + "&&" +  queryName!}">&laquo;</a></li>
 
     <li class="page-item "></li>
     <#if (currentPage >=  2) >

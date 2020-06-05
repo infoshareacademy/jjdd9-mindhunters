@@ -19,10 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @WebServlet("/search")
@@ -48,12 +45,18 @@ public class DrinkSearchServlet extends HttpServlet {
         Template template = templateProvider.getTemplate(getServletContext(), "receipeSearchList.ftlh");
         Map<String, Object> dataModel = new HashMap<>();
         final int maxPage;
+        int currentPage;
 
-        final String search = req.getParameter("search-type");
-        final int currentPage = Integer.parseInt(req.getParameter("page"));
-        final String ingredientsParams = req.getParameter("ing");
+        final String searchType = req.getParameter("search");
+        String pageNumberReq = req.getParameter("page");
 
-        if (search == null || search.length() == 0) {
+        if (!userInputValidator.validatePageNumber(pageNumberReq)) {
+            currentPage = Integer.parseInt(req.getParameter("page"));
+        } else {
+            currentPage = 1;
+        }
+
+        if (searchType == null || searchType.length() == 0) {
 
             final List<FullDrinkView> paginatedDrinkList = drinkService.paginationDrinkList(currentPage);
 
@@ -64,7 +67,7 @@ public class DrinkSearchServlet extends HttpServlet {
             dataModel.put("maxPageSize", maxPage);
         } else {
 
-            switch (search) {
+            switch (searchType) {
 
                 case "name":
 
@@ -79,53 +82,65 @@ public class DrinkSearchServlet extends HttpServlet {
                     final List<FullDrinkView> foundDrinksByName =
                             drinkService.findDrinksByName(partialDrinkName.trim(), currentPage);
 
-                    String queryName = "name=" + partialDrinkName;
+                    if (foundDrinksByName == null || foundDrinksByName.isEmpty()) {
+                        dataModel.put("errorMessage", "Drink not found.\n");
+                        break;
+                    }
+
+
+                    String queryName = "search=name&name=" + partialDrinkName;
+                    maxPage = drinkService.maxPageNumberDrinksByName(partialDrinkName);
 
                     dataModel.put("drinkList", foundDrinksByName);
                     dataModel.put("queryName", queryName);
-
-                    maxPage = drinkService.maxPageNumberDrinksByName(partialDrinkName);
-
                     dataModel.put("maxPageSize", maxPage);
 
                     logger.info("Drink list found by name sent to ftlh view");
                     break;
 
-                case "ingredient":
+                case "ingr":
 
+                    final String[] ingredientParams = req.getParameterValues("ing");
 
-                    final String[] ingredientNames = req.getParameterValues("ingr");
-
-                    if (ingredientNames == null || ingredientNames.length == 0) {
-                        dataModel.put("errorMessage", "Wrong input.\n");
+                    if (ingredientParams == null || ingredientParams.length == 0) {
+                        dataModel.put("errorMessage", "Ingredients not found.\n");
                         break;
                     }
 
-                    final List<String> ingredientNamesFiltered = Arrays.stream(ingredientNames)
+                    final Set<String> ingredientDistinctNamesFiltered = Arrays.stream(ingredientParams)
                             .filter(i -> !(i.isBlank()))
                             .filter(s -> userInputValidator.validateSpecialChars(s))
                             .map(String::trim)
-                            .collect(Collectors.toList());
+                            .collect(Collectors.toSet());
+
+                    final List<String> ingredientNamesFiltered = new ArrayList<>(ingredientDistinctNamesFiltered);
 
                     List<IngredientView> foundIngredientsByName = ingredientService.findIngredientsByName(ingredientNamesFiltered);
 
                     if (foundIngredientsByName == null || foundIngredientsByName.size() == 0) {
                         dataModel.put("errorMessage", "Ingredients not found.\n");
-                        logger.info("Ingredients input not found in database.");
+                        logger.info("Ingredients not found in database.");
                         break;
                     }
 
 
-                    String ingrQueryName = "ingr=" + Arrays.stream(ingredientNames).collect(Collectors.joining("&&ingr" +
+                    String queryIngr = "search=ingr&ing=" + Arrays.stream(ingredientParams).collect(Collectors.joining(
+                            "&ing" +
                             "="));
 
                     final List<FullDrinkView> foundDrinksByIngredients =
                             drinkService.findDrinkByIngredients(foundIngredientsByName, currentPage);
-                    dataModel.put("drinkList", foundDrinksByIngredients);
-                    dataModel.put("queryName", ingrQueryName);
+
+                    if (foundDrinksByIngredients == null || foundDrinksByIngredients.size() == 0) {
+                        dataModel.put("errorMessage", "Drinks not found.\n");
+                        logger.info("Ingredients not found in database.");
+                        break;
+                    }
 
                     maxPage = drinkService.maxPageNumberDrinksByIngredients(foundIngredientsByName);
 
+                    dataModel.put("drinkList", foundDrinksByIngredients);
+                    dataModel.put("queryName", queryIngr);
                     dataModel.put("maxPageSize", maxPage);
 
                     logger.info("Drink list found by ingredient sent to ftlh view.");
@@ -144,63 +159,4 @@ public class DrinkSearchServlet extends HttpServlet {
         }
     }
 
-
-    /*@Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html; charset=UTF-8");
-        Template template = templateProvider.getTemplate(getServletContext(), "receipeSearchList.ftlh");
-        Map<String, Object> dataModel = new HashMap<>();
-        final String search = req.getParameter("search-type");
-
-        switch (search) {
-
-            case "name":
-                final String partialDrinkName = req.getParameter("drink-name");
-
-                if (partialDrinkName == null || partialDrinkName.isEmpty() || !userInputValidator.validateSpecialChars(partialDrinkName.trim())) {
-                    dataModel.put("errorMessage", "Name not found.\n");
-                    break;
-                }
-
-                final List<FullDrinkView> foundDrinksByName = drinkService.findDrinksByName(partialDrinkName.trim());
-                dataModel.put("drinkList", foundDrinksByName);
-                logger.info("Drink list found by name sent to ftlh view");
-                break;
-
-            case "ingredient":
-                final String[] ingredientNames = req.getParameterValues("drink-ingredients");
-
-                if (ingredientNames == null || ingredientNames.length == 0) {
-                    dataModel.put("errorMessage", "Wrong input.\n");
-                    break;
-                }
-
-                final List<String> ingredientNamesFiltered = Arrays.stream(ingredientNames)
-                        .filter(i -> !(i.isBlank()))
-                        .filter(s -> userInputValidator.validateSpecialChars(s))
-                        .map(String::trim)
-                        .collect(Collectors.toList());
-
-                List<IngredientView> foundIngredientsByName = ingredientService.findIngredientsByName(ingredientNamesFiltered);
-
-                if (foundIngredientsByName == null || foundIngredientsByName.size() == 0) {
-                    dataModel.put("errorMessage", "Ingredients not found.\n");
-                    logger.info("Ingredients input not found in database.");
-                    break;
-                }
-
-                final List<FullDrinkView> foundDrinksByIngredients =
-                        drinkService.findDrinkByIngredients(foundIngredientsByName);
-                dataModel.put("drinkList", foundDrinksByIngredients);
-                logger.info("Drink list found by ingredient sent to ftlh view.");
-                break;
-        }
-
-        try {
-            template.process(dataModel, resp.getWriter());
-        } catch (TemplateException e) {
-            logger.error(e.getMessage());
-
-        }
-    }*/
 }

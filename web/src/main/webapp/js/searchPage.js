@@ -83,7 +83,8 @@ async function nextPage() {
     let pageNumber = parseInt(params.get('page'));
 
     let newPageNumber = pageNumber + 1;
-    params.set('page', (newPageNumber).toString());
+    params.set('page', (newPageNumber).toString());i
+    //z url brał paramtr serarch type
     let newURL = 'http://localhost:8080/search?' + params.toString();
     location.replace(newURL);
 

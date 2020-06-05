@@ -1,6 +1,7 @@
 package com.infoshareacademy.service.validator;
 
 import javax.enterprise.context.RequestScoped;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,5 +15,10 @@ public class UserInputValidator {
         return matcher.matches();
     }
 
+    public boolean validatePageNumber(String page){
+        Pattern compiledPattern = Pattern.compile("\\d*");
+        Matcher matcher = compiledPattern.matcher(page);
+        return matcher.matches();
+    }
 
 }
