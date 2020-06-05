@@ -36,11 +36,11 @@ $(document).ready(function () {
 //do przerobienia
 
 
-$(document).ready(function () {
+/*$(document).ready(function () {
 
     let content = null;
 
-    $('#search-by-name').on('click', '*', function () {
+    $('#search-by-name').on('click', function () {
         content = $(this).children('p').text().trim();
 
         let url = new URL(window.location);
@@ -72,7 +72,7 @@ $(document).ready(function () {
         }
     });
 
-})
+})*/
 
 
 async function nextPage() {
@@ -84,7 +84,7 @@ async function nextPage() {
 
     let newPageNumber = pageNumber + 1;
     params.set('page', (newPageNumber).toString());
-    let newURL = 'http://localhost:8080/list?' + params.toString();
+    let newURL = 'http://localhost:8080/search?' + params.toString();
     location.replace(newURL);
 
 }
@@ -99,7 +99,7 @@ async function previousPage() {
     let newPageNumber = pageNumber - 1;
     if (newPageNumber > 0) {
         params.set('page', (newPageNumber).toString());
-        let newURL = 'http://localhost:8080/list?' + params.toString();
+        let newURL = 'http://localhost:8080/search?' + params.toString();
         location.replace(newURL);
 
     }
@@ -115,7 +115,7 @@ async function setPage() {
     let newPageNumber = pageNumber - 1;
     if (newPageNumber > 0) {
         params.set('page', (newPageNumber).toString());
-        let newURL = 'http://localhost:8080/list?' + params.toString();
+        let newURL = 'http://localhost:8080/search?' + params.toString();
         location.replace(newURL);
 
     }

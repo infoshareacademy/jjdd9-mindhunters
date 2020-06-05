@@ -38,7 +38,8 @@ public class DrinkRepositoryBean implements DrinkRepository {
     @Override
     public int maxPageNumberDrinksByName(String partialDrinkName) {
         Query drinkQuery = entityManager.createNamedQuery("Drink.countDrinksByPartialName");
-        String querySize =  drinkQuery.getSingleResult().toString();
+        drinkQuery.setParameter("partialDrinkName", "%" + partialDrinkName + "%");
+        Long querySize =  (Long)drinkQuery.getSingleResult();
         int maxPageNumber = (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
         return maxPageNumber;
 
@@ -93,7 +94,7 @@ public class DrinkRepositoryBean implements DrinkRepository {
 
 
         query.setParameter("ingredients", ingredients);
-        String querySize = query.getSingleResult().toString();
+        Long querySize =  (Long)query.getSingleResult();
         int maxPageNumber = (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
         return maxPageNumber;
     }

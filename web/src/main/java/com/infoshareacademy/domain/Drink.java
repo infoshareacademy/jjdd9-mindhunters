@@ -13,7 +13,7 @@ import java.util.List;
                 query = "select distinct d from Drink d join d.drinkIngredients di where di.ingredient IN " +
                         ":ingredients "),
         @NamedQuery(
-                name = "Drink.countDrinkByIngredients",
+                name = "Drink.countDrinksByIngredients",
                 query = "select distinct COUNT(d) from Drink d join d.drinkIngredients di where di.ingredient IN " +
                         ":ingredients "),
         @NamedQuery(
