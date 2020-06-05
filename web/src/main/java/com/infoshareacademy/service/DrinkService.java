@@ -7,11 +7,16 @@ import com.infoshareacademy.domain.dto.IngredientView;
 import com.infoshareacademy.repository.DrinkRepository;
 import com.infoshareacademy.service.mapper.FullDrinkMapper;
 import com.infoshareacademy.service.mapper.IngredientMapper;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Stateless
 public class DrinkService {
@@ -25,7 +30,6 @@ public class DrinkService {
 
     @Inject
     private IngredientMapper ingredientMapper;
-
 
 
     public FullDrinkView findDrinkById(Long drinkId) {
@@ -62,7 +66,7 @@ public class DrinkService {
         return fullDrinkMapper.toView(drinks);
     }
 
-    public List<FullDrinkView> findAllDrinksByCategories(List<Long> category,int pageNumber) {
+    public List<FullDrinkView> findByCategories(List<Long> category, int pageNumber) {
         List<Drink> drinks = drinkRepository.paginatedDrinksByCategories(category, pageNumber);
         return fullDrinkMapper.toView(drinks);
     }
@@ -79,9 +83,69 @@ public class DrinkService {
     }
 
 
-    public int maxPageNumberDrinksByCategories(List<Long> category) {
+    public int maxPageNumberByCategories(List<Long> category) {
         int maxPageNumber = drinkRepository.maxPageNumberDrinksByCategories(category);
         return maxPageNumber;
 
     }
+
+
+    public SearchType checkingSearchingCase(Map<String, String[]> searchParam, int currentPage) {
+
+
+        SearchType searchType = new SearchType();
+
+        if (searchParam.containsKey("category") && searchParam.containsKey("alcoholicStatus")) {
+
+
+            return null;
+
+
+        } else if (searchParam.containsKey("category")) {
+
+
+            String[] query = searchParam.get("category");
+
+            List<Long> searchingCategory = Arrays.stream(query)
+                    .filter(Objects::nonNull)
+                    .filter(StringUtils::isNoneBlank)
+                    .filter(s -> s.matches("[0-9]+"))
+                    .map(s -> Long.valueOf(s))
+                    .collect(Collectors.toList());
+
+            List<FullDrinkView> drinksByCategories = findByCategories(searchingCategory, currentPage);
+
+            searchType.setDrinkViewList(drinksByCategories);
+
+            String queryName = "category=" + Arrays.stream(query).collect(Collectors.joining("&&category="));
+
+            searchType.setQueryName(queryName);
+
+            int maxPage = maxPageNumberByCategories(searchingCategory);
+
+            searchType.setMaxPage(maxPage);
+
+            return searchType;
+
+
+        } else if (searchParam.containsKey("alcoholicStatus")) {
+
+
+            return null;
+        } else {
+
+            List<FullDrinkView> paginatedDrinkList = paginationDrinkList(currentPage);
+
+            int maxPage = maxPageNumberDrinkList();
+
+            searchType.setMaxPage(maxPage);
+
+            return searchType;
+
+        }
+
+
+    }
+
+
 }
