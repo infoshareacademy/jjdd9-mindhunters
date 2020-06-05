@@ -12,10 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Stateless
@@ -61,33 +58,40 @@ public class DrinkService {
     }*/
 
 
-    public List<FullDrinkView> findAllDrinks() {
-        List<Drink> drinks = drinkRepository.findAllDrinks();
-        return fullDrinkMapper.toView(drinks);
-    }
-
     public List<FullDrinkView> findByCategories(List<Long> category, int pageNumber) {
-        List<Drink> drinks = drinkRepository.paginatedDrinksByCategories(category, pageNumber);
+        List<Drink> drinks = drinkRepository.findByCategories(category, pageNumber);
         return fullDrinkMapper.toView(drinks);
     }
 
-    public List<FullDrinkView> paginationDrinkList(int pageNumber) {
-        List<Drink> drinks = drinkRepository.paginatedDrinksList(pageNumber);
+    public List<FullDrinkView> findAll(int pageNumber) {
+        List<Drink> drinks = drinkRepository.findAllDrinks(pageNumber);
         return fullDrinkMapper.toView(drinks);
     }
 
-    public int maxPageNumberDrinkList() {
-        int maxPageNumber = drinkRepository.maxPageNumberDrinkList();
+    public int maxPageNumberFindAll() {
+        int maxPageNumber = drinkRepository.maxPageNumberFindAll();
         return maxPageNumber;
 
     }
 
 
     public int maxPageNumberByCategories(List<Long> category) {
-        int maxPageNumber = drinkRepository.maxPageNumberDrinksByCategories(category);
+        int maxPageNumber = drinkRepository.maxPageNumberByCategories(category);
         return maxPageNumber;
 
     }
+
+    public List<FullDrinkView> findByAlcoholStatus (List<String> alcoholStatus, int pageNumber) {
+        List<Drink> drinks = drinkRepository.findByAlcoholStatus(alcoholStatus, pageNumber);
+        return fullDrinkMapper.toView(drinks);
+    }
+
+    public int maxPageNumberByAlcoholStatus(List<String> alcoholStatus) {
+        int maxPageNumber = drinkRepository.maxPageNumberByAlcoholStatus(alcoholStatus);
+        return maxPageNumber;
+
+    }
+
 
 
     public SearchType checkingSearchingCase(Map<String, String[]> searchParam, int currentPage) {
@@ -95,8 +99,7 @@ public class DrinkService {
 
         SearchType searchType = new SearchType();
 
-        if (searchParam.containsKey("category") && searchParam.containsKey("alcoholicStatus")) {
-
+        if (searchParam.containsKey("category") && searchParam.containsKey("alcoholStatus")) {
 
             return null;
 
@@ -128,17 +131,39 @@ public class DrinkService {
             return searchType;
 
 
-        } else if (searchParam.containsKey("alcoholicStatus")) {
+        } else if (searchParam.containsKey("alcoholStatus")) {
 
+            String[] query = searchParam.get("alcoholStatus");
 
-            return null;
-        } else {
+            List<String> searchingAlcoholStatus = Arrays.stream(query)
+                    .filter(Objects::nonNull)
+                    .filter(StringUtils::isNoneBlank)
+                    .collect(Collectors.toList());
 
-            List<FullDrinkView> paginatedDrinkList = paginationDrinkList(currentPage);
+            List<FullDrinkView> drinksByAlcoholStatus = findByAlcoholStatus(searchingAlcoholStatus,currentPage);
 
-            int maxPage = maxPageNumberDrinkList();
+            searchType.setDrinkViewList(drinksByAlcoholStatus);
+
+            String queryName = "alcoholStatus=" + Arrays.stream(query).collect(Collectors.joining("&&alcoholStatus="));
+
+            searchType.setQueryName(queryName);
+
+            int maxPage = maxPageNumberByAlcoholStatus(searchingAlcoholStatus);
 
             searchType.setMaxPage(maxPage);
+
+            return searchType;
+
+        } else {
+
+            List<FullDrinkView> paginatedDrinkList = findAll(currentPage);
+
+            int maxPage = maxPageNumberFindAll();
+
+
+            searchType.setDrinkViewList(paginatedDrinkList);
+            searchType.setMaxPage(maxPage);
+
 
             return searchType;
 

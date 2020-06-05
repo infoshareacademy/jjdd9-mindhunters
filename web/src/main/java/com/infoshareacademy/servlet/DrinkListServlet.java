@@ -35,11 +35,12 @@ public class DrinkListServlet extends HttpServlet {
     @EJB
     private CategoryService categoryService;
 
-    @EJB
-    private SearchType searchType;
+//    @EJB
+//    private SearchType searchType;
 
     @Inject
     private TemplateProvider templateProvider;
+
 
 
     @Override

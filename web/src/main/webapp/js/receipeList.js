@@ -53,9 +53,9 @@ $(document).ready(function () {
 
         searchParams.set("page", "1");
 
-        if (searchParams.get("alcoholicStatus") == content){
-            searchParams.delete("alcoholicStatus");
-        } else searchParams.set("alcoholicStatus", content);
+        if (searchParams.get("alcoholStatus") == content){
+            searchParams.delete("alcoholStatus");
+        } else searchParams.set("alcoholStatus", content);
 
         window.location = url;
 
