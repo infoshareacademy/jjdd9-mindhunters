@@ -55,6 +55,19 @@
     animation: glow 1s ease-in-out infinite alternate;
 }
 
+.load-file-browse{
+    position: absolute;
+    left:110%;
+    bottom:70%;
+    width: 250px;
+}
+.custom-file{
+    background-color: #fed136;
+    border-color: #1b1e21;
+    width: 150px;
+}
+
+
 @-webkit-keyframes glow {
     from {
         text-shadow: 0 0 10px #fff, 0 0 20px #fed136, 0 0 30px orangered, 0 0 40px #fd7e14, 0 0 40px #fd7e14, 0 0 50px #e60073, 0 0 60px red, 0 0 70px darkred;
@@ -231,6 +244,8 @@
 
 .vis-of-btn{
     visibility: hidden;
+    width: 200px;
+
 }
 
 @media (prefers-reduced-motion: reduce) {

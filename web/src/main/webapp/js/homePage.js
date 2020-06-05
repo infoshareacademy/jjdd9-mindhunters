@@ -29,13 +29,13 @@
             }
         }
     });
-//
+
 //     // Closes responsive menu when a scroll trigger link is clicked
     $(".js-scroll-trigger").click(function () {
         $(".navbar-collapse").collapse("hide");
     });
 
-    // Activate scrollspy to add active class to navbar items on scroll
+//    // Activate scrollspy to add active class to navbar items on scroll
     $("body").scrollspy({
         target: "#mainNav",
         offset: 74,
@@ -60,28 +60,6 @@
 })(jQuery); // End of use strict
 
 $(document).ready(function () {
-
-    // $("#switch1").click(function () {
-    //
-    //     $("#card2").toggle();
-    // });
-    //
-    // $("#switch2").click(function () {
-    //     $("#card1").find("p").css('color', 'red');
-    //     $("#p-adddel").find("small").css('border', '1px solid black');
-    //     $("#card1").siblings().css('border', '4px solid yellow');
-    //
-    // });
-    //
-    // $("#switch3").click(function () {
-    //     $("#card1").find("p").remove();
-    // });
-    //
-    // $("#switch31").click(function () {
-    //     // $('#card3').load('Switchedcard.html');
-    //     document.getElementById("card3").innerHTML =
-    //         $('#card3').load('../../Switchedcard.html')
-    // });
 
     $("#submitLogin").click(function () {
         var val = document.getElementById("exampleDropdownFormEmail1").value;
@@ -164,4 +142,9 @@ $(document).ready(function () {
                 }, 2200);
         });
     }
+    $("#btn-admin2").click(function () {
+        $(".vis-of-btn").css({
+            visibility: "visible"
+        }).animate({},800);
+    });
 });

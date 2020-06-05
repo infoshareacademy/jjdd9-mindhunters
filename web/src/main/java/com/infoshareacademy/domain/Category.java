@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
                 query = "SELECT c.name FROM Category c"
         ),
         @NamedQuery(
-                name = "Category.getByname",
+                name = "Category.getByName",
                 query = "SELECT c FROM Category c where c.name= :name"
         )
 })

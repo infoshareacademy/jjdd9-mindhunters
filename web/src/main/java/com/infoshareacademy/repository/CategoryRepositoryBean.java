@@ -22,7 +22,7 @@ public class CategoryRepositoryBean {
     public Category getByName(String name) {
         // Szukamy po nazwie i wybieramy pierwszą kategorię
         // Jak nie ma to null;
-        Query qry = entityManager.createNamedQuery("category.getByName") ;
+        Query qry = entityManager.createNamedQuery("Category.getByName") ;
         qry.setParameter("name", name);
         List<Category> resultList = qry.getResultList();
         return resultList.size()==0 ? null : resultList.get(0);

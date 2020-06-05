@@ -3,6 +3,9 @@ package com.infoshareacademy.service;
 import com.infoshareacademy.domain.Ingredient;
 import com.infoshareacademy.domain.Measure;
 
+import javax.ejb.Stateless;
+
+@Stateless
 public class IngredientService {
 
 

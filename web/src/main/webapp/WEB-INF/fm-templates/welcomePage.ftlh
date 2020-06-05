@@ -33,29 +33,47 @@
                 </header>
             </div>
             <div class="over-photo2">
-                <span class="admin-btn-block vis-of-btn">
+                <span class="admin-btn-block vis-of-btn" id="admin-btn-block">
                     <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin" id="btn-admin1"
                     >USERS</a><br>
-                    <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin offlineDb"
+                    <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin"
                        id="btn-admin2" style=" ">LOAD DB FROM FILE</a>
-                    <div class="custom-file">
-                        <form method="post" action="/welcome" enctype="multipart/form-data" class="vis-of-btn" id="vis-of-btn">
 
-                        <label class="submit-btn" for="myfile"></label><br>
-                        <input type="file" id="jsonFile" name="jsonFile" multiple><br><br>
-                         <input
-                                class="submit-btn" type="submit">
-
-                    </form>
-                    </div>
 
                     <br>
                     <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin" id="btn-admin3"
-                    >SETTINGS</a><br>
+                    a href="/json-load">SETTINGS</a><br>
                     <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin" id="btn-admin-back"
                     >BACK</a>
                 </span>
+                <div class="custom-file load-file-browse">
+                    <form method="post" action="/json-load" enctype="multipart/form-data" class="vis-of-btn" id="vis-of-btn">
+
+                        <label class="submit-btn" for="myfile"></label><br>
+                        <input type="file" id="jsonFile" name="jsonFile" multiple><br><br>
+                        <input
+                                class="submit-btn" type="submit">
+
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03">Button</button>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03">Button</button>
+                            </div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03">
+                                <label class="custom-file-label" for="inputGroupFile03">Choose file</label>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
             </div>
+
+
+
+
         </div>
     </div>
 </div>

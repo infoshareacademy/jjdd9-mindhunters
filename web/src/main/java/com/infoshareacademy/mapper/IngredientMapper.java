@@ -6,10 +6,13 @@ import com.infoshareacademy.domain.IngredientJson;
 import com.infoshareacademy.domain.Measure;
 import com.infoshareacademy.service.IngredientService;
 
-//@RequestScoped
+import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
+
+@RequestScoped
 public class IngredientMapper {
 
-//    @EJB
+    @EJB
     private IngredientService ingredientService;
 
     public DrinkIngredient toEntity(IngredientJson ingredientJson) {

@@ -25,4 +25,6 @@ public class DrinkService {
         return drinkRepository.paginationDrinkList(pageNumber);
     }
 
+    // TODO napisać metodę save, która na DringRepositoryBean wykonuje save(drink)
+
 }
