@@ -105,7 +105,8 @@ public class DrinkService {
 
             List<FullDrinkView> drinksByCategoriesAndAlcoholStatus = findByCategoriesAndAlcoholStatus (searchingCategory, searchingAlcoholStatus, currentPage);
 
-            String queryName = "category=" + Arrays.stream(categoriesQuery).collect(Collectors.joining("&&category=")); /////TODO
+            String queryName = "category=" + Arrays.stream(categoriesQuery).collect(Collectors.joining("&&category="))
+                    + "alcoholStatus=" + Arrays.stream(categoriesQuery).collect(Collectors.joining("&&alcoholStatus="));
 
             searchType.setDrinkViewList(drinksByCategoriesAndAlcoholStatus);
 

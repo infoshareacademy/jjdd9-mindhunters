@@ -1,11 +1,9 @@
-
-
 $(document).ready(function () {
 
     let content = null;
 
-        $('#ID01').on('click', '*', function () {
-            content = $(this).children('p').text().trim();
+    $('#ID01').on('click', '*', function () {
+        content = $(this).children('p').text().trim();
 
         let url = new URL(window.location);
 
@@ -22,15 +20,18 @@ $(document).ready(function () {
             window.location = url;
         } else {
 
-            let searchArray = searchParams.getAll("category");
+            let searchByCategory = searchParams.getAll("category");
+            let searchByAlcoholStatus = searchParams.getAll("alcoholStatus");
 
-            searchArray.splice(searchArray.indexOf(content), 1);
-            if (searchArray.length >= 1) {
-                var newUrl = "&category=" + searchArray.join("&category=");
+            searchByCategory.splice(searchByCategory.indexOf(content), 1);
+            if (searchByCategory.length >= 1) {
+                var newUrl = "&category=" + searchByCategory.join("&category=")
+                    + "&alcoholStatus=" + searchByAlcoholStatus.join("&alcoholStatus=");
 
             } else {
-                newUrl = "";
+                newUrl = searchByAlcoholStatus;
             }
+
 
             window.location = '/list?page=1' + newUrl;
         }
@@ -39,7 +40,6 @@ $(document).ready(function () {
 })
 
 $(document).ready(function () {
-
 
 
     let content = null;
@@ -56,28 +56,26 @@ $(document).ready(function () {
         searchParams.set("page", "1");
 
         if (!searchParams.getAll("alcoholStatus").includes(content)) {
-            sessionStorage.removeItem("reloading");
 
             searchParams.append("alcoholStatus", content);
 
             window.location = url;
-            $(this).toggleClass("backGround");
 
         } else {
             sessionStorage.removeItem("reloading");
 
-            let searchArray = searchParams.getAll("alcoholStatus");
+            let searchByCategory = searchParams.getAll("category");
+            let searchByAlcoholStatus = searchParams.getAll("alcoholStatus");
 
-            searchArray.splice(searchArray.indexOf(content), 1);
-            if (searchArray.length >= 1) {
-                var newUrl = "&alcoholStatus=" + searchArray.join("&alcoholStatus=");
+            searchByAlcoholStatus.splice(searchByAlcoholStatus.indexOf(content), 1);
+            if (searchByAlcoholStatus.length >= 1) {
+                var newUrl = "&alcoholStatus=" + searchByAlcoholStatus.join("&alcoholStatus=")
+                    + "&category=" + searchByCategory.join("&category=");
 
             } else {
-                newUrl = "";
+                newUrl = searchByCategory;
             }
 
-
-            $(this).toggleClass("checked");
             window.location = '/list?page=1' + newUrl;
 
         }
