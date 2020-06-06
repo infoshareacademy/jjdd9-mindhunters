@@ -31,5 +31,7 @@ public interface DrinkRepository {
 
     int maxPageNumberDrinksByName(String name);
 
+    List<Drink> liveSearchDrinksByName(String partialDrinkName);
+
 
 }

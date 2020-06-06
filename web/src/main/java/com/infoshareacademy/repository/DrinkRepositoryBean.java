@@ -18,12 +18,14 @@ public class DrinkRepositoryBean implements DrinkRepository {
     EntityManager entityManager;
 
     public final static Integer PAGE_SIZE = 5;
+    public final static Integer LIVE_SEARCH_LIMIT = 10;
 
     public Drink findDrinkById(Long drinkId) {
 
         return entityManager.find(Drink.class, drinkId);
     }
 
+    @Override
     public List<Drink> paginatedFindDrinksByName(String partialDrinkName, int pageNumber) {
         Query drinkQuery = entityManager.createNamedQuery("Drink.findDrinkByPartialName");
         drinkQuery.setHint(QueryHints.HINT_PASS_DISTINCT_THROUGH, false);
@@ -34,6 +36,16 @@ public class DrinkRepositoryBean implements DrinkRepository {
         drinkQuery.setParameter("partialDrinkName", "%" + partialDrinkName + "%");
         return drinkQuery.getResultList();
     }
+
+    @Override
+    public List<Drink> liveSearchDrinksByName(String partialDrinkName) {
+        Query drinkQuery = entityManager.createNamedQuery("Drink.findDrinkByPartialName");
+        drinkQuery.setHint(QueryHints.HINT_PASS_DISTINCT_THROUGH, false);
+        drinkQuery.setMaxResults(LIVE_SEARCH_LIMIT);
+        drinkQuery.setParameter("partialDrinkName", "%" + partialDrinkName + "%");
+        return drinkQuery.getResultList();
+    }
+
 
     @Override
     public int maxPageNumberDrinksByName(String partialDrinkName) {
