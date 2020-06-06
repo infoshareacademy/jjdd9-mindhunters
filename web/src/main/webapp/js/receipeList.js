@@ -40,6 +40,8 @@ $(document).ready(function () {
 
 $(document).ready(function () {
 
+
+
     let content = null;
 
     $('#ID02').on('click', '*', function () {
@@ -53,23 +55,36 @@ $(document).ready(function () {
 
         searchParams.set("page", "1");
 
-        if (searchParams.get("alcoholStatus") == content){
-            searchParams.delete("alcoholStatus");
-        } else searchParams.set("alcoholStatus", content);
+        if (!searchParams.getAll("alcoholStatus").includes(content)) {
+            sessionStorage.removeItem("reloading");
 
-        window.location = url;
+            searchParams.append("alcoholStatus", content);
 
+            window.location = url;
+            $(this).toggleClass("backGround");
+
+        } else {
+            sessionStorage.removeItem("reloading");
+
+            let searchArray = searchParams.getAll("alcoholStatus");
+
+            searchArray.splice(searchArray.indexOf(content), 1);
+            if (searchArray.length >= 1) {
+                var newUrl = "&alcoholStatus=" + searchArray.join("&alcoholStatus=");
+
+            } else {
+                newUrl = "";
+            }
+
+
+            $(this).toggleClass("checked");
+            window.location = '/list?page=1' + newUrl;
+
+        }
 
     });
 
 })
-
-
-
-
-
-
-
 
 async function nextPage() {
     let url = new URL(window.location); // or construct from window.location

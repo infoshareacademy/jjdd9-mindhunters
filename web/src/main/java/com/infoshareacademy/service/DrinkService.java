@@ -45,19 +45,6 @@ public class DrinkService {
         return fullDrinkMapper.toView(foundDrinksByIngredients);
     }
 
-
-
-/*    public List<Drink> findDrinkById(String partialDrinkName) {
-
-        if (partialDrinkName.length() < 2) {
-            //pusta lista + brak resultatów albo error/wyjatek/za krótka nazwa
-
-        }
-
-        return drinkRepository.findAllDrinks().stream();
-    }*/
-
-
     public List<FullDrinkView> findByCategories(List<Long> category, int pageNumber) {
         List<Drink> drinks = drinkRepository.findByCategories(category, pageNumber);
         return fullDrinkMapper.toView(drinks);
@@ -73,7 +60,6 @@ public class DrinkService {
         return maxPageNumber;
 
     }
-
 
     public int maxPageNumberByCategories(List<Long> category) {
         int maxPageNumber = drinkRepository.maxPageNumberByCategories(category);
@@ -101,8 +87,6 @@ public class DrinkService {
         int maxPageNumber = drinkRepository.maxPageNumberByCategoriesAndAlcoholStatus(category, alcoholStatus);
         return maxPageNumber;
     }
-
-
 
     public SearchType checkingSearchingCase(Map<String, String[]> searchParam, int currentPage) {
 

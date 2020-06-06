@@ -54,15 +54,17 @@
                                                 ${drink.categoryView.name}
 
                                             </h5>
+
+
                                         </div>
                                         <div class="line-clamp mx-2 my-2 mt-4 mr-4 d-none d-md-block">
                                             ${drink.recipe}
                                         </div>
                                         <div class="line-clamp mx-2 my-2 mt-4 mr-4 ml-4 text-center text-md-right"
-                                            <#if drink.alcoholStatus == "Alcoholic">
-                                            style="color: #dc3545"
-                                            </#if>
-                                            >
+                                                <#if drink.alcoholStatus == "Alcoholic">
+                                                    style="color: #dc3545"
+                                                </#if>
+                                        >
                                             ${drink.alcoholStatus}
                                         </div>
                                     </div>
@@ -70,6 +72,12 @@
                             </div>
                         </li>
                     </#list>
+
+                    <#if !(drinkList?has_content) >
+
+                        <#include "emptyList.ftlh">
+
+                    </#if>
                 </ul>
             </div>
         </div>
