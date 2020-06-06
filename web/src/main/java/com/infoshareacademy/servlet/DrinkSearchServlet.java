@@ -44,28 +44,18 @@ public class DrinkSearchServlet extends HttpServlet {
         resp.setContentType("text/html; charset=UTF-8");
 
         Map<String, Object> dataModel = new HashMap<>();
-        final int maxPage;
-
+        int maxPage;
+        int currentPage = 0;
 
         final String searchType = req.getParameter("search");
-
-
         String pageNumberReq = req.getParameter("page");
-        int currentPage = 0;
-        if (pageNumberReq.matches("-?(0|[1-9]\\d*)")){
-            currentPage = Integer.parseInt(req.getParameter("page"));
-        } else {
-            currentPage = 1;
-        }
+
+        currentPage = getFirstPageWhenWrongPageNumber(req, pageNumberReq);
+
         if (searchType == null || searchType.length() == 0) {
 
-            final List<FullDrinkView> paginatedDrinkList = drinkService.paginationDrinkList(currentPage);
+            displayAllDrinks(dataModel, currentPage);
 
-            dataModel.put("drinkList", paginatedDrinkList);
-
-            maxPage = drinkService.maxPageNumberDrinkList();
-
-            dataModel.put("maxPageSize", maxPage);
         } else {
 
             switch (searchType) {
@@ -88,12 +78,10 @@ public class DrinkSearchServlet extends HttpServlet {
                         break;
                     }
 
-
-                    String queryName = "name=" + partialDrinkName;
                     maxPage = drinkService.maxPageNumberDrinksByName(partialDrinkName);
 
                     dataModel.put("drinkList", foundDrinksByName);
-                    dataModel.put("queryName", queryName);
+                    dataModel.put("queryName", buildNameQuery(partialDrinkName));
                     dataModel.put("maxPageSize", maxPage);
 
                     logger.info("Drink list found by name sent to ftlh view");
@@ -125,10 +113,6 @@ public class DrinkSearchServlet extends HttpServlet {
                     }
 
 
-                    String queryIngr = "search=ingr&ing=" + Arrays.stream(ingredientParams).collect(Collectors.joining(
-                            "&ing" +
-                            "="));
-
                     final List<FullDrinkView> foundDrinksByIngredients =
                             drinkService.findDrinkByIngredients(foundIngredientsByName, currentPage);
 
@@ -141,13 +125,17 @@ public class DrinkSearchServlet extends HttpServlet {
                     maxPage = drinkService.maxPageNumberDrinksByIngredients(foundIngredientsByName);
 
                     dataModel.put("drinkList", foundDrinksByIngredients);
-                    dataModel.put("queryName", queryIngr);
+                    dataModel.put("queryName", buildIngrQuery(ingredientNamesFiltered));
                     dataModel.put("maxPageSize", maxPage);
 
                     logger.info("Drink list found by ingredient sent to ftlh view.");
                     break;
-            }
 
+                default:
+
+                    displayAllDrinks(dataModel, currentPage);
+                    break;
+            }
 
         }
 
@@ -159,6 +147,42 @@ public class DrinkSearchServlet extends HttpServlet {
         } catch (TemplateException e) {
             logger.error(e.getMessage());
         }
+    }
+
+    private int getFirstPageWhenWrongPageNumber(HttpServletRequest req, String pageNumberReq) {
+        int currentPage;
+        if (userInputValidator.validatePageNumber(pageNumberReq)){
+            currentPage = Integer.parseInt(req.getParameter("page"));
+        } else {
+            currentPage = 1;
+        }
+        return currentPage;
+    }
+
+    private void displayAllDrinks(Map<String, Object> dataModel, int currentPage) {
+        int maxPage;
+        final List<FullDrinkView> paginatedDrinkList = drinkService.paginationDrinkList(currentPage);
+
+        dataModel.put("drinkList", paginatedDrinkList);
+
+        maxPage = drinkService.maxPageNumberDrinkList();
+
+        dataModel.put("maxPageSize", maxPage);
+    }
+
+    private String buildIngrQuery(List<String> ingredientNamesFiltered) {
+        StringBuilder queryIngrBuilder = new StringBuilder();
+        queryIngrBuilder.append("search=ingr&ing=");
+        queryIngrBuilder.append(ingredientNamesFiltered
+                .stream()
+                .collect(Collectors.joining("&ing=")));
+        return queryIngrBuilder.toString();
+    }
+
+    private String buildNameQuery(String partialDrinkName) {
+        StringBuilder queryNameBuilder = new StringBuilder();
+        queryNameBuilder.append("search=name&");
+        return queryNameBuilder.append("name=" + partialDrinkName).toString();
     }
 
 }

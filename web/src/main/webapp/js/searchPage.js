@@ -4,8 +4,8 @@ $(document).ready(function () {
     var maxField = 10; //Input fields increment limitation
     var addButton = $('.add_button'); //Add button selector
     var wrapper = $('.add-group'); //Input field wrapper
-    var fieldHTML = '<div class="list-group-item sidebar-list"><input type="text" minlength="2"' +
-        ' name="drink-ingredients"' +
+    var fieldHTML = '<div class="list-group-item sidebar-list"><input type="text" maxlength="20" minlength="2"' +
+        ' name="ing"' +
         ' value=""' +
         ' placeholder="Add ingredient"/><a' +
         ' id="remove_blue" href="javascript:void(0);"' +

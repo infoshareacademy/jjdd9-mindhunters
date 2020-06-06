@@ -7,7 +7,7 @@
 
     <ul class="pagination justify-content-center ">
 
-        <li class="page-item altColor"><a class="page-link" href="${"/search?page=" + 1 + "&&" +  queryName!}">&laquo;
+        <li class="page-item altColor"><a class="page-link" href="${"/search?page=" + 1 + "&" +  queryName!}">&laquo;
             </a></li>
 
         <li class="page-item "></li>
@@ -23,7 +23,7 @@
             <#if (i > 0 && i <= maxPageSize) >
                 <li class="page-item <#if i = currentPage> active </#if>">
                     <a class="page-link"
-                       href="${"/search?page=" + i + "&&" +  queryName!}">${i}</a>
+                       href="${"/search?page=" + i + "&" +  queryName!}">${i}</a>
                 </li>
             </#if>
 
@@ -36,7 +36,7 @@
         </li>
 
         <li class="page-item">
-            <a class="page-link" href="${"/search?page=" + maxPageSize + "&&" +  queryName!}">&raquo;</a>
+            <a class="page-link" href="${"/search?page=" + maxPageSize + "&" +  queryName!}">&raquo;</a>
         </li>
 
     </ul>
