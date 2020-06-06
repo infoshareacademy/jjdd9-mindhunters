@@ -42,20 +42,21 @@ public class DrinkSearchServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html; charset=UTF-8");
-        Template template = templateProvider.getTemplate(getServletContext(), "receipeSearchList.ftlh");
+
         Map<String, Object> dataModel = new HashMap<>();
         final int maxPage;
-        int currentPage;
+
 
         final String searchType = req.getParameter("search");
-        String pageNumberReq = req.getParameter("page");
 
-        if (!userInputValidator.validatePageNumber(pageNumberReq)) {
+
+        String pageNumberReq = req.getParameter("page");
+        int currentPage = 0;
+        if (pageNumberReq.matches("-?(0|[1-9]\\d*)")){
             currentPage = Integer.parseInt(req.getParameter("page"));
         } else {
             currentPage = 1;
         }
-
         if (searchType == null || searchType.length() == 0) {
 
             final List<FullDrinkView> paginatedDrinkList = drinkService.paginationDrinkList(currentPage);
@@ -88,7 +89,7 @@ public class DrinkSearchServlet extends HttpServlet {
                     }
 
 
-                    String queryName = "search=name&name=" + partialDrinkName;
+                    String queryName = "name=" + partialDrinkName;
                     maxPage = drinkService.maxPageNumberDrinksByName(partialDrinkName);
 
                     dataModel.put("drinkList", foundDrinksByName);
@@ -152,6 +153,7 @@ public class DrinkSearchServlet extends HttpServlet {
 
         dataModel.put("currentPage", currentPage);
 
+        Template template = templateProvider.getTemplate(getServletContext(), "receipeSearchList.ftlh");
         try {
             template.process(dataModel, resp.getWriter());
         } catch (TemplateException e) {
