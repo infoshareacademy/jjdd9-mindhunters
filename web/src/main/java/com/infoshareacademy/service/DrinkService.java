@@ -92,6 +92,16 @@ public class DrinkService {
 
     }
 
+    public List<FullDrinkView> findByCategoriesAndAlcoholStatus (List<Long> category, List<String> alcoholStatus, int pageNumber) {
+        List<Drink> drinks = drinkRepository.findByCategoriesAndAlcoholStatus(category, alcoholStatus, pageNumber);
+        return fullDrinkMapper.toView(drinks);
+    }
+
+    public int maxPageNumberByCategoriesAndAlcoholStatus (List<Long> category, List<String> alcoholStatus) {
+        int maxPageNumber = drinkRepository.maxPageNumberByCategoriesAndAlcoholStatus(category, alcoholStatus);
+        return maxPageNumber;
+    }
+
 
 
     public SearchType checkingSearchingCase(Map<String, String[]> searchParam, int currentPage) {
@@ -101,26 +111,40 @@ public class DrinkService {
 
         if (searchParam.containsKey("category") && searchParam.containsKey("alcoholStatus")) {
 
-            return null;
+            String[] categoriesQuery = searchParam.get("category");
+
+            List<Long> searchingCategory = searchByCategoryService(categoriesQuery);
+
+            String[] alcoholStatusQuery = searchParam.get("alcoholStatus");
+
+            List<String> searchingAlcoholStatus = searchByAlcoholStatusService(alcoholStatusQuery);
+
+            List<FullDrinkView> drinksByCategoriesAndAlcoholStatus = findByCategoriesAndAlcoholStatus (searchingCategory, searchingAlcoholStatus, currentPage);
+
+            String queryName = "category=" + Arrays.stream(categoriesQuery).collect(Collectors.joining("&&category=")); /////TODO
+
+            searchType.setDrinkViewList(drinksByCategoriesAndAlcoholStatus);
+
+            searchType.setQueryName(queryName);
+
+            int maxPage = maxPageNumberByCategoriesAndAlcoholStatus(searchingCategory, searchingAlcoholStatus);
+
+            searchType.setMaxPage(maxPage);
+
 
 
         } else if (searchParam.containsKey("category")) {
 
 
-            String[] query = searchParam.get("category");
+            String[] categoriesQuery = searchParam.get("category");
 
-            List<Long> searchingCategory = Arrays.stream(query)
-                    .filter(Objects::nonNull)
-                    .filter(StringUtils::isNoneBlank)
-                    .filter(s -> s.matches("[0-9]+"))
-                    .map(s -> Long.valueOf(s))
-                    .collect(Collectors.toList());
+            List<Long> searchingCategory = searchByCategoryService(categoriesQuery);
 
             List<FullDrinkView> drinksByCategories = findByCategories(searchingCategory, currentPage);
 
             searchType.setDrinkViewList(drinksByCategories);
 
-            String queryName = "category=" + Arrays.stream(query).collect(Collectors.joining("&&category="));
+            String queryName = "category=" + Arrays.stream(categoriesQuery).collect(Collectors.joining("&&category="));
 
             searchType.setQueryName(queryName);
 
@@ -128,17 +152,13 @@ public class DrinkService {
 
             searchType.setMaxPage(maxPage);
 
-            return searchType;
 
 
         } else if (searchParam.containsKey("alcoholStatus")) {
 
             String[] query = searchParam.get("alcoholStatus");
 
-            List<String> searchingAlcoholStatus = Arrays.stream(query)
-                    .filter(Objects::nonNull)
-                    .filter(StringUtils::isNoneBlank)
-                    .collect(Collectors.toList());
+            List<String> searchingAlcoholStatus = searchByAlcoholStatusService(query);
 
             List<FullDrinkView> drinksByAlcoholStatus = findByAlcoholStatus(searchingAlcoholStatus,currentPage);
 
@@ -152,7 +172,6 @@ public class DrinkService {
 
             searchType.setMaxPage(maxPage);
 
-            return searchType;
 
         } else {
 
@@ -160,16 +179,31 @@ public class DrinkService {
 
             int maxPage = maxPageNumberFindAll();
 
-
             searchType.setDrinkViewList(paginatedDrinkList);
             searchType.setMaxPage(maxPage);
-
 
             return searchType;
 
         }
 
+        return searchType;
 
+    }
+
+    private List<String> searchByAlcoholStatusService(String[] query) {
+        return Arrays.stream(query)
+                        .filter(Objects::nonNull)
+                        .filter(StringUtils::isNoneBlank)
+                        .collect(Collectors.toList());
+    }
+
+    private List<Long> searchByCategoryService(String[] query) {
+        return Arrays.stream(query)
+                        .filter(Objects::nonNull)
+                        .filter(StringUtils::isNoneBlank)
+                        .filter(s -> s.matches("[0-9]+"))
+                        .map(s -> Long.valueOf(s))
+                        .collect(Collectors.toList());
     }
 
 

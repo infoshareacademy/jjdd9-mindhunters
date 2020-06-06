@@ -34,6 +34,14 @@ import java.util.List;
         @NamedQuery(
                 name = "Drink.findDrinksByAlcoholStatus.count",
                 query = "select count (d) from Drink d where d.alcoholStatus in (:alcoholStatus)"
+        ),
+        @NamedQuery(
+                name = "Drink.findByCategoriesAndAlcoholStatus",
+                query = "select d from Drink d  where d.alcoholStatus  in (:alcoholStatus) and d.category.id in (:category)"
+        ),
+        @NamedQuery(
+                name = "Drink.findByCategoriesAndAlcoholStatus.count",
+                query = "select count (d) from Drink d where d.alcoholStatus  in (:alcoholStatus) and d.category.id in (:category)"
         )
 })
 

@@ -19,6 +19,8 @@ public interface DrinkRepository {
 
     List<Drink> findByAlcoholStatus(List<String> alcoholStatus, int pageNumber);
 
+    List<Drink> findByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus, int pageNumber);
+
     List<Drink> findAllDrinks(int pageNumber);
 
     int maxPageNumberFindAll();
@@ -26,6 +28,8 @@ public interface DrinkRepository {
     int maxPageNumberByCategories(List<Long> category);
 
     int maxPageNumberByAlcoholStatus(List<String> alcoholStatus);
+
+    int maxPageNumberByCategoriesAndAlcoholStatus (List<Long> category, List<String> alcoholStatus);
 
 
 }

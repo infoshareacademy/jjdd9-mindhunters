@@ -96,5 +96,30 @@ public class DrinkRepositoryBean implements DrinkRepository {
 
     }
 
+    public List<Drink> findByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus, int pageNumber) {
+
+        Query categoryQuery = entityManager.createNamedQuery("Drink.findByCategoriesAndAlcoholStatus");
+
+        categoryQuery.setFirstResult((pageNumber - 1) * PAGE_SIZE);
+        categoryQuery.setMaxResults(PAGE_SIZE);
+
+        categoryQuery.setParameter("alcoholStatus", alcoholStatus).setParameter("category", category);
+
+        return categoryQuery.getResultList();
+
+
+    }
+
+    public int maxPageNumberByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus) {
+
+        Query query = entityManager.createNamedQuery("Drink.findByCategoriesAndAlcoholStatus.count");
+
+        query.setParameter("alcoholStatus", alcoholStatus).setParameter("category", category);
+        String querySize = query.getSingleResult().toString();
+        int maxPageNumber = (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
+        return maxPageNumber;
+
+    }
+
 
 }
