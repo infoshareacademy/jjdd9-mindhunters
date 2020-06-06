@@ -7,9 +7,9 @@ $(document).ready(function () {
 
         let url = new URL(window.location);
 
-
         var searchParams = url.searchParams;
 
+        searchParams.sort();
 
         searchParams.set("page", "1");
 
@@ -18,22 +18,34 @@ $(document).ready(function () {
             searchParams.append("category", content);
 
             window.location = url;
+
         } else {
 
             let searchByCategory = searchParams.getAll("category");
             let searchByAlcoholStatus = searchParams.getAll("alcoholStatus");
 
             searchByCategory.splice(searchByCategory.indexOf(content), 1);
-            if (searchByCategory.length >= 1) {
-                var newUrl = "&category=" + searchByCategory.join("&category=")
-                    + "&alcoholStatus=" + searchByAlcoholStatus.join("&alcoholStatus=");
+
+            if (searchByCategory.length > 0 && searchByAlcoholStatus.length > 0) {
+
+                var newUrl = "&alcoholStatus=" + searchByAlcoholStatus.join("&alcoholStatus=")
+                    + "&category=" + searchByCategory.join("&category=");
+
+            } else if (searchByCategory.length > 0) {
+
+                newUrl = "&category=" + searchByCategory.join("&category=");
+
+            } else if (searchByAlcoholStatus.length > 0) {
+
+                newUrl = "&alcoholStatus=" + searchByAlcoholStatus.join("&alcoholStatus=");
 
             } else {
-                newUrl = searchByAlcoholStatus;
+
+                newUrl = "";
             }
 
+            window.location = '/list?page=1&' + newUrl;
 
-            window.location = '/list?page=1' + newUrl;
         }
     });
 
@@ -49,9 +61,7 @@ $(document).ready(function () {
 
         let url = new URL(window.location);
 
-
         var searchParams = url.searchParams;
-
 
         searchParams.set("page", "1");
 
@@ -62,18 +72,29 @@ $(document).ready(function () {
             window.location = url;
 
         } else {
-            sessionStorage.removeItem("reloading");
 
             let searchByCategory = searchParams.getAll("category");
+
             let searchByAlcoholStatus = searchParams.getAll("alcoholStatus");
 
             searchByAlcoholStatus.splice(searchByAlcoholStatus.indexOf(content), 1);
-            if (searchByAlcoholStatus.length >= 1) {
+
+            if (searchByCategory.length > 0 && searchByAlcoholStatus.length > 0) {
+
                 var newUrl = "&alcoholStatus=" + searchByAlcoholStatus.join("&alcoholStatus=")
                     + "&category=" + searchByCategory.join("&category=");
 
+            } else if (searchByCategory.length > 0) {
+
+                newUrl = "&category=" + searchByCategory.join("&category=");
+
+            } else if (searchByAlcoholStatus.length > 0) {
+
+                newUrl = "&alcoholStatus=" + searchByAlcoholStatus.join("&alcoholStatus=");
+
             } else {
-                newUrl = searchByCategory;
+
+                newUrl = "";
             }
 
             window.location = '/list?page=1' + newUrl;
@@ -99,22 +120,6 @@ async function nextPage() {
 }
 
 async function previousPage() {
-    let url = new URL(window.location); // or construct from window.location
-
-    let params = new URLSearchParams(url.search.slice(1));
-
-    let pageNumber = parseInt(params.get('page'));
-
-    let newPageNumber = pageNumber - 1;
-    if (newPageNumber > 0) {
-        params.set('page', (newPageNumber).toString());
-        let newURL = 'http://localhost:8080/list?' + params.toString();
-        location.replace(newURL);
-
-    }
-}
-
-async function setPage() {
     let url = new URL(window.location); // or construct from window.location
 
     let params = new URLSearchParams(url.search.slice(1));
