@@ -67,7 +67,7 @@ public class DrinkService {
 
     }
 
-    public List<FullDrinkView> findByAlcoholStatus (List<String> alcoholStatus, int pageNumber) {
+    public List<FullDrinkView> findByAlcoholStatus(List<String> alcoholStatus, int pageNumber) {
         List<Drink> drinks = drinkRepository.findByAlcoholStatus(alcoholStatus, pageNumber);
         return fullDrinkMapper.toView(drinks);
     }
@@ -78,35 +78,53 @@ public class DrinkService {
 
     }
 
-    public List<FullDrinkView> findByCategoriesAndAlcoholStatus (List<Long> category, List<String> alcoholStatus, int pageNumber) {
+    public List<FullDrinkView> findByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus, int pageNumber) {
         List<Drink> drinks = drinkRepository.findByCategoriesAndAlcoholStatus(category, alcoholStatus, pageNumber);
         return fullDrinkMapper.toView(drinks);
     }
 
-    public int maxPageNumberByCategoriesAndAlcoholStatus (List<Long> category, List<String> alcoholStatus) {
+    public int maxPageNumberByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus) {
         int maxPageNumber = drinkRepository.maxPageNumberByCategoriesAndAlcoholStatus(category, alcoholStatus);
         return maxPageNumber;
     }
 
     public SearchType checkingSearchingCase(Map<String, String[]> searchParam, int currentPage) {
 
-
         SearchType searchType = new SearchType();
+
+        String[] categoriesQuery = searchParam.get("category");
+        String[] alcoholStatusQuery = searchParam.get("alcoholStatus");
+
+        List<Long> searchingCategory = new ArrayList<>();
+        List<String> searchingAlcoholStatus = new ArrayList<>();
+
+        String queryName;
 
         if (searchParam.containsKey("category") && searchParam.containsKey("alcoholStatus")) {
 
-            String[] categoriesQuery = searchParam.get("category");
+            searchingCategory = searchByCategoryService(searchParam.get("category"));
 
-            List<Long> searchingCategory = searchByCategoryService(categoriesQuery);
+            searchingAlcoholStatus = searchByAlcoholStatusService(searchParam.get("alcoholStatus"));
 
-            String[] alcoholStatusQuery = searchParam.get("alcoholStatus");
+        } else if (searchParam.containsKey("category")){
 
-            List<String> searchingAlcoholStatus = searchByAlcoholStatusService(alcoholStatusQuery);
+            searchingCategory = searchByCategoryService(searchParam.get("category"));
 
-            List<FullDrinkView> drinksByCategoriesAndAlcoholStatus = findByCategoriesAndAlcoholStatus (searchingCategory, searchingAlcoholStatus, currentPage);
+        } else if (searchParam.containsKey("alcoholStatus")){
 
-            String queryName = "category=" + Arrays.stream(categoriesQuery).collect(Collectors.joining("&&category="))
-                    + "alcoholStatus=" + Arrays.stream(categoriesQuery).collect(Collectors.joining("&&alcoholStatus="));
+            searchingAlcoholStatus = searchByAlcoholStatusService(searchParam.get("alcoholStatus"));
+
+        }
+
+
+        if (searchingCategory.size()> 0 && searchingAlcoholStatus.size() > 0) {
+
+
+            List<FullDrinkView> drinksByCategoriesAndAlcoholStatus = findByCategoriesAndAlcoholStatus(searchingCategory, searchingAlcoholStatus, currentPage);
+
+            queryName = "category=" + Arrays.stream(categoriesQuery).collect(Collectors.joining("&&category="))
+                    + "&&alcoholStatus=" + Arrays.stream(alcoholStatusQuery).collect(Collectors.joining("&&alcoholStatus="));
+
 
             searchType.setDrinkViewList(drinksByCategoriesAndAlcoholStatus);
 
@@ -117,19 +135,14 @@ public class DrinkService {
             searchType.setMaxPage(maxPage);
 
 
+        } else if (searchingCategory.size()> 0) {
 
-        } else if (searchParam.containsKey("category")) {
-
-
-            String[] categoriesQuery = searchParam.get("category");
-
-            List<Long> searchingCategory = searchByCategoryService(categoriesQuery);
 
             List<FullDrinkView> drinksByCategories = findByCategories(searchingCategory, currentPage);
 
             searchType.setDrinkViewList(drinksByCategories);
 
-            String queryName = "category=" + Arrays.stream(categoriesQuery).collect(Collectors.joining("&&category="));
+            queryName = "category=" + Arrays.stream(categoriesQuery).collect(Collectors.joining("&&category="));
 
             searchType.setQueryName(queryName);
 
@@ -138,18 +151,13 @@ public class DrinkService {
             searchType.setMaxPage(maxPage);
 
 
+        } else if (searchingAlcoholStatus.size() > 0) {
 
-        } else if (searchParam.containsKey("alcoholStatus")) {
-
-            String[] query = searchParam.get("alcoholStatus");
-
-            List<String> searchingAlcoholStatus = searchByAlcoholStatusService(query);
-
-            List<FullDrinkView> drinksByAlcoholStatus = findByAlcoholStatus(searchingAlcoholStatus,currentPage);
+            List<FullDrinkView> drinksByAlcoholStatus = findByAlcoholStatus(searchingAlcoholStatus, currentPage);
 
             searchType.setDrinkViewList(drinksByAlcoholStatus);
 
-            String queryName = "alcoholStatus=" + Arrays.stream(query).collect(Collectors.joining("&&alcoholStatus="));
+            queryName = "alcoholStatus=" + Arrays.stream(alcoholStatusQuery).collect(Collectors.joining("&&alcoholStatus="));
 
             searchType.setQueryName(queryName);
 
@@ -177,18 +185,18 @@ public class DrinkService {
 
     private List<String> searchByAlcoholStatusService(String[] query) {
         return Arrays.stream(query)
-                        .filter(Objects::nonNull)
-                        .filter(StringUtils::isNoneBlank)
-                        .collect(Collectors.toList());
+                .filter(Objects::nonNull)
+                .filter(StringUtils::isNoneBlank)
+                .collect(Collectors.toList());
     }
 
     private List<Long> searchByCategoryService(String[] query) {
         return Arrays.stream(query)
-                        .filter(Objects::nonNull)
-                        .filter(StringUtils::isNoneBlank)
-                        .filter(s -> s.matches("[0-9]+"))
-                        .map(s -> Long.valueOf(s))
-                        .collect(Collectors.toList());
+                .filter(Objects::nonNull)
+                .filter(StringUtils::isNoneBlank)
+                .filter(s -> s.matches("[0-9]+"))
+                .map(s -> Long.valueOf(s))
+                .collect(Collectors.toList());
     }
 
 
