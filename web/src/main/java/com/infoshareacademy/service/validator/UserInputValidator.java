@@ -10,13 +10,12 @@ public class UserInputValidator {
 
 
     public boolean validateSpecialChars(String input){
-        String inputSingleSpaces = removeExtraSpaces(input);
         Pattern compiledPattern = Pattern.compile("[a-zA-Z0-9_ -]{2,30}");
-        Matcher matcher = compiledPattern.matcher(inputSingleSpaces);
+        Matcher matcher = compiledPattern.matcher(input);
         return matcher.matches();
     }
 
-    private String removeExtraSpaces(String input) {
+    public String removeExtraSpaces(String input) {
         return input.replaceAll(" +", " ");
     }
 

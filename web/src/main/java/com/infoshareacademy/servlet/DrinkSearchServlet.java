@@ -63,12 +63,14 @@ public class DrinkSearchServlet extends HttpServlet {
                 case "name":
 
 
-                    final String partialDrinkName = req.getParameter("name");
+                    String partialDrinkName = req.getParameter("name");
 
                     if (partialDrinkName == null || partialDrinkName.isEmpty() || !userInputValidator.validateSpecialChars(partialDrinkName.trim())) {
                         dataModel.put("errorMessage", "Name not found.\n");
                         break;
                     }
+
+                    partialDrinkName = userInputValidator.removeExtraSpaces(partialDrinkName);
 
                     final List<FullDrinkView> foundDrinksByName =
                             drinkService.findDrinksByName(partialDrinkName.trim(), currentPage);
@@ -100,6 +102,7 @@ public class DrinkSearchServlet extends HttpServlet {
                             .filter(i -> !(i.isBlank()))
                             .filter(s -> userInputValidator.validateSpecialChars(s))
                             .map(String::trim)
+                            .map(s1 -> userInputValidator.removeExtraSpaces(s1))
                             .collect(Collectors.toSet());
 
                     final List<String> ingredientNamesFiltered = new ArrayList<>(ingredientDistinctNamesFiltered);
@@ -150,13 +153,12 @@ public class DrinkSearchServlet extends HttpServlet {
     }
 
     private int getFirstPageWhenWrongPageNumber(HttpServletRequest req, String pageNumberReq) {
-        int currentPage;
-        if (userInputValidator.validatePageNumber(pageNumberReq)){
-            currentPage = Integer.parseInt(req.getParameter("page"));
-        } else {
-            currentPage = 1;
+
+        if (pageNumberReq  == null || pageNumberReq.trim().isEmpty() || !userInputValidator.validatePageNumber(pageNumberReq)){
+            return 1;
         }
-        return currentPage;
+
+        return Integer.parseInt(req.getParameter("page"));
     }
 
     private void displayAllDrinks(Map<String, Object> dataModel, int currentPage) {
