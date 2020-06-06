@@ -1,7 +1,6 @@
 package com.infoshareacademy.domain;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -35,7 +34,7 @@ public class Drink {
     @NotNull
     private String drinkName;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -44,9 +43,10 @@ public class Drink {
     private String alcoholStatus;
 
     @NotNull
+    @Column(columnDefinition = "TEXT")
     private String recipe;
 
-    @OneToMany(mappedBy = "drinkId", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "drinkId", fetch = FetchType.LAZY)
     private List<DrinkIngredient> drinkIngredient = new ArrayList<>();
 
     private String image;

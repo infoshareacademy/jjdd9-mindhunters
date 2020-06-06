@@ -42,38 +42,39 @@
 
                     <br>
                     <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin" id="btn-admin3"
-                    a href="/json-load">SETTINGS</a><br>
+                       a href="/json-load">SETTINGS</a><br>
                     <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin" id="btn-admin-back"
                     >BACK</a>
                 </span>
-                <div class="custom-file load-file-browse">
-                    <form method="post" action="/json-load" enctype="multipart/form-data" class="vis-of-btn" id="vis-of-btn">
+                <#--//===========================================================================================================-->
+            </div>
+            <div class="over-photo3 container-fluid load-file-browse" id="over-photo3">
+                <div class="custom-file">
+                    <form method="post" action="/json-load" enctype="multipart/form-data" class="vis-of-btn"
+                          id="vis-of-btn">
 
-                        <label class="submit-btn" for="myfile"></label><br>
-                        <input type="file" id="jsonFile" name="jsonFile" multiple><br><br>
-                        <input
-                                class="submit-btn" type="submit">
 
-                        <div class="input-group-prepend">
-                            <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03">Button</button>
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03">Button</button>
-                            </div>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03">
-                                <label class="custom-file-label" for="inputGroupFile03">Choose file</label>
+                        <div class="padding-load-div input-group">
+                            <label class="submit-btn">Load Drinks from DB</label><br>
+
+                            <input type="file" id="jsonFile" name="jsonFile" multiple
+                                   class="btn btn-background text-uppercase text-warning
+                    size-input-design border-load-design">
+                            <div class="input-group-append">
+                                <input class="submit-btn btn btn-background  text-uppercase  text-warning glow" type="submit">
                             </div>
                         </div>
 
+                        <div class="padding-load-div input-group">
+                            <label class="submit-btn">Load Category Drinks from DB</label><br>
+
+                            <input type="file" id="jsonCatFile" name="jsonCatFile" multiple
+                                   class="btn btn-background text-uppercase text-warning
+                    size-input-design border-load-design">
+                        </div>
                     </form>
                 </div>
             </div>
-
-
-
-
         </div>
     </div>
 </div>

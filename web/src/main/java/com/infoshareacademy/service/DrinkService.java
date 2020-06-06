@@ -1,5 +1,6 @@
 package com.infoshareacademy.service;
 
+import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.DrinkJson;
 import com.infoshareacademy.repository.DrinkRepositoryBean;
 
@@ -25,6 +26,7 @@ public class DrinkService {
         return drinkRepository.paginationDrinkList(pageNumber);
     }
 
-    // TODO napisać metodę save, która na DringRepositoryBean wykonuje save(drink)
-
+    public void save(Drink drink) {
+        drinkRepository.save(drink);
+    }
 }

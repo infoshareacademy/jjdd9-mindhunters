@@ -3,11 +3,11 @@ package com.infoshareacademy.service;
 import com.infoshareacademy.domain.Category;
 import com.infoshareacademy.repository.CategoryRepositoryBean;
 
-import javax.enterprise.context.RequestScoped;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.List;
-
-@RequestScoped
+//zmiana z requestscoped
+@Stateless
 public class CategoryService {
 
     @Inject

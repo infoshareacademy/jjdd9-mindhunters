@@ -5,7 +5,10 @@ import com.infoshareacademy.cdi.JsonParserBean;
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.DrinkJson;
 import com.infoshareacademy.exception.JsonNotFound;
+import com.infoshareacademy.jsonSupport.CategoryJson;
+import com.infoshareacademy.jsonSupport.JsonCategoryReader;
 import com.infoshareacademy.mapper.DrinkMapper;
+import com.infoshareacademy.service.DrinkService;
 import com.infoshareacademy.service.JsonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,10 +41,16 @@ public class LoadFileToDbServlet extends HttpServlet {
     private JsonService jsonService;
 
     @Inject
+    DrinkService drinkService;
+
+    @Inject
     FileUploadProcessor fileUploadProcessor;
 
     @Inject
     private JsonParserBean jsonParserBean;
+
+//    @Inject
+//    private JsonCategoryReader jsonCategoryReader;
 
 
     @Override
@@ -67,10 +76,19 @@ public class LoadFileToDbServlet extends HttpServlet {
         } catch (JsonNotFound jsonNotFound) {
             packageLogger.error(jsonNotFound.getMessage());
         }
+
+        Part jsonCatPath = req.getPart("jsonCatFile");
+        List<CategoryJson> categoryJson = new ArrayList<>();
+        try {
+            categoryJson = JsonCategoryReader.jsonCategoryReader(fileUploadProcessor.uploadJsonFile(jsonCatPath).getPath());
+        } catch (JsonNotFound jsonNotFound) {
+            packageLogger.error(jsonNotFound.getMessage());
+        }
+
         Drink drink = new Drink();
         for(DrinkJson drinkJson : drinkJsons) {
-            drink = drinkMapper.toEntity(drinkJson);
-//            drinkService.save(drink);
+            drink = drinkMapper.toEntity(drinkJson,categoryJson.get(1));
+            drinkService.save(drink);
         }
     }
 }

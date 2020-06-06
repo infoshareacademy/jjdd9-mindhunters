@@ -1,5 +1,6 @@
 package com.infoshareacademy.repository;
 
+import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.DrinkJson;
 
 import javax.ejb.Stateless;
@@ -37,10 +38,11 @@ public class DrinkRepositoryBean {
         query.setMaxResults(pageSize);
 
        return  query.getResultList();
-
     }
 
-    // TODO napisac metodę save która wykonuje persist na em
+    public void save(Drink drink) {
+        entityManager.persist(drink);
+    }
 
 
 }

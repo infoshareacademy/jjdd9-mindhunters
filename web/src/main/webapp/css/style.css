@@ -57,15 +57,11 @@
 
 .load-file-browse{
     position: absolute;
-    left:110%;
-    bottom:70%;
-    width: 250px;
+    left:35%;
+    bottom:43%;
+    width: 300px;
 }
-.custom-file{
-    background-color: #fed136;
-    border-color: #1b1e21;
-    width: 150px;
-}
+
 
 
 @-webkit-keyframes glow {
@@ -241,11 +237,37 @@
 .submit-btn {
     background-color: #fed136;
 }
+.size-input-design{
+    width: 300px;
+
+}
 
 .vis-of-btn{
-    visibility: hidden;
-    width: 200px;
+    visibility: visible;
+    width: 370px;
+}
+.over-photo3{
+    background-color: brown;
+    border-color: #fed136;
+    border-style: double;
+    border-radius: 10px;
+    max-width: 550px;
+    height: 300px;
+}
+.padding-load-div {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.align-element{
+    display: inline;
+}
 
+.border-load-design{
+    border-color: #fed136;
+    border-width: 2px;
+}
+.custom-file-label{
+    background: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

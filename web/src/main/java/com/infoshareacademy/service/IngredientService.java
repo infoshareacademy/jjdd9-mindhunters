@@ -8,12 +8,13 @@ import javax.ejb.Stateless;
 @Stateless
 public class IngredientService {
 
-
     public Ingredient getByNameOrCreate(String name) {
+
         return null;
     }
 
     public Measure getByMeasureOrCreate(String measure) {
+
         return null;
     }
 }
