@@ -1,6 +1,6 @@
 package com.infoshareacademy.domain.dto;
 
-public class DrinksLiveSearch {
+public class DrinkLiveSearchView {
 
     private Long id;
     private String drinkId;
