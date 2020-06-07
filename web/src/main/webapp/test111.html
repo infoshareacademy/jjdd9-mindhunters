@@ -103,11 +103,13 @@
     function ajaxCallForDrinks() {
         console.log('inside My function');
 
+        var value = $(document.getElementById("phrase")).val();
+
+
         console.log(document.getElementById("phrase").value);
         console.log(document.getElementById("phrase").toString().length);
 
-
-        if (document.getElementById("phrase").textLength> 2) {
+        if (value.length > 2) {
             console.log('inside text lenght > 2');
             arr2 = [];
             eventJsonToArrayOfNames($(document).ready(function () {
