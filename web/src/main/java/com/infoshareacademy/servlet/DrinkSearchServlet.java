@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @WebServlet("/search")
 public class DrinkSearchServlet extends HttpServlet {
 
-    private static final Logger logger = LoggerFactory.getLogger(DrinkSearchServlet.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(DrinkSearchServlet.class.getName());
 
     @EJB
     private DrinkService drinkService;
@@ -86,7 +86,7 @@ public class DrinkSearchServlet extends HttpServlet {
                     dataModel.put("queryName", buildNameQuery(partialDrinkName));
                     dataModel.put("maxPageSize", maxPage);
 
-                    logger.info("Drink list found by name sent to ftlh view");
+                    LOGGER.info("Drink list found by name sent to ftlh view");
                     break;
 
                 case "ingr":
@@ -111,7 +111,7 @@ public class DrinkSearchServlet extends HttpServlet {
 
                     if (foundIngredientsByName == null || foundIngredientsByName.size() == 0) {
                         dataModel.put("errorMessage", "Ingredients not found.\n");
-                        logger.info("Ingredients not found in database.");
+                        LOGGER.info("Ingredients not found in database.");
                         break;
                     }
 
@@ -121,7 +121,7 @@ public class DrinkSearchServlet extends HttpServlet {
 
                     if (foundDrinksByIngredients == null || foundDrinksByIngredients.size() == 0) {
                         dataModel.put("errorMessage", "Drinks not found.\n");
-                        logger.info("Ingredients not found in database.");
+                        LOGGER.info("Ingredients not found in database.");
                         break;
                     }
 
@@ -131,7 +131,7 @@ public class DrinkSearchServlet extends HttpServlet {
                     dataModel.put("queryName", buildIngrQuery(ingredientNamesFiltered));
                     dataModel.put("maxPageSize", maxPage);
 
-                    logger.info("Drink list found by ingredient sent to ftlh view.");
+                    LOGGER.info("Drink list found by ingredient sent to ftlh view.");
                     break;
 
                 default:
@@ -148,7 +148,7 @@ public class DrinkSearchServlet extends HttpServlet {
         try {
             template.process(dataModel, resp.getWriter());
         } catch (TemplateException e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
         }
     }
 
