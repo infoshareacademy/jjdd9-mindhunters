@@ -12,6 +12,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Optional;
 
 @Stateless
 public class DrinkService {
@@ -30,6 +31,9 @@ public class DrinkService {
 
     public FullDrinkView findDrinkById(Long drinkId) {
         Drink foundDrink = drinkRepository.findDrinkById(drinkId);
+        if (foundDrink == null){
+            return null;
+        }
         return fullDrinkMapper.toView(foundDrink);
     }
 

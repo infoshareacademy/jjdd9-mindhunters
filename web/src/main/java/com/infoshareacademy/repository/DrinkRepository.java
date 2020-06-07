@@ -5,6 +5,7 @@ import com.infoshareacademy.domain.Ingredient;
 
 import javax.ejb.Local;
 import java.util.List;
+import java.util.Optional;
 
 @Local
 public interface DrinkRepository {
@@ -14,8 +15,6 @@ public interface DrinkRepository {
     List<Drink> paginatedFindDrinksByName(String partialDrinkName, int pageNumber);
 
     List<Drink> paginatedFindDrinkByIngredients(List<Ingredient> ingredients, int pageNumer);
-
-    Long findTotalDrinksAmount();
 
     List<Drink> findAllDrinks();
 

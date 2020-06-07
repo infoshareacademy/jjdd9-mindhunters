@@ -8,7 +8,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.lang.reflect.Array;
 import java.util.List;
 
 @Stateless
@@ -51,7 +50,7 @@ public class DrinkRepositoryBean implements DrinkRepository {
     public int maxPageNumberDrinksByName(String partialDrinkName) {
         Query drinkQuery = entityManager.createNamedQuery("Drink.countDrinksByPartialName");
         drinkQuery.setParameter("partialDrinkName", "%" + partialDrinkName + "%");
-        Long querySize =  (Long)drinkQuery.getSingleResult();
+        Long querySize = (Long) drinkQuery.getSingleResult();
         int maxPageNumber = (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
         return maxPageNumber;
 
@@ -66,12 +65,6 @@ public class DrinkRepositoryBean implements DrinkRepository {
 
         drinkQuery.setParameter("ingredients", ingredients);
         return drinkQuery.getResultList();
-    }
-
-    @Override
-    public Long findTotalDrinksAmount() {
-        Query drinkQuery = entityManager.createNamedQuery("Drink.findTotalDrinksAmount");
-        return (Long)drinkQuery.getSingleResult();
     }
 
     public List<Drink> findAllDrinks() {
@@ -93,7 +86,6 @@ public class DrinkRepositoryBean implements DrinkRepository {
         Query query = entityManager.createNamedQuery("Drink.findDrinksByCategories.count");
 
 
-
         query.setParameter("category", category);
         String querySize = query.getSingleResult().toString();
         int maxPageNumber = (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
@@ -106,7 +98,7 @@ public class DrinkRepositoryBean implements DrinkRepository {
 
 
         query.setParameter("ingredients", ingredients);
-        Long querySize =  (Long)query.getSingleResult();
+        Long querySize = (Long) query.getSingleResult();
         int maxPageNumber = (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
         return maxPageNumber;
     }

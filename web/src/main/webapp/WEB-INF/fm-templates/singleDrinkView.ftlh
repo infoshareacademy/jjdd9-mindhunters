@@ -13,12 +13,15 @@
     <title>Drink</title>
 
 </head>
-<body id="page-top">
+<body id="page-top" style="background-color: #1b1e21">
 
 <#include "navigation.ftlh">
 
 <section style="background-color: #1b1e21">
     <div class="container" style="color: white; height: max-content;">
+
+        <#if !errorMessage??>
+
         <div class="container" style="color: white">
             <br><br><br>
             <div class="row justify-content-center">
@@ -114,6 +117,25 @@
             </div>
 
         </div>
+
+            <#else>
+                <div class="container ml-0 pl-0 mr-0 pr-0 ">
+                    <div class="row justify-content-center">
+                        <div class="col-md-3" style="font-size: 12px; text-align: center">
+                            <br><br><br>
+                            <h3 style="color: red">${errorMessage}</h3>
+                            <br><br><br>
+                            <br><br><br>
+                            <br><br><br>
+                            <br><br><br>
+                            <br><br><br>
+                        </div>
+                    </div>
+
+                </div>
+
+        </#if>
+
     </div>
 </section>
 

@@ -3,7 +3,7 @@ package com.infoshareacademy.servlet;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.DrinkService;
-import com.infoshareacademy.service.IngredientService;
+import com.infoshareacademy.service.validator.UserInputValidator;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -17,10 +17,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 @WebServlet("/single-view")
 public class SingleViewServlet extends HttpServlet {
@@ -30,8 +28,9 @@ public class SingleViewServlet extends HttpServlet {
     @EJB
     DrinkService drinkService;
 
-    @EJB
-    IngredientService ingredientService;
+    @Inject
+    UserInputValidator userInputValidator;
+
 
     @Inject
     private TemplateProvider templateProvider;
@@ -39,24 +38,32 @@ public class SingleViewServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        //test żeby zaprezentować single-view
         resp.setContentType("text/html; charset=UTF-8");
-        Template template = templateProvider.getTemplate(getServletContext(), "singleDrinkView.ftlh");
-        final PrintWriter writer = resp.getWriter();
+        final String idParam = req.getParameter("drink");
+        Long drinkId = userInputValidator.stringToLongConverter(idParam);
         Map<String, Object> dataModel = new HashMap<>();
 
-        Integer randomInt = new Random().nextInt(27) + 1;
-        Long randomLong = randomInt.longValue();
+        if (drinkId < 0) {
+            dataModel.put("errorMessage", "Wrong input.\n");
+        } else {
+            final FullDrinkView foundDrinkById = drinkService.findDrinkById(drinkId);
 
-        final FullDrinkView foundDrinkById = drinkService.findDrinkById(randomLong);
 
-        dataModel.put("drink", foundDrinkById);
+            if (foundDrinkById == null) {
+                dataModel.put("errorMessage", "Drink not found.\n");
+            }
+
+            dataModel.put("drink", foundDrinkById);
+        }
+
+        Template template = templateProvider.getTemplate(getServletContext(), "singleDrinkView.ftlh");
         try {
             template.process(dataModel, resp.getWriter());
         } catch (TemplateException e) {
             logger.error(e.getMessage());
 
         }
-
     }
+
+
 }

@@ -154,7 +154,7 @@ public class DrinkSearchServlet extends HttpServlet {
 
     private int getFirstPageWhenWrongPageNumber(HttpServletRequest req, String pageNumberReq) {
 
-        if (pageNumberReq  == null || pageNumberReq.trim().isEmpty() || !userInputValidator.validatePageNumber(pageNumberReq)){
+        if (pageNumberReq == null || pageNumberReq.trim().isEmpty() || !userInputValidator.validatePageNumber(pageNumberReq)) {
             return 1;
         }
 
