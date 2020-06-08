@@ -3,7 +3,7 @@
         <div class="list-group  list-element">
             <div class="list-group-item sidebar-list">
                 <input type="hidden" name="search" value="name"/>
-                <input type="text" required maxlength="30" minlength="2" name="name" id=""
+                <input type="text" required maxlength="30" minlength="2" name="name" id="input-name"
                        placeholder="Name...">
             </div>
         </div>

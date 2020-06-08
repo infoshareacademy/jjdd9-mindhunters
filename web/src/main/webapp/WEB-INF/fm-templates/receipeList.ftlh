@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Mindhunters</title>
-    <link href="../../css/styleSingleViewSearch.css" rel="stylesheet">
+    <link href="../../css/drink_list.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
 
 </head>
@@ -54,15 +54,30 @@
                                                 ${drink.categoryView.name}
 
                                             </h5>
+
+
                                         </div>
                                         <div class="line-clamp mx-2 my-2 mt-4 mr-4 d-none d-md-block">
                                             ${drink.recipe}
+                                        </div>
+                                        <div class="line-clamp mx-2 my-2 mt-4 mr-4 ml-4 text-center text-md-right"
+                                                <#if drink.alcoholStatus == "Alcoholic">
+                                                    style="color: #dc3545"
+                                                </#if>
+                                        >
+                                            ${drink.alcoholStatus}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </li>
                     </#list>
+
+                    <#if !(drinkList?has_content) >
+
+                        <#include "emptyList.ftlh">
+
+                    </#if>
                 </ul>
             </div>
         </div>
