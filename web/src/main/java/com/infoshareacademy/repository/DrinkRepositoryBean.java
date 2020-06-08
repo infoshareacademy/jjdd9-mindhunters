@@ -2,9 +2,11 @@ package com.infoshareacademy.repository;
 
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.Ingredient;
+import com.infoshareacademy.service.DrinkService;
 import org.hibernate.jpa.QueryHints;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -16,11 +18,33 @@ public class DrinkRepositoryBean implements DrinkRepository {
     @PersistenceContext
     EntityManager entityManager;
 
+    @Inject
+    DrinkService drinkService;
+
     public final static Integer PAGE_SIZE = 5;
 
     public Drink findDrinkById(Long drinkId) {
 
         return entityManager.find(Drink.class, drinkId);
+    }
+
+    public List<Drink> findAllDrinks(int startPosition, int endPosition) {
+        Query query = entityManager.createNamedQuery("Drink.findAll");
+
+        query.setFirstResult(startPosition);
+        query.setMaxResults(endPosition);
+
+        return query.getResultList();
+
+    }
+
+    public int countPagesFindAll() {
+        Query query = entityManager.createNamedQuery("Drink.countFindAll");
+
+        String querySize = query.getSingleResult().toString();
+        int maxPageNumber = drinkService.getMaxPageNumber(querySize);
+        return maxPageNumber;
+
     }
 
     public List<Drink> findDrinksByName(String partialDrinkName) {
@@ -36,90 +60,75 @@ public class DrinkRepositoryBean implements DrinkRepository {
         return drinkQuery.getResultList();
     }
 
-    public List<Drink> findByCategories(List<Long> category, int pageNumber) {
+
+    public List<Drink> findByCategories(List<Long> category, int startPosition, int endPosition) {
         Query query = entityManager.createNamedQuery("Drink.findDrinksByCategories");
 
-        query.setFirstResult((pageNumber - 1) * PAGE_SIZE);
-        query.setMaxResults(PAGE_SIZE);
+        query.setFirstResult(startPosition);
+        query.setMaxResults(endPosition);
 
         query.setParameter("category", category);
         return query.getResultList();
     }
 
-    public int maxPageNumberByCategories(List<Long> category) {
-        Query query = entityManager.createNamedQuery("Drink.findDrinksByCategories.count");
+    public int countPagesByCategories(List<Long> category) {
+        Query query = entityManager.createNamedQuery("Drink.CountDrinksByCategories");
 
         query.setParameter("category", category);
         String querySize = query.getSingleResult().toString();
-        int maxPageNumber = (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
+        int maxPageNumber = drinkService.getMaxPageNumber(querySize);
         return maxPageNumber;
     }
 
-    public List<Drink> findAllDrinks(int pageNumber) {
-        Query query = entityManager.createNamedQuery("Drink.findAll");
-        query.setFirstResult((pageNumber - 1) * PAGE_SIZE);
-        query.setMaxResults(PAGE_SIZE);
-
-        return query.getResultList();
-
-    }
-
-    public int maxPageNumberFindAll() {
-        Query query = entityManager.createQuery("select count (d) from Drink d");
-
-        String querySize = query.getSingleResult().toString();
-        int maxPageNumber = (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
-        return maxPageNumber;
-
-    }
-
-    public List<Drink> findByAlcoholStatus(List<String> alcoholStatus, int pageNumber) {
-
+    public List<Drink> findByAlcoholStatus(List<String> alcoholStatus, int startPosition, int endPosition) {
         Query query = entityManager.createNamedQuery("Drink.findDrinksByAlcoholStatus");
 
-        query.setFirstResult((pageNumber - 1) * PAGE_SIZE);
-        query.setMaxResults(PAGE_SIZE);
+        query.setFirstResult(startPosition);
+        query.setMaxResults(endPosition);
 
         query.setParameter("alcoholStatus", alcoholStatus);
         return query.getResultList();
 
-
     }
 
-    public int maxPageNumberByAlcoholStatus(List<String> alcoholStatus) {
-        Query query = entityManager.createNamedQuery("Drink.findDrinksByAlcoholStatus.count");
+    public int countPagesByAlcoholStatus(List<String> alcoholStatus) {
+        Query query = entityManager.createNamedQuery("Drink.countDrinksByAlcoholStatus");
 
         query.setParameter("alcoholStatus", alcoholStatus);
         String querySize = query.getSingleResult().toString();
-        int maxPageNumber = (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
+
+        int maxPageNumber = drinkService.getMaxPageNumber(querySize);
         return maxPageNumber;
 
     }
 
-    public List<Drink> findByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus, int pageNumber) {
 
-        Query categoryQuery = entityManager.createNamedQuery("Drink.findByCategoriesAndAlcoholStatus");
 
-        categoryQuery.setFirstResult((pageNumber - 1) * PAGE_SIZE);
-        categoryQuery.setMaxResults(PAGE_SIZE);
+    public List<Drink> findByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus,
+                                                        int startPosition, int endPosition) {
+        Query query = entityManager.createNamedQuery("Drink.findByCategoriesAndAlcoholStatus");
 
-        categoryQuery.setParameter("alcoholStatus", alcoholStatus).setParameter("category", category);
+        query.setFirstResult(startPosition);
+        query.setMaxResults(endPosition);
 
-        return categoryQuery.getResultList();
+        query.setParameter("alcoholStatus", alcoholStatus).setParameter("category", category);
 
+        return query.getResultList();
 
     }
 
-    public int maxPageNumberByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus) {
-
-        Query query = entityManager.createNamedQuery("Drink.findByCategoriesAndAlcoholStatus.count");
+    public int countPagesByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus) {
+        Query query = entityManager.createNamedQuery("Drink.countDrinksByCategoriesAndAlcoholStatus");
 
         query.setParameter("alcoholStatus", alcoholStatus).setParameter("category", category);
         String querySize = query.getSingleResult().toString();
-        int maxPageNumber = (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
+
+        int maxPageNumber = drinkService.getMaxPageNumber(querySize);
         return maxPageNumber;
 
     }
+
+
 
 
 }

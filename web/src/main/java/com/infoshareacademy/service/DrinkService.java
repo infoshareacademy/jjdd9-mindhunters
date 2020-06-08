@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
 public class DrinkService {
 
 
+    public final static Integer PAGE_SIZE = 5;
+
     @EJB
     private DrinkRepository drinkRepository;
 
@@ -29,9 +31,23 @@ public class DrinkService {
     private IngredientMapper ingredientMapper;
 
 
+    public List<FullDrinkView> findAllDrinks(int pageNumber) {
+        int startPosition = (pageNumber - 1) * PAGE_SIZE;
+        int endPosition = PAGE_SIZE;
+
+        List<Drink> drinks = drinkRepository.findAllDrinks(startPosition, endPosition);
+        return fullDrinkMapper.toView(drinks);
+    }
+
+    public int countPagesFindAll() {
+        int maxPageNumber = drinkRepository.countPagesFindAll();
+        return maxPageNumber;
+
+    }
+
     public FullDrinkView findDrinkById(Long drinkId) {
         Drink foundDrink = drinkRepository.findDrinkById(drinkId);
-        if (foundDrink == null){
+        if (foundDrink == null) {
             return null;
         }
         return fullDrinkMapper.toView(foundDrink);
@@ -48,46 +64,46 @@ public class DrinkService {
         return fullDrinkMapper.toView(foundDrinksByIngredients);
     }
 
+
     public List<FullDrinkView> findByCategories(List<Long> category, int pageNumber) {
-        List<Drink> drinks = drinkRepository.findByCategories(category, pageNumber);
+        int startPosition = (pageNumber - 1) * PAGE_SIZE;
+        int endPosition = PAGE_SIZE;
+
+        List<Drink> drinks = drinkRepository.findByCategories(category, startPosition, endPosition);
         return fullDrinkMapper.toView(drinks);
     }
 
-    public List<FullDrinkView> findAll(int pageNumber) {
-        List<Drink> drinks = drinkRepository.findAllDrinks(pageNumber);
-        return fullDrinkMapper.toView(drinks);
-    }
-
-    public int maxPageNumberFindAll() {
-        int maxPageNumber = drinkRepository.maxPageNumberFindAll();
+    public int countPagesByCategories(List<Long> category) {
+        int maxPageNumber = drinkRepository.countPagesByCategories(category);
         return maxPageNumber;
 
     }
 
-    public int maxPageNumberByCategories(List<Long> category) {
-        int maxPageNumber = drinkRepository.maxPageNumberByCategories(category);
-        return maxPageNumber;
-
-    }
 
     public List<FullDrinkView> findByAlcoholStatus(List<String> alcoholStatus, int pageNumber) {
-        List<Drink> drinks = drinkRepository.findByAlcoholStatus(alcoholStatus, pageNumber);
+        int startPosition = (pageNumber - 1) * PAGE_SIZE;
+        int endPosition = PAGE_SIZE;
+
+        List<Drink> drinks = drinkRepository.findByAlcoholStatus(alcoholStatus, startPosition, endPosition);
         return fullDrinkMapper.toView(drinks);
     }
 
-    public int maxPageNumberByAlcoholStatus(List<String> alcoholStatus) {
-        int maxPageNumber = drinkRepository.maxPageNumberByAlcoholStatus(alcoholStatus);
+    public int countPagesByAlcoholStatus(List<String> alcoholStatus) {
+        int maxPageNumber = drinkRepository.countPagesByAlcoholStatus(alcoholStatus);
         return maxPageNumber;
 
     }
 
     public List<FullDrinkView> findByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus, int pageNumber) {
-        List<Drink> drinks = drinkRepository.findByCategoriesAndAlcoholStatus(category, alcoholStatus, pageNumber);
+        int startPosition = (pageNumber - 1) * PAGE_SIZE;
+        int endPosition = PAGE_SIZE;
+
+        List<Drink> drinks = drinkRepository.findByCategoriesAndAlcoholStatus(category, alcoholStatus, startPosition, endPosition);
         return fullDrinkMapper.toView(drinks);
     }
 
-    public int maxPageNumberByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus) {
-        int maxPageNumber = drinkRepository.maxPageNumberByCategoriesAndAlcoholStatus(category, alcoholStatus);
+    public int countPagesByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus) {
+        int maxPageNumber = drinkRepository.countPagesByCategoriesAndAlcoholStatus(category, alcoholStatus);
         return maxPageNumber;
     }
 
@@ -95,8 +111,10 @@ public class DrinkService {
 
         SearchType searchType = new SearchType();
 
-        String[] categoriesQuery = searchParam.get("category");
-        String[] alcoholStatusQuery = searchParam.get("alcoholStatus");
+        List<String> alcoholStatusQuery = Optional.ofNullable((searchParam.get("alcoholStatus")))
+                .map(Arrays::asList).orElse(Collections.emptyList());
+        List<String> categoriesQuery = Optional.ofNullable((searchParam.get("category")))
+                .map(Arrays::asList).orElse(Collections.emptyList());
 
         List<Long> searchingCategory = new ArrayList<>();
         List<String> searchingAlcoholStatus = new ArrayList<>();
@@ -109,47 +127,47 @@ public class DrinkService {
 
             searchingAlcoholStatus = searchByAlcoholStatusService(searchParam.get("alcoholStatus"));
 
-        } else if (searchParam.containsKey("category")){
+        } else if (searchParam.containsKey("category")) {
 
             searchingCategory = searchByCategoryService(searchParam.get("category"));
 
-        } else if (searchParam.containsKey("alcoholStatus")){
+        } else if (searchParam.containsKey("alcoholStatus")) {
 
             searchingAlcoholStatus = searchByAlcoholStatusService(searchParam.get("alcoholStatus"));
 
         }
 
 
-        if (searchingCategory.size()> 0 && searchingAlcoholStatus.size() > 0) {
+        if (searchingCategory.size() > 0 && searchingAlcoholStatus.size() > 0) {
 
 
             List<FullDrinkView> drinksByCategoriesAndAlcoholStatus = findByCategoriesAndAlcoholStatus(searchingCategory, searchingAlcoholStatus, currentPage);
 
-            queryName = "category=" + Arrays.stream(categoriesQuery).collect(Collectors.joining("&&category="))
-                    + "&&alcoholStatus=" + Arrays.stream(alcoholStatusQuery).collect(Collectors.joining("&&alcoholStatus="));
+            queryName = "category=" + String.join("&&category=", categoriesQuery)
+                    + "&&alcoholStatus=" + String.join("&&alcoholStatus=", alcoholStatusQuery);
 
 
             searchType.setDrinkViewList(drinksByCategoriesAndAlcoholStatus);
 
             searchType.setQueryName(queryName);
 
-            int maxPage = maxPageNumberByCategoriesAndAlcoholStatus(searchingCategory, searchingAlcoholStatus);
+            int maxPage = countPagesByCategoriesAndAlcoholStatus(searchingCategory, searchingAlcoholStatus);
 
             searchType.setMaxPage(maxPage);
 
 
-        } else if (searchingCategory.size()> 0) {
+        } else if (searchingCategory.size() > 0) {
 
 
             List<FullDrinkView> drinksByCategories = findByCategories(searchingCategory, currentPage);
 
             searchType.setDrinkViewList(drinksByCategories);
 
-            queryName = "category=" + Arrays.stream(categoriesQuery).collect(Collectors.joining("&&category="));
+            queryName = "category=" + String.join("&&category=", categoriesQuery);
 
             searchType.setQueryName(queryName);
 
-            int maxPage = maxPageNumberByCategories(searchingCategory);
+            int maxPage = countPagesByCategories(searchingCategory);
 
             searchType.setMaxPage(maxPage);
 
@@ -160,20 +178,21 @@ public class DrinkService {
 
             searchType.setDrinkViewList(drinksByAlcoholStatus);
 
-            queryName = "alcoholStatus=" + Arrays.stream(alcoholStatusQuery).collect(Collectors.joining("&&alcoholStatus="));
+
+            queryName = "&&alcoholStatus=" + String.join("&&alcoholStatus=", alcoholStatusQuery);
 
             searchType.setQueryName(queryName);
 
-            int maxPage = maxPageNumberByAlcoholStatus(searchingAlcoholStatus);
+            int maxPage = countPagesByAlcoholStatus(searchingAlcoholStatus);
 
             searchType.setMaxPage(maxPage);
 
 
         } else {
 
-            List<FullDrinkView> paginatedDrinkList = findAll(currentPage);
+            List<FullDrinkView> paginatedDrinkList = findAllDrinks(currentPage);
 
-            int maxPage = maxPageNumberFindAll();
+            int maxPage = countPagesFindAll();
 
             searchType.setDrinkViewList(paginatedDrinkList);
             searchType.setMaxPage(maxPage);
@@ -203,4 +222,7 @@ public class DrinkService {
     }
 
 
+    public static int getMaxPageNumber(String querySize) {
+        return (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
+    }
 }

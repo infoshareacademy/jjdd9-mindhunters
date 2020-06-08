@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FullDrinkView {
-//nie może być Encji
 
     private Long id;
 

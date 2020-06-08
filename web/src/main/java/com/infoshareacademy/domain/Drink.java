@@ -20,11 +20,15 @@ import java.util.List;
                 query = "SELECT d FROM Drink d"
         ),
         @NamedQuery(
+                name = "Drink.countFindAll",
+                query = "SELECT count (d) FROM Drink d"
+        ),
+        @NamedQuery(
                 name = "Drink.findDrinksByCategories",
                 query = "select d from Drink d where d.category.id in (:category)"
         ),
         @NamedQuery(
-                name = "Drink.findDrinksByCategories.count",
+                name = "Drink.CountDrinksByCategories",
                 query = "select count (d) from Drink d where d.category.id in (:category)"
         ),
         @NamedQuery(
@@ -32,7 +36,7 @@ import java.util.List;
                 query = "select d from Drink d where d.alcoholStatus in (:alcoholStatus)"
         ),
         @NamedQuery(
-                name = "Drink.findDrinksByAlcoholStatus.count",
+                name = "Drink.countDrinksByAlcoholStatus",
                 query = "select count (d) from Drink d where d.alcoholStatus in (:alcoholStatus)"
         ),
         @NamedQuery(
@@ -40,16 +44,15 @@ import java.util.List;
                 query = "select d from Drink d  where d.alcoholStatus  in (:alcoholStatus) and d.category.id in (:category)"
         ),
         @NamedQuery(
-                name = "Drink.findByCategoriesAndAlcoholStatus.count",
+                name = "Drink.countDrinksByCategoriesAndAlcoholStatus",
                 query = "select count (d) from Drink d where d.alcoholStatus  in (:alcoholStatus) and d.category.id in (:category)"
         )
+
 })
 
 @Entity
 @Table(name = "drink")
 public class Drink {
-//DTO simpleDrinkView - pola tylko wymagane bez interackji z baza - do listy
-//DTO full wymaga wszystkich danych - do drinka
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

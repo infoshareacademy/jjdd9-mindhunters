@@ -15,7 +15,7 @@ public class CategoryRepositoryBean {
     EntityManager entityManager;
 
     public List<Category> findAllNames() {
-        Query query = entityManager.createNamedQuery("Category.findAllCategories");
+        Query query = entityManager.createNamedQuery("Category.findAll");
         return query.getResultList();
     }
 }

@@ -6,11 +6,11 @@ import java.util.List;
 
 public class SearchType {
 
-    List<FullDrinkView> drinkViewList;
+    private List<FullDrinkView> drinkViewList;
 
-    int maxPage;
+    private int maxPage;
 
-    String queryName;
+    private String queryName;
 
     public List<FullDrinkView> getDrinkViewList() {
         return drinkViewList;

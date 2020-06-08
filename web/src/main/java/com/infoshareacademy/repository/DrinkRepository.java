@@ -15,21 +15,21 @@ public interface DrinkRepository {
 
     List<Drink> findDrinkByIngredients(List<Ingredient> ingredients);
 
-    List<Drink> findByCategories(List<Long> category, int pageNumber);
+    List<Drink> findByCategories(List<Long> category, int startPosition, int endPosition);
 
-    List<Drink> findByAlcoholStatus(List<String> alcoholStatus, int pageNumber);
+    List<Drink> findByAlcoholStatus(List<String> alcoholStatus, int startPosition, int endPosition);
 
-    List<Drink> findByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus, int pageNumber);
+    List<Drink> findByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus, int startPosition, int endPosition);
 
-    List<Drink> findAllDrinks(int pageNumber);
+    List<Drink> findAllDrinks(int startPosition, int endPosition);
 
-    int maxPageNumberFindAll();
+    int countPagesFindAll();
 
-    int maxPageNumberByCategories(List<Long> category);
+    int countPagesByCategories(List<Long> category);
 
-    int maxPageNumberByAlcoholStatus(List<String> alcoholStatus);
+    int countPagesByAlcoholStatus(List<String> alcoholStatus);
 
-    int maxPageNumberByCategoriesAndAlcoholStatus (List<Long> category, List<String> alcoholStatus);
+    int countPagesByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus);
 
 
 }
