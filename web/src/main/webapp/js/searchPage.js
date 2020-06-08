@@ -76,7 +76,6 @@ $('#input-name').keyup(function () {
         type: 'GET',
         success: function (data) {
             console.log(data);
-            //listOfNames = data;
             let result = data.map(r => r.drinkName);
             $('#input-name').autocomplete({
                 source: result
