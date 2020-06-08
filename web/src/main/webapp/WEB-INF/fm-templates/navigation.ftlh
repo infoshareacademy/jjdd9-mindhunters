@@ -21,7 +21,7 @@
                 <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="#part1-top">Home</a></li>
                 <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="#recipePage">Recipe</a>
                 </li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="#bottom-ft">Search</a>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="/search">Search</a>
                 </li>
                 <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="#settingPage">Setting</a>
                 </li>

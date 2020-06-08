@@ -54,49 +54,47 @@
                     <#if errorMessage??>
                         <div class="container ml-0 pl-0 mr-0 pr-0 ">
 
-                                <div class="container ml-0 pl-0 mr-0 pr-0 ">
-                                    <h3 style="color: red">${errorMessage}</h3>
-                                </div>
+                            <div class="container ml-0 pl-0 mr-0 pr-0 ">
+                                <h3 style="color: red">${errorMessage}</h3>
+                            </div>
 
                         </div>
 
                     <#else>
 
                         <#list drinkList as drink>
-
                             <li class="media ">
                                 <div class="container ml-0 pl-0 mr-0 pr-0 ">
-                                    <div class="row list-element">
+                                    <div class="row list-element" data-link="${"/single-view?drink=" + drink.id}">
                                         <div class="col-md-auto d-flex justify-content-center "
                                              style="min-width: 205px">
                                             <img src="${drink.image}"
                                                  class=" thumbnail_list justify-content-center" alt="...">
                                         </div>
-
                                         <div class="media-body line-clamp col-sm-8 ml-0 pl-1 mr-0 pr-0"
                                              style="color: #ffc107">
-
                                             <div class="row col-sm d-flex mt-4 mt-md-0 ">
                                                 <h5 class="col-md-6 mx-2 my-2  font-weight-bold text-center text-md-left">
                                                     ${drink.drinkName}
                                                 </h5>
-
                                                 <h5 class="col-md-5 mx-2 my-2   text-center text-md-right" style="
-                                                    padding-right: 0px;
-                                                    margin-right: 0px;">
+                                                                                    padding-right: 0px; margin-right: 0px;">
                                                     ${drink.categoryView.name}
-
                                                 </h5>
                                             </div>
                                             <div class="line-clamp mx-2 my-2 mt-4 mr-4 d-none d-md-block">
                                                 ${drink.recipe}
                                             </div>
+                                            <div class="line-clamp mx-2 my-2 mt-4 mr-4 ml-4 text-center text-md-right"
+                                                    <#if drink.alcoholStatus == "Alcoholic">
+                                                        style="color: #dc3545"
+                                                    </#if>
+                                            >
+                                                ${drink.alcoholStatus}
+                                            </div>
                                         </div>
-
                                     </div>
-
                                 </div>
-
                             </li>
                         </#list>
 
@@ -110,11 +108,11 @@
 
 
     <!--Pagination-->
-<#if !errorMessage??>
+    <#if !errorMessage??>
 
-    <#include "paginationSearch.ftlh">
+        <#include "paginationSearch.ftlh">
 
-</#if>
+    </#if>
 </nav>
 
 <!--Footer-->
