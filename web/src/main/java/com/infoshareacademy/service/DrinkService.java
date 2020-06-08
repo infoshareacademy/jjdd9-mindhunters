@@ -31,6 +31,9 @@ public class DrinkService {
 
     public FullDrinkView findDrinkById(Long drinkId) {
         Drink foundDrink = drinkRepository.findDrinkById(drinkId);
+        if (foundDrink == null){
+            return null;
+        }
         return fullDrinkMapper.toView(foundDrink);
     }
 

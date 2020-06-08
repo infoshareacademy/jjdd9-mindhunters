@@ -105,6 +105,13 @@ $(document).ready(function () {
 
 })
 
+$(document).ready(function() {
+    $("[data-link]").click(function() {
+        window.location.href = $(this).attr("data-link");
+        return false;
+    });
+});
+
 async function nextPage() {
     let url = new URL(window.location); // or construct from window.location
 
@@ -133,6 +140,8 @@ async function previousPage() {
         location.replace(newURL);
 
     }
+
+
 }
 
 
