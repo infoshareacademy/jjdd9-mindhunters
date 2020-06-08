@@ -1,5 +1,4 @@
 //add search fields
-
 $(document).ready(function () {
     var maxField = 10; //Input fields increment limitation
     var addButton = $('.add_button'); //Add button selector
@@ -35,6 +34,7 @@ $(document).ready(function () {
 
 
 
+
 //pagination
 async function nextPage() {
     let url = new URL(window.location); // or construct from window.location
@@ -49,7 +49,6 @@ async function nextPage() {
     location.replace(newURL);
 
 }
-
 async function previousPage() {
     let url = new URL(window.location); // or construct from window.location
 
@@ -66,4 +65,23 @@ async function previousPage() {
     }
 }
 
+
+//autocomplete
+$('#input-name').keyup(function () {
+    console.log('inside autocomplete');
+    if (this.value.length < 3) return;
+    var substring = $(this).val();
+    $.ajax({
+        url: '/api/search/drink/' + substring,
+        type: 'GET',
+        success: function (data) {
+            console.log(data);
+            //listOfNames = data;
+            let result = data.map(r => r.drinkName);
+            $('#input-name').autocomplete({
+                source: result
+            });
+        }
+    });
+});
 
