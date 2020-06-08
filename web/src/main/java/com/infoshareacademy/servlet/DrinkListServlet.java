@@ -1,6 +1,5 @@
 package com.infoshareacademy.servlet;
 
-import com.infoshareacademy.domain.Category;
 import com.infoshareacademy.domain.dto.CategoryView;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.freemarker.TemplateProvider;
@@ -48,8 +47,6 @@ public class DrinkListServlet extends HttpServlet {
         final int currentPage = Integer.parseInt(req.getParameter("page"));
 
         final int maxPage ;
-
-        final List<FullDrinkView> allDrinks = drinkService.findAllDrinks();
 
         final List<CategoryView> categories = categoryService.findAllCategories();
 

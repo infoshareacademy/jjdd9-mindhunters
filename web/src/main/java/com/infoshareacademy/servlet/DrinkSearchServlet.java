@@ -5,6 +5,7 @@ import com.infoshareacademy.domain.dto.IngredientView;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.DrinkService;
 import com.infoshareacademy.service.IngredientService;
+import com.infoshareacademy.service.QueryParamBuilder;
 import com.infoshareacademy.service.validator.UserInputValidator;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -38,6 +39,9 @@ public class DrinkSearchServlet extends HttpServlet {
 
     @Inject
     private UserInputValidator userInputValidator;
+
+    @Inject
+    private QueryParamBuilder queryParamBuilder;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -83,7 +87,7 @@ public class DrinkSearchServlet extends HttpServlet {
                     maxPage = drinkService.maxPageNumberDrinksByName(partialDrinkName);
 
                     dataModel.put("drinkList", foundDrinksByName);
-                    dataModel.put("queryName", buildNameQuery(partialDrinkName));
+                    dataModel.put("queryName", queryParamBuilder.buildNameQuery(partialDrinkName));
                     dataModel.put("maxPageSize", maxPage);
 
                     LOGGER.info("Drink list found by name sent to ftlh view");
@@ -128,7 +132,7 @@ public class DrinkSearchServlet extends HttpServlet {
                     maxPage = drinkService.maxPageNumberDrinksByIngredients(foundIngredientsByName);
 
                     dataModel.put("drinkList", foundDrinksByIngredients);
-                    dataModel.put("queryName", buildIngrQuery(ingredientNamesFiltered));
+                    dataModel.put("queryName", queryParamBuilder.buildIngrQuery(ingredientNamesFiltered));
                     dataModel.put("maxPageSize", maxPage);
 
                     LOGGER.info("Drink list found by ingredient sent to ftlh view.");
@@ -170,21 +174,6 @@ public class DrinkSearchServlet extends HttpServlet {
         maxPage = drinkService.maxPageNumberDrinkList();
 
         dataModel.put("maxPageSize", maxPage);
-    }
-
-    private String buildIngrQuery(List<String> ingredientNamesFiltered) {
-        StringBuilder queryIngrBuilder = new StringBuilder();
-        queryIngrBuilder.append("search=ingr&ing=");
-        queryIngrBuilder.append(ingredientNamesFiltered
-                .stream()
-                .collect(Collectors.joining("&ing=")));
-        return queryIngrBuilder.toString();
-    }
-
-    private String buildNameQuery(String partialDrinkName) {
-        StringBuilder queryNameBuilder = new StringBuilder();
-        queryNameBuilder.append("search=name&");
-        return queryNameBuilder.append("name=" + partialDrinkName).toString();
     }
 
 }
