@@ -1,10 +1,9 @@
 package com.infoshareacademy.mapper;
 
-import com.infoshareacademy.domain.DrinkIngredient;
-import com.infoshareacademy.domain.Ingredient;
-import com.infoshareacademy.domain.IngredientJson;
-import com.infoshareacademy.domain.Measure;
+import com.infoshareacademy.domain.*;
 import com.infoshareacademy.service.DrinkIngredientService;
+import com.infoshareacademy.service.IngredientService;
+import com.infoshareacademy.service.MeasureService;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -13,15 +12,23 @@ import javax.enterprise.context.RequestScoped;
 public class IngredientMapper {
 
     @EJB
-    private DrinkIngredientService drinkIngredientService;
+    private IngredientService ingredientService;
 
-    public DrinkIngredient toEntity(IngredientJson ingredientJson) {
-        Measure measure = drinkIngredientService.getByMeasureOrCreate(ingredientJson.getMeasure());
-        Ingredient ingredient = drinkIngredientService.getByNameOrCreate(ingredientJson.getName());
+    @EJB
+    private MeasureService measureService;
+
+    //nowy
+    @EJB
+    private DrinkIngredientService drinkIngredientService;
+//================================
+    public DrinkIngredient toEntity(IngredientJson ingredientJson, Drink drink) {
+        Measure measure = measureService.getOrCreate(ingredientJson.getMeasure());
+        Ingredient ingredient = ingredientService.getOrCreate(ingredientJson.getName());
         DrinkIngredient drinkIngredient = new DrinkIngredient();
         drinkIngredient.setIngredient(ingredient);
         drinkIngredient.setMeasure(measure);
-
+        drinkIngredient.setDrinkId(drink);
+//        drinkIngredient = drinkIngredientService.getByDrinkIdOrCreate(drink,ingredient,measure);
         return drinkIngredient;
     }
 }

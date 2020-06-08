@@ -1,20 +1,29 @@
 package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.Ingredient;
-import com.infoshareacademy.domain.Measure;
+import com.infoshareacademy.repository.IngredientRepositoryBean;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 @Stateless
 public class IngredientService {
 
-    public Ingredient getByNameOrCreate(String name) {
+    @Inject
+    IngredientRepositoryBean ingredientRepositoryBean;
 
-        return null;
-    }
+//    public List<String> findAllNames() {
+//        return ingredientRepositoryBean.findAllNames();
+//    }
 
-    public Measure getByMeasureOrCreate(String measure) {
 
-        return null;
+    public Ingredient getOrCreate(String name) {
+        Ingredient ingredient = ingredientRepositoryBean.getByName(name);
+        if (ingredient==null) {
+            ingredient = new Ingredient();
+            ingredient.setName(name);
+            ingredientRepositoryBean.save(ingredient);
+        }
+        return ingredient;
     }
 }

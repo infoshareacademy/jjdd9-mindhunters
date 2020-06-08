@@ -2,9 +2,7 @@ package com.infoshareacademy.mapper;
 
 import com.infoshareacademy.domain.*;
 import com.infoshareacademy.jsonSupport.CategoryJson;
-import com.infoshareacademy.repository.CategoryRepositoryBean;
 
-import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -13,8 +11,8 @@ import java.util.List;
 @RequestScoped
 public class DrinkMapper {
 
-    @EJB
-    CategoryRepositoryBean categoryRepositoryBean;
+//    @EJB
+//    CategoryRepositoryBean categoryRepositoryBean;
 
     @Inject
     CategoryMapper categoryMapper;
@@ -39,7 +37,7 @@ public class DrinkMapper {
 
         List<DrinkIngredient> drinkIngredients = new ArrayList<>();
         for (IngredientJson ingredientJson : drinkJson.getIngredients()) {
-            DrinkIngredient drinkIngredient = ingredientMapper.toEntity(ingredientJson);
+            DrinkIngredient drinkIngredient = ingredientMapper.toEntity(ingredientJson,drink);
             drinkIngredient.setDrinkId(drink);
             drinkIngredients.add(drinkIngredient);
         }
