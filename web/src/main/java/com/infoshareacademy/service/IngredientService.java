@@ -5,6 +5,9 @@ import com.infoshareacademy.domain.dto.DrinkIngredientView;
 import com.infoshareacademy.domain.dto.IngredientView;
 import com.infoshareacademy.repository.IngredientRepository;
 import com.infoshareacademy.service.mapper.IngredientMapper;
+import com.infoshareacademy.servlet.LoggerServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -16,6 +19,8 @@ import java.util.Set;
 @Stateless
 public class IngredientService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(IngredientService.class.getName());
+
     @EJB
     IngredientRepository ingredientRepository;
 
@@ -23,6 +28,7 @@ public class IngredientService {
     IngredientMapper ingredientMapper;
 
     public List<IngredientView> findIngredientsByName(String partialIngredientName) {
+        LOGGER.debug("Searching for ingredients by partial name input");
 
         final List<Ingredient> ingredientsByName = ingredientRepository.findIngredientsByName(partialIngredientName);
 
@@ -30,6 +36,7 @@ public class IngredientService {
     }
 
     public List<IngredientView> findIngredientsByName(List<String> partialIngredientNames) {
+        LOGGER.debug("Searching for ingredients by partial name list input");
         Set<Ingredient> ingredientsByName = new HashSet<>();
         for (String name : partialIngredientNames) {
             ingredientsByName.addAll(ingredientRepository.findIngredientsByName(name));

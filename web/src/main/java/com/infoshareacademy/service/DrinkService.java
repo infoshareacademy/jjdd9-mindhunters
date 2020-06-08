@@ -7,6 +7,8 @@ import com.infoshareacademy.domain.dto.IngredientView;
 import com.infoshareacademy.repository.DrinkRepository;
 import com.infoshareacademy.service.mapper.FullDrinkMapper;
 import com.infoshareacademy.service.mapper.IngredientMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -17,6 +19,7 @@ import java.util.Optional;
 @Stateless
 public class DrinkService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DrinkService.class.getName());
 
     @EJB
     private DrinkRepository drinkRepository;
@@ -30,6 +33,7 @@ public class DrinkService {
 
 
     public FullDrinkView findDrinkById(Long drinkId) {
+        LOGGER.debug("Searching drink id");
         Drink foundDrink = drinkRepository.findDrinkById(drinkId);
         if (foundDrink == null){
             return null;
@@ -38,11 +42,13 @@ public class DrinkService {
     }
 
     public List<FullDrinkView> findDrinksByName(String partialDrinkName, int pageNumber) {
+        LOGGER.debug("Searching drinks by name with pagination");
         List<Drink> foundDrinks = drinkRepository.paginatedFindDrinksByName(partialDrinkName, pageNumber);
         return fullDrinkMapper.toView(foundDrinks);
     }
 
     public List<FullDrinkView> findDrinkByIngredients(List<IngredientView> ingredientViews, int pageNumber) {
+        LOGGER.debug("Searching drinks by ingredients with pagination");
         final List<Ingredient> ingredients = ingredientMapper.toEntity(ingredientViews);
         final List<Drink> foundDrinksByIngredients = drinkRepository.paginatedFindDrinkByIngredients(ingredients, pageNumber);
         return fullDrinkMapper.toView(foundDrinksByIngredients);
@@ -54,11 +60,13 @@ public class DrinkService {
     }
 
     public List<FullDrinkView> findAllDrinksByCategories(List<Long> category,int pageNumber) {
+        LOGGER.debug("Searching drinks by categories with pagination");
         List<Drink> drinks = drinkRepository.paginatedDrinksByCategories(category, pageNumber);
         return fullDrinkMapper.toView(drinks);
     }
 
     public List<FullDrinkView> paginationDrinkList(int pageNumber) {
+        LOGGER.debug("Get all drinks paginated");
         List<Drink> drinks = drinkRepository.paginatedDrinksList(pageNumber);
         return fullDrinkMapper.toView(drinks);
     }

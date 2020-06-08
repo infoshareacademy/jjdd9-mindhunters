@@ -65,7 +65,7 @@ public class DrinkSearchServlet extends HttpServlet {
             switch (searchType) {
 
                 case "name":
-
+                    LOGGER.debug("Searching drinks by name");
 
                     String partialDrinkName = req.getParameter("name");
 
@@ -94,6 +94,8 @@ public class DrinkSearchServlet extends HttpServlet {
                     break;
 
                 case "ingr":
+
+                    LOGGER.debug("Searching drinks by ingredients");
 
                     final String[] ingredientParams = req.getParameterValues("ing");
 
@@ -139,7 +141,7 @@ public class DrinkSearchServlet extends HttpServlet {
                     break;
 
                 default:
-
+                    LOGGER.debug("No search method detected - display all drinks");
                     displayAllDrinks(dataModel, currentPage);
                     break;
             }

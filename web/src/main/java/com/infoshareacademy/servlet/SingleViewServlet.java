@@ -23,7 +23,7 @@ import java.util.Map;
 @WebServlet("/single-view")
 public class SingleViewServlet extends HttpServlet {
 
-    private static final Logger logger = LoggerFactory.getLogger(SingleViewServlet.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(SingleViewServlet.class.getName());
 
     @EJB
     DrinkService drinkService;
@@ -45,12 +45,14 @@ public class SingleViewServlet extends HttpServlet {
 
         if (drinkId < 0) {
             dataModel.put("errorMessage", "Wrong input.\n");
+            LOGGER.debug("Negative drink id");
         } else {
             final FullDrinkView foundDrinkById = drinkService.findDrinkById(drinkId);
 
 
             if (foundDrinkById == null) {
                 dataModel.put("errorMessage", "Drink not found.\n");
+                LOGGER.debug("Drink id not found");
             }
 
             dataModel.put("drink", foundDrinkById);
@@ -60,7 +62,7 @@ public class SingleViewServlet extends HttpServlet {
         try {
             template.process(dataModel, resp.getWriter());
         } catch (TemplateException e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
 
         }
     }
