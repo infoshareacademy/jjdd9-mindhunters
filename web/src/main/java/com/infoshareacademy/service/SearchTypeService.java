@@ -53,64 +53,6 @@ public class SearchTypeService {
     }
 
 
-
-
-    public  Map<String, Object> createDmForSearchByIngredients(HttpServletRequest req, int currentPage) {
-        Map<String, Object> dataModel = new HashMap<>();
-        int maxPage;
-
-        LOGGER.debug("Searching drinks by ingredients");
-
-        final String[] ingredientParams = req.getParameterValues("ing");
-
-        if (ingredientParams == null || ingredientParams.length == 0) {
-            dataModel.put("errorMessage", "Ingredients not found.\n");
-            return dataModel;
-        }
-
-        final Set<String> ingredientDistinctNamesFiltered = Arrays.stream(ingredientParams)
-                .filter(i -> !(i.isBlank()))
-                .filter(s -> userInputValidator.validateSpecialChars(s))
-                .map(String::trim)
-                .map(s1 -> userInputValidator.removeExtraSpaces(s1))
-                .collect(Collectors.toSet());
-
-        final List<String> ingredientNamesFiltered = new ArrayList<>(ingredientDistinctNamesFiltered);
-
-        List<IngredientView> foundIngredientsByName = ingredientService.findIngredientsByName(ingredientNamesFiltered);
-
-        if (foundIngredientsByName == null || foundIngredientsByName.size() == 0) {
-            dataModel.put("errorMessage", "Ingredients not found.\n");
-            LOGGER.info("Ingredients not found in database.");
-            return dataModel;
-        }
-
-        maxPage = drinkService.maxPageNumberDrinksByIngredients(foundIngredientsByName);
-        currentPage = userInputValidator.compareCurrentPageWithMaxPage(currentPage, maxPage);
-
-        final List<FullDrinkView> foundDrinksByIngredients =
-                drinkService.findDrinkByIngredients(foundIngredientsByName, currentPage);
-
-        if (foundDrinksByIngredients == null || foundDrinksByIngredients.size() == 0) {
-            dataModel.put("errorMessage", "Drinks not found.\n");
-            LOGGER.info("Ingredients not found in database.");
-            return dataModel;
-        }
-
-
-        dataModel.put("drinkList", foundDrinksByIngredients);
-        dataModel.put("queryName", queryParamBuilder.buildIngrQuery(ingredientNamesFiltered));
-        dataModel.put("maxPageSize", maxPage);
-        dataModel.put("currentPage", currentPage);
-
-        LOGGER.info("Drink list found by ingredient sent to ftlh view.");
-
-        return dataModel;
-    }
-
-
-
-
     public  Map<String, Object> listViewSearchType(HttpServletRequest req){
         final String searchType = req.getParameter("search");
         final String pageNumberReq = req.getParameter("page");
@@ -128,33 +70,23 @@ public class SearchTypeService {
             switch (searchType) {
 
                 case "name":
-
                     dataModel = createDmForSearchByName(req, currentPage);
-
                     break;
 
                 case "ingr":
-
-
-
+                    dataModel = createDmForSearchByIngredients(req, currentPage);
                     break;
 
                 default:
-                    LOGGER.debug("No search method detected - display all drinks");
-                    maxPage  = drinkService.maxPageNumberDrinkList();
-                    currentPage = userInputValidator.compareCurrentPageWithMaxPage(currentPage, maxPage);
-
-                    final List<FullDrinkView> paginatedDrinkList = drinkService.paginationDrinkList(currentPage);
-
-                    dataModel.put("drinkList", paginatedDrinkList);
-                    dataModel.put("maxPageSize", maxPage);
-                    dataModel.put("currentPage", currentPage);
+                    dataModel = createDmForDrinkList(currentPage);
                     break;
+
             }
 
         }
         return dataModel;
     }
+
 
     public  Map<String, Object> createDmForDrinkList(int currentPage) {
         Map<String, Object> dataModel = new HashMap<>();
@@ -171,6 +103,7 @@ public class SearchTypeService {
         LOGGER.debug("No search method chosen - display all drinks list");
         return dataModel;
     }
+
 
     public  Map<String, Object> createDmForSearchByName(HttpServletRequest req, int currentPage) {
         Map<String, Object> dataModel = new HashMap<>();
@@ -210,8 +143,63 @@ public class SearchTypeService {
     }
 
 
+    public  Map<String, Object> createDmForSearchByIngredients(HttpServletRequest req, int currentPage) {
+        LOGGER.debug("Searching drinks by ingredients");
+        Map<String, Object> dataModel = new HashMap<>();
+        int maxPage;
+
+        final String[] ingredientParams = req.getParameterValues("ing");
+
+        if (ingredientParams == null || ingredientParams.length == 0) {
+            dataModel.put("errorMessage", "Ingredients not found.\n");
+            return dataModel;
+        }
+
+        final List<String> ingredientNamesFiltered = filterIngrNames(ingredientParams);
+
+        List<IngredientView> foundIngredientsByName = ingredientService.findIngredientsByName(ingredientNamesFiltered);
+
+        if (foundIngredientsByName == null || foundIngredientsByName.size() == 0) {
+            dataModel.put("errorMessage", "Ingredients not found.\n");
+            LOGGER.info("Ingredients not found in database.");
+            return dataModel;
+        }
+
+        maxPage = drinkService.maxPageNumberDrinksByIngredients(foundIngredientsByName);
+        currentPage = userInputValidator.compareCurrentPageWithMaxPage(currentPage, maxPage);
+
+        final List<FullDrinkView> foundDrinksByIngredients =
+                drinkService.findDrinkByIngredients(foundIngredientsByName, currentPage);
+
+        if (foundDrinksByIngredients == null || foundDrinksByIngredients.size() == 0) {
+            dataModel.put("errorMessage", "Drinks not found.\n");
+            LOGGER.info("Ingredients not found in database.");
+            return dataModel;
+        }
+
+        dataModel.put("drinkList", foundDrinksByIngredients);
+        dataModel.put("queryName", queryParamBuilder.buildIngrQuery(ingredientNamesFiltered));
+        dataModel.put("maxPageSize", maxPage);
+        dataModel.put("currentPage", currentPage);
+
+        LOGGER.info("Drink list found by ingredient sent to ftlh view.");
+        return dataModel;
+    }
 
 
+    public  List<String> filterIngrNames(String[] ingredientParams) {
+
+        final Set<String> ingredientDistinctNamesFiltered = Arrays.stream(ingredientParams)
+                .filter(i -> !(i.isBlank()))
+                .filter(s -> userInputValidator.validateSpecialChars(s))
+                .map(String::trim)
+                .map(s1 -> userInputValidator.removeExtraSpaces(s1))
+                .collect(Collectors.toSet());
+
+        final List<String> ingredientNamesFiltered = new ArrayList<>(ingredientDistinctNamesFiltered);
+
+        return ingredientNamesFiltered;
+    }
 
 
 }
