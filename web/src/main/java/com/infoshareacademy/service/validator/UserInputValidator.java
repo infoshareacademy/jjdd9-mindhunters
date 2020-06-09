@@ -3,6 +3,7 @@ package com.infoshareacademy.service.validator;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import javax.enterprise.context.RequestScoped;
+import javax.servlet.http.HttpServletRequest;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,10 +35,19 @@ public class UserInputValidator {
     }
 
     public int compareCurrentPageWithMaxPage(int currentPage, int maxPage){
-        if (currentPage < 0 || currentPage > maxPage ){
+        if (currentPage < 0 || currentPage > maxPage){
             currentPage = 1;
         }
         return currentPage;
+    }
+
+    public int getFirstPageWhenWrongPageInput(HttpServletRequest req, String pageNumberReq) {
+
+        if (pageNumberReq == null || pageNumberReq.trim().isEmpty() || !validatePageNumber(pageNumberReq)) {
+            return 1;
+        }
+
+        return Integer.parseInt(req.getParameter("page"));
     }
 
 }

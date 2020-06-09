@@ -54,7 +54,7 @@ public class DrinkSearchServlet extends HttpServlet {
         int maxPage;
         int currentPage;
 
-        currentPage = getFirstPageWhenWrongPageInput(req, pageNumberReq);
+        currentPage = userInputValidator.getFirstPageWhenWrongPageInput(req, pageNumberReq);
 
         if (searchType == null || searchType.length() == 0) {
 
@@ -173,15 +173,6 @@ public class DrinkSearchServlet extends HttpServlet {
         } catch (TemplateException e) {
             LOGGER.error(e.getMessage());
         }
-    }
-
-    private int getFirstPageWhenWrongPageInput(HttpServletRequest req, String pageNumberReq) {
-
-        if (pageNumberReq == null || pageNumberReq.trim().isEmpty() || !userInputValidator.validatePageNumber(pageNumberReq)) {
-            return 1;
-        }
-
-        return Integer.parseInt(req.getParameter("page"));
     }
 
 }
