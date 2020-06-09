@@ -15,13 +15,12 @@ import java.util.List;
 public class IngredientService {
 
     @EJB
-    IngredientRepository ingredientRepository;
+    private IngredientRepository ingredientRepository;
 
     @Inject
-    IngredientMapper ingredientMapper;
+    private IngredientMapper ingredientMapper;
 
     public List<IngredientView> findIngredientsByName(String partialIngredientName) {
-        //moze jakie logowanie zrobic w service???
         final List<Ingredient> ingredientsByName = ingredientRepository.findIngredientsByName(partialIngredientName);
 
         return ingredientMapper.toView(ingredientsByName);

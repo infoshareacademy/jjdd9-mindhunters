@@ -12,7 +12,7 @@ import java.util.List;
 public class CategoryRepositoryBean {
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     public List<Category> findAllNames() {
         Query query = entityManager.createNamedQuery("Category.findAll");

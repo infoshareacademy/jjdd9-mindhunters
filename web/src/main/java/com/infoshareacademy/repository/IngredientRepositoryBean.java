@@ -13,7 +13,7 @@ import java.util.List;
 public class IngredientRepositoryBean implements IngredientRepository {
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     public List<Ingredient> findIngredientsByName(String partialIngredientName) {
         Query ingredientQuery = entityManager.createNamedQuery("Ingredient.findIngredientsByPartialName");

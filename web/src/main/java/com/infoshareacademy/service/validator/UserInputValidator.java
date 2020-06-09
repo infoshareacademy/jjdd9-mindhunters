@@ -10,18 +10,8 @@ import java.util.regex.Pattern;
 public class UserInputValidator {
 
 
-    public boolean validateSpecialChars(String input) {
-        Pattern compiledPattern = Pattern.compile("[a-zA-Z0-9_ -]{2,30}");
-        Matcher matcher = compiledPattern.matcher(input);
-        return matcher.matches();
-    }
-
-    public String removeExtraSpaces(String input) {
-        return input.replaceAll(" +", " ");
-    }
-
     public boolean validatePageNumber(String page) {
-        Pattern compiledPattern = Pattern.compile("\\d*");
+        Pattern compiledPattern = Pattern.compile("[1-9]+[0-9]*");
         Matcher matcher = compiledPattern.matcher(page);
         return matcher.matches();
     }
@@ -31,6 +21,13 @@ public class UserInputValidator {
             return Long.parseLong(number);
         }
         return -1L;
+    }
+
+    public int compareCurrentPageWithMaxPage(int currentPage, int maxPage){
+        if (currentPage < 0 || currentPage > maxPage ){
+            currentPage = 1;
+        }
+        return currentPage;
     }
 
 }

@@ -16,12 +16,10 @@ import java.util.List;
 public class DrinkRepositoryBean implements DrinkRepository {
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     @Inject
-    DrinkService drinkService;
-
-    public final static Integer PAGE_SIZE = 5;
+    private DrinkService drinkService;
 
     public Drink findDrinkById(Long drinkId) {
 

@@ -6,6 +6,7 @@ import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.CategoryService;
 import com.infoshareacademy.service.DrinkService;
 import com.infoshareacademy.service.SearchType;
+import com.infoshareacademy.service.validator.UserInputValidator;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -35,26 +36,24 @@ public class DrinkListServlet extends HttpServlet {
     @EJB
     private CategoryService categoryService;
 
-//    @EJB
-//    private SearchType searchType;
-
     @Inject
     private TemplateProvider templateProvider;
 
-
+    @Inject
+    private UserInputValidator userInputValidator;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
         String pageNumberReq = req.getParameter("page");
+
         int currentPage;
 
-        if (pageNumberReq.matches("0|[1-9]\\d*")) {
-            currentPage = Integer.parseInt(req.getParameter("page"));
-
-        } else {
+        if (!userInputValidator.validatePageNumber(pageNumberReq)) {
             currentPage = 1;
+        } else {
+            currentPage = Integer.valueOf(pageNumberReq);
         }
 
         final List<CategoryView> categories = categoryService.findAllCategories();

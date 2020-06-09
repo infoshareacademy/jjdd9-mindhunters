@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class DrinkService {
 
 
-    public final static Integer PAGE_SIZE = 5;
+    private final static Integer PAGE_SIZE = 5;
 
     @EJB
     private DrinkRepository drinkRepository;

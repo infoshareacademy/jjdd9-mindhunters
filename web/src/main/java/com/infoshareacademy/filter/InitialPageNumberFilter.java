@@ -14,17 +14,6 @@ import java.io.IOException;
         )
 public class InitialPageNumberFilter implements Filter {
 
-
-    @Override
-    public void init(FilterConfig filterConfig) {
-
-    }
-
-
-    @Override
-    public void destroy() {
-
-    }
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
        
@@ -36,7 +25,7 @@ public class InitialPageNumberFilter implements Filter {
 
             return;
 
-        } else if (!reqParameter.matches("0|[1-9]\\d*") || Integer.valueOf(reqParameter) <= 0 ){
+        } else if (!reqParameter.matches("[1-9]+[0-9]*") || Integer.valueOf(reqParameter) <= 0 ){
             servletRequest.setAttribute("page", 1);
         }
 

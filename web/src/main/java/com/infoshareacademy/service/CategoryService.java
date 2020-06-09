@@ -15,7 +15,7 @@ import java.util.List;
 public class CategoryService {
 
     @EJB
-    CategoryRepositoryBean categoryRepositoryBean;
+    private CategoryRepositoryBean categoryRepositoryBean;
 
     @Inject
     private CategoryMapper categoryMapper;

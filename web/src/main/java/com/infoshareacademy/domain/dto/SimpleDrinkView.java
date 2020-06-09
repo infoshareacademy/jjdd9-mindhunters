@@ -3,8 +3,7 @@ package com.infoshareacademy.domain.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class    SimpleDrinkView {
-//nie może być Encji
+public class SimpleDrinkView {
 
     private Long id;
 
