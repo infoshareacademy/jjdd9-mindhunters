@@ -48,17 +48,23 @@ public class DrinkSearchServlet extends HttpServlet {
         resp.setContentType("text/html; charset=UTF-8");
 
         Map<String, Object> dataModel = new HashMap<>();
-        int maxPage;
-        int currentPage = 0;
-
         final String searchType = req.getParameter("search");
         String pageNumberReq = req.getParameter("page");
 
-        currentPage = getFirstPageWhenWrongPageNumber(req, pageNumberReq);
+        int maxPage;
+        int currentPage;
+
+        currentPage = getFirstPageWhenWrongPageInput(req, pageNumberReq);
 
         if (searchType == null || searchType.length() == 0) {
 
-            displayAllDrinks(dataModel, currentPage);
+            maxPage  = drinkService.maxPageNumberDrinkList();
+            currentPage = userInputValidator.compareCurrentPageWithMaxPage(currentPage, maxPage);
+
+            final List<FullDrinkView> paginatedDrinkList = drinkService.paginationDrinkList(currentPage);
+
+            dataModel.put("drinkList", paginatedDrinkList);
+            dataModel.put("maxPageSize", maxPage);
 
         } else {
 
@@ -77,6 +83,7 @@ public class DrinkSearchServlet extends HttpServlet {
                     partialDrinkName = userInputValidator.removeExtraSpaces(partialDrinkName);
                     maxPage = drinkService.maxPageNumberDrinksByName(partialDrinkName);
 
+                    currentPage = userInputValidator.compareCurrentPageWithMaxPage(currentPage, maxPage);
 
 
                     final List<FullDrinkView> foundDrinksByName =
@@ -124,6 +131,8 @@ public class DrinkSearchServlet extends HttpServlet {
                         break;
                     }
 
+                    maxPage = drinkService.maxPageNumberDrinksByIngredients(foundIngredientsByName);
+                    currentPage = userInputValidator.compareCurrentPageWithMaxPage(currentPage, maxPage);
 
                     final List<FullDrinkView> foundDrinksByIngredients =
                             drinkService.findDrinkByIngredients(foundIngredientsByName, currentPage);
@@ -134,7 +143,6 @@ public class DrinkSearchServlet extends HttpServlet {
                         break;
                     }
 
-                    maxPage = drinkService.maxPageNumberDrinksByIngredients(foundIngredientsByName);
 
                     dataModel.put("drinkList", foundDrinksByIngredients);
                     dataModel.put("queryName", queryParamBuilder.buildIngrQuery(ingredientNamesFiltered));
@@ -145,7 +153,13 @@ public class DrinkSearchServlet extends HttpServlet {
 
                 default:
                     LOGGER.debug("No search method detected - display all drinks");
-                    displayAllDrinks(dataModel, currentPage);
+                    maxPage  = drinkService.maxPageNumberDrinkList();
+                    currentPage = userInputValidator.compareCurrentPageWithMaxPage(currentPage, maxPage);
+
+                    final List<FullDrinkView> paginatedDrinkList = drinkService.paginationDrinkList(currentPage);
+
+                    dataModel.put("drinkList", paginatedDrinkList);
+                    dataModel.put("maxPageSize", maxPage);
                     break;
             }
 
@@ -161,22 +175,13 @@ public class DrinkSearchServlet extends HttpServlet {
         }
     }
 
-    private int getFirstPageWhenWrongPageNumber(HttpServletRequest req, String pageNumberReq) {
+    private int getFirstPageWhenWrongPageInput(HttpServletRequest req, String pageNumberReq) {
 
         if (pageNumberReq == null || pageNumberReq.trim().isEmpty() || !userInputValidator.validatePageNumber(pageNumberReq)) {
             return 1;
         }
 
         return Integer.parseInt(req.getParameter("page"));
-    }
-
-    private void displayAllDrinks(Map<String, Object> dataModel, int currentPage) {
-        int maxPage  = drinkService.maxPageNumberDrinkList();
-
-        final List<FullDrinkView> paginatedDrinkList = drinkService.paginationDrinkList(currentPage);
-
-        dataModel.put("drinkList", paginatedDrinkList);
-        dataModel.put("maxPageSize", maxPage);
     }
 
 }
