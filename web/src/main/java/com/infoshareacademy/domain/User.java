@@ -23,7 +23,7 @@ public class User {
     @JoinTable(name = "favourite",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "drink_id", referencedColumnName = "id"))
-    List<Drink> drinks = new ArrayList<>();
+    private List<Drink> drinks = new ArrayList<>();
 
     public Long getId() {
         return id;

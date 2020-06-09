@@ -22,10 +22,10 @@ public class IngredientService {
     private static final Logger LOGGER = LoggerFactory.getLogger(IngredientService.class.getName());
 
     @EJB
-    IngredientRepository ingredientRepository;
+    private IngredientRepository ingredientRepository;
 
     @Inject
-    IngredientMapper ingredientMapper;
+    private IngredientMapper ingredientMapper;
 
     public List<IngredientView> findIngredientsByName(String partialIngredientName) {
         LOGGER.debug("Searching for ingredients by partial name input");

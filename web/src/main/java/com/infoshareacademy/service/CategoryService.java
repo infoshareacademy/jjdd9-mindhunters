@@ -19,7 +19,7 @@ public class CategoryService {
     private static final Logger LOGGER = LoggerFactory.getLogger(CategoryService.class.getName());
 
     @EJB
-    CategoryRepositoryBean categoryRepositoryBean;
+    private CategoryRepositoryBean categoryRepositoryBean;
 
     @Inject
     private CategoryMapper categoryMapper;

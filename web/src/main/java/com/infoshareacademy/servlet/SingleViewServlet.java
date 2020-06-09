@@ -26,10 +26,10 @@ public class SingleViewServlet extends HttpServlet {
     private static final Logger LOGGER = LoggerFactory.getLogger(SingleViewServlet.class.getName());
 
     @EJB
-    DrinkService drinkService;
+    private DrinkService drinkService;
 
     @Inject
-    UserInputValidator userInputValidator;
+    private UserInputValidator userInputValidator;
 
 
     @Inject

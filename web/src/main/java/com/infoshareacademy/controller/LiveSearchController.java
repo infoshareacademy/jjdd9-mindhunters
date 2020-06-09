@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response;
 public class LiveSearchController {
 
     @EJB
-    DrinkRestService drinkRestService;
+    private DrinkRestService drinkRestService;
 
     @GET
     @Path("/drink/{partialName}")

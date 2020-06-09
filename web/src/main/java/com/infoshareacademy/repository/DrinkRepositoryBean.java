@@ -14,7 +14,7 @@ import java.util.List;
 public class DrinkRepositoryBean implements DrinkRepository {
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     public final static Integer PAGE_SIZE = 5;
     public final static Integer LIVE_SEARCH_LIMIT = 10;
