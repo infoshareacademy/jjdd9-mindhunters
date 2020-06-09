@@ -75,6 +75,9 @@ public class DrinkSearchServlet extends HttpServlet {
                     }
 
                     partialDrinkName = userInputValidator.removeExtraSpaces(partialDrinkName);
+                    maxPage = drinkService.maxPageNumberDrinksByName(partialDrinkName);
+
+
 
                     final List<FullDrinkView> foundDrinksByName =
                             drinkService.findDrinksByName(partialDrinkName.trim(), currentPage);
@@ -84,7 +87,7 @@ public class DrinkSearchServlet extends HttpServlet {
                         break;
                     }
 
-                    maxPage = drinkService.maxPageNumberDrinksByName(partialDrinkName);
+
 
                     dataModel.put("drinkList", foundDrinksByName);
                     dataModel.put("queryName", queryParamBuilder.buildNameQuery(partialDrinkName));
@@ -168,13 +171,11 @@ public class DrinkSearchServlet extends HttpServlet {
     }
 
     private void displayAllDrinks(Map<String, Object> dataModel, int currentPage) {
-        int maxPage;
+        int maxPage  = drinkService.maxPageNumberDrinkList();
+
         final List<FullDrinkView> paginatedDrinkList = drinkService.paginationDrinkList(currentPage);
 
         dataModel.put("drinkList", paginatedDrinkList);
-
-        maxPage = drinkService.maxPageNumberDrinkList();
-
         dataModel.put("maxPageSize", maxPage);
     }
 

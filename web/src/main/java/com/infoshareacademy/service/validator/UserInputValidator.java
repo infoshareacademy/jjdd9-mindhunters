@@ -21,7 +21,7 @@ public class UserInputValidator {
     }
 
     public boolean validatePageNumber(String page) {
-        Pattern compiledPattern = Pattern.compile("\\d*");
+        Pattern compiledPattern = Pattern.compile("[1-9]+[0-9]*");
         Matcher matcher = compiledPattern.matcher(page);
         return matcher.matches();
     }
@@ -31,6 +31,13 @@ public class UserInputValidator {
             return Long.parseLong(number);
         }
         return -1L;
+    }
+
+    public int compareCurrentPageWithMaxPage(int currentPage, int maxPage){
+        if (currentPage < 0 || currentPage > maxPage ){
+            currentPage = 1;
+        }
+        return currentPage;
     }
 
 }
