@@ -1,11 +1,54 @@
 package com.infoshareacademy.domain;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+
+@NamedQueries({
+        @NamedQuery(
+                name = "Drink.findDrinkByIngredients",
+                query = "select distinct d from Drink d join d.drinkIngredients di where di.ingredient IN " +
+                        ":ingredients "),
+        @NamedQuery(
+                name = "Drink.findDrinkByPartialName",
+                query = "select d from Drink d where lower( d.drinkName) like lower(:partialDrinkName)"),
+        @NamedQuery(
+                name = "Drink.findAll",
+                query = "SELECT d FROM Drink d"
+        ),
+        @NamedQuery(
+                name = "Drink.countFindAll",
+                query = "SELECT count (d) FROM Drink d"
+        ),
+        @NamedQuery(
+                name = "Drink.findDrinksByCategories",
+                query = "select d from Drink d where d.category.id in (:category)"
+        ),
+        @NamedQuery(
+                name = "Drink.CountDrinksByCategories",
+                query = "select count (d) from Drink d where d.category.id in (:category)"
+        ),
+        @NamedQuery(
+                name = "Drink.findDrinksByAlcoholStatus",
+                query = "select d from Drink d where d.alcoholStatus in (:alcoholStatus)"
+        ),
+        @NamedQuery(
+                name = "Drink.countDrinksByAlcoholStatus",
+                query = "select count (d) from Drink d where d.alcoholStatus in (:alcoholStatus)"
+        ),
+        @NamedQuery(
+                name = "Drink.findByCategoriesAndAlcoholStatus",
+                query = "select d from Drink d  where d.alcoholStatus  in (:alcoholStatus) and d.category.id in (:category)"
+        ),
+        @NamedQuery(
+                name = "Drink.countDrinksByCategoriesAndAlcoholStatus",
+                query = "select count (d) from Drink d where d.alcoholStatus  in (:alcoholStatus) and d.category.id in (:category)"
+        )
+
+})
 
 @Entity
 @Table(name = "drink")
@@ -34,7 +77,7 @@ public class Drink {
     private String recipe;
 
     @OneToMany(mappedBy = "drinkId", fetch = FetchType.LAZY)
-    private List<DrinkIngredient> drinkIngredient = new ArrayList<>();
+    private List<DrinkIngredient> drinkIngredients = new ArrayList<>();
 
     private String image;
 
@@ -88,12 +131,12 @@ public class Drink {
         this.recipe = recipe;
     }
 
-    public List<DrinkIngredient> getDrinkIngredient() {
-        return drinkIngredient;
+    public List<DrinkIngredient> getDrinkIngredients() {
+        return drinkIngredients;
     }
 
-    public void setDrinkIngredient(List<DrinkIngredient> drinkIngredient) {
-        this.drinkIngredient = drinkIngredient;
+    public void setDrinkIngredients(List<DrinkIngredient> drinkIngredients) {
+        this.drinkIngredients = drinkIngredients;
     }
 
     public String getImage() {
