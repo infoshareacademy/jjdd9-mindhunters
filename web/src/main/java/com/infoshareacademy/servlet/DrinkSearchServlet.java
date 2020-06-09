@@ -26,12 +26,6 @@ public class DrinkSearchServlet extends HttpServlet {
     private static final Logger LOGGER = LoggerFactory.getLogger(DrinkSearchServlet.class.getName());
 
     @EJB
-    private DrinkService drinkService;
-
-    @EJB
-    private IngredientService ingredientService;
-
-    @EJB
     private SearchTypeService searchTypeService;
 
     @Inject
