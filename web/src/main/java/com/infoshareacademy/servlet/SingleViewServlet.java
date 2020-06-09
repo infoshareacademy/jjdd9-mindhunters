@@ -1,7 +1,6 @@
 package com.infoshareacademy.servlet;
 
 import com.infoshareacademy.freemarker.TemplateProvider;
-import com.infoshareacademy.service.DrinkService;
 import com.infoshareacademy.service.SearchTypeService;
 import com.infoshareacademy.service.validator.UserInputValidator;
 import freemarker.template.Template;
@@ -17,7 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 @WebServlet("/single-view")
@@ -26,13 +24,10 @@ public class SingleViewServlet extends HttpServlet {
     private static final Logger LOGGER = LoggerFactory.getLogger(SingleViewServlet.class.getName());
 
     @EJB
-    private DrinkService drinkService;
+    private SearchTypeService searchTypeService;
 
     @Inject
     private UserInputValidator userInputValidator;
-
-    @Inject
-    private SearchTypeService searchTypeService;
 
     @Inject
     private TemplateProvider templateProvider;
@@ -43,7 +38,7 @@ public class SingleViewServlet extends HttpServlet {
         resp.setContentType("text/html; charset=UTF-8");
         final String idParam = req.getParameter("drink");
         Long drinkId = userInputValidator.stringToLongConverter(idParam);
-        Map<String, Object> dataModel = new HashMap<>();
+        Map<String, Object> dataModel;
 
         dataModel = searchTypeService.singleViewSearchType(drinkId);
 
@@ -56,6 +51,5 @@ public class SingleViewServlet extends HttpServlet {
 
         }
     }
-
 
 }

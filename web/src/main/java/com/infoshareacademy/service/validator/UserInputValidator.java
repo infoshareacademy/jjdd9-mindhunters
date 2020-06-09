@@ -41,13 +41,13 @@ public class UserInputValidator {
         return currentPage;
     }
 
-    public int getFirstPageWhenWrongPageInput(HttpServletRequest req, String pageNumberReq) {
+    public int getFirstPageWhenWrongPageInput(String pageNumberReq) {
 
         if (pageNumberReq == null || pageNumberReq.trim().isEmpty() || !validatePageNumber(pageNumberReq)) {
             return 1;
         }
 
-        return Integer.parseInt(req.getParameter("page"));
+        return Integer.parseInt(pageNumberReq);
     }
 
 }
