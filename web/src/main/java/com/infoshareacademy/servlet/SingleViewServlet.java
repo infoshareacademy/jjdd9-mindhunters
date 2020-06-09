@@ -1,8 +1,8 @@
 package com.infoshareacademy.servlet;
 
-import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.DrinkService;
+import com.infoshareacademy.service.SearchTypeService;
 import com.infoshareacademy.service.validator.UserInputValidator;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -31,6 +31,8 @@ public class SingleViewServlet extends HttpServlet {
     @Inject
     private UserInputValidator userInputValidator;
 
+    @Inject
+    private SearchTypeService searchTypeService;
 
     @Inject
     private TemplateProvider templateProvider;
@@ -43,22 +45,10 @@ public class SingleViewServlet extends HttpServlet {
         Long drinkId = userInputValidator.stringToLongConverter(idParam);
         Map<String, Object> dataModel = new HashMap<>();
 
-        if (drinkId < 0) {
-            dataModel.put("errorMessage", "Wrong input.\n");
-            LOGGER.debug("Negative drink id");
-        } else {
-            final FullDrinkView foundDrinkById = drinkService.findDrinkById(drinkId);
-
-
-            if (foundDrinkById == null) {
-                dataModel.put("errorMessage", "Drink not found.\n");
-                LOGGER.debug("Drink id not found");
-            }
-
-            dataModel.put("drink", foundDrinkById);
-        }
+        dataModel = searchTypeService.singleViewSearchType(drinkId);
 
         Template template = templateProvider.getTemplate(getServletContext(), "singleDrinkView.ftlh");
+
         try {
             template.process(dataModel, resp.getWriter());
         } catch (TemplateException e) {
