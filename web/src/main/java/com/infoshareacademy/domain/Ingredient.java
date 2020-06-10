@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 
 @NamedQueries({
         @NamedQuery(name = "Ingredient.findIngredientsByPartialName",
-                query = "select distinct i from Ingredient i where lower(i.name) like lower" +
+                query = "SELECT DISTINCT i FROM Ingredient i WHERE LOWER(i.name) LIKE LOWER" +
                         "(:partialIngredientName)")
 })
 @Entity

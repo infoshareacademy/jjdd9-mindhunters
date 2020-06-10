@@ -20,9 +20,6 @@ public class CategoryService {
     @EJB
     private CategoryRepositoryBean categoryRepositoryBean;
 
-    @EJB
-    private CategoryRepositoryBean categoryRepositoryBean;
-
     @Inject
     private CategoryMapper categoryMapper;
 

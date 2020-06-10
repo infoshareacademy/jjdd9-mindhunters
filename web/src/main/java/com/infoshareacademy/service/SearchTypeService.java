@@ -3,13 +3,11 @@ package com.infoshareacademy.service;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.domain.dto.IngredientView;
 import com.infoshareacademy.service.validator.UserInputValidator;
-import com.infoshareacademy.servlet.SingleViewServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -40,7 +38,7 @@ public class SearchTypeService {
             dataModel.put("errorMessage", "Wrong input.\n");
             LOGGER.debug("Negative drink id");
         } else {
-            final FullDrinkView foundDrinkById = drinkService.findDrinkById(drinkId);
+            final FullDrinkView foundDrinkById = drinkService.getDrinkById(drinkId);
 
             if (foundDrinkById == null) {
                 dataModel.put("errorMessage", "Drink not found.\n");
@@ -91,10 +89,10 @@ public class SearchTypeService {
     public  Map<String, Object> createDmForDrinkList(int currentPage) {
         Map<String, Object> dataModel = new HashMap<>();
 
-        int maxPage  = drinkService.maxPageNumberDrinkList();
+        int maxPage  = drinkService.countPagesFindAll();
         currentPage = userInputValidator.compareCurrentPageWithMaxPage(currentPage, maxPage);
 
-        final List<FullDrinkView> paginatedDrinkList = drinkService.paginationDrinkList(currentPage);
+        final List<FullDrinkView> paginatedDrinkList = drinkService.findAllDrinks(currentPage);
 
         dataModel.put("drinkList", paginatedDrinkList);
         dataModel.put("maxPageSize", maxPage);
@@ -119,7 +117,7 @@ public class SearchTypeService {
         }
 
         partialDrinkName = userInputValidator.removeExtraSpaces(partialDrinkName);
-        maxPage = drinkService.maxPageNumberDrinksByName(partialDrinkName);
+        maxPage = drinkService.countPagesByName(partialDrinkName);
 
         currentPage = userInputValidator.compareCurrentPageWithMaxPage(currentPage, maxPage);
 
@@ -165,11 +163,11 @@ public class SearchTypeService {
             return dataModel;
         }
 
-        maxPage = drinkService.maxPageNumberDrinksByIngredients(foundIngredientsByName);
+        maxPage = drinkService.countPagesByIngredients(foundIngredientsByName);
         currentPage = userInputValidator.compareCurrentPageWithMaxPage(currentPage, maxPage);
 
         final List<FullDrinkView> foundDrinksByIngredients =
-                drinkService.findDrinkByIngredients(foundIngredientsByName, currentPage);
+                drinkService.findByIngredients(foundIngredientsByName, currentPage);
 
         if (foundDrinksByIngredients == null || foundDrinksByIngredients.size() == 0) {
             dataModel.put("errorMessage", "Drinks not found.\n");

@@ -55,13 +55,7 @@ import java.util.List;
         @NamedQuery(
                 name = "Drink.countDrinksByCategoriesAndAlcoholStatus",
                 query = "select count (d) from Drink d where d.alcoholStatus  in (:alcoholStatus) and d.category.id in (:category)"
-        ),
-
-
-        @NamedQuery(
-                name = "Drink.findTotalDrinksAmount",
-                query = "SELECT COUNT(d) FROM Drink d")
-
+        )
 })
 
 @Entity
