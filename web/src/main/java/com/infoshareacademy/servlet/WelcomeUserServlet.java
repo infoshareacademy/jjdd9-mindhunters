@@ -1,4 +1,4 @@
-package com.infoshareacademy.servlets;
+package com.infoshareacademy.servlet;
 
 import com.infoshareacademy.freemarker.TemplateProvider;
 import freemarker.template.Template;
