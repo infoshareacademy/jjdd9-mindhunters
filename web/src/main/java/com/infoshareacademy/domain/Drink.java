@@ -10,12 +10,12 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(
                 name = "Drink.findByIngredients",
-                query = "select distinct d from Drink d join d.drinkIngredients di where di.ingredient IN " +
-                        ":ingredients "),
+                query = "SELECT d FROM Drink d JOIN d.drinkIngredients di WHERE di.ingredient IN :ingredients GROUP BY " +
+                        "d ORDER BY COUNT (di.ingredient) DESC"),
         @NamedQuery(
                 name = "Drink.countByIngredients",
-                query = "select distinct COUNT(d) from Drink d join d.drinkIngredients di where di.ingredient IN " +
-                        ":ingredients "),
+                query = "SELECT COUNT(DISTINCT d.id) FROM Drink d JOIN d.drinkIngredients di WHERE di.ingredient IN " +
+                        ":ingredients"),
         @NamedQuery(
                 name = "Drink.findDrinkByPartialName",
                 query = "SELECT d FROM Drink d WHERE LOWER( d.drinkName) LIKE LOWER(:partialDrinkName)"),
