@@ -56,6 +56,7 @@ import java.util.List;
                 name = "Drink.countDrinksByCategoriesAndAlcoholStatus",
                 query = "select count (d) from Drink d where d.alcoholStatus  in (:alcoholStatus) and d.category.id in (:category)"
         )
+
 })
 
 @Entity

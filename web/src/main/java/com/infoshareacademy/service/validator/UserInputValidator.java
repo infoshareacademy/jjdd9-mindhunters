@@ -3,7 +3,6 @@ package com.infoshareacademy.service.validator;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import javax.enterprise.context.RequestScoped;
-import javax.servlet.http.HttpServletRequest;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

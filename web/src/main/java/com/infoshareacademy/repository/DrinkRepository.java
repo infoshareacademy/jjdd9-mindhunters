@@ -2,20 +2,17 @@ package com.infoshareacademy.repository;
 
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.Ingredient;
-import org.hibernate.jpa.QueryHints;
 
 import javax.ejb.Local;
-import javax.persistence.Query;
 import java.util.List;
-import java.util.Optional;
 
 @Local
 public interface DrinkRepository {
 
+
     Drink findDrinkById(Long drinkId);
 
-
-   List<Drink> findDrinksByName(String partialDrinkName, int startPosition, int endPosition);
+    List<Drink> findDrinksByName(String partialDrinkName, int startPosition, int endPosition);
 
     int countPagesByName(String partialDrinkName);
 
@@ -28,5 +25,18 @@ public interface DrinkRepository {
     List<Drink> findAllDrinks(int startPosition, int endPosition);
 
     int countPagesFindAll();
+
+    List<Drink> findByCategories(List<Long> category, int startPosition, int endPosition);
+
+    int countPagesByCategories(List<Long> category);
+
+    List<Drink> findByAlcoholStatus(List<String> alcoholStatus, int startPosition, int endPosition);
+
+    int countPagesByAlcoholStatus(List<String> alcoholStatus);
+
+    List<Drink> findByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus,
+                                                 int startPosition, int endPosition);
+
+    int countPagesByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus);
 
 }

@@ -1,6 +1,7 @@
 package com.infoshareacademy.domain;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 
 @NamedQueries({
@@ -12,7 +13,10 @@ import javax.validation.constraints.NotNull;
                 name = "Category.findAllNames",
                 query = "SELECT c.name FROM Category c"
         )
+
 })
+
+
 @Entity
 @Table(name = "category")
 public class Category {
