@@ -1,9 +1,9 @@
 package com.infoshareacademy.service;
 
-import com.infoshareacademy.domain.Drink;
+import com.infoshareacademy.domain.DrinkJson;
 import com.infoshareacademy.domain.DrinksDatabase;
 import com.infoshareacademy.domain.FavouritesDatabase;
-import com.infoshareacademy.domain.Ingredient;
+import com.infoshareacademy.domain.IngredientJson;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -43,7 +43,7 @@ class FavouritesServiceTest {
         //given
         FavouritesDatabase instFavourites = FavouritesDatabase.getInstFavourites();
         DrinksDatabase drinksDatabase = DrinksDatabase.getINSTANCE();
-        Drink drink = new Drink();
+        DrinkJson drink = new DrinkJson();
         drink.setDrinkId("17222");
         drinksDatabase.addDrink(drink);
 
@@ -57,12 +57,12 @@ class FavouritesServiceTest {
     @Test
     public void getFavourDrinkListTest() {
         //given
-        Drink drink = new Drink();
+        DrinkJson drink = new DrinkJson();
         drink.setDrinkId("17222");
         drink.setDrinkName("TestTest");
         drink.setModifiedDate(LocalDateTime.now());
         drink.setImageUrl("TEST");
-        drink.setIngredients(List.of(new Ingredient(), new Ingredient()));
+        drink.setIngredients(List.of(new IngredientJson(), new IngredientJson()));
         DrinksDatabase.getINSTANCE().addDrink(drink);
         FavouritesDatabase instFavourites = FavouritesDatabase.getInstFavourites();
         instFavourites.addFavourite("17222");

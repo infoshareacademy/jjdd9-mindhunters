@@ -2,17 +2,17 @@ package com.infoshareacademy.domain;
 
 import java.util.Objects;
 
-public class Ingredient {
+public class IngredientJson {
 
     private String name;
     private String measure;
 
-    public Ingredient(String name, String measure) {
+    public IngredientJson(String name, String measure) {
         this.name = name;
         this.measure = measure;
     }
 
-    public Ingredient() {
+    public IngredientJson() {
 
     }
 
@@ -48,7 +48,7 @@ public class Ingredient {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Ingredient that = (Ingredient) o;
+        IngredientJson that = (IngredientJson) o;
         return Objects.equals(name, that.name) &&
                 Objects.equals(measure, that.measure);
     }

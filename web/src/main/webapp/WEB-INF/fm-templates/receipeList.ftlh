@@ -34,7 +34,7 @@
 
                         <li class="media ">
                             <div class="container ml-0 pl-0 mr-0 pr-0 ">
-                                <div class="row list-element">
+                                <div class="row list-element" data-link="${"/single-view?drink=" + drink.id}">
                                     <div class="col-md-auto d-flex justify-content-center " style="min-width: 205px">
                                         <img src="${drink.image}"
                                              class=" thumbnail_list justify-content-center" alt="...">

@@ -16,8 +16,11 @@
     </parent>
 
     <dependencies>
-
-        <!--app dependency for tests-->
+        <dependency>
+            <groupId>com.infoshareacademy</groupId>
+            <artifactId>app</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>

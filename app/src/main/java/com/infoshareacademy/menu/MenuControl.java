@@ -1,6 +1,6 @@
 package com.infoshareacademy.menu;
 
-import com.infoshareacademy.domain.Drink;
+import com.infoshareacademy.domain.DrinkJson;
 import com.infoshareacademy.domain.FavouritesDatabase;
 import com.infoshareacademy.service.*;
 import com.infoshareacademy.utilities.PropertiesUtilities;
@@ -72,8 +72,8 @@ public class MenuControl {
                 case 2:
                     MenuPath.add("FAVORITES_DRINKS");
                     Utilities.clearScreen();
-                    List<Drink> sortedList = favouritesService.getAllFavourites(FavouritesDatabase.getInstFavourites());
-                    Drink favDrink = favouritesService.chooseOneFavRecipeFromList(sortedList);
+                    List<DrinkJson> sortedList = favouritesService.getAllFavourites(FavouritesDatabase.getInstFavourites());
+                    DrinkJson favDrink = favouritesService.chooseOneFavRecipeFromList(sortedList);
                     if (favDrink.getDrinkId() != null) {
                         DrinkService.printSingleDrink(favDrink);
                         userInput.getUserInputAnyKey();
@@ -83,7 +83,7 @@ public class MenuControl {
                 case 3:
                     MenuPath.add("SEARCH_BY_DRINK");
                     Utilities.clearScreen();
-                    Drink foundDrinkByName = search.searchDrinkByName();
+                    DrinkJson foundDrinkByName = search.searchDrinkByName();
                     if (foundDrinkByName.getDrinkId() != null) {
                         Utilities.clearScreen();
                         DrinkService.printSingleDrink(foundDrinkByName);
@@ -97,7 +97,7 @@ public class MenuControl {
                 case 4:
                     MenuPath.add("SEARCH_BY_INGREDIENT");
                     Utilities.clearScreen();
-                    Drink foundDrinkByIngredient = search.searchDrinkByIngredient();
+                    DrinkJson foundDrinkByIngredient = search.searchDrinkByIngredient();
                     userInput.getUserInputAnyKey();
                     if (foundDrinkByIngredient.getDrinkId() != null) {
                         Utilities.clearScreen();
@@ -112,7 +112,7 @@ public class MenuControl {
                 case 5:
                     MenuPath.add("SEARCH_BY_CATEGORY");
                     Utilities.clearScreen();
-                    Drink foundDrinkByCategory = search.SearchByCategory();
+                    DrinkJson foundDrinkByCategory = search.SearchByCategory();
                     if (foundDrinkByCategory.getDrinkId() != null) {
                         Utilities.clearScreen();
                         DrinkService.printSingleDrink(foundDrinkByCategory);
@@ -171,8 +171,8 @@ public class MenuControl {
                 case 5:
                     MenuPath.add("REMOVE_FAVORITE");
                     Utilities.clearScreen();
-                    List<Drink> sortedList = favouritesService.getAllFavourites(FavouritesDatabase.getInstFavourites());
-                    Drink favDrink = favouritesService.chooseOneFavouriteToRemoveFromList(sortedList);
+                    List<DrinkJson> sortedList = favouritesService.getAllFavourites(FavouritesDatabase.getInstFavourites());
+                    DrinkJson favDrink = favouritesService.chooseOneFavouriteToRemoveFromList(sortedList);
                     if (favDrink.getDrinkId() != null) {
                         favouritesService.removeFromFavourites(favDrink.getDrinkId());
                         userInput.getUserInputAnyKey();

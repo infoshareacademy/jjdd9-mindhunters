@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.util.List;
 
@@ -17,6 +16,9 @@ import java.util.List;
 public class CategoryService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CategoryService.class.getName());
+
+    @EJB
+    private CategoryRepositoryBean categoryRepositoryBean;
 
     @EJB
     private CategoryRepositoryBean categoryRepositoryBean;

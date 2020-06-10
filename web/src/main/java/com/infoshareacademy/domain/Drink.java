@@ -29,17 +29,39 @@ import java.util.List;
                 query = "SELECT d FROM Drink d"
         ),
         @NamedQuery(
-                name = "Drink.findTotalDrinksAmount",
-                query = "SELECT COUNT(d) FROM Drink d"),
-
+                name = "Drink.countFindAll",
+                query = "SELECT count (d) FROM Drink d"
+        ),
         @NamedQuery(
                 name = "Drink.findDrinksByCategories",
                 query = "select d from Drink d where d.category.id in (:category)"
         ),
         @NamedQuery(
-                name = "Drink.findDrinksByCategories.count",
+                name = "Drink.CountDrinksByCategories",
                 query = "select count (d) from Drink d where d.category.id in (:category)"
-        )
+        ),
+        @NamedQuery(
+                name = "Drink.findDrinksByAlcoholStatus",
+                query = "select d from Drink d where d.alcoholStatus in (:alcoholStatus)"
+        ),
+        @NamedQuery(
+                name = "Drink.countDrinksByAlcoholStatus",
+                query = "select count (d) from Drink d where d.alcoholStatus in (:alcoholStatus)"
+        ),
+        @NamedQuery(
+                name = "Drink.findByCategoriesAndAlcoholStatus",
+                query = "select d from Drink d  where d.alcoholStatus  in (:alcoholStatus) and d.category.id in (:category)"
+        ),
+        @NamedQuery(
+                name = "Drink.countDrinksByCategoriesAndAlcoholStatus",
+                query = "select count (d) from Drink d where d.alcoholStatus  in (:alcoholStatus) and d.category.id in (:category)"
+        ),
+
+
+        @NamedQuery(
+                name = "Drink.findTotalDrinksAmount",
+                query = "SELECT COUNT(d) FROM Drink d")
+
 })
 
 @Entity

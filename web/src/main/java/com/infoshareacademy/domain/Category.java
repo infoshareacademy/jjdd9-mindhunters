@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 
 @NamedQueries({
         @NamedQuery(
-                name = "Category.findAllCategories",
+                name = "Category.findAll",
                 query = "SELECT c FROM Category c"
         ),
         @NamedQuery(

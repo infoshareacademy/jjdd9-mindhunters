@@ -1,7 +1,8 @@
 package com.infoshareacademy.servlet;
 
+import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.freemarker.TemplateProvider;
-import com.infoshareacademy.service.SearchTypeService;
+import com.infoshareacademy.service.DrinkService;
 import com.infoshareacademy.service.validator.UserInputValidator;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -16,18 +17,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 @WebServlet("/single-view")
 public class SingleViewServlet extends HttpServlet {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SingleViewServlet.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(SingleViewServlet.class.getName());
 
     @EJB
-    private SearchTypeService searchTypeService;
+    private DrinkService drinkService;
 
     @Inject
     private UserInputValidator userInputValidator;
+
 
     @Inject
     private TemplateProvider templateProvider;
@@ -38,18 +41,29 @@ public class SingleViewServlet extends HttpServlet {
         resp.setContentType("text/html; charset=UTF-8");
         final String idParam = req.getParameter("drink");
         Long drinkId = userInputValidator.stringToLongConverter(idParam);
-        Map<String, Object> dataModel;
+        Map<String, Object> dataModel = new HashMap<>();
 
-        dataModel = searchTypeService.singleViewSearchType(drinkId);
+        if (drinkId < 0) {
+            dataModel.put("errorMessage", "Wrong input.\n");
+        } else {
+            final FullDrinkView foundDrinkById = drinkService.findDrinkById(drinkId);
+
+
+            if (foundDrinkById == null) {
+                dataModel.put("errorMessage", "Drink not found.\n");
+            }
+
+            dataModel.put("drink", foundDrinkById);
+        }
 
         Template template = templateProvider.getTemplate(getServletContext(), "singleDrinkView.ftlh");
-
         try {
             template.process(dataModel, resp.getWriter());
         } catch (TemplateException e) {
-            LOGGER.error(e.getMessage());
+            logger.error(e.getMessage());
 
         }
     }
+
 
 }
