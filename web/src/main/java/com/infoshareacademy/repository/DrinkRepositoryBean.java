@@ -81,7 +81,7 @@ public class DrinkRepositoryBean implements DrinkRepository {
 
     @Override
     public int countPagesByIngredients(List<Ingredient> ingredients) {
-        Query query = entityManager.createNamedQuery("Drink.countDrinksByIngredients");
+        Query query = entityManager.createNamedQuery("Drink.countByIngredients");
         query.setParameter("ingredients", ingredients);
         String querySize = query.getSingleResult().toString();
 

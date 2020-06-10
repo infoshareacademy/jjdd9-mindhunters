@@ -9,11 +9,11 @@ import java.util.List;
 
 @NamedQueries({
         @NamedQuery(
-                name = "Drink.findDrinkByIngredients",
+                name = "Drink.findByIngredients",
                 query = "select distinct d from Drink d join d.drinkIngredients di where di.ingredient IN " +
                         ":ingredients "),
         @NamedQuery(
-                name = "Drink.countDrinksByIngredients",
+                name = "Drink.countByIngredients",
                 query = "select distinct COUNT(d) from Drink d join d.drinkIngredients di where di.ingredient IN " +
                         ":ingredients "),
         @NamedQuery(
