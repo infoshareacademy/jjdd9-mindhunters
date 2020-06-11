@@ -902,3 +902,14 @@ a {
     color: inherit; /* blue colors for links too */
     text-decoration: inherit; /* no underline */
 }
+
+.relative{
+    position: relative;
+}
+
+.icons {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    z-index: 1;
+}

@@ -1,4 +1,22 @@
 $(document).ready(function () {
+    $('#ID03').on('click', '*', function (){
+        let drinkId = $(this).children('p').text().trim();
+        $.post("/list", {drinkId : drinkId});
+
+
+        $(this).children('#star-fill').toggle();
+        $(this).children('#star-empty').toggle();
+    });
+});
+
+$(document).ready(function () {
+    $("[data-link]").click(function () {
+        window.location.href = $(this).attr("data-link");
+        return false;
+    });
+});
+
+$(document).ready(function () {
 
     let content = null;
 
@@ -105,12 +123,7 @@ $(document).ready(function () {
 
 })
 
-$(document).ready(function() {
-    $("[data-link]").click(function() {
-        window.location.href = $(this).attr("data-link");
-        return false;
-    });
-});
+
 
 async function nextPage() {
     let url = new URL(window.location); // or construct from window.location
@@ -132,6 +145,8 @@ async function previousPage() {
         let newURL = url.origin + '/list?' + params.toString();
         location.replace(newURL);
     }
+
+
 
 }
 
