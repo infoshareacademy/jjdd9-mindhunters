@@ -27,7 +27,7 @@ public class IngredientMapper {
         DrinkIngredient drinkIngredient = new DrinkIngredient();
         drinkIngredient.setIngredient(ingredient);
         drinkIngredient.setMeasure(measure);
-        drinkIngredient.setDrinkId(drink);
+//        drinkIngredient.setDrinkId(drink);
 //        drinkIngredient = drinkIngredientService.getByDrinkIdOrCreate(drink,ingredient,measure);
         return drinkIngredient;
     }

@@ -41,6 +41,7 @@ public class DrinkMapper {
             drinkIngredient.setDrinkId(drink);
             drinkIngredients.add(drinkIngredient);
         }
+        drink.setDrinkIngredient(drinkIngredients);
         categoryJson.setCategoryName(drinkJson.getCategoryName());
         Category category = categoryMapper.toEntity(categoryJson);
         drink.setCategory(category);

@@ -38,7 +38,7 @@ public class DrinkIngredientRepositoryBean {
         // Szukamy po nazwie i wybieramy pierwszą kategorię
         // Jak nie ma to null;
         Query qry = entityManager.createNamedQuery("Drink.getByDrinkId");
-        qry.setParameter("drinkId", drinkId.getDrinkId());
+        qry.setParameter("drinkId", drinkId);
         List<DrinkIngredient> resultList = qry.getResultList();
         return resultList.size() == 0 ? null : resultList.get(0);
     }

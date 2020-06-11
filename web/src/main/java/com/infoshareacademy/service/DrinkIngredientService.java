@@ -22,7 +22,7 @@ public class DrinkIngredientService {
             drinkIngredient.setDrinkId(drink);
             drinkIngredient.setIngredient(ingredient);
             drinkIngredient.setMeasure(measure);
-//            drinkIngredientRepositoryBean.save(drinkIngredient);
+            drinkIngredientRepositoryBean.save(drinkIngredient);
         }
         return drinkIngredient;
     }
