@@ -74,9 +74,6 @@ public class DrinkListServlet extends HttpServlet {
         List<FullDrinkView> drinkViewList = searchType.getDrinkViewList();
 
         userService.saveFavourite("1","6");
-        userService.saveFavourite("1","6");
-        userService.saveFavourite("1","2");
-        userService.saveFavourite("1","10");
 
         String queryName = searchType.getQueryName();
 
@@ -97,4 +94,12 @@ public class DrinkListServlet extends HttpServlet {
         }
     }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        String drinkId = req.getAttribute("drinkId").toString();
+        userService.saveFavourite("1",drinkId);
+
+        packageLogger.warn("uruchomiono posta");
+    }
 }
