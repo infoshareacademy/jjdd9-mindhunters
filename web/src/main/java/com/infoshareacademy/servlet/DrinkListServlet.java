@@ -3,9 +3,11 @@ package com.infoshareacademy.servlet;
 import com.infoshareacademy.domain.dto.CategoryView;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.freemarker.TemplateProvider;
+import com.infoshareacademy.repository.UserRepositoryBean;
 import com.infoshareacademy.service.CategoryService;
 import com.infoshareacademy.service.DrinkService;
 import com.infoshareacademy.service.SearchType;
+import com.infoshareacademy.service.UserService;
 import com.infoshareacademy.service.validator.UserInputValidator;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -42,6 +44,9 @@ public class DrinkListServlet extends HttpServlet {
     @Inject
     private UserInputValidator userInputValidator;
 
+    @Inject
+    private UserService userService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -67,6 +72,11 @@ public class DrinkListServlet extends HttpServlet {
         int maxPage = searchType.getMaxPage();
 
         List<FullDrinkView> drinkViewList = searchType.getDrinkViewList();
+
+        userService.saveFavourite("1","6");
+        userService.saveFavourite("1","6");
+        userService.saveFavourite("1","2");
+        userService.saveFavourite("1","10");
 
         String queryName = searchType.getQueryName();
 

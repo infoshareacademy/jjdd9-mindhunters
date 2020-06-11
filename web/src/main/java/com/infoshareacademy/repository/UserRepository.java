@@ -1,28 +1,19 @@
 package com.infoshareacademy.repository;
 
 import com.infoshareacademy.domain.Drink;
+import com.infoshareacademy.domain.User;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
-public class UserRepository implements UserRepositoryBean{
+public interface UserRepository {
 
-    @PersistenceContext
-    EntityManager entityManager;
+    List<User> findAll();
 
-    @Override
-    public void saveFavourite(Drink drink) {
+    User findUserById(Long id);
 
-        List<String> favouriteDrinks = new ArrayList<>();
-
-        entityManager.persist(favouriteDrinks.add(drink.getDrinkId()));
-    }
-
-
+    void saveFavourite(User user, Drink drink);
 
 
 }
