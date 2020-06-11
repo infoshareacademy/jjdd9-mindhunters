@@ -4,15 +4,18 @@ import com.infoshareacademy.domain.Category;
 import com.infoshareacademy.domain.dto.CategoryView;
 import com.infoshareacademy.repository.CategoryRepositoryBean;
 import com.infoshareacademy.service.mapper.CategoryMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.util.List;
 
 @Stateless
 public class CategoryService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CategoryService.class.getName());
 
     @EJB
     private CategoryRepositoryBean categoryRepositoryBean;
@@ -21,6 +24,7 @@ public class CategoryService {
     private CategoryMapper categoryMapper;
 
     public List<CategoryView> findAllCategories() {
+        LOGGER.debug("Return all categories names");
         List<Category> categories = categoryRepositoryBean.findAllNames();
         return categoryMapper.toView(categories);
     }

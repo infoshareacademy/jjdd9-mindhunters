@@ -114,33 +114,24 @@ $(document).ready(function() {
 
 async function nextPage() {
     let url = new URL(window.location); // or construct from window.location
-
     let params = new URLSearchParams(url.search.slice(1));
-
     let pageNumber = parseInt(params.get('page'));
-
     let newPageNumber = pageNumber + 1;
     params.set('page', (newPageNumber).toString());
-    let newURL = 'http://localhost:8080/list?' + params.toString();
+    let newURL = url.origin + '/list?' + params.toString();
     location.replace(newURL);
-
 }
 
 async function previousPage() {
     let url = new URL(window.location); // or construct from window.location
-
     let params = new URLSearchParams(url.search.slice(1));
-
     let pageNumber = parseInt(params.get('page'));
-
     let newPageNumber = pageNumber - 1;
     if (newPageNumber > 0) {
         params.set('page', (newPageNumber).toString());
-        let newURL = 'http://localhost:8080/list?' + params.toString();
+        let newURL = url.origin + '/list?' + params.toString();
         location.replace(newURL);
-
     }
-
 
 }
 

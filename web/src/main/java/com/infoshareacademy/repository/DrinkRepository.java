@@ -9,27 +9,34 @@ import java.util.List;
 @Local
 public interface DrinkRepository {
 
-    Drink findDrinkById(Long id);
 
-    List<Drink> findDrinksByName(String partialDrinkName);
+    Drink findDrinkById(Long drinkId);
 
-    List<Drink> findDrinkByIngredients(List<Ingredient> ingredients);
+    List<Drink> findDrinksByName(String partialDrinkName, int startPosition, int endPosition);
 
-    List<Drink> findByCategories(List<Long> category, int startPosition, int endPosition);
+    int countPagesByName(String partialDrinkName);
 
-    List<Drink> findByAlcoholStatus(List<String> alcoholStatus, int startPosition, int endPosition);
+    List<Drink> liveSearchDrinksByName(String partialDrinkName);
 
-    List<Drink> findByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus, int startPosition, int endPosition);
+    List<Drink> findByIngredients(List<Ingredient> ingredients, int startPosition, int endPosition);
+
+    int countPagesByIngredients(List<Ingredient> ingredients);
 
     List<Drink> findAllDrinks(int startPosition, int endPosition);
 
     int countPagesFindAll();
 
+    List<Drink> findByCategories(List<Long> category, int startPosition, int endPosition);
+
     int countPagesByCategories(List<Long> category);
+
+    List<Drink> findByAlcoholStatus(List<String> alcoholStatus, int startPosition, int endPosition);
 
     int countPagesByAlcoholStatus(List<String> alcoholStatus);
 
-    int countPagesByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus);
+    List<Drink> findByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus,
+                                                 int startPosition, int endPosition);
 
+    int countPagesByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus);
 
 }

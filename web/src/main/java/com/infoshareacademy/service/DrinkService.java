@@ -8,6 +8,8 @@ import com.infoshareacademy.repository.DrinkRepository;
 import com.infoshareacademy.service.mapper.FullDrinkMapper;
 import com.infoshareacademy.service.mapper.IngredientMapper;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -18,8 +20,9 @@ import java.util.stream.Collectors;
 @Stateless
 public class DrinkService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DrinkService.class.getName());
+    private static final Integer PAGE_SIZE = 5;
 
-    private final static Integer PAGE_SIZE = 5;
 
     @EJB
     private DrinkRepository drinkRepository;
@@ -29,6 +32,49 @@ public class DrinkService {
 
     @Inject
     private IngredientMapper ingredientMapper;
+
+
+    public FullDrinkView getDrinkById(Long drinkId) {
+        LOGGER.debug("Searching drink id");
+        Drink foundDrink = drinkRepository.findDrinkById(drinkId);
+        if (foundDrink == null) {
+            return null;
+        }
+        return fullDrinkMapper.toView(foundDrink);
+    }
+
+    public List<FullDrinkView> findDrinksByName(String partialDrinkName, int pageNumber) {
+        LOGGER.debug("Searching drinks by name with pagination");
+
+        int startPosition = (pageNumber - 1) * PAGE_SIZE;
+        int endPosition = PAGE_SIZE;
+
+        List<Drink> foundDrinks = drinkRepository.findDrinksByName(partialDrinkName, startPosition, endPosition);
+        return fullDrinkMapper.toView(foundDrinks);
+    }
+
+    public int countPagesByName(String name) {
+        int maxPageNumber = drinkRepository.countPagesByName(name);
+        return maxPageNumber;
+    }
+
+    public List<FullDrinkView> findByIngredients(List<IngredientView> ingredientViews, int pageNumber) {
+        LOGGER.debug("Searching drinks by ingredients with pagination");
+
+        int startPosition = (pageNumber - 1) * PAGE_SIZE;
+        int endPosition = PAGE_SIZE;
+
+        final List<Ingredient> ingredients = ingredientMapper.toEntity(ingredientViews);
+        final List<Drink> foundDrinksByIngredients = drinkRepository.findByIngredients(ingredients,
+                startPosition, endPosition);
+        return fullDrinkMapper.toView(foundDrinksByIngredients);
+    }
+
+    public int countPagesByIngredients(List<IngredientView> ingredientViews) {
+        final List<Ingredient> ingredients = ingredientMapper.toEntity(ingredientViews);
+        int maxPageNumber = drinkRepository.countPagesByIngredients(ingredients);
+        return maxPageNumber;
+    }
 
 
     public List<FullDrinkView> findAllDrinks(int pageNumber) {
@@ -42,28 +88,7 @@ public class DrinkService {
     public int countPagesFindAll() {
         int maxPageNumber = drinkRepository.countPagesFindAll();
         return maxPageNumber;
-
     }
-
-    public FullDrinkView findDrinkById(Long drinkId) {
-        Drink foundDrink = drinkRepository.findDrinkById(drinkId);
-        if (foundDrink == null) {
-            return null;
-        }
-        return fullDrinkMapper.toView(foundDrink);
-    }
-
-    public List<FullDrinkView> findDrinksByName(String partialDrinkName) {
-        List<Drink> foundDrinks = drinkRepository.findDrinksByName(partialDrinkName);
-        return fullDrinkMapper.toView(foundDrinks);
-    }
-
-    public List<FullDrinkView> findDrinkByIngredients(List<IngredientView> ingredientViews) {
-        final List<Ingredient> ingredients = ingredientMapper.toEntity(ingredientViews);
-        final List<Drink> foundDrinksByIngredients = drinkRepository.findDrinkByIngredients(ingredients);
-        return fullDrinkMapper.toView(foundDrinksByIngredients);
-    }
-
 
     public List<FullDrinkView> findByCategories(List<Long> category, int pageNumber) {
         int startPosition = (pageNumber - 1) * PAGE_SIZE;
@@ -78,7 +103,6 @@ public class DrinkService {
         return maxPageNumber;
 
     }
-
 
     public List<FullDrinkView> findByAlcoholStatus(List<String> alcoholStatus, int pageNumber) {
         int startPosition = (pageNumber - 1) * PAGE_SIZE;

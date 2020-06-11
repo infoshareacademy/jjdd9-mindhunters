@@ -754,7 +754,7 @@ fieldset:disabled a.btn {
 
 ul.space_list li {
     margin-bottom: 1em;
-}
+    }
 
 .offset_img {
     position: relative;
@@ -878,14 +878,7 @@ ul.space_list li {
 }
 
 .checked {
-    background-color: #1b1e21; !important;
-
-}
-
-@media print {
-    .navbar {
-        display: none;
-    }
+    background-color: #1b1e21 ! important;
 }
 
 #remove_blue{
@@ -897,8 +890,10 @@ ul.space_list li {
     border-radius: 6px;
     -moz-border-radius: 6px;
 }
+@media print {
+    .navbar {
+        display: none;
+    }
 
-a {
-    color: inherit; /* blue colors for links too */
-    text-decoration: inherit; /* no underline */
+
 }
