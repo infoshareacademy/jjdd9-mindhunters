@@ -16,7 +16,7 @@ public class OAuthBuilder {
                 .setAccessToken(credential.getAccessToken());
 
         return new Oauth2.Builder(new NetHttpTransport(), JacksonFactory.getDefaultInstance(), googleCredential)
-                .setApplicationName("mindhunters virtual bartender").build();
+                .setApplicationName("Mindhunters virtual bartender").build();
     }
 
 }
