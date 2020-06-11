@@ -119,7 +119,7 @@
                 <div class="row justify-content-center">
                     <div class="col-md-3" style="font-size: 12px; text-align: center">
                         <br><br><br>
-                        <h3 style="color: red">${errorMessage}</h3>
+                        <h3 style="color: #ff0000">${errorMessage}</h3>
                         <br><br><br>
                         <br><br><br>
                         <br><br><br>
