@@ -1,11 +1,11 @@
 $(document).ready(function () {
-    $('#ID03').on('click', '*', function (){
-        let drinkId = $(this).children('p').text().trim();
-        $.post("/list", {drinkId : drinkId});
+    $('#ID03').on('click', '#ID04', function () {
+        let drinkId = $(this).text().trim().toString();
+        let url = new URL(window.location);
 
-        $(this).children('#star-fill').toggle();
-        $(this).children('#star-empty').toggle();
-        return false;
+            $.post(url, {drinkId: drinkId});
+
+        $(this).children('i').toggle();
     });
 });
 
@@ -124,7 +124,6 @@ $(document).ready(function () {
 })
 
 
-
 async function nextPage() {
     let url = new URL(window.location); // or construct from window.location
     let params = new URLSearchParams(url.search.slice(1));
@@ -145,7 +144,6 @@ async function previousPage() {
         let newURL = url.origin + '/list?' + params.toString();
         location.replace(newURL);
     }
-
 
 
 }

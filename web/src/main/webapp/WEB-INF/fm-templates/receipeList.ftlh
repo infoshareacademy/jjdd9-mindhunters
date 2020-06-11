@@ -29,17 +29,17 @@
             <#include "categoriesSidebar.ftlh">
 
             <div class="col-12 col-md-8 col-lg-8 col-xl-8">
-                <ul class="list-unstyled  justify-content-center  ml-auto space_list " id="ID03">
+                <ul class="list-unstyled  justify-content-center  ml-auto space_list  " id="ID03" >
                     <#list drinkList as drink>
 
                         <li class="media ">
                             <div class="container ml-0 pl-0 mr-0 pr-0 ">
                                 <div class="row list-element" >
-                                    <div class="col-md-auto d-flex justify-content-center " style="min-width: 205px">
-                                        <div class="relative">
+                                    <div class="col-md-auto d-flex justify-content-center " style="min-width: 205px" >
+                                        <div class="relative" id="ID04">
                                             <img src="${drink.image}"
                                                  class=" thumbnail_list justify-content-center" alt="...">
-                                            <i class="icon-lock-star icons" title="Add/delete from favourites">
+                                            <i class="icon-lock-star icons" title="Add/delete from favourites" >
                                                 <svg id="star-fill" class="bi bi-star-fill" width="1em" height="1em"
                                                      viewBox="0 0 16 16"
                                                      fill="orange"
