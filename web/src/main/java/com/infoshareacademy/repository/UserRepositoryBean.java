@@ -25,16 +25,5 @@ public class UserRepositoryBean implements UserRepository {
         return entityManager.find(User.class, id);
     }
 
-    @Override
-    public void saveFavourite(User user, Drink drink) {
-
-        List<Drink> drinks = user.getDrinks();
-
-        if (!drinks.contains(drink)){
-            drinks.add(drink);
-        }
-
-    }
-
 
 }

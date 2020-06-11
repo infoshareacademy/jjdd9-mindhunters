@@ -3,9 +3,9 @@ $(document).ready(function () {
         let drinkId = $(this).children('p').text().trim();
         $.post("/list", {drinkId : drinkId});
 
-
         $(this).children('#star-fill').toggle();
         $(this).children('#star-empty').toggle();
+        return false;
     });
 });
 

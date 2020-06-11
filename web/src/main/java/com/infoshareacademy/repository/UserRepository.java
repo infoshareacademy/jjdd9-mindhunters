@@ -13,7 +13,6 @@ public interface UserRepository {
 
     User findUserById(Long id);
 
-    void saveFavourite(User user, Drink drink);
 
 
 }

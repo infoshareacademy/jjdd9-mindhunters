@@ -3,7 +3,6 @@ package com.infoshareacademy.servlet;
 import com.infoshareacademy.domain.dto.CategoryView;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.freemarker.TemplateProvider;
-import com.infoshareacademy.repository.UserRepositoryBean;
 import com.infoshareacademy.service.CategoryService;
 import com.infoshareacademy.service.DrinkService;
 import com.infoshareacademy.service.SearchType;
@@ -31,6 +30,8 @@ import java.util.Map;
 public class DrinkListServlet extends HttpServlet {
 
     private static final Logger packageLogger = LoggerFactory.getLogger(DrinkListServlet.class.getName());
+
+    private final String userId = "1";
 
     @EJB
     private DrinkService drinkService;
@@ -73,7 +74,7 @@ public class DrinkListServlet extends HttpServlet {
 
         List<FullDrinkView> drinkViewList = searchType.getDrinkViewList();
 
-        userService.saveFavourite("1","6");
+    //    userService.saveOrDeleteFavourite("1","6");
 
         String queryName = searchType.getQueryName();
 
@@ -97,9 +98,9 @@ public class DrinkListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String drinkId = req.getAttribute("drinkId").toString();
-        userService.saveFavourite("1",drinkId);
+        String drinkId = req.getParameter("drinkId");
 
-        packageLogger.warn("uruchomiono posta");
+        userService.saveOrDeleteFavourite(userId,drinkId);
+
     }
 }
