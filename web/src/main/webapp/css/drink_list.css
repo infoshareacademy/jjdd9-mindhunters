@@ -904,6 +904,7 @@ a {
 
 .relative{
     position: relative;
+    height: 200px;
 }
 
 .icons {
