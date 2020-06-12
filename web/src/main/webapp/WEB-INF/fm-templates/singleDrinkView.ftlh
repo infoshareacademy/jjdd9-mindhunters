@@ -27,7 +27,7 @@
                 <div class="row justify-content-center" id="ID03">
                     <div class="col-md-3">
                         <h4>${drink.drinkName}</h4>
-                            <i class="icon-lock-star icons <#if favourites?seq_contains(drink.id)>color_toggle_on </#if> "
+                            <i class="icon-lock-star icons <#if favourites!?seq_contains(drink.id)>color_toggle_on </#if> "
                                title="Add/delete from favourites" id="ID04" >
                                 <svg id="star-fill" class="bi bi-star-fill  " width="1em" height="1em"
                                      viewBox="0 0 16 16"
