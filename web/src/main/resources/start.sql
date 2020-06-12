@@ -68,12 +68,13 @@ INSERT INTO ingredient (name) VALUES ('Triple sec');
 INSERT INTO ingredient (name) VALUES ('Southern Comfort');
 INSERT INTO ingredient (name) VALUES ('Orange bitters');
 
-INSERT INTO user (name, email) VALUES ('Szymon Skaziński', 'szymon@gmail.com');
-INSERT INTO user (name, email) VALUES ('Łukasz Spyra', 'lukasz@gmail.com');
-INSERT INTO user (name, email) VALUES ('Kamil Markowski', 'kamil@gmail.com');
-INSERT INTO user (name, email) VALUES ('Andrzej Duda', 'duda@gmail.com');
-INSERT INTO user (name, email) VALUES ('Anna Maria', 'marysia@gmail.com');
-INSERT INTO user (name, email) VALUES ('Adam nowak', 'nowak@gmail.lcom');
+INSERT INTO user (name, email, role) VALUES ('Szymon Skaziński', 'szymon@gmail.com', 'admin');
+INSERT INTO user (name, email, role) VALUES ('Łukasz Spyra', 'lukasz@gmail.com', 'admin');
+INSERT INTO user (name, email, role) VALUES ('Kamil Markowski', 'kamil@gmail.com', 'admin');
+INSERT INTO user (name, email, role) VALUES ('Andrzej Duda', 'duda@gmail.com', 'user');
+INSERT INTO user (name, email, role) VALUES ('Anna Maria', 'marysia@gmail.com', 'user');
+INSERT INTO user (name, email, role) VALUES ('Adam nowak', 'nowak@gmail.lcom', 'user');
+INSERT INTO user (name, email, role) VALUES ('Mindhunters', 'mindhunters3m@gmail.lcom', 'superAdmin');
 
 
 UPDATE drink SET category_id =1  WHERE id IN (1,2,3);

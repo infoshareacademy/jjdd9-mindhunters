@@ -5,6 +5,17 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@NamedQueries({
+        @NamedQuery(
+                name = "User.findAll",
+                query = "SELECT u FROM User u"
+        ),
+        @NamedQuery(
+                name = "User.findUserByEmail",
+                query = "SELECT u FROM User u WHERE u.email LIKE:email"
+        )
+})
 @Entity
 @Table(name = "user")
 public class User {
@@ -18,6 +29,9 @@ public class User {
 
     @NotNull
     private String email;
+
+    @NotNull
+    private String role;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "favourite",
@@ -55,5 +69,13 @@ public class User {
 
     public void setDrinks(List<Drink> drinks) {
         this.drinks = drinks;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
