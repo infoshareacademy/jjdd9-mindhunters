@@ -3,6 +3,7 @@ package com.infoshareacademy.oauth;
 import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.servlet.auth.oauth2.AbstractAuthorizationCodeCallbackServlet;
+import com.google.api.client.http.GenericUrl;
 import com.google.api.services.oauth2.Oauth2;
 import com.google.api.services.oauth2.model.Userinfoplus;
 import com.infoshareacademy.context.ContextHolder;
@@ -18,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.UUID;
 
 @WebServlet("/oauth2callback")
 public class CallbackServlet extends AbstractAuthorizationCodeCallbackServlet {
@@ -28,8 +30,13 @@ public class CallbackServlet extends AbstractAuthorizationCodeCallbackServlet {
     @EJB
     private UserService userService;
 
+    @EJB
+    private OAuthManager oAuthManager;
+
     @Inject
     private GoogleUserMapper googleUserMapper;
+
+
 
     @Override
     protected void onSuccess(HttpServletRequest req, HttpServletResponse resp, Credential credential) throws ServletException, IOException {
@@ -43,16 +50,18 @@ public class CallbackServlet extends AbstractAuthorizationCodeCallbackServlet {
 
     @Override
     protected AuthorizationCodeFlow initializeFlow() throws ServletException, IOException {
-        return null;
+        return oAuthManager.buildFlow();
     }
 
     @Override
     protected String getRedirectUri(HttpServletRequest httpServletRequest) throws ServletException, IOException {
-        return null;
+        GenericUrl url = new GenericUrl(httpServletRequest.getRequestURL().toString());
+        url.setRawPath("/oauth2callback");
+        return url.build();
     }
 
     @Override
     protected String getUserId(HttpServletRequest httpServletRequest) throws ServletException, IOException {
-        return null;
+        return UUID.randomUUID().toString();
     }
 }
