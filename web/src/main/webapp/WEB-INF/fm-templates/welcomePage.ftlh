@@ -4,6 +4,9 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="google-signin-client_id" content=298114958760-uts75flcprffcondd1jqatnqvhdronhs.apps.googleusercontent.com>
+
+
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
@@ -11,6 +14,7 @@
     <title>Mindhunters</title>
     <link href="../../css/style.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body id="page-top">
 
