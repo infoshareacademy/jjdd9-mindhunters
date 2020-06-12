@@ -75,8 +75,6 @@ public class DrinkListServlet extends HttpServlet {
 
         List<FullDrinkView> drinkViewList = searchType.getDrinkViewList();
 
-    //    userService.saveOrDeleteFavourite("1","6");
-
         String queryName = searchType.getQueryName();
 
         List<FullDrinkView> favouritesList = userService.favouritesList(userId);
@@ -89,6 +87,10 @@ public class DrinkListServlet extends HttpServlet {
 
             dataModel.put("favourites", favouritesListModel);
         }
+
+        String servletPath = req.getServletPath();
+
+        dataModel.put("servletPath",servletPath);
         dataModel.put("categories", categories);
         dataModel.put("maxPageSize", maxPage);
         dataModel.put("queryName", queryName);

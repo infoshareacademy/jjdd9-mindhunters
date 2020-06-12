@@ -18,7 +18,7 @@ import java.util.List;
         ),
         @NamedQuery(
                 name = "User.countFindFavouritesList",
-                query = "SELECT COUNT (u.drinks) FROM User u WHERE u.id = :id"
+                query = "SELECT COUNT (ud) FROM User u JOIN u.drinks ud WHERE u.id = :id"
         )
 
 })

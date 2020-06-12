@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,29 +58,29 @@ public class FavouriteDrinkListServlet extends HttpServlet {
 
         Map<String, Object> dataModel = new HashMap<>();
 
-        int maxPage = userService.countPagesFavouritesList(userId);
-
         List<FullDrinkView> drinkViewList = userService.favouritesList(userId, currentPage);
 
-//        List<FullDrinkView> favouritesList = userService.favouritesList(userId);
-//
-//        if (!favouritesList.isEmpty()) {
-//            List<Object> favouritesListModel = favouritesList.stream()
-//                    .map(FullDrinkView::getId)
-//                    .map(aLong -> Integer.parseInt(aLong.toString()))
-//                    .collect(Collectors.toList());
-//
-//        }
+        int maxPage = userService.countPagesFavouritesList(userId);
+
         dataModel.put("drinkList", drinkViewList);
 
+        List<Integer> favouritesId = null;
+
+        if (!drinkViewList.isEmpty()){
+            favouritesId = drinkViewList.stream()
+                    .map(FullDrinkView::getId)
+                    .map(aLong ->  Integer.parseInt(aLong.toString()))
+                    .collect(Collectors.toList());
+
+            dataModel.put("favourites", favouritesId);
+        }
+
+        String servletPath = req.getServletPath();
+
+        dataModel.put("servletPath",servletPath);
+        dataModel.put("favourites", favouritesId);
         dataModel.put("maxPageSize", maxPage);
-
         dataModel.put("currentPage", currentPage);
-
-        dataModel.put("favourites", drinkViewList);
-
-        dataModel.put("queryName", maxPage);
-
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeList.ftlh");
 
