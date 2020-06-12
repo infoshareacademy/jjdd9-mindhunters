@@ -5,7 +5,7 @@ $(document).ready(function () {
 
             $.post(url, {drinkId: drinkId});
 
-        $(this).children('i').toggle();
+            $(this).children('i').toggleClass("color_toggle_on");
     });
 });
 

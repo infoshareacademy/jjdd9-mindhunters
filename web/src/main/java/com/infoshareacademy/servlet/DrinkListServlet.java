@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @WebServlet("/list")
@@ -31,7 +32,7 @@ public class DrinkListServlet extends HttpServlet {
 
     private static final Logger packageLogger = LoggerFactory.getLogger(DrinkListServlet.class.getName());
 
-    private final String userId = "1";
+    private final String userId = "1"; // mock user
 
     @EJB
     private DrinkService drinkService;
@@ -78,6 +79,16 @@ public class DrinkListServlet extends HttpServlet {
 
         String queryName = searchType.getQueryName();
 
+        List<FullDrinkView> favouritesList = userService.favouritesList(userId);
+
+        if (!favouritesList.isEmpty()){
+            List<Object>favouritesListModel = favouritesList.stream()
+                    .map(FullDrinkView::getId)
+                    .map(aLong ->  Integer.parseInt(aLong.toString()))
+                    .collect(Collectors.toList());
+
+            dataModel.put("favourites", favouritesListModel);
+        }
         dataModel.put("categories", categories);
         dataModel.put("maxPageSize", maxPage);
         dataModel.put("queryName", queryName);
@@ -101,6 +112,8 @@ public class DrinkListServlet extends HttpServlet {
         String drinkId = req.getParameter("drinkId");
 
         userService.saveOrDeleteFavourite(userId,drinkId);
+
+
 
     }
 }
