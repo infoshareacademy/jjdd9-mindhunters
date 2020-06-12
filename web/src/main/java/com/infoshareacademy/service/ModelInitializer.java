@@ -13,7 +13,6 @@ import java.util.Map;
 public class ModelInitializer {
 
 
-
     public Map<String, Object> initModel(HttpServletRequest httpServletRequest) {
         final Map<String, Object> model = new HashMap<>();
         initUserContext(httpServletRequest.getSession(), model);
@@ -25,5 +24,4 @@ public class ModelInitializer {
         model.put("email", contextHolder.getEmail());
         model.put("role", contextHolder.getRole());
     }
-}
 }

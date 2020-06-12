@@ -27,18 +27,62 @@
                 </li>
 
 
+
+
                 <div class="btn-group">
                     <button type="button" class="btn dropdown-toggle btn-outline-warning btn-background"
                             data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
 
+                        <#if !role = "USER" || !role = "ADMIN" || !role = "SUPER_ADMIN">
                         Login
+                        <#else>
+                        Logout
+
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
-                                <div class="g-signin2  align-content-center" data-onsuccess="onSignIn"></div>
+                        <form class="px-4 py-3">
+                            <div class="form-group">
 
-                    </div>
+                            </div>
+                            <div class="form-group">
+
+                            </div>
+                            <div class="form-group">
+                                <div class="form-check">
+
+
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-outline-warning" id="submitLogin">Sign in</button>
+
+                        </form>
+
                 </div>
+
+
+
+
+<#--
+
+                    <#if role??>
+                    <ul class="text-uppercase">
+                        <#if role = "USER" || role = "ADMIN" || role = "SUPER_ADMIN">
+                            <li><a>${name}</a></li>
+                            <li><a href="/logout" class="active">${logOut}</a></li>
+                        <#else>
+                            <li><a href="/login" class="active">${logIn}</a></li>
+                        </#if>
+                        </#if>
+                    </ul>
+-->
+
+
+
+
+
+
 
 
             </ul>

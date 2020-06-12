@@ -8,6 +8,7 @@ import com.infoshareacademy.service.mapper.UserMapper;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import java.util.List;
 
 @Stateless
@@ -16,7 +17,7 @@ public class UserService {
     @EJB
     private UserRepositoryBean userRepositoryBean;
 
-    @EJB
+    @Inject
     private UserMapper userMapper;
 
     public void save(User user) {
