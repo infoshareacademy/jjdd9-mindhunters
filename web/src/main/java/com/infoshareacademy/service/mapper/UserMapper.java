@@ -9,7 +9,7 @@ import javax.enterprise.context.RequestScoped;
 public class UserMapper {
 
 
-    public UserView mapper(User user) {
+    public UserView toView(User user) {
         UserView userView = new UserView();
         userView.setId(user.getId());
         userView.setName(user.getName());
