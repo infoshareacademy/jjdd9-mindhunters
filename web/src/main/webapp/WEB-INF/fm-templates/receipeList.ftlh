@@ -25,8 +25,12 @@
         <div class="row mx-2 my-2 justify-content-center">
 
             <!--categoriesSidebar-->
+            <#if categories??>
 
-            <#include "categoriesSidebar.ftlh">
+                <#include "categoriesSidebar.ftlh">
+
+            </#if>
+            <!--LIST-->
 
             <div class="col-12 col-md-8 col-lg-8 col-xl-8">
                 <ul class="list-unstyled  justify-content-center  ml-auto space_list  " id="ID03" >

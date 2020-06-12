@@ -13,6 +13,8 @@ public interface UserRepository {
 
     User findUserById(Long id);
 
+    List<Drink> findFavouritesList(Long id, int startPosition, int endPosition);
 
+    int countPagesFindFavouritesList(Long userId);
 
 }

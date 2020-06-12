@@ -11,6 +11,14 @@ import java.util.List;
         @NamedQuery(
                 name = "User.findAll",
                 query = "SELECT u FROM User u"
+        ),
+        @NamedQuery(
+                name = "User.findFavouritesList",
+                query = "SELECT u.drinks FROM User u WHERE u.id = :id"
+        ),
+        @NamedQuery(
+                name = "User.countFindFavouritesList",
+                query = "SELECT COUNT (u.drinks) FROM User u WHERE u.id = :id"
         )
 
 })

@@ -20,6 +20,7 @@ import java.util.List;
 public class UserService {
 
     private static final Logger packageLogger = LoggerFactory.getLogger(UserService.class.getName());
+    private static final Integer PAGE_SIZE = 5;
 
     @EJB
     private UserRepository userRepository;
@@ -57,5 +58,27 @@ public class UserService {
         return fullDrinkMapper.toView(user.getDrinks());
 
     }
+
+    public List<FullDrinkView> favouritesList(String userId, int pageNumber) {
+        int startPosition = (pageNumber - 1) * PAGE_SIZE;
+        int endPosition = PAGE_SIZE;
+
+        List<Drink> drinks = userRepository.findFavouritesList(Long.valueOf(userId), startPosition, endPosition);
+
+        return fullDrinkMapper.toView(drinks);
+
+    }
+
+    public int countPagesFavouritesList(String userId) {
+        int maxPageNumber = userRepository.countPagesFindFavouritesList(Long.valueOf(userId));
+
+        return maxPageNumber;
+
+    }
+
+    public static int getMaxPageNumber(String querySize) {
+        return (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
+    }
+
 
 }
