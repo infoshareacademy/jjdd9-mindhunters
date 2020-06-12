@@ -889,6 +889,17 @@ ul.space_list li {
     -moz-border-radius: 6px;
 }
 
+.relative{
+    position: relative;
+    height: 200px;
+}
+
+.icons {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    z-index: 1;
+}
 
 .color_toggle_off{
     fill: red;
