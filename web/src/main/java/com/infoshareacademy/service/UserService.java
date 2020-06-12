@@ -6,7 +6,6 @@ import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.repository.DrinkRepository;
 import com.infoshareacademy.repository.UserRepository;
 import com.infoshareacademy.service.mapper.FullDrinkMapper;
-import com.infoshareacademy.service.mapper.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

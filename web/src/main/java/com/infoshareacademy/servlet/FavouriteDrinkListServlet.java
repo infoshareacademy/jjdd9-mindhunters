@@ -2,7 +2,6 @@ package com.infoshareacademy.servlet;
 
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.freemarker.TemplateProvider;
-import com.infoshareacademy.service.DrinkService;
 import com.infoshareacademy.service.UserService;
 import com.infoshareacademy.service.validator.UserInputValidator;
 import freemarker.template.Template;
@@ -10,7 +9,6 @@ import freemarker.template.TemplateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,9 +27,6 @@ public class FavouriteDrinkListServlet extends HttpServlet {
     private static final Logger packageLogger = LoggerFactory.getLogger(FavouriteDrinkListServlet.class.getName());
 
     private final String userId = "1"; // mock user
-
-    @EJB
-    private DrinkService drinkService;
 
     @Inject
     private TemplateProvider templateProvider;
@@ -66,10 +60,10 @@ public class FavouriteDrinkListServlet extends HttpServlet {
 
         List<Integer> favouritesId = null;
 
-        if (!drinkViewList.isEmpty()){
+        if (!drinkViewList.isEmpty()) {
             favouritesId = drinkViewList.stream()
                     .map(FullDrinkView::getId)
-                    .map(aLong ->  Integer.parseInt(aLong.toString()))
+                    .map(aLong -> Integer.parseInt(aLong.toString()))
                     .collect(Collectors.toList());
 
             dataModel.put("favourites", favouritesId);
@@ -77,7 +71,7 @@ public class FavouriteDrinkListServlet extends HttpServlet {
 
         String servletPath = req.getServletPath();
 
-        dataModel.put("servletPath",servletPath);
+        dataModel.put("servletPath", servletPath);
         dataModel.put("favourites", favouritesId);
         dataModel.put("maxPageSize", maxPage);
         dataModel.put("currentPage", currentPage);
