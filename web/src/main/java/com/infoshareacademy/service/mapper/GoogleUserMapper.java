@@ -10,7 +10,7 @@ import javax.enterprise.context.RequestScoped;
 public class GoogleUserMapper {
 
 
-    public UserGoogleView mapGoogleResponseToUserRequest(Userinfoplus info) {
+    public UserGoogleView mapGoogleResponseToUserGoogleView(Userinfoplus info) {
         UserGoogleView userView = new UserGoogleView();
         userView.setEmail(info.getEmail());
         userView.setName(info.getName());

@@ -27,7 +27,11 @@ public class ContextHolder {
         return (String) httpSession.getAttribute(NAME);
     }
 
-    public String getROLE() {
+    public String getEmail() {
+        return (String) httpSession.getAttribute(EMAIL);
+    }
+
+    public String getRole() {
         return Optional.ofNullable((String) httpSession.getAttribute(ROLE)).orElse("GUEST");
     }
 
