@@ -26,63 +26,33 @@
                 <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="#settingPage">Setting</a>
                 </li>
 
-
-
-
-                <div class="btn-group">
-                    <button type="button" class="btn dropdown-toggle btn-outline-warning btn-background"
-                            data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-
-                        <#if !role = "USER" || !role = "ADMIN" || !role = "SUPER_ADMIN">
-                        Login
+                <div>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="/logout">
+                            Welcome
+                            <#if name??>
+                            ${name}</a>
                         <#else>
-                        Logout
-
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <form class="px-4 py-3">
-                            <div class="form-group">
-
-                            </div>
-                            <div class="form-group">
-
-                            </div>
-                            <div class="form-group">
-                                <div class="form-check">
-
-
-                                </div>
-                            </div>
-
-                            <button type="submit" class="btn btn-outline-warning" id="submitLogin">Sign in</button>
-
-                        </form>
-
+                            Stranger
+                        </#if>
+                    </li>
                 </div>
 
 
-
-
-<#--
+                <div class="btn btn-outline-warning btn-background">
 
                     <#if role??>
-                    <ul class="text-uppercase">
                         <#if role = "USER" || role = "ADMIN" || role = "SUPER_ADMIN">
-                            <li><a>${name}</a></li>
-                            <li><a href="/logout" class="active">${logOut}</a></li>
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning"
+                                                    href="/logout">Logout</a>
                         <#else>
-                            <li><a href="/login" class="active">${logIn}</a></li>
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning"
+                                                    href="/login">Login</a>
+                            </li>
                         </#if>
-                        </#if>
-                    </ul>
--->
 
-
-
-
-
-
+                        </li>
+                    </#if>
+                </div>
 
 
             </ul>

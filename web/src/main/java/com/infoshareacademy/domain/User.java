@@ -12,7 +12,7 @@ import java.util.List;
                 query = "SELECT u FROM User u"
         ),
         @NamedQuery(
-                name = "User.findUserByEmail",
+                name = "User.findByEmail",
                 query = "SELECT u FROM User u WHERE u.email LIKE:email"
         )
 })
