@@ -888,6 +888,17 @@ ul.space_list li {
     border-radius: 6px;
     -moz-border-radius: 6px;
 }
+
+
+.color_toggle_off{
+    fill: red;
+}
+
+
+.color_toggle_on{
+    fill: orange;
+}
+
 @media print {
     .navbar {
         display: none;
