@@ -71,9 +71,9 @@ INSERT INTO ingredient (name) VALUES ('Orange bitters');
 INSERT INTO user (name, email, role) VALUES ('Szymon Skaziński', 'szymon@gmail.com', 'ADMIN');
 INSERT INTO user (name, email, role) VALUES ('Łukasz Spyra', 'lukasz@gmail.com', 'ADMIN');
 INSERT INTO user (name, email, role) VALUES ('Kamil Markowski', 'kamil@gmail.com', 'ADMIN');
-INSERT INTO user (name, email, role) VALUES ('Andrzej Duda', 'duda@gmail.com', 'ADMIN');
-INSERT INTO user (name, email, role) VALUES ('Anna Maria', 'marysia@gmail.com', 'ADMIN');
-INSERT INTO user (name, email, role) VALUES ('Adam nowak', 'nowak@gmail.com', 'ADMIN');
+INSERT INTO user (name, email, role) VALUES ('Andrzej Duda', 'duda@gmail.com', 'USER');
+INSERT INTO user (name, email, role) VALUES ('Anna Maria', 'marysia@gmail.com', 'USER';
+INSERT INTO user (name, email, role) VALUES ('Adam nowak', 'nowak@gmail.com', 'USER');
 INSERT INTO user (name, email, role) VALUES ('Mindhunters', 'mindhunters3m@gmail.com', 'SUPER_ADMIN');
 
 
