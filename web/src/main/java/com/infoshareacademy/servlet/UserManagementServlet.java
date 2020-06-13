@@ -27,7 +27,7 @@ public class UserManagementServlet extends HttpServlet {
     @Inject
     private TemplateProvider templateProvider;
 
-    @EJB
+    @Inject
     private AdminUserService adminUserService;
 
 

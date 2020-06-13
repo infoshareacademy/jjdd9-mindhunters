@@ -45,7 +45,7 @@ public class DrinkListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        resp.setContentType("text/html; charset=UTF-8");
 
         String pageNumberReq = req.getParameter("page");
 

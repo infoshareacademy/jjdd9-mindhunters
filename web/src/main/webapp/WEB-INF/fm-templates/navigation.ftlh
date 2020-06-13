@@ -17,15 +17,14 @@
                     <div class="dropdown-menu dropdown-menu-right" style="text-align: center">
 
 
-                        <li><a href="/#userMANAGEMENT">User Management</a></li>
+                        <li><a href="/admin-users">User Management</a></li>
                         <div class="dropdown-divider"></div>
 
                         <li><a href="/#userMANAGEMENT">Statistics</a></li>
-
+                        <div class="dropdown-divider"></div>
 
                         <li><a href="/#userMANAGEMENT">Drink Management</a></li>
                         <div class="dropdown-divider"></div>
-
 
                         <li><a href="/#userMANAGEMENT">Back up database load</a></li>
 
@@ -38,13 +37,8 @@
 
 
 
-
-
-
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ml-auto">
-
-
 
 
                 <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning">

@@ -36,52 +36,28 @@
                     </div>
                 </header>
             </div>
-            <div class="over-photo2">
-                <span class="admin-btn-block vis-of-btn">
-                    <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin" id="btn-admin1"
-                    >USERS</a><br>
-                    <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin offlineDb"
-                       id="btn-admin2" style=" ">LOAD DB FROM FILE</a>
-                    <div class="custom-file">
-                        <form method="post" action="/welcome" enctype="multipart/form-data" class="vis-of-btn" id="vis-of-btn">
-
-                        <label class="submit-btn" for="myfile"></label><br>
-                        <input type="file" id="jsonFile" name="jsonFile" multiple><br><br>
-                         <input
-                                class="submit-btn" type="submit">
-
-                    </form>
-                    </div>
-
-                    <br>
-                    <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin" id="btn-admin3"
-                    >SETTINGS</a><br>
-                    <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin" id="btn-admin-back"
-                    >BACK</a>
-                </span>
-            </div>
         </div>
     </div>
 </div>
 <section class="page-section" id="services">
     <div class="container">
         <div class="text-center soft-tasks-pad">
-            <h2 class="section-heading text-uppercase" style=font-size:70px>Virtual "Bartender"</h2>
-            <h3 class="section-subheading text-muted">There we go, those are the most interesting features of our
-                software:</h3>
+            <h3 class="section-heading text-uppercase" style=font-size:70px>Virtual "Bartender"</h3>
+            <h4 class="section-subheading text-muted">There we go, those are the most interesting features of our
+                software:</h4>
         </div>
         <div class="row text-center">
             <div class="col-md-4 soft-tasks">
                 <span class="fa-stack fa-4x"><em class="fas fa-circle fa-stack-2x"></em><span
-                            class="fas fa-shopping-cart fa-stack-1x fa-inverse  fa-spin text-warning"></span></span>
-                <h4 class="my-3 head-pad">Full stock of alcohols, but no clue, what to do?</h4>
+                            class="fas fa-shopping-cart fa-stack-1x fa-inverse text-warning"></span></span>
+                <h5 class="my-3 head-pad">Full stock of alcohols, but no clue, what to do?</h5>
                 <p class="text-muted">You can select available bottles of alcohol and ingredients
                     and our software will find for you best possible recipes.</p>
             </div>
             <div class="col-md-4 soft-tasks">
                 <span class="fa-stack fa-4x"><em class="fas fa-circle fa-stack-2x"></em><span
-                            class="fas fa-laptop fa-stack-1x fa-inverse fa-spin text-warning"></span></span>
-                <h4 class="my-3 head-pad">Search options</h4><br>
+                            class="fas fa-laptop fa-stack-1x fa-inverse text-warning"></span></span>
+                <h5 class="my-3 head-pad">Search options</h5><br>
                 <p class="text-muted">In your disposal you will get fast, customized and intuitive search engine
                     of our reach of drinks database. We are meeting our client's desire for alcoholic and also
                     non-alcoholic
@@ -89,8 +65,8 @@
             </div>
             <div class="col-md-4 soft-tasks">
                 <span class="fa-stack fa-4x"><em class="fas fa-circle fa-stack-2x"></em><span
-                            class="fas fa-lock fa-stack-1x fa-inverse fa-spin text-warning"></span></span>
-                <h4 class="my-3 head-pad">Personalization</h4><br>
+                            class="fas fa-lock fa-stack-1x fa-inverse text-warning"></span></span>
+                <h5 class="my-3 head-pad">Personalization</h5><br>
                 <p class="text-muted">At your disposal, there several options, which help to set up your
                     preferences of drinks, viewing list and recipes and many more. We are still trying to improve
                     and
