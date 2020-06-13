@@ -3,6 +3,7 @@ package com.infoshareacademy.servlet;
 import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.AdminUserService;
+import com.infoshareacademy.service.UserService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -30,6 +31,9 @@ public class UserManagementServlet extends HttpServlet {
     @Inject
     private AdminUserService adminUserService;
 
+    @Inject
+    private UserService userService;
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -54,6 +58,34 @@ public class UserManagementServlet extends HttpServlet {
             LOGGER.error(e.getMessage());
 
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html; charset=UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+
+        Map<String, Object> dataModel = new HashMap<>();
+
+        ContextHolder contextHolder = new ContextHolder(req.getSession());
+        dataModel.put("name", contextHolder.getName());
+
+        String userId = req.getParameter("id");
+        dataModel.put("role", adminUserService.setAdminRole(userId));
+
+        dataModel.put("users", adminUserService.showUsers());
+
+        LOGGER.debug("Change role of user to admin and sent list of users");
+
+        Template template = templateProvider.getTemplate(getServletContext(), "adminUserManagement.ftlh");
+        try {
+            template.process(dataModel, resp.getWriter());
+        } catch (TemplateException e) {
+            LOGGER.error(e.getMessage());
+
+        }
+
     }
 }
 
