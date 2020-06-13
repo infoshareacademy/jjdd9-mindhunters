@@ -1,4 +1,24 @@
 $(document).ready(function () {
+    $('#ID03').on('click', '#ID04', function () {
+        let drinkId = $(this).text().trim().toString();
+        let url = new URL(window.location);
+
+        let newUrl = url.origin + '/list?page=1';
+
+            $.post(newUrl, {drinkId: drinkId});
+
+            $(this).children('i').toggleClass("color_toggle_on");
+    });
+});
+
+$(document).ready(function () {
+    $("[data-link]").click(function () {
+        window.location.href = $(this).attr("data-link");
+        return false;
+    });
+});
+
+$(document).ready(function () {
 
     let content = null;
 
@@ -105,12 +125,6 @@ $(document).ready(function () {
 
 })
 
-$(document).ready(function() {
-    $("[data-link]").click(function() {
-        window.location.href = $(this).attr("data-link");
-        return false;
-    });
-});
 
 async function nextPage() {
     let url = new URL(window.location); // or construct from window.location
@@ -118,7 +132,7 @@ async function nextPage() {
     let pageNumber = parseInt(params.get('page'));
     let newPageNumber = pageNumber + 1;
     params.set('page', (newPageNumber).toString());
-    let newURL = url.origin + '/list?' + params.toString();
+    let newURL = url.origin + url.pathname + '?'+ params.toString();
     location.replace(newURL);
 }
 
@@ -129,9 +143,10 @@ async function previousPage() {
     let newPageNumber = pageNumber - 1;
     if (newPageNumber > 0) {
         params.set('page', (newPageNumber).toString());
-        let newURL = url.origin + '/list?' + params.toString();
+        let newURL = url.origin + url.pathname + '?' + params.toString();
         location.replace(newURL);
     }
+
 
 }
 

@@ -5,12 +5,13 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebFilter(
         filterName = "PageNumberFilter",
-        urlPatterns = {"/list"}
+        urlPatterns = {"/list", "/favourites"}
         )
 public class InitialPageNumberFilter implements Filter {
 
@@ -20,8 +21,12 @@ public class InitialPageNumberFilter implements Filter {
         String reqParameter = servletRequest.getParameter("page");
         if (reqParameter == null || reqParameter.isEmpty() ) {
 
+            HttpServletRequest req = (HttpServletRequest) servletRequest;
             HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
-            httpResponse.sendRedirect("/list?page=1");
+
+            String servletContext = req.getRequestURI();
+
+            httpResponse.sendRedirect(servletContext + "?page=1");
 
             return;
 

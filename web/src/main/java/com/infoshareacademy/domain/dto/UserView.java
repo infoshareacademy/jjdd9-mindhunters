@@ -1,11 +1,23 @@
 package com.infoshareacademy.domain.dto;
 
+import com.infoshareacademy.domain.Drink;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class UserView {
 
     private Long id;
+
     private String name;
+
     private String email;
+
     private String role;
+
+    private List<Drink> drinks = new ArrayList<>();
+
 
     public Long getId() {
         return id;
@@ -37,6 +49,14 @@ public class UserView {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public List<Drink> getDrinks() {
+        return drinks;
+    }
+
+    public void setDrinks(List<Drink> drinks) {
+        this.drinks = drinks;
     }
 
 }

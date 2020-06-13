@@ -1,12 +1,7 @@
 package com.infoshareacademy.servlet;
 
-import com.infoshareacademy.context.ContextHolder;
-import com.infoshareacademy.domain.dto.CategoryView;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.freemarker.TemplateProvider;
-import com.infoshareacademy.service.CategoryService;
-import com.infoshareacademy.service.DrinkService;
-import com.infoshareacademy.service.SearchType;
 import com.infoshareacademy.service.UserService;
 import com.infoshareacademy.service.validator.UserInputValidator;
 import freemarker.template.Template;
@@ -14,7 +9,6 @@ import freemarker.template.TemplateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,19 +21,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@WebServlet("/favourites")
+public class FavouriteDrinkListServlet extends HttpServlet {
 
-@WebServlet("/list")
-public class DrinkListServlet extends HttpServlet {
-
-    private static final Logger packageLogger = LoggerFactory.getLogger(DrinkListServlet.class.getName());
+    private static final Logger packageLogger = LoggerFactory.getLogger(FavouriteDrinkListServlet.class.getName());
 
     private final String userId = "1"; // TODO Szymon-Skazinski - mock user
-
-    @EJB
-    private DrinkService drinkService;
-
-    @EJB
-    private CategoryService categoryService;
 
     @Inject
     private TemplateProvider templateProvider;
@@ -52,7 +39,6 @@ public class DrinkListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html; charset=UTF-8");
 
         String pageNumberReq = req.getParameter("page");
 
@@ -64,44 +50,31 @@ public class DrinkListServlet extends HttpServlet {
             currentPage = Integer.valueOf(pageNumberReq);
         }
 
-        final List<CategoryView> categories = categoryService.findAllCategories();
-
         Map<String, Object> dataModel = new HashMap<>();
 
-        Map<String, String[]> searchParam = req.getParameterMap();
+        List<FullDrinkView> drinkViewList = userService.favouritesList(userId, currentPage);
 
-        SearchType searchType = drinkService.checkingSearchingCase(searchParam, currentPage);
+        int maxPage = userService.countPagesFavouritesList(userId);
 
-        int maxPage = searchType.getMaxPage();
+        dataModel.put("drinkList", drinkViewList);
 
-        List<FullDrinkView> drinkViewList = searchType.getDrinkViewList();
+        List<Integer> favouritesId = null;
 
-        String queryName = searchType.getQueryName();
-
-        List<FullDrinkView> favouritesList = userService.favouritesList(userId);
-
-        if (!favouritesList.isEmpty()){
-            List<Object>favouritesListModel = favouritesList.stream()
+        if (!drinkViewList.isEmpty()) {
+            favouritesId = drinkViewList.stream()
                     .map(FullDrinkView::getId)
-                    .map(aLong ->  Integer.parseInt(aLong.toString()))
+                    .map(aLong -> Integer.parseInt(aLong.toString()))
                     .collect(Collectors.toList());
 
-            dataModel.put("favourites", favouritesListModel);
+            dataModel.put("favourites", favouritesId);
         }
 
         String servletPath = req.getServletPath();
 
-        dataModel.put("servletPath",servletPath);
-        dataModel.put("categories", categories);
+        dataModel.put("servletPath", servletPath);
+        dataModel.put("favourites", favouritesId);
         dataModel.put("maxPageSize", maxPage);
-        dataModel.put("queryName", queryName);
-        dataModel.put("drinkList", drinkViewList);
         dataModel.put("currentPage", currentPage);
-
-        ContextHolder contextHolder = new ContextHolder(req.getSession());
-        dataModel.put("name", contextHolder.getName());
-        dataModel.put("role", contextHolder.getRole());
-
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeList.ftlh");
 
@@ -113,14 +86,5 @@ public class DrinkListServlet extends HttpServlet {
         }
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        String drinkId = req.getParameter("drinkId");
-
-        userService.saveOrDeleteFavourite(userId,drinkId);
-
-
-
-    }
 }
+

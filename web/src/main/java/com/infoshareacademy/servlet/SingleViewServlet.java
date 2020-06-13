@@ -4,6 +4,7 @@ import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.DrinkService;
+import com.infoshareacademy.service.UserService;
 import com.infoshareacademy.service.validator.UserInputValidator;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -19,12 +20,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @WebServlet("/single-view")
 public class SingleViewServlet extends HttpServlet {
 
     private static final Logger logger = LoggerFactory.getLogger(SingleViewServlet.class.getName());
+
+    private final String userId = "1"; // TODO Szymon-Skazinski - mock user
 
     @EJB
     private DrinkService drinkService;
@@ -35,6 +40,10 @@ public class SingleViewServlet extends HttpServlet {
 
     @Inject
     private TemplateProvider templateProvider;
+
+    @Inject
+    private UserService userService;
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -55,6 +64,17 @@ public class SingleViewServlet extends HttpServlet {
             }
 
             dataModel.put("drink", foundDrinkById);
+        }
+
+        List<FullDrinkView> favouritesList = userService.favouritesList(userId);
+
+        if (!favouritesList.isEmpty()){
+            List<Object>favouritesListModel = favouritesList.stream()
+                    .map(FullDrinkView::getId)
+                    .map(aLong ->  Integer.parseInt(aLong.toString()))
+                    .collect(Collectors.toList());
+
+            dataModel.put("favourites", favouritesListModel);
         }
 
         ContextHolder contextHolder = new ContextHolder(req.getSession());
