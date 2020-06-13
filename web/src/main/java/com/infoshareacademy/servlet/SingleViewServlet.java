@@ -28,7 +28,7 @@ public class SingleViewServlet extends HttpServlet {
 
     private static final Logger logger = LoggerFactory.getLogger(SingleViewServlet.class.getName());
 
-    private final String userId = "1"; // mock user
+    private final String userId = "1"; // TODO Szymon-Skazinski - mock user
 
     @EJB
     private DrinkService drinkService;

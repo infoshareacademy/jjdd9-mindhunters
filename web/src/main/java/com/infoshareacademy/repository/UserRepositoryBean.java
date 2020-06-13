@@ -15,7 +15,7 @@ import java.util.List;
 public class UserRepositoryBean implements UserRepository {
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     @EJB
     private UserService userService;

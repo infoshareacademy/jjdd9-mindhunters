@@ -32,7 +32,7 @@ public class DrinkListServlet extends HttpServlet {
 
     private static final Logger packageLogger = LoggerFactory.getLogger(DrinkListServlet.class.getName());
 
-    private final String userId = "1"; // mock user
+    private final String userId = "1"; // TODO Szymon-Skazinski - mock user
 
     @EJB
     private DrinkService drinkService;
