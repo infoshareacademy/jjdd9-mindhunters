@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Mindhunters</title>
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
 </head>
 <body id="page-top">
@@ -19,24 +19,27 @@
 <div class="body part1-top" id="body part1-top" style="background-color: #1b1e21">
     <div class="container-fluid" id="part1-top">
         <div style="position: relative">
-            <img class="backGround" src="img/mindhunters.jpg" alt="background" id="glasses">
+            <img class="backGround" src="../../img/mindhunters.jpg" alt="background" id="glasses">
 
             <div class="over-photo2">
                 <span class="admin-btn-block vis-of-btn" id="admin-btn-block">
                     <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin" id="btn-admin1"
                     >USERS</a><br>
                     <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin"
-                       id="btn-admin2" style=" ">LOAD DB FROM FILE</a>
+                       id="btn-admin2">LOAD DB FROM FILE</a>
+                    <br>
+                    <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin"
+                       id="btn-admin2" a href="/upload-json-api">LOAD DB FROM API</a>
                     <br>
                     <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin" id="btn-admin3"
-                       a href="/json-load">SETTINGS</a><br>
+                       >SETTINGS</a><br>
                     <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin" id="btn-admin-back"
-                    >BACK</a>
+                       a href="/welcome">BACK</a>
                 </span>
             </div>
             <div class="container-fluid load-file-browse" id="over-photo3">
                 <div class="load-file-div container-fluid" id="load-file-div">
-                    <form method="post" action="/json-load" enctype="multipart/form-data"
+                    <form method="post" action="/upload-json-file" enctype="multipart/form-data"
                           id="vis-of-btn">
                     <div class="txt-center">
                         <p class="text-warning">
@@ -52,8 +55,8 @@
 
                     <div class="text-warning lf-div col-8" style="display: inline-block">
                         <label class="submit-btn" style="display: inline-block"></label><br>
-                        <input type="file" id="jsonCategoryFile" name="jsonFile" multiple
-                               class="btn btn-background text-uppercase text-warning size-input-design ">
+                        <input type="file" id="jsonCatFile" name="jsonCatFile" multiple
+                               class="btn btn-background text-uppercase text-warning size-input-design">
                     </div>
 
                     <div class="lf-div col-3" style="display: inline-block">
@@ -79,6 +82,6 @@
         crossorigin="anonymneiw iem jak wsatawilem u mnie footer to mi namiesal z ustawieniemous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 <script src="../../js/BootstrapValidation.js"></script>
-<script src="js/homePage.js"></script>
+<script src="../../js/homePage.js"></script>
 </body>
 </html>

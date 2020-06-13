@@ -23,7 +23,7 @@
                 </li>
                 <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="#bottom-ft">Search</a>
                 </li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="adminPage.html">Setting</a>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="/adminPage">Setting</a>
                 </li>
                 <div class="btn-group">
                     <button type="button" class="btn dropdown-toggle btn-outline-warning btn-background"

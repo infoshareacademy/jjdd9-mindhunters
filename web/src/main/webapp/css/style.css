@@ -55,9 +55,12 @@
 }
 
 .load-file-browse {
+    max-width: 650px;
     position: absolute;
     left: 35%;
     bottom: 43%;
+    horiz-align: center;
+    vertical-align: center;
 }
 
 @-webkit-keyframes glow {
@@ -201,7 +204,7 @@
 .btn-admin {
     width: 140px;
     margin-bottom: 6px;
-    visibility: collapse;
+    visibility: visible;
 }
 
 
@@ -233,7 +236,7 @@
     background-color: #fed136;
 }
 .vis-of-btn{
-    visibility: visible;
+    visibility: visible;!important;
     width: 370px;
 }
 .load-file-div{
@@ -243,7 +246,7 @@
     border-radius: 10px;
     border-width: 10px;
     max-width: 600px;
-    height: 300px;
+    /*height: 300px;*/
     margin: 10px;
 }
 
@@ -812,13 +815,11 @@ fieldset:disabled a.btn {
         height: auto;
         max-height: 1500px;
         alignment: center;
-
         /*change*/
         text-align: center;
         display: block;
     }
 }
-
 
 .navbar-expand > .container,
 .navbar-expand > .container-fluid {

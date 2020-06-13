@@ -29,10 +29,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @MultipartConfig
-@WebServlet("/json-load")
-public class LoadFileToDbServlet extends HttpServlet {
+@WebServlet("/upload-json-file")
+public class UploadDbFromFileServlet extends HttpServlet {
 
-    private static final Logger packageLogger = LoggerFactory.getLogger(LoadFileToDbServlet.class.getName());
+    private static final Logger packageLogger = LoggerFactory.getLogger(UploadDbFromFileServlet.class.getName());
 
     @Inject
     DrinkMapper drinkMapper;
@@ -90,5 +90,8 @@ public class LoadFileToDbServlet extends HttpServlet {
             drink = drinkMapper.toEntity(drinkJson, categoryJson.get(1));
             drinkService.save(drink);
         }
+        resp.sendRedirect("/adminPage");
     }
+
+
 }
