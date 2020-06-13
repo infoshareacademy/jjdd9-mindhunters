@@ -7,6 +7,23 @@ import java.util.List;
 
 @Entity
 @Table(name = "user")
+@NamedQueries({
+        @NamedQuery(
+                name = "User.findAll",
+                query = "SELECT u FROM User u"
+        ),
+        @NamedQuery(
+                name = "User.findFavouritesList",
+                query = "SELECT u.drinks FROM User u WHERE u.id = :id"
+        ),
+        @NamedQuery(
+                name = "User.countFindFavouritesList",
+                query = "SELECT COUNT (ud) FROM User u JOIN u.drinks ud WHERE u.id = :id"
+        )
+
+})
+
+
 public class User {
 
     @Id

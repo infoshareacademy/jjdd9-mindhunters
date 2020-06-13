@@ -19,4 +19,5 @@ public class DrinkIngredientView {
         return measure;
     }
 
+
 }
