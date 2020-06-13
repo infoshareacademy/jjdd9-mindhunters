@@ -5,13 +5,21 @@ import com.infoshareacademy.domain.User;
 
 import javax.ejb.Local;
 import java.util.List;
+import java.util.Optional;
 
 @Local
 public interface UserRepository {
 
-    List<User> findAll();
 
-    User findUserById(Long id);
+    Optional<User> findUserById(Long id);
+
+    void save(User user);
+
+    User update(User user);
+
+    Optional<User> findByEmail(String email);
+
+    List<User> findAll();
 
     List<Drink> findFavouritesList(Long id, int startPosition, int endPosition);
 

@@ -7,7 +7,7 @@
                 <i style="color: white; text-align: center">
                     <#assign aDateTime = .now>
                     <#assign aDate = aDateTime?date>
-                    Kamil, Łukasz , Szymon - Copyrights &copy; all reserved ${aDate?string.yyyy}.
+                    Kamil, Łukasz , Szymon - Copyrights &copy; All reserved ${aDate?string.yyyy}.
                 </i>
             </div>
         </div>

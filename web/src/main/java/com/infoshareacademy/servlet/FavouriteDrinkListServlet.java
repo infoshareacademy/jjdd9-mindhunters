@@ -1,5 +1,6 @@
 package com.infoshareacademy.servlet;
 
+import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.UserService;
@@ -39,6 +40,9 @@ public class FavouriteDrinkListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html; charset=UTF-8");
+        resp.setCharacterEncoding("UTF-8");
 
         String pageNumberReq = req.getParameter("page");
 
@@ -75,6 +79,10 @@ public class FavouriteDrinkListServlet extends HttpServlet {
         dataModel.put("favourites", favouritesId);
         dataModel.put("maxPageSize", maxPage);
         dataModel.put("currentPage", currentPage);
+
+        ContextHolder contextHolder = new ContextHolder(req.getSession());
+        dataModel.put("name", contextHolder.getName());
+        dataModel.put("role", contextHolder.getRole());
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeList.ftlh");
 

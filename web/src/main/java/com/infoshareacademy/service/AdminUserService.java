@@ -4,7 +4,7 @@ package com.infoshareacademy.service;
 import com.infoshareacademy.domain.User;
 import com.infoshareacademy.domain.dto.UserView;
 import com.infoshareacademy.repository.RoleRepositoryBean;
-import com.infoshareacademy.repository.UserRepositoryBean;
+import com.infoshareacademy.repository.UserRepository;
 import com.infoshareacademy.service.mapper.UserMapper;
 import com.infoshareacademy.service.validator.UserInputValidator;
 
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class AdminUserService {
 
     @EJB
-    private UserRepositoryBean userRepositoryBean;
+    private UserRepository userRepository;
 
     @EJB
     private RoleRepositoryBean roleRepositoryBean;
@@ -40,31 +40,31 @@ public class AdminUserService {
             return false;
         }
 
-        User userById = userRepositoryBean.findUserById(longId).get();
+        User userById = userRepository.findUserById(longId).get();
 
         if ("SUPER_ADMIN".equalsIgnoreCase(userById.getRole().getName())) {
             return false;
         }
         userById.setRole(roleRepositoryBean.findByRoleName("ADMIN").get());
-        User adminUser = userRepositoryBean.update(userById);
+        User adminUser = userRepository.update(userById);
 
         return adminUser.getRole().getName().equalsIgnoreCase("ADMIN");
     }
 
-    public boolean removeAdminRole(String adminId){
+    public boolean removeAdminRole(String adminId) {
         final Long longId = userInputValidator.stringToLongConverter(adminId);
 
         if (longId < 0) {
             return false;
         }
 
-        User userById = userRepositoryBean.findUserById(longId).orElseThrow(IllegalArgumentException::new);
+        User userById = userRepository.findUserById(longId).orElseThrow(IllegalArgumentException::new);
 
         if ("SUPER_ADMIN".equalsIgnoreCase(userById.getRole().getName())) {
             return false;
         }
         userById.setRole(roleRepositoryBean.findByRoleName("USER").get());
-        User ordinaryUser = userRepositoryBean.update(userById);
+        User ordinaryUser = userRepository.update(userById);
 
         return ordinaryUser.getRole().getName().equalsIgnoreCase("USER");
 
@@ -73,7 +73,7 @@ public class AdminUserService {
 
     public List<UserView> showUsers() {
 
-        return userRepositoryBean.findAll()
+        return userRepository.findAll()
                 .stream()
                 .map(user -> userMapper.toView(user))
                 .collect(Collectors.toList());

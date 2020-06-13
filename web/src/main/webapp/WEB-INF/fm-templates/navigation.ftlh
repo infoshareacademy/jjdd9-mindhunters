@@ -36,23 +36,26 @@
         </#if>
 
 
-
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ml-auto">
 
 
                 <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning">
-                        << Welcome ${name ! "Stranger"} ! >></a>
+                        << Welcome ${name ! "Stranger"} >></a>
                 </li>
                 <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="/">Home</a></li>
                 <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="/list">Recipes</a>
                 </li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="/favourites">Favourites</a>
-                </li>
                 <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="/search">Search</a>
                 </li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="#settingPage">Setting</a>
-                </li>
+
+                <#if role??>
+                    <#if role = "USER" || role = "ADMIN" || role = "SUPER_ADMIN">
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="/favourites">Favourites</a>
+                        </li>
+                    </#if>
+                </#if>
+
 
                 <div>
                     <li class="nav-item">

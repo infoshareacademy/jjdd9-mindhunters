@@ -2,6 +2,7 @@ package com.infoshareacademy.repository;
 
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.User;
+import com.infoshareacademy.service.UserService;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;

@@ -39,12 +39,13 @@
             <input id="userId" type="number" min="2" name="u">
             <button type="submit" name="Set as admin">Set as admin</button>
         </form>
+        <br>
         <form method="post">
             <label>Set admin as USER by id: </label>
             <input id="userId" type="number" min="2" name="a">
             <button type="submit" name="Set as admin">Set as user</button>
         </form>
-
+        <br>
         <div class="row justify-content-center">
             <h3>Users registered in database</h3>
         </div>

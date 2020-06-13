@@ -7,6 +7,7 @@ import com.infoshareacademy.domain.dto.UserGoogleView;
 import com.infoshareacademy.domain.dto.UserView;
 import com.infoshareacademy.repository.DrinkRepository;
 import com.infoshareacademy.repository.RoleRepositoryBean;
+import com.infoshareacademy.repository.UserRepository;
 import com.infoshareacademy.service.mapper.FullDrinkMapper;
 import com.infoshareacademy.service.mapper.UserMapper;
 import org.slf4j.Logger;
@@ -39,15 +40,11 @@ public class UserService {
     private UserMapper userMapper;
 
     public void save(User user) {
-        userRepositoryBean.save(user);
-    }
-
-    public User findByEmail(String email) {
-        return userRepositoryBean.findByEmail(email).orElse(null);
+        userRepository.save(user);
     }
 
     public UserView getUserById(Long userId) {
-        User foundUser = userRepositoryBean.findUserById(userId).get();
+        User foundUser = userRepository.findUserById(userId).orElseThrow();
         if (foundUser == null) {
             return null;
         }
@@ -55,7 +52,7 @@ public class UserService {
     }
 
     public List<User> findAll() {
-        return userRepositoryBean.findAll();
+        return userRepository.findAll();
     }
 
     public User create(UserGoogleView userGoogleView) {
@@ -68,14 +65,14 @@ public class UserService {
     }
 
     public UserView login(UserGoogleView userGoogleView) {
-        User user = userRepositoryBean.findByEmail(userGoogleView.getEmail()).orElseGet(() -> create(userGoogleView));
+        User user = userRepository.findByEmail(userGoogleView.getEmail()).orElseGet(() -> create(userGoogleView));
         return userMapper.toView(user);
     }
 
     public void saveOrDeleteFavourite(String userId, String drinkId) {
 
         Drink drink = drinkRepository.findDrinkById(Long.parseLong(drinkId));
-        User user = userRepository.findUserById(Long.parseLong(userId));
+        User user = userRepository.findUserById(Long.parseLong(userId)).orElseThrow();
 
         List<Drink> favouriteDrinks = user.getDrinks();
 
@@ -93,7 +90,7 @@ public class UserService {
 
     public List<FullDrinkView> favouritesList(String userId) {
 
-        User user = userRepository.findUserById(Long.parseLong(userId));
+        User user = userRepository.findUserById(Long.parseLong(userId)).orElseThrow();
 
         return fullDrinkMapper.toView(user.getDrinks());
 
@@ -116,7 +113,7 @@ public class UserService {
 
     }
 
-    public static int getMaxPageNumber(String querySize) {
+    public int getMaxPageNumber(String querySize) {
         return (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
     }
 
