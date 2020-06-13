@@ -4,9 +4,13 @@ import com.infoshareacademy.domain.User;
 import com.infoshareacademy.domain.dto.UserView;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 
 @RequestScoped
 public class UserMapper {
+
+@Inject
+private RoleMapper roleMapper;
 
 
     public UserView toView(User user) {
@@ -14,7 +18,7 @@ public class UserMapper {
         userView.setId(user.getId());
         userView.setName(user.getName());
         userView.setEmail(user.getEmail());
-        userView.setRole(user.getRole().getName());
+        userView.setRole(roleMapper.toView(user.getRole()).getName());
         return userView;
     }
 }

@@ -69,11 +69,13 @@ public class UserManagementServlet extends HttpServlet {
         Map<String, Object> dataModel = new HashMap<>();
 
         ContextHolder contextHolder = new ContextHolder(req.getSession());
+
+        String userId = req.getParameter("u");
+
         dataModel.put("name", contextHolder.getName());
+        dataModel.put("role", contextHolder.getRole());
 
-        String userId = req.getParameter("id");
-        dataModel.put("role", adminUserService.setAdminRole(userId));
-
+        adminUserService.setAdminRole(userId);
         dataModel.put("users", adminUserService.showUsers());
 
         LOGGER.debug("Change role of user to admin and sent list of users");

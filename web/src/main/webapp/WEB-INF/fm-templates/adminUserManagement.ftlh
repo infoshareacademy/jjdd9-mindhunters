@@ -36,9 +36,8 @@
 
         <form method="post">
             <label>User ID to set as ADMIN</label>
-            <input id="userId" type="text" min="2">
+            <input id="userId" type="text" min="2" name="u">
             <button id="setAdmin" type="submit" name="Set as admin"></button>
-            <button id="deleteUser" type="submit" name="Delete user"></button>
         </form>
 
         <div class="row justify-content-center">

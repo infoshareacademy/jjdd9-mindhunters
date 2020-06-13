@@ -11,10 +11,12 @@ import com.infoshareacademy.service.validator.UserInputValidator;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RequestScoped
+@Transactional
 public class AdminUserService {
 
     @EJB
@@ -40,14 +42,15 @@ public class AdminUserService {
 
         User userById = userRepositoryBean.findUserById(longId).get();
 
-        if("SUPER_ADMIN".equalsIgnoreCase(userById.getRole().getName())){
+        if ("SUPER_ADMIN".equalsIgnoreCase(userById.getRole().getName())) {
             return false;
         }
-        userById.setRole(roleRepositoryBean.findByRoleName(userById.getRole().getName()).get());
+        userById.setRole(roleRepositoryBean.findByRoleName("ADMIN").get());
         User adminUser = userRepositoryBean.update(userById);
 
         return adminUser.getRole().getName().equalsIgnoreCase("ADMIN");
     }
+
 
     public List<UserView> showUsers() {
 

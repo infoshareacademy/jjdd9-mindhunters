@@ -48,7 +48,7 @@ public class UserService {
         User user = new User();
         user.setName(userGoogleView.getName());
         user.setEmail(userGoogleView.getEmail());
-        user.setRole(roleRepositoryBean.findByRoleName("USER").get());
+        user.setRole(roleRepositoryBean.findByRoleName("USER").orElseThrow());
         save(user);
         return user;
     }
