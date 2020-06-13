@@ -3,13 +3,11 @@ package com.infoshareacademy.servlet;
 import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.AdminUserService;
-import com.infoshareacademy.service.UserService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,9 +28,6 @@ public class UserManagementServlet extends HttpServlet {
 
     @Inject
     private AdminUserService adminUserService;
-
-    @Inject
-    private UserService userService;
 
 
     @Override
@@ -70,11 +65,15 @@ public class UserManagementServlet extends HttpServlet {
 
         ContextHolder contextHolder = new ContextHolder(req.getSession());
 
-        String userId = req.getParameter("u");
-
         dataModel.put("name", contextHolder.getName());
         dataModel.put("role", contextHolder.getRole());
 
+        String userId = req.getParameter("u");
+        String adminId = req.getParameter("a");
+
+        if (userId == null || userId.isBlank()) {
+            adminUserService.removeAdminRole(adminId);
+        }
         adminUserService.setAdminRole(userId);
         dataModel.put("users", adminUserService.showUsers());
 

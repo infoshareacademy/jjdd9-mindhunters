@@ -51,6 +51,25 @@ public class AdminUserService {
         return adminUser.getRole().getName().equalsIgnoreCase("ADMIN");
     }
 
+    public boolean removeAdminRole(String adminId){
+        final Long longId = userInputValidator.stringToLongConverter(adminId);
+
+        if (longId < 0) {
+            return false;
+        }
+
+        User userById = userRepositoryBean.findUserById(longId).orElseThrow(IllegalArgumentException::new);
+
+        if ("SUPER_ADMIN".equalsIgnoreCase(userById.getRole().getName())) {
+            return false;
+        }
+        userById.setRole(roleRepositoryBean.findByRoleName("USER").get());
+        User ordinaryUser = userRepositoryBean.update(userById);
+
+        return ordinaryUser.getRole().getName().equalsIgnoreCase("USER");
+
+    }
+
 
     public List<UserView> showUsers() {
 

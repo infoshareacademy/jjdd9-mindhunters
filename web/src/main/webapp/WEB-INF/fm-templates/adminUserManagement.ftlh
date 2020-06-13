@@ -35,9 +35,14 @@
     <div class="container" style="color: white; height: max-content;">
 
         <form method="post">
-            <label>User ID to set as ADMIN</label>
-            <input id="userId" type="text" min="2" name="u">
-            <button id="setAdmin" type="submit" name="Set as admin"></button>
+            <label>Set user as ADMIN by id: </label>
+            <input id="userId" type="number" min="2" name="u">
+            <button type="submit" name="Set as admin">Set as admin</button>
+        </form>
+        <form method="post">
+            <label>Set admin as USER by id: </label>
+            <input id="userId" type="number" min="2" name="a">
+            <button type="submit" name="Set as admin">Set as user</button>
         </form>
 
         <div class="row justify-content-center">
@@ -93,22 +98,7 @@
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymneiw iem jak wsatawilem u mnie footer to mi namiesal z ustawieniemous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-<script src="../../js/BootstrapValidation.js"></script>
 <script src="../../js/homePage.js"></script>
-<script>
 
-    $('#deleteUser').click(function () {
-        $.ajax({
-            url: '/admin-users',
-            type: 'DELETE',
-            success: function (data) {
-                console.log(data);
-                let result = data.map(r => r.drinkName);
-           ;
-            }
-        });
-    });
-
-</script>
 </body>
 </html>
