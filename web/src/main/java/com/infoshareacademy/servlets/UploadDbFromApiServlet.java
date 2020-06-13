@@ -19,8 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @WebServlet("/upload-json-api")
 public class UploadDbFromApiServlet extends HttpServlet {
@@ -47,15 +46,24 @@ public class UploadDbFromApiServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        List<DrinkJson> drinkJsons = null;
-        for (char alphabet = 'a'; alphabet <= 'd'; alphabet++) {
+        List<DrinkJson> drinkJsons = new ArrayList<>();
+
+        for (char alphabet = 'a'; alphabet <= 'z'; alphabet++) {
             Request fromAlphabet = Request.Get("https://www.thecocktaildb.com/api/json/v1/1/search.php?f=" + alphabet);
             String stringDrinkJson = fromAlphabet.execute().returnContent().asString();
 
-            drinkJsons = new ArrayList<>();
-            drinkJsons = jsonParserApiBean.jsonDrinkReaderFromString(stringDrinkJson);
-        }
+            List<DrinkJson> letterDrinkJsons = Optional.ofNullable(jsonParserApiBean.jsonDrinkReaderFromString(stringDrinkJson))
+                    .orElse(Collections.emptyList());
+            for (DrinkJson letterDrinkJson : letterDrinkJsons) {
+                drinkJsons.add(letterDrinkJson);
+            }
 
+
+//            List<DrinkJson> letterDrinkJsons = jsonParserApiBean.jsonDrinkReaderFromString(stringDrinkJson);
+//            for (DrinkJson letterDrinkJson : letterDrinkJsons) {
+//                drinkJsons.add(letterDrinkJson);
+//            }
+        }
 
         Request getCat = Request.Get("https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list");
         String stringCatDrinkJson = getCat.execute().returnContent().asString();
@@ -69,15 +77,5 @@ public class UploadDbFromApiServlet extends HttpServlet {
             drinkService.save(drink);
         }
         resp.sendRedirect("/adminPage");
-
     }
-
-//    @Override
-//    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-//            throws IOException, ServletException {
-//
-//
-//    }
-
-
 }
