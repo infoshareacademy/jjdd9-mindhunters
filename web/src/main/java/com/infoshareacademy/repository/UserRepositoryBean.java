@@ -19,8 +19,9 @@ public class UserRepositoryBean {
         entityManager.persist(user);
     }
 
-    public void update(User user) {
-        entityManager.merge(user);
+    public User update(User user) {
+
+        return entityManager.merge(user);
     }
 
     public Optional<User> findByEmail(String email) {

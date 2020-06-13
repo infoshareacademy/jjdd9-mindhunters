@@ -29,7 +29,7 @@
                     <div class="container welcome-settings">
                         <div class="masthead-subheading  text-warning glow " id="welcomeDiv"
                              style=font-size:30px;text-align:center>
-                            Welcome ${name}
+                            Welcome ${name ! "Stranger"}
                         </div>
                         <a class="btn btn-background  js-scroll-trigger text-uppercase  text-warning tell-me"
                            href="#services">Tell Me More</a>
