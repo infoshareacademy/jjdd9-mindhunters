@@ -24,6 +24,9 @@ public class AdminUserService {
 
     public boolean setAdminRole(User user) {
         String role = "ADMIN";
+        if("SUPER_ADMIN".equalsIgnoreCase(user.getRole())){
+            return false;
+        }
         user.setRole(role);
         User adminUser = userRepositoryBean.update(user);
 

@@ -34,6 +34,13 @@
 <section style="background-color: #1b1e21">
     <div class="container" style="color: white; height: max-content;">
 
+        <form method="post">
+            <label>User ID to set as ADMIN</label>
+            <input id="userId" type="text" min="2">
+            <button id="setAdmin" type="submit" name="Set as admin"></button>
+            <button id="deleteUser" type="submit" name="Delete user"></button>
+        </form>
+
         <div class="row justify-content-center">
             <h3>Users registered in database</h3>
         </div>
@@ -89,5 +96,20 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 <script src="../../js/BootstrapValidation.js"></script>
 <script src="../../js/homePage.js"></script>
+<script>
+
+    $('#deleteUser').click(function () {
+        $.ajax({
+            url: '/admin-users',
+            type: 'DELETE',
+            success: function (data) {
+                console.log(data);
+                let result = data.map(r => r.drinkName);
+           ;
+            }
+        });
+    });
+
+</script>
 </body>
 </html>

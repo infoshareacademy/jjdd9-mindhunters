@@ -3,6 +3,7 @@ package com.infoshareacademy.service;
 import com.infoshareacademy.domain.User;
 import com.infoshareacademy.domain.dto.UserGoogleView;
 import com.infoshareacademy.domain.dto.UserView;
+import com.infoshareacademy.repository.RoleRepositoryBean;
 import com.infoshareacademy.repository.UserRepositoryBean;
 import com.infoshareacademy.service.mapper.UserMapper;
 
@@ -17,6 +18,9 @@ public class UserService {
     @EJB
     private UserRepositoryBean userRepositoryBean;
 
+    @EJB
+    private RoleRepositoryBean roleRepositoryBean;
+
     @Inject
     private UserMapper userMapper;
 
@@ -28,6 +32,14 @@ public class UserService {
         return userRepositoryBean.findByEmail(email).orElse(null);
     }
 
+    public UserView getUserById(Long userId) {
+        User foundUser = userRepositoryBean.findUserById(userId).get();
+        if (foundUser == null) {
+            return null;
+        }
+        return userMapper.toView(foundUser);
+    }
+
     public List<User> findAll() {
         return userRepositoryBean.findAll();
     }
@@ -36,7 +48,7 @@ public class UserService {
         User user = new User();
         user.setName(userGoogleView.getName());
         user.setEmail(userGoogleView.getEmail());
-        user.setRole("USER");
+        user.setRole(roleRepositoryBean.findByRoleType("USER").get());
         save(user);
         return user;
     }

@@ -30,8 +30,9 @@ public class User {
     @NotNull
     private String email;
 
-    @NotNull
-    private String role;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id")
+    private Role role;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "favourite",
@@ -71,11 +72,11 @@ public class User {
         this.drinks = drinks;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 }

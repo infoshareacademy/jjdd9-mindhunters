@@ -15,6 +15,13 @@ public class UserRepositoryBean {
     @PersistenceContext
     private EntityManager entityManager;
 
+
+    public Optional<User> findUserById(Long userId) {
+
+        return Optional.ofNullable(entityManager.find(User.class, userId));
+    }
+
+
     public void save(User user) {
         entityManager.persist(user);
     }

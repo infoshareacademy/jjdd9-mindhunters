@@ -14,7 +14,7 @@ public class UserMapper {
         userView.setId(user.getId());
         userView.setName(user.getName());
         userView.setEmail(user.getEmail());
-        userView.setRole(user.getRole());
+        userView.setRole(user.getRole().getName());
         return userView;
     }
 }
