@@ -86,8 +86,8 @@ public class LoadFileToDbServlet extends HttpServlet {
         }
 
         Drink drink = new Drink();
-        for(DrinkJson drinkJson : drinkJsons) {
-            drink = drinkMapper.toEntity(drinkJson,categoryJson.get(1));
+        for (DrinkJson drinkJson : drinkJsons) {
+            drink = drinkMapper.toEntity(drinkJson, categoryJson.get(1));
             drinkService.save(drink);
         }
     }

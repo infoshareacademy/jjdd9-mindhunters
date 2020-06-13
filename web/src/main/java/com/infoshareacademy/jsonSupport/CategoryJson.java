@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.Objects;
 
 @JsonDeserialize(using = JsonCategoryDeserializer.class)
-//@JsonSerialize(using = JsonDrinkSerializer.class)
 public class CategoryJson {
 
     @JsonProperty("strCategory")

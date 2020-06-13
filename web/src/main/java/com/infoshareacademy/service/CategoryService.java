@@ -6,7 +6,7 @@ import com.infoshareacademy.repository.CategoryRepositoryBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.List;
-//zmiana z requestscoped
+
 @Stateless
 public class CategoryService {
 
@@ -17,10 +17,9 @@ public class CategoryService {
         return categoryRepositoryBean.findAllNames();
     }
 
-
     public Category getOrCreate(String name) {
         Category category = categoryRepositoryBean.getByName(name);
-        if (category==null) {
+        if (category == null) {
             category = new Category();
             category.setName(name);
             categoryRepositoryBean.save(category);

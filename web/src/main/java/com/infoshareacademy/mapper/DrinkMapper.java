@@ -11,21 +11,17 @@ import java.util.List;
 @RequestScoped
 public class DrinkMapper {
 
-//    @EJB
-//    CategoryRepositoryBean categoryRepositoryBean;
-
     @Inject
     CategoryMapper categoryMapper;
 
     @Inject
     IngredientMapper ingredientMapper;
 
-    public Drink toEntity(DrinkJson drinkJson,CategoryJson categoryJson) {
+    public Drink toEntity(DrinkJson drinkJson, CategoryJson categoryJson) {
 
         Drink drink = new Drink();
 
         String categoryName = drinkJson.getCategoryName();
-//        Category category = categoryRepositoryBean.getByName(categoryName);
 
         drink.setDrinkId(drinkJson.getDrinkId());
         drink.setDrinkName(drinkJson.getDrinkName());
@@ -37,7 +33,7 @@ public class DrinkMapper {
 
         List<DrinkIngredient> drinkIngredients = new ArrayList<>();
         for (IngredientJson ingredientJson : drinkJson.getIngredients()) {
-            DrinkIngredient drinkIngredient = ingredientMapper.toEntity(ingredientJson,drink);
+            DrinkIngredient drinkIngredient = ingredientMapper.toEntity(ingredientJson, drink);
             drinkIngredient.setDrinkId(drink);
             drinkIngredients.add(drinkIngredient);
         }

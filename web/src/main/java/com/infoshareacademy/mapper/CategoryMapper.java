@@ -7,7 +7,6 @@ import com.infoshareacademy.service.CategoryService;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-//zmiana z stateless
 @Stateless
 public class CategoryMapper {
 

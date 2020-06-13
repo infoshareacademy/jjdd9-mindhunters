@@ -14,18 +14,11 @@ public class IngredientRepositoryBean {
     @PersistenceContext
     EntityManager entityManager;
 
-//    public List<String> findAllNames() {
-//        Query query = entityManager.createNamedQuery("Category.findAllNames");
-//        return query.getResultList();
-//    }
-
     public Ingredient getByName(String name) {
-        // Szukamy po nazwie i wybieramy pierwszą kategorię
-        // Jak nie ma to null;
-        Query qry = entityManager.createNamedQuery("Ingredient.getByName") ;
+        Query qry = entityManager.createNamedQuery("Ingredient.getByName");
         qry.setParameter("name", name);
         List<Ingredient> resultList = qry.getResultList();
-        return resultList.size()==0 ? null : resultList.get(0);
+        return resultList.size() == 0 ? null : resultList.get(0);
     }
 
     public void save(Ingredient ingredient) {

@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@import url('http://fonts.googleaapis.com/css?family=Poppins:400,500,700');
 
 /*!
 * Start Bootstrap - Agency v6.0.0 (https://startbootstrap.com/template-overviews/agency)
@@ -55,14 +54,11 @@
     animation: glow 1s ease-in-out infinite alternate;
 }
 
-.load-file-browse{
+.load-file-browse {
     position: absolute;
-    left:35%;
-    bottom:43%;
-    width: 300px;
+    left: 35%;
+    bottom: 43%;
 }
-
-
 
 @-webkit-keyframes glow {
     from {
@@ -233,39 +229,86 @@
     padding-bottom: 30px;
     padding-top: 30px;
 }
-
 .submit-btn {
     background-color: #fed136;
 }
-.size-input-design{
-    width: 300px;
-
-}
-
 .vis-of-btn{
     visibility: visible;
     width: 370px;
 }
-.over-photo3{
-    background-color: brown;
+.load-file-div{
+    background-color: #1b1e21;
     border-color: #fed136;
     border-style: double;
     border-radius: 10px;
-    max-width: 550px;
+    border-width: 10px;
+    max-width: 600px;
     height: 300px;
+    margin: 10px;
 }
-.padding-load-div {
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
+
 .align-element{
     display: inline;
 }
 
 .border-load-design{
     border-color: #fed136;
-    border-width: 2px;
+    border-width: 0 5px;
 }
+.row-load{
+    border-color: #fed136;
+    border-width: 0 5px;!important;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+}
+.txt-center{
+    text-align: center;
+    font-size: 35px;
+    font-style: unset;
+    padding-top: 20px;
+}
+.txt-warning-center{
+    text-align: center;
+    font-size: 25px;
+    font-style: unset;
+    color:red;
+
+}
+
+.lf-div{
+    height: 50px;
+    border-style: solid;
+    border-color: #fed136;
+    border-width: 1px 7px;
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 10px;
+    vertical-align: middle;
+}
+.lf-div-col{
+    height: 50px;
+    border-style:solid;
+    border-color:#fed136;
+    border-width: 4px;
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 10px;
+    vertical-align: middle;
+
+}
+.size-input-design{
+    display: inline-block;
+    position: absolute;
+    top: 1px;
+    text-align: center;
+
+
+}
+
+
 .custom-file-label{
     background: none;
 }
@@ -769,6 +812,10 @@ fieldset:disabled a.btn {
         height: auto;
         max-height: 1500px;
         alignment: center;
+
+        /*change*/
+        text-align: center;
+        display: block;
     }
 }
 

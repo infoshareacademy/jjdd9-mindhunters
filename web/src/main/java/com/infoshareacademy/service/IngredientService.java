@@ -12,14 +12,9 @@ public class IngredientService {
     @Inject
     IngredientRepositoryBean ingredientRepositoryBean;
 
-//    public List<String> findAllNames() {
-//        return ingredientRepositoryBean.findAllNames();
-//    }
-
-
     public Ingredient getOrCreate(String name) {
         Ingredient ingredient = ingredientRepositoryBean.getByName(name);
-        if (ingredient==null) {
+        if (ingredient == null) {
             ingredient = new Ingredient();
             ingredient.setName(name);
             ingredientRepositoryBean.save(ingredient);

@@ -34,10 +34,10 @@ public class DrinkRepositoryBean {
         Query query = entityManager.createQuery("select d from Drink d");
 
         int pageSize = 4;
-        query.setFirstResult((pageNumber-1) * pageSize);
+        query.setFirstResult((pageNumber - 1) * pageSize);
         query.setMaxResults(pageSize);
 
-       return  query.getResultList();
+        return query.getResultList();
     }
 
     public void save(Drink drink) {

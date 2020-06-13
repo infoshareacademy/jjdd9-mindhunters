@@ -14,18 +14,11 @@ public class MeasureRepositoryBean {
     @PersistenceContext
     EntityManager entityManager;
 
-//    public List<String> findAllNames() {
-//        Query query = entityManager.createNamedQuery("Category.findAllNames");
-//        return query.getResultList();
-//    }
-
     public Measure getByQuantity(String quantity) {
-        // Szukamy po nazwie i wybieramy pierwszą kategorię
-        // Jak nie ma to null;
-        Query qry = entityManager.createNamedQuery("Measure.getByQuantity") ;
+        Query qry = entityManager.createNamedQuery("Measure.getByQuantity");
         qry.setParameter("quantity", quantity);
         List<Measure> resultList = qry.getResultList();
-        return resultList.size()==0 ? null : resultList.get(0);
+        return resultList.size() == 0 ? null : resultList.get(0);
     }
 
     public void save(Measure measure) {
