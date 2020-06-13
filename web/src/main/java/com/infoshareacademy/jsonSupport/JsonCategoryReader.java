@@ -21,11 +21,9 @@ public class JsonCategoryReader {
         File json = new File(fileName);
         JsonNode jsonNode = mapper.readTree(json);
 
-
         List<CategoryJson> categoryJsonList = (List<CategoryJson>) mapper.readValue(jsonNode.get("drinks").toString(),
                 new TypeReference<List<CategoryJson>>() {
                 });
-
         return categoryJsonList;
     }
 }

@@ -1,6 +1,5 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.cdi.FileUploadProcessor;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -27,10 +26,6 @@ public class WelcomeUserServlet extends HttpServlet {
     @Inject
     private TemplateProvider templateProvider;
 
-    @Inject
-    private FileUploadProcessor fileUploadProcessor;
-
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -48,7 +43,7 @@ public class WelcomeUserServlet extends HttpServlet {
         try {
             template.process(dataModel, printWriter);
         } catch (TemplateException e) {
-                packageLogger.error("Template not created");
+            packageLogger.error("Template not created");
         }
 
     }

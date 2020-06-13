@@ -49,10 +49,6 @@ public class UploadDbFromFileServlet extends HttpServlet {
     @Inject
     private JsonParserBean jsonParserBean;
 
-//    @Inject
-//    private JsonCategoryReader jsonCategoryReader;
-
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

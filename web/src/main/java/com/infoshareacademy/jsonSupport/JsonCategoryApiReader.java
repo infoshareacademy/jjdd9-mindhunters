@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.enterprise.context.RequestScoped;
 import java.io.IOException;
 import java.util.List;
+
 @RequestScoped
 public class JsonCategoryApiReader {
 
@@ -20,11 +21,9 @@ public class JsonCategoryApiReader {
 
         JsonNode jsonNode = mapper.readTree(jsonCat);
 
-
         List<CategoryJson> categoryJsonList = (List<CategoryJson>) mapper.readValue(jsonNode.get("drinks").toString(),
                 new TypeReference<List<CategoryJson>>() {
                 });
-
         return categoryJsonList;
     }
 }

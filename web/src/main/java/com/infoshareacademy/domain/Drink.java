@@ -14,9 +14,7 @@ import java.util.List;
         @NamedQuery(
                 name = "Drink.findAllByCategories",
                 query = "select d from Drink d where d.category.name in :category"
-
         )
-
 })
 
 @Entity
@@ -46,7 +44,7 @@ public class Drink {
     @Column(columnDefinition = "TEXT")
     private String recipe;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "drinkId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "drinkId", fetch = FetchType.LAZY)
     private List<DrinkIngredient> drinkIngredient = new ArrayList<>();
 
     private String image;

@@ -19,7 +19,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 @WebServlet("/upload-json-api")
 public class UploadDbFromApiServlet extends HttpServlet {
@@ -38,10 +41,6 @@ public class UploadDbFromApiServlet extends HttpServlet {
     @Inject
     private JsonParserApiBean jsonParserApiBean;
 
-//    @Inject
-//    private JsonCategoryApiReader jsonCategoryApiReader;
-
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -57,19 +56,12 @@ public class UploadDbFromApiServlet extends HttpServlet {
             for (DrinkJson letterDrinkJson : letterDrinkJsons) {
                 drinkJsons.add(letterDrinkJson);
             }
-
-
-//            List<DrinkJson> letterDrinkJsons = jsonParserApiBean.jsonDrinkReaderFromString(stringDrinkJson);
-//            for (DrinkJson letterDrinkJson : letterDrinkJsons) {
-//                drinkJsons.add(letterDrinkJson);
-//            }
         }
 
         Request getCat = Request.Get("https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list");
         String stringCatDrinkJson = getCat.execute().returnContent().asString();
         List<CategoryJson> categoryJson = new ArrayList<>();
         categoryJson = JsonCategoryApiReader.jsonCategoryReader(stringCatDrinkJson);
-
 
         Drink drink = new Drink();
         for (DrinkJson drinkJson : drinkJsons) {
