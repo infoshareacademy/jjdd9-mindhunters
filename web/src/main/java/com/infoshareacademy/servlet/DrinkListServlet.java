@@ -1,5 +1,6 @@
 package com.infoshareacademy.servlet;
 
+import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.dto.CategoryView;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.freemarker.TemplateProvider;
@@ -75,6 +76,10 @@ public class DrinkListServlet extends HttpServlet {
         dataModel.put("queryName", queryName);
         dataModel.put("drinkList", drinkViewList);
         dataModel.put("currentPage", currentPage);
+
+        ContextHolder contextHolder = new ContextHolder(req.getSession());
+        dataModel.put("name", contextHolder.getName());
+        dataModel.put("role", contextHolder.getRole());
 
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeList.ftlh");

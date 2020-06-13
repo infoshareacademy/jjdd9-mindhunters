@@ -1,5 +1,6 @@
 package com.infoshareacademy.servlet;
 
+import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.DrinkService;
@@ -55,6 +56,10 @@ public class SingleViewServlet extends HttpServlet {
 
             dataModel.put("drink", foundDrinkById);
         }
+
+        ContextHolder contextHolder = new ContextHolder(req.getSession());
+        dataModel.put("name", contextHolder.getName());
+        dataModel.put("role", contextHolder.getRole());
 
         Template template = templateProvider.getTemplate(getServletContext(), "singleDrinkView.ftlh");
         try {

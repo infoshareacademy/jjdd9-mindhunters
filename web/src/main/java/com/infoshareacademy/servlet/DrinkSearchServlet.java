@@ -1,5 +1,6 @@
 package com.infoshareacademy.servlet;
 
+import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.DrinkService;
 import com.infoshareacademy.service.IngredientService;
@@ -38,6 +39,10 @@ public class DrinkSearchServlet extends HttpServlet {
         Map<String, Object> dataModel = new HashMap<>();
 
         dataModel = searchTypeService.listViewSearchType(req);
+
+        ContextHolder contextHolder = new ContextHolder(req.getSession());
+        dataModel.put("name", contextHolder.getName());
+        dataModel.put("role", contextHolder.getRole());
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeSearchList.ftlh");
         try {
