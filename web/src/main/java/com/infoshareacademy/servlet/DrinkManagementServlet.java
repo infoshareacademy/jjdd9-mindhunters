@@ -61,16 +61,15 @@ public class DrinkManagementServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Drink drink = new Drink();
-        Category category = new Category();
-        category.setName("category");
 
-        categoryService.getOrCreate("dsadsads");
+        Drink drink = new Drink();
+
+        Category category = categoryService.getOrCreate(req.getParameter("category"));
 
         drink.setDrinkName(req.getParameter("name"));
         drink.setRecipe(req.getParameter("recipe"));
-        drink.setCategory(categoryService.getOrCreate("dsadsads"));
-        drink.setAlcoholStatus("testStatus");
+        drink.setCategory(category);
+        drink.setAlcoholStatus(req.getParameter("status"));
         drink.setDate(LocalDateTime.now());
 
         drinkService.save(drink);
