@@ -41,7 +41,7 @@ public class UserFavouritesAuthorizationFilter implements Filter {
 
         if (!isAuthorized) {
             LOGGER.info("Unauthorized attempt to access user favourites restricted context");
-            httpServletResponse.sendRedirect("/error");
+            httpServletResponse.sendRedirect("/not-found");
             return;
 
         }

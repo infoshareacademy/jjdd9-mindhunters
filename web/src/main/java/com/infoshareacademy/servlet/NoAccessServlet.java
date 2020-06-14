@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/error")
+@WebServlet("/not-found")
 public class NoAccessServlet extends HttpServlet {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoggerServlet.class.getName());
@@ -34,7 +34,7 @@ public class NoAccessServlet extends HttpServlet {
         dataModel.put("name", contextHolder.getName());
         dataModel.put("role", contextHolder.getRole());
 
-        Template template = templateProvider.getTemplate(getServletContext(), "error.ftlh");
+        Template template = templateProvider.getTemplate(getServletContext(), "noAccess.ftlh");
 
         try {
             template.process(dataModel, resp.getWriter());

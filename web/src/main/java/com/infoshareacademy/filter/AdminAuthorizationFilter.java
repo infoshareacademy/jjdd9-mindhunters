@@ -41,7 +41,7 @@ public class AdminAuthorizationFilter implements Filter {
 
         if (!isAuthorized) {
             LOGGER.info("Unauthorized attempt to access admin restricted context");
-            httpServletResponse.sendRedirect("/error");
+            httpServletResponse.sendRedirect("/not-found");
             return;
 
         }
