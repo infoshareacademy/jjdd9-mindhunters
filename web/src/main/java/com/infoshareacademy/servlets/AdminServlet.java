@@ -22,7 +22,7 @@ import java.util.Map;
 @WebServlet("/adminPage")
 public class AdminServlet extends HttpServlet {
 
-    private static final Logger packageLogger = LoggerFactory.getLogger(LoggerServlet.class.getName());
+    private static final Logger packageLogger = LoggerFactory.getLogger(AdminServlet.class.getName());
 
     @Inject
     private TemplateProvider templateProvider;

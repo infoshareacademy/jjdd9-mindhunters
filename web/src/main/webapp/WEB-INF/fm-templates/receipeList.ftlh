@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,91 +10,100 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Mindhunters</title>
-    <link href="../../css/style.css" rel="stylesheet">
+    <link href="../../css/drink_list.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
 
 </head>
 <body id="page-top" style="background-color: #1b1e21;">
-
 <!--Navigation-->
+
 <#include "navigation.ftlh">
-
-
 <!--List-->
-<nav aria-label="LIST">
+<nav aria-label="LIST" style="cursor: pointer;">
 
-    <div class="container-fluid  ">
+    <div class="container-fluid">
 
         <div class="row mx-2 my-2 justify-content-center">
 
-            <div class="d-none d-md-block">
+            <!--categoriesSidebar-->
+            <#if categories??>
 
-                <div class="list-group  list-element sticky-scroll  " >
-                    <#list categories as category>
+                <#include "categoriesSidebar.ftlh">
 
-                        <a href="#" class="list-group-item sidebar-list">${category}</a>
-
-                    </#list>
-
-                </div>
-            </div>
-
+            </#if>
+            <!--LIST-->
 
             <div class="col-12 col-md-8 col-lg-8 col-xl-8">
-                <ul class="list-unstyled  justify-content-center  ml-auto space_list ">
+                <ul class="list-unstyled  justify-content-center  ml-auto space_list  " id="ID03" >
                     <#list drinkList as drink>
 
                         <li class="media ">
                             <div class="container ml-0 pl-0 mr-0 pr-0 ">
-                                <div class="row list-element">
-                                    <div class="col-md-auto d-flex justify-content-center " style="min-width: 205px">
-                                        <img src="${drink.image}"
-                                             class=" thumbnail_list justify-content-center" alt="...">
+                                <div class="row list-element" >
+                                    <div class="col-md-auto d-flex justify-content-center " style="min-width: 205px" >
+                                        <div class="relative" id="ID04">
+                                            <img src="${drink.image}"
+                                                 class=" thumbnail_list justify-content-center" alt="...">
+                                            <i class="icon-lock-star icons <#if favourites!?seq_contains(drink.id)>color_toggle_on </#if> "   title="Add/delete from favourites" >
+                                                <svg id="star-fill" class="bi bi-star-fill  " width="1em" height="1em"
+                                                     viewBox="0 0 16 16"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                                </svg>
+                                            </i>
+                                            <p hidden>${drink.id}</p>
+                                        </div>
+
                                     </div>
 
-                                    <div class="media-body line-clamp col-sm-8 ml-0 pl-1 mr-0 pr-0" style="color: #ffc107">
+                                    <div class="media-body  line-clamp col-sm-8 ml-0 pl-1 mr-0 pr-0"
+                                         style="color: #ffc107" data-link="${"/single-view?drink=" + drink.id}">
 
                                         <div class="row col-sm d-flex mt-4 mt-md-0 ">
-                                            <h5 class="col-md-6 mx-2 my-2  font-weight-bold text-center text-md-left"  >
+                                            <h5 class="col-md-6 mx-2 my-2  font-weight-bold text-center text-md-left">
                                                 ${drink.drinkName}
                                             </h5>
 
                                             <h5 class="col-md-5 mx-2 my-2   text-center text-md-right" style="
                                                     padding-right: 0px;
                                                     margin-right: 0px;">
-                                                ${drink.category.name}
+                                                ${drink.categoryView.name}
 
                                             </h5>
+
+
                                         </div>
                                         <div class="line-clamp mx-2 my-2 mt-4 mr-4 d-none d-md-block">
                                             ${drink.recipe}
                                         </div>
+                                        <div class="line-clamp mx-2 my-2 mt-4 mr-4 ml-4 text-center text-md-right"
+                                                <#if drink.alcoholStatus == "Alcoholic">
+                                                    style="color: #dc3545"
+                                                </#if>
+                                        >
+                                            ${drink.alcoholStatus}
+                                        </div>
                                     </div>
-
                                 </div>
-
                             </div>
-
                         </li>
                     </#list>
+
+                    <#if !(drinkList?has_content) >
+
+                        <#include "emptyList.ftlh">
+
+                    </#if>
                 </ul>
             </div>
         </div>
     </div>
 
-    <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item active" aria-current="page">
-            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-        </li>
-    </ul>
+
+    <!--Pagination-->
+
+    <#include "pagination.ftlh">
+
 </nav>
 
 <!--Footer-->
@@ -115,9 +125,11 @@
 <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>-->
 <!--&lt;!&ndash; Third party plugin JS&ndash;&gt;-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-<script src="../../js/BootstrapValidation.js"></script>
+<#--<script src="../../js/BootstrapValidation.js"></script>-->
 <!--&lt;!&ndash;&lt;!&ndash; Core theme JS&ndash;&gt;&ndash;&gt;-->
-<script type="text/javascript" src="../../js/homePage.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.js"></script>
+-->
+<script src="../../js/receipeList.js"></script>
 <#--
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 -->

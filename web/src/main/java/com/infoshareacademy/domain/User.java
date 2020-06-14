@@ -1,6 +1,5 @@
 package com.infoshareacademy.domain;
 
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -8,6 +7,23 @@ import java.util.List;
 
 @Entity
 @Table(name = "user")
+@NamedQueries({
+        @NamedQuery(
+                name = "User.findAll",
+                query = "SELECT u FROM User u"
+        ),
+        @NamedQuery(
+                name = "User.findFavouritesList",
+                query = "SELECT u.drinks FROM User u WHERE u.id = :id"
+        ),
+        @NamedQuery(
+                name = "User.countFindFavouritesList",
+                query = "SELECT COUNT (ud) FROM User u JOIN u.drinks ud WHERE u.id = :id"
+        )
+
+})
+
+
 public class User {
 
     @Id
@@ -24,7 +40,7 @@ public class User {
     @JoinTable(name = "favourite",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "drink_id", referencedColumnName = "id"))
-    List<Drink> drinks = new ArrayList<>();
+    private List<Drink> drinks = new ArrayList<>();
 
     public Long getId() {
         return id;

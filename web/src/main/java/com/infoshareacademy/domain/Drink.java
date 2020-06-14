@@ -8,13 +8,58 @@ import java.util.List;
 
 @NamedQueries({
         @NamedQuery(
+                name = "Drink.findByIngredients",
+                query = "SELECT d FROM Drink d JOIN d.drinkIngredients di WHERE di.ingredient IN :ingredients GROUP BY " +
+                        "d ORDER BY COUNT (di.ingredient) DESC"),
+        @NamedQuery(
+                name = "Drink.countByIngredients",
+                query = "SELECT COUNT(DISTINCT d.id) FROM Drink d JOIN d.drinkIngredients di WHERE di.ingredient IN " +
+                        ":ingredients"),
+        @NamedQuery(
+                name = "Drink.findDrinkByPartialName",
+                query = "SELECT d FROM Drink d WHERE LOWER( d.drinkName) LIKE LOWER(:partialDrinkName)"),
+
+        @NamedQuery(
+                name = "Drink.countDrinksByPartialName",
+                query = "SELECT COUNT(d) FROM Drink d WHERE LOWER( d.drinkName) LIKE LOWER(:partialDrinkName)"),
+
+        @NamedQuery(
                 name = "Drink.findAll",
                 query = "SELECT d FROM Drink d"
+        ),
+        @NamedQuery(
+                name = "Drink.countFindAll",
+                query = "SELECT count (d) FROM Drink d"
+        ),
+        @NamedQuery(
+                name = "Drink.findDrinksByCategories",
+                query = "select d from Drink d where d.category.id in (:category)"
+        ),
+        @NamedQuery(
+                name = "Drink.CountDrinksByCategories",
+                query = "select count (d) from Drink d where d.category.id in (:category)"
+        ),
+        @NamedQuery(
+                name = "Drink.findDrinksByAlcoholStatus",
+                query = "select d from Drink d where d.alcoholStatus in (:alcoholStatus)"
+        ),
+        @NamedQuery(
+                name = "Drink.countDrinksByAlcoholStatus",
+                query = "select count (d) from Drink d where d.alcoholStatus in (:alcoholStatus)"
+        ),
+        @NamedQuery(
+                name = "Drink.findByCategoriesAndAlcoholStatus",
+                query = "select d from Drink d  where d.alcoholStatus  in (:alcoholStatus) and d.category.id in (:category)"
+        ),
+        @NamedQuery(
+                name = "Drink.countDrinksByCategoriesAndAlcoholStatus",
+                query = "select count (d) from Drink d where d.alcoholStatus  in (:alcoholStatus) and d.category.id in (:category)"
         ),
         @NamedQuery(
                 name = "Drink.findAllByCategories",
                 query = "select d from Drink d where d.category.name in :category"
         )
+
 })
 
 @Entity
@@ -45,7 +90,7 @@ public class Drink {
     private String recipe;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "drinkId", fetch = FetchType.LAZY)
-    private List<DrinkIngredient> drinkIngredient = new ArrayList<>();
+    private List<DrinkIngredient> drinkIngredients = new ArrayList<>();
 
     private String image;
 
@@ -100,11 +145,11 @@ public class Drink {
     }
 
     public List<DrinkIngredient> getDrinkIngredient() {
-        return drinkIngredient;
+        return drinkIngredients;
     }
 
     public void setDrinkIngredient(List<DrinkIngredient> drinkIngredient) {
-        this.drinkIngredient = drinkIngredient;
+        this.drinkIngredients = drinkIngredient;
     }
 
     public String getImage() {

@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 /*!
 * Start Bootstrap - Agency v6.0.0 (https://startbootstrap.com/template-overviews/agency)
 * Copyright 2013-2020 Start Bootstrap
@@ -232,9 +231,11 @@
     padding-bottom: 30px;
     padding-top: 30px;
 }
+
 .submit-btn {
     background-color: #fed136;
 }
+
 .vis-of-btn{
     visibility: visible;!important;
     width: 370px;
@@ -815,11 +816,11 @@ fieldset:disabled a.btn {
         height: auto;
         max-height: 1500px;
         alignment: center;
-        /*change*/
         text-align: center;
         display: block;
     }
 }
+
 
 .navbar-expand > .container,
 .navbar-expand > .container-fluid {

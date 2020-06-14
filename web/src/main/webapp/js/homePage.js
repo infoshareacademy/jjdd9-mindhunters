@@ -142,13 +142,4 @@ $(document).ready(function () {
                 }, 2200);
         });
     }
-    $("#btn-admin2").click(function () {
-        $(".vis-of-btn").css({
-            visibility: "visible"
-        }).animate({},800);
-    });
-
-
-
-
 });

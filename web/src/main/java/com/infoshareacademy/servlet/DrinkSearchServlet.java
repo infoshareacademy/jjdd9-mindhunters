@@ -1,11 +1,15 @@
-package com.infoshareacademy.servlets;
+package com.infoshareacademy.servlet;
 
 import com.infoshareacademy.freemarker.TemplateProvider;
+import com.infoshareacademy.service.DrinkService;
+import com.infoshareacademy.service.IngredientService;
+import com.infoshareacademy.service.SearchTypeService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,38 +17,34 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+@WebServlet("/search")
+public class DrinkSearchServlet extends HttpServlet {
 
-@WebServlet("/welcome")
-public class WelcomeUserServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DrinkSearchServlet.class.getName());
 
-    private static final Logger packageLogger = LoggerFactory.getLogger(LoggerServlet.class.getName());
+    @EJB
+    private SearchTypeService searchTypeService;
 
     @Inject
     private TemplateProvider templateProvider;
 
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        resp.setContentType("text/html; charset=UTF-8");
         Map<String, Object> dataModel = new HashMap<>();
-        String name = req.getParameter("name");
 
-        if (name == null || name.isEmpty()) {
-            name = "Stranger";
-        }
-        dataModel.put("name", name.toUpperCase());
-        Template template = templateProvider.getTemplate(getServletContext(), "welcomePage.ftlh");
+        dataModel = searchTypeService.listViewSearchType(req);
 
-        PrintWriter printWriter = resp.getWriter();
-
+        Template template = templateProvider.getTemplate(getServletContext(), "receipeSearchList.ftlh");
         try {
-            template.process(dataModel, printWriter);
+            template.process(dataModel, resp.getWriter());
         } catch (TemplateException e) {
-            packageLogger.error("Template not created");
+            LOGGER.error(e.getMessage());
         }
-
     }
+
 }

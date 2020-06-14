@@ -5,6 +5,10 @@ import javax.validation.constraints.NotNull;
 
 @NamedQueries({
         @NamedQuery(
+                name = "Category.findAll",
+                query = "SELECT c FROM Category c"
+        ),
+        @NamedQuery(
                 name = "Category.findAllNames",
                 query = "SELECT c.name FROM Category c"
         ),
@@ -13,6 +17,8 @@ import javax.validation.constraints.NotNull;
                 query = "SELECT c FROM Category c where c.name= :name"
         )
 })
+
+
 @Entity
 @Table(name = "category")
 public class Category {
