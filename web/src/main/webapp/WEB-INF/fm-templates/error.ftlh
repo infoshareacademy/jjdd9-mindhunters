@@ -16,10 +16,11 @@
 </head>
 <body id="page-top">
 
-<#include "navigation.ftlh">
+
 
 <div class="container-fluid" style="color:red; background-color: #1b1e21; text-align: center">
-    <label><h2>Not found - code 404.</h2></label>
+    <label><h2> Something went terribly wrong. Our team is working hard to restore application server. Code 500.
+        </h2></label>
 </div>
 
 <div class="body part1-top" id="body part1-top" style="background-color: #1b1e21">
@@ -31,8 +32,8 @@
                     <div class="container welcome-settings">
                         <div class="masthead-subheading  text-warning glow " id="welcomeDiv"
                              style=font-size:30px;text-align:center>
-                            Welcome ${name ! "Stranger"}<br>
-                            Page Not Found - code 404.
+                            Something went terribly wrong. Our team is working hard to restore application server.
+                            Code 500.
                         </div>
                     </div>
                 </header>
