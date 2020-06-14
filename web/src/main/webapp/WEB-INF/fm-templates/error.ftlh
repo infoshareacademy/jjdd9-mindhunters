@@ -19,7 +19,7 @@
 <#include "navigation.ftlh">
 
 <div class="container-fluid" style="color:red; background-color: #1b1e21; text-align: center">
-    <label><h2>Not found code 404.</h2></label>
+    <label><h2>Not found - code 404.</h2></label>
 </div>
 
 <div class="body part1-top" id="body part1-top" style="background-color: #1b1e21">

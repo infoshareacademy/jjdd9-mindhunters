@@ -75,7 +75,6 @@ INSERT INTO role (id, name) VALUES (4, 'GUEST');
 
 INSERT INTO user (name, email, role_id) VALUES ('Mindhunters', 'mindhunters3m@gmail.com', 1);
 INSERT INTO user (name, email, role_id) VALUES ('Szymon Skaziński', 'szymon@gmail.com', 2);
-INSERT INTO user (name, email, role_id) VALUES ('Łukasz Spyra', 'lukasz.spyrka@gmail.com', 2);
 INSERT INTO user (name, email, role_id) VALUES ('Kamil Markowski', 'kamil@gmail.com', 2);
 INSERT INTO user (name, email, role_id) VALUES ('test1 user', 'test1@gmai.com', 3);
 INSERT INTO user (name, email, role_id) VALUES ('test2 user', 'test2@gmai.com', 3);
