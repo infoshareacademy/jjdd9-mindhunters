@@ -29,5 +29,13 @@ public class CategoryService {
         return categoryMapper.toView(categories);
     }
 
-
+    public Category getOrCreate(String name) {
+        Category category = categoryRepositoryBean.getByName(name);
+        if (category == null) {
+            category = new Category();
+            category.setName(name);
+            categoryRepositoryBean.save(category);
+        }
+        return category;
+    }
 }

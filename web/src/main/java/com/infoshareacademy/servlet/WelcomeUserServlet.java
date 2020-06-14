@@ -5,9 +5,9 @@ import com.infoshareacademy.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
+
 import javax.inject.Inject;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,8 +18,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
-@MultipartConfig
-@WebServlet("")
+
+@WebServlet("/welcome")
 public class WelcomeUserServlet extends HttpServlet {
 
     private final static Logger logger = Logger.getLogger(WelcomeUserServlet.class.getName());
@@ -27,7 +27,6 @@ public class WelcomeUserServlet extends HttpServlet {
 
     @Inject
     private TemplateProvider templateProvider;
-
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -47,5 +46,4 @@ public class WelcomeUserServlet extends HttpServlet {
         }
 
     }
-
 }
