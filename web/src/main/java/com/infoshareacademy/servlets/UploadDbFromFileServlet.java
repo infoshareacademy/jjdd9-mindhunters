@@ -35,16 +35,16 @@ public class UploadDbFromFileServlet extends HttpServlet {
     private static final Logger packageLogger = LoggerFactory.getLogger(UploadDbFromFileServlet.class.getName());
 
     @Inject
-    DrinkMapper drinkMapper;
+    private DrinkMapper drinkMapper;
 
     @Inject
     private JsonService jsonService;
 
     @Inject
-    DrinkService drinkService;
+    private DrinkService drinkService;
 
     @Inject
-    FileUploadProcessor fileUploadProcessor;
+    private FileUploadProcessor fileUploadProcessor;
 
     @Inject
     private JsonParserBean jsonParserBean;

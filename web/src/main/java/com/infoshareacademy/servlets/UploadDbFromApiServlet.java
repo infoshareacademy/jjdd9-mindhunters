@@ -30,13 +30,13 @@ public class UploadDbFromApiServlet extends HttpServlet {
     private static final Logger packageLogger = LoggerFactory.getLogger(UploadDbFromApiServlet.class.getName());
 
     @Inject
-    DrinkMapper drinkMapper;
+    private DrinkMapper drinkMapper;
 
     @Inject
     private JsonService jsonService;
 
     @Inject
-    DrinkService drinkService;
+    private DrinkService drinkService;
 
     @Inject
     private JsonParserApiBean jsonParserApiBean;

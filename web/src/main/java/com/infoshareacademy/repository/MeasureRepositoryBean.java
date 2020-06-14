@@ -12,7 +12,7 @@ import java.util.List;
 public class MeasureRepositoryBean {
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     public Measure getByQuantity(String quantity) {
         Query qry = entityManager.createNamedQuery("Measure.getByQuantity");
