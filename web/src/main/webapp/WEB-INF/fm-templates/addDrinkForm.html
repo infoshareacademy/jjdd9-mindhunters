@@ -13,30 +13,61 @@
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
 
 </head>
-<body id="page-top" >
+<body id="page-top">
 
 
-<form action="" method="post" id="my-form">
+<form class="was-validated col-5" action="/drink_management" method="post" id="abc">
 
     <div class="container-fluid" style="width: 500px">
 
+
+        <div class="col-12">
+
         <label>Input recipe data: </label>
 
-        <div class="justify-content-center row">
-
-            <input name="name" type="text" class="form-control integerInput" id="field" placeholder="Insert name" style="width: 300px">
-            <input name="recipe" type="text" class="form-control integerInput" id="field" placeholder="Insert recipe" style="width: 300px">
-            <br>
+            <input name="name" type="text" class="form-control integerInput md-3 " id="field" placeholder="Insert name"
+                   required minlength="3">
+            <div class="invalid-feedback alert alert-danger col-5">Input min. 3 chars</div>
 
         </div>
 
-        <button type="button submit" class="btn btn-primary justify-content-center" >
-            Oblicz ciąg
-        </button>
-
-        <div id="panel" class="alert alert-danger mx-3 my-3" role="alert">
-            <p>Wprowadź poprawną liczbę!</p>
+        <div class="form-group col-12">
+            <label for="exampleFormControlTextarea1">Input recipe:</label>
+            <textarea name="recipe" class="form-control" id="exampleFormControlTextarea1" rows="5" required minlength="3"></textarea>
+            <div class="invalid-feedback alert alert-danger col-5">Input min. 5 chars</div>
         </div>
+
+        <div class="form-group md-3 col-7 content-left">
+            <select name="status" class="custom-select" required>
+                <option value="">Alcohol status</option>
+                <option value="1">Alcoholic</option>
+                <option value="2">Non-alcoholic</option>
+                <option value="3">Optional</option>
+            </select>
+            <div class="invalid-feedback alert alert-danger">Select alcohol status</div>
+        </div>
+
+        <div class="form-group md-3 col-7 content-left">
+            <select name="category" class="custom-select" required>
+                <option value="">Category</option>
+                <option value="1">Cat1</option>
+                <option value="2">Cat2</option>
+                <option value="3">Cat3</option>
+            </select>
+            <div class="invalid-feedback alert alert-danger">Select category</div>
+        </div>
+
+        <div class="custom-file col-7" style="padding-left: 15px; padding-right: 15px">
+            <input type="file" class="custom-file-input" id="validatedCustomFile">
+            <label class="custom-file-label" for="validatedCustomFile">Choose picture file...</label>
+        </div>
+
+        <div class=" my-3 col-7">
+            <button type="button submit  " class="btn btn-primary" name="save" value="save">
+                Save drink
+            </button>
+        </div>
+
     </div>
 </form>
 
@@ -60,43 +91,6 @@
         </div>
     </div>
 </div>
-
-
-</div>
-
-<form class="was-validated col-3">
-    <div class="custom-control custom-radio">
-        <input type="radio" class="custom-control-input" id="customControlValidation2" name="radio-stacked" required>
-        <label class="custom-control-label" for="customControlValidation2">Alcoholic</label>
-    </div>
-    <div class="custom-control custom-radio ">
-        <input type="radio" class="custom-control-input" id="customControlValidation3" name="radio-stacked" required>
-        <label class="custom-control-label" for="customControlValidation3">Non-alcoholic</label>
-    </div>
-    <div class="custom-control custom-radio mb-3">
-        <input type="radio" class="custom-control-input" id="customControlValidation4" name="radio-stacked" required>
-        <label class="custom-control-label" for="customControlValidation4">Optional alcoholic</label>
-        <div class="invalid-feedback">More example invalid feedback text</div>
-    </div>
-
-    <div class="form-group md-3">
-        <select class="custom-select" required>
-            <option value="">Alcohol status</option>
-            <option value="1">Alcoholic</option>
-            <option value="2">Non-alcoholic</option>
-            <option value="3">Optional</option>
-        </select>
-        <div class="invalid-feedback">Select alcohol status</div>
-    </div>
-
-    <div class="custom-file">
-        <input type="file" class="custom-file-input" id="validatedCustomFile" required>
-        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-        <div class="invalid-feedback">Example invalid custom file feedback</div>
-    </div>
-</form>
-
-
 
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
