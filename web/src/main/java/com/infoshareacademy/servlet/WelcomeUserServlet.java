@@ -4,6 +4,8 @@ import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -13,17 +15,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 @MultipartConfig
 @WebServlet("")
 public class WelcomeUserServlet extends HttpServlet {
 
-    private final static Logger logger = Logger.getLogger(WelcomeUserServlet.class.getName());
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(WelcomeUserServlet.class.getName());
 
     @Inject
     private TemplateProvider templateProvider;
@@ -43,7 +42,7 @@ public class WelcomeUserServlet extends HttpServlet {
         try {
             template.process(dataModel, resp.getWriter());
         } catch (TemplateException e) {
-            logger.warning("Template not created");
+            LOGGER.warn("Template not created");
         }
 
     }
