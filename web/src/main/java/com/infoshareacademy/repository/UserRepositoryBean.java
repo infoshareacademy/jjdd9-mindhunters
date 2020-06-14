@@ -53,9 +53,9 @@ public class UserRepositoryBean implements UserRepository {
     }
 
     @Override
-    public List<Drink> findFavouritesList(Long id, int startPosition, int endPosition) {
+    public List<Drink> findFavouritesList(String email, int startPosition, int endPosition) {
         Query query = entityManager.createNamedQuery("User.findFavouritesList");
-        query.setParameter("id", id);
+        query.setParameter("email", email);
 
         query.setFirstResult(startPosition);
         query.setMaxResults(endPosition);
@@ -65,9 +65,9 @@ public class UserRepositoryBean implements UserRepository {
 
 
     @Override
-    public int countPagesFindFavouritesList(Long userId) {
+    public int countPagesFindFavouritesList(String email) {
         Query query = entityManager.createNamedQuery("User.countFindFavouritesList");
-        query.setParameter("id", userId);
+        query.setParameter("email", email);
         String querySize = query.getSingleResult().toString();
 
         int maxPageNumber = userService.getMaxPageNumber(querySize);

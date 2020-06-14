@@ -69,45 +69,45 @@ public class UserService {
         return userMapper.toView(user);
     }
 
-    public void saveOrDeleteFavourite(String userId, String drinkId) {
+    public void saveOrDeleteFavourite(String email, String drinkId) {
 
         Drink drink = drinkRepository.findDrinkById(Long.parseLong(drinkId));
-        User user = userRepository.findUserById(Long.parseLong(userId)).orElseThrow();
+        User user = userRepository.findByEmail(email).orElseThrow();
 
         List<Drink> favouriteDrinks = user.getDrinks();
 
         if (!favouriteDrinks.contains(drink)) {
             user.getDrinks().add(drink);
-            packageLogger.info("User ID = {} added drink ID = {} to favourites", userId, drinkId);
+            packageLogger.info("User email = {} added drink ID = {} to favourites", email, drinkId);
 
         } else {
             user.getDrinks().remove(drink);
-            packageLogger.info("User ID = {} deleted drink ID = {} from favourites", userId, drinkId);
+            packageLogger.info("User email = {} deleted drink ID = {} from favourites", email, drinkId);
 
         }
 
     }
 
-    public List<FullDrinkView> favouritesList(String userId) {
+    public List<FullDrinkView> favouritesList(String email) {
 
-        User user = userRepository.findUserById(Long.parseLong(userId)).orElseThrow();
+        User user = userRepository.findByEmail(email).orElseThrow();
 
         return fullDrinkMapper.toView(user.getDrinks());
 
     }
 
-    public List<FullDrinkView> favouritesList(String userId, int pageNumber) {
+    public List<FullDrinkView> favouritesList(String email, int pageNumber) {
         int startPosition = (pageNumber - 1) * PAGE_SIZE;
         int endPosition = PAGE_SIZE;
 
-        List<Drink> drinks = userRepository.findFavouritesList(Long.valueOf(userId), startPosition, endPosition);
+        List<Drink> drinks = userRepository.findFavouritesList(email, startPosition, endPosition);
 
         return fullDrinkMapper.toView(drinks);
 
     }
 
-    public int countPagesFavouritesList(String userId) {
-        int maxPageNumber = userRepository.countPagesFindFavouritesList(Long.valueOf(userId));
+    public int countPagesFavouritesList(String email) {
+        int maxPageNumber = userRepository.countPagesFindFavouritesList(email);
 
         return maxPageNumber;
 
