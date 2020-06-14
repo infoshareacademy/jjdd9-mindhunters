@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Mindhunters</title>
+    <link href="../../css/addDrinkForm.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
+
+</head>
+<body id="page-top" >
+
+
+<form action="" method="post" id="my-form">
+
+    <div class="container-fluid" style="width: 500px">
+
+        <label>Input recipe data: </label>
+
+        <div class="justify-content-center row">
+
+            <input name="name" type="text" class="form-control integerInput" id="field" placeholder="Insert name" style="width: 300px">
+            <input name="recipe" type="text" class="form-control integerInput" id="field" placeholder="Insert recipe" style="width: 300px">
+            <br>
+
+        </div>
+
+        <button type="button submit" class="btn btn-primary justify-content-center" >
+            Oblicz ciąg
+        </button>
+
+        <div id="panel" class="alert alert-danger mx-3 my-3" role="alert">
+            <p>Wprowadź poprawną liczbę!</p>
+        </div>
+    </div>
+</form>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title " id="exampleModalLabel">Ciąg Fibonacciego</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-3 text-center">
+                <p id="fibonacci"></p>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+<form class="was-validated col-3">
+    <div class="custom-control custom-radio">
+        <input type="radio" class="custom-control-input" id="customControlValidation2" name="radio-stacked" required>
+        <label class="custom-control-label" for="customControlValidation2">Alcoholic</label>
+    </div>
+    <div class="custom-control custom-radio ">
+        <input type="radio" class="custom-control-input" id="customControlValidation3" name="radio-stacked" required>
+        <label class="custom-control-label" for="customControlValidation3">Non-alcoholic</label>
+    </div>
+    <div class="custom-control custom-radio mb-3">
+        <input type="radio" class="custom-control-input" id="customControlValidation4" name="radio-stacked" required>
+        <label class="custom-control-label" for="customControlValidation4">Optional alcoholic</label>
+        <div class="invalid-feedback">More example invalid feedback text</div>
+    </div>
+
+    <div class="form-group md-3">
+        <select class="custom-select" required>
+            <option value="">Alcohol status</option>
+            <option value="1">Alcoholic</option>
+            <option value="2">Non-alcoholic</option>
+            <option value="3">Optional</option>
+        </select>
+        <div class="invalid-feedback">Select alcohol status</div>
+    </div>
+
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+        <div class="invalid-feedback">Example invalid custom file feedback</div>
+    </div>
+</form>
+
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+<!-- Bootstrap core JS-->
+
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>-->
+<!--&lt;!&ndash; Third party plugin JS&ndash;&gt;-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+<#--
+<script src="../../js/addDrinkForm.js"></script>
+-->
+<!--&lt;!&ndash;&lt;!&ndash; Core theme JS&ndash;&gt;&ndash;&gt;-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.js"></script>
+-->
+<script src="../../js/addDrinkForm.js"></script>
+<#--
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+-->
+</body>
+</html>
