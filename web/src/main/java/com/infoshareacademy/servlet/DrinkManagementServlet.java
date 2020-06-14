@@ -1,6 +1,7 @@
 package com.infoshareacademy.servlet;
 
 import com.infoshareacademy.context.ContextHolder;
+import com.infoshareacademy.domain.Category;
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.freemarker.TemplateProvider;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,15 +61,19 @@ public class DrinkManagementServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        FullDrinkView drinkView = new FullDrinkView();
+        Drink drink = new Drink();
+        Category category = new Category();
+        category.setName("category");
 
-        drinkView.setDrinkName(req.getParameter("name"));
-        drinkView.setRecipe(req.getParameter("recipe"));
-        drinkView.setCategoryView(categoryService.findAllCategories().get(1));
-        drinkView.setAlcoholStatus("testStatus");
-        drinkView.setDate("2020-06-14 20:00:00");
+        categoryService.getOrCreate("dsadsads");
 
-        drinkService.saveDrink(drinkView);
+        drink.setDrinkName(req.getParameter("name"));
+        drink.setRecipe(req.getParameter("recipe"));
+        drink.setCategory(categoryService.getOrCreate("dsadsads"));
+        drink.setAlcoholStatus("testStatus");
+        drink.setDate(LocalDateTime.now());
+
+        drinkService.save(drink);
 
     }
 
