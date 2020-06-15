@@ -9,4 +9,7 @@ import java.util.List;
 public interface IngredientRepository {
 
     List<Ingredient> findIngredientsByName(String partialIngredientName);
+    Ingredient getByName(String name);
+    void save(Ingredient ingredient);
+
 }

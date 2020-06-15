@@ -10,7 +10,10 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.util.List;
+
+@Transactional
 
 @Stateless
 public class DrinkRepositoryBean implements DrinkRepository {
@@ -142,7 +145,10 @@ public class DrinkRepositoryBean implements DrinkRepository {
 
         query.setParameter("alcoholStatus", alcoholStatus);
         return query.getResultList();
+    }
 
+    public void save(Drink drink) {
+        entityManager.persist(drink);
     }
 
     @Override

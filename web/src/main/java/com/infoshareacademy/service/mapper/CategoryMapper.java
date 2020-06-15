@@ -1,12 +1,9 @@
 package com.infoshareacademy.service.mapper;
 
 import com.infoshareacademy.domain.Category;
-import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.dto.CategoryView;
-import com.infoshareacademy.domain.dto.FullDrinkView;
 
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 

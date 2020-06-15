@@ -3,6 +3,13 @@ package com.infoshareacademy.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@NamedQueries({
+        @NamedQuery(
+                name = "Measure.getByQuantity",
+                query = "SELECT m FROM Measure m where m.quantity= :quantity"
+        )
+})
+
 @Entity
 @Table(name = "measure")
 public class Measure {

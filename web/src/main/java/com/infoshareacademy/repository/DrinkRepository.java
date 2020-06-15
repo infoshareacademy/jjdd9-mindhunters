@@ -39,4 +39,5 @@ public interface DrinkRepository {
 
     int countPagesByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus);
 
+    void save(Drink drink);
 }

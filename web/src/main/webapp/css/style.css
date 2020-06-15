@@ -53,6 +53,12 @@
     animation: glow 1s ease-in-out infinite alternate;
 }
 
+.load-file-browse {
+    max-width: 650px;
+    horiz-align: center;
+    vertical-align: center;
+}
+
 @-webkit-keyframes glow {
     from {
         text-shadow: 0 0 10px #fff, 0 0 20px #fed136, 0 0 30px orangered, 0 0 40px #fd7e14, 0 0 40px #fd7e14, 0 0 50px #e60073, 0 0 60px red, 0 0 70px darkred;
@@ -110,6 +116,10 @@
     width: 100%;
     margin-right: auto;
     margin-left: auto;
+}
+
+.add-padding-admin{
+    padding: 20px 30px;
 }
 
 .navbar-brand {
@@ -226,7 +236,82 @@
 }
 
 .vis-of-btn{
-    visibility: hidden;
+    visibility: visible;!important;
+    width: 370px;
+}
+.load-file-div{
+    background-color: #1b1e21;
+    border-color: #fed136;
+    border-style: double;
+    border-radius: 10px;
+    border-width: 10px;
+    max-width: 600px;
+    /*height: 300px;*/
+    margin: 10px;
+}
+
+.align-element{
+    display: inline;
+}
+
+.border-load-design{
+    border-color: #fed136;
+    border-width: 0 5px;
+}
+.row-load{
+    border-color: #fed136;
+    border-width: 0 5px;!important;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+}
+.txt-center{
+    text-align: center;
+    font-size: 35px;
+    font-style: unset;
+    padding-top: 20px;
+}
+.txt-warning-center{
+    text-align: center;
+    font-size: 25px;
+    font-style: unset;
+    color:red;
+
+}
+
+.lf-div{
+    height: 50px;
+    border-style: solid;
+    border-color: #fed136;
+    border-width: 1px 7px;
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 10px;
+    vertical-align: middle;
+}
+.lf-div-col{
+    height: 50px;
+    border-style:solid;
+    border-color:#fed136;
+    border-width: 4px;
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 10px;
+    vertical-align: middle;
+
+}
+.size-input-design{
+    display: inline-block;
+    position: absolute;
+    top: 1px;
+    text-align: center;
+}
+
+
+.custom-file-label{
+    background: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -237,10 +322,9 @@
 
 .btn-background {
     background-color: #1b1e21;
-!important;
-    outline-color: #fed136;
-!important;
-
+    border-style: solid;
+    border-width: 1px;
+    border-color: #fed136;
 }
 
 .btn-outline-warning {
@@ -553,9 +637,7 @@ fieldset:disabled a.btn {
         padding-left: 0;
     }
     .over-photo2 {
-        position: absolute;
-        left: 10%;
-        bottom: 10%;
+
     }
     .over-photo1 {
         position: absolute;
@@ -606,9 +688,7 @@ fieldset:disabled a.btn {
         bottom:20%;
     }
     .over-photo2{
-        position:absolute;
-        left: 14%;
-        bottom:42%;
+
     }
     .backGround {
         width: 100%;
@@ -713,9 +793,7 @@ fieldset:disabled a.btn {
 
 @media (min-width: 2300px) {
     .over-photo2 {
-        position: page;
-        left: 85%;
-        bottom: 50%;
+
     }
 
     .over-photo1 {
@@ -728,6 +806,8 @@ fieldset:disabled a.btn {
         height: auto;
         max-height: 1500px;
         alignment: center;
+        text-align: center;
+        display: block;
     }
 }
 
