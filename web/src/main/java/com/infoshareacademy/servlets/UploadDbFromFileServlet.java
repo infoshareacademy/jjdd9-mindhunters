@@ -86,7 +86,7 @@ public class UploadDbFromFileServlet extends HttpServlet {
             drink = drinkMapper.toEntity(drinkJson, categoryJson.get(1));
             drinkService.save(drink);
         }
-        resp.sendRedirect("/adminPage");
+        resp.sendRedirect("/admin/page");
     }
 
 
