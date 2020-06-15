@@ -44,6 +44,7 @@
                                         <div class="relative" id="ID04">
                                             <img src="${drink.image}"
                                                  class=" thumbnail_list justify-content-center" alt="...">
+                                            <#if name??>
                                             <i class="icon-lock-star icons <#if favourites!?seq_contains(drink.id)>color_toggle_on </#if> "   title="Add/delete from favourites" >
                                                 <svg id="star-fill" class="bi bi-star-fill  " width="1em" height="1em"
                                                      viewBox="0 0 16 16"
@@ -52,6 +53,7 @@
                                                 </svg>
                                             </i>
                                             <p hidden>${drink.id}</p>
+                                            </#if>
                                         </div>
 
                                     </div>

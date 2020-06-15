@@ -1,5 +1,6 @@
 package com.infoshareacademy.servlet;
 
+import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -30,20 +31,17 @@ public class WelcomeUserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        resp.setContentType("text/html; charset=UTF-8");
         Map<String, Object> dataModel = new HashMap<>();
-        String name = req.getParameter("name");
 
-        if (name == null || name.isEmpty()) {
-            name = "Stranger";
-        }
-        dataModel.put("name", name.toUpperCase());
+        ContextHolder contextHolder = new ContextHolder(req.getSession());
+        dataModel.put("name", contextHolder.getName());
+        dataModel.put("role", contextHolder.getRole());
+
         Template template = templateProvider.getTemplate(getServletContext(), "welcomePage.ftlh");
 
-        PrintWriter printWriter = resp.getWriter();
-
         try {
-            template.process(dataModel, printWriter);
+            template.process(dataModel, resp.getWriter());
         } catch (TemplateException e) {
             logger.warning("Template not created");
         }

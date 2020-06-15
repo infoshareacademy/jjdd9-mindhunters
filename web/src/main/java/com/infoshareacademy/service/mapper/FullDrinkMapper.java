@@ -5,6 +5,7 @@ import com.infoshareacademy.domain.dto.FullDrinkView;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,7 +31,7 @@ public class FullDrinkMapper {
                 .map(drinkIgredientMapper::toView)
                 .collect(Collectors.toList()));
         fullDrinkView.setImage(drink.getImage());
-        fullDrinkView.setDate(drink.getDate());
+        fullDrinkView.setDate(drink.getDate().format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm")));
         return fullDrinkView;
     }
 

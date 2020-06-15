@@ -1,5 +1,6 @@
 package com.infoshareacademy.servlet;
 
+import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.UserService;
@@ -26,7 +27,6 @@ public class FavouriteDrinkListServlet extends HttpServlet {
 
     private static final Logger packageLogger = LoggerFactory.getLogger(FavouriteDrinkListServlet.class.getName());
 
-    private final String userId = "1"; // TODO Szymon-Skazinski - mock user
 
     @Inject
     private TemplateProvider templateProvider;
@@ -39,6 +39,9 @@ public class FavouriteDrinkListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html; charset=UTF-8");
+        resp.setCharacterEncoding("UTF-8");
 
         String pageNumberReq = req.getParameter("page");
 
@@ -52,9 +55,16 @@ public class FavouriteDrinkListServlet extends HttpServlet {
 
         Map<String, Object> dataModel = new HashMap<>();
 
-        List<FullDrinkView> drinkViewList = userService.favouritesList(userId, currentPage);
+        ContextHolder contextHolder = new ContextHolder(req.getSession());
+        dataModel.put("name", contextHolder.getName());
+        dataModel.put("role", contextHolder.getRole());
 
-        int maxPage = userService.countPagesFavouritesList(userId);
+        String email = contextHolder.getEmail();
+
+
+        List<FullDrinkView> drinkViewList = userService.favouritesList(email, currentPage);
+
+        int maxPage = userService.countPagesFavouritesList(email);
 
         dataModel.put("drinkList", drinkViewList);
 
