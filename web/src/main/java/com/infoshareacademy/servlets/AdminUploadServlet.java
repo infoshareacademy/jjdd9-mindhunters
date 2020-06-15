@@ -1,6 +1,5 @@
 package com.infoshareacademy.servlets;
 
-import com.infoshareacademy.cdi.FileUploadProcessor;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -19,16 +18,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-@WebServlet("/adminPage")
-public class AdminServlet extends HttpServlet {
+@WebServlet("/admin/page")
+public class AdminUploadServlet extends HttpServlet {
 
-    private static final Logger packageLogger = LoggerFactory.getLogger(AdminServlet.class.getName());
+    private static final Logger packageLogger = LoggerFactory.getLogger(AdminUploadServlet.class.getName());
 
     @Inject
     private TemplateProvider templateProvider;
-
-    @Inject
-    private FileUploadProcessor fileUploadProcessor;
 
 
     @Override
@@ -41,7 +37,7 @@ public class AdminServlet extends HttpServlet {
             name = "Stranger";
         }
         dataModel.put("name", name.toUpperCase());
-        Template template = templateProvider.getTemplate(getServletContext(), "adminPage.ftlh");
+        Template template = templateProvider.getTemplate(getServletContext(), "adminUploadPage.ftlh");
 
         PrintWriter printWriter = resp.getWriter();
 

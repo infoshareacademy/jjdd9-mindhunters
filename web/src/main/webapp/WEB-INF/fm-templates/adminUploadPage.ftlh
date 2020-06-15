@@ -26,7 +26,7 @@
                        id="btn-admin2">LOAD DB FROM FILE</a>
                     <br>
                     <a class="btn btn-background  text-uppercase  text-warning btn-admin"
-                       id="btn-admin2" a href="/upload-json-api">LOAD DB FROM API</a>
+                       id="btn-admin2" a href="/admin/upload-json-api">LOAD DB FROM API</a>
                     <br>
                     <a class="btn btn-background  text-uppercase  text-warning btn-admin" id="btn-admin3"
                     >SETTINGS</a><br>
@@ -36,7 +36,7 @@
         </div>
         <div class="container-fluid load-file-browse" id="over-photo3">
             <div class="load-file-div container-fluid" id="load-file-div">
-                <form method="post" action="/upload-json-file" enctype="multipart/form-data"
+                <form method="post" action="/admin/upload-json-file" enctype="multipart/form-data"
                       id="vis-of-btn">
                     <div class="txt-center">
                         <p class="text-warning">

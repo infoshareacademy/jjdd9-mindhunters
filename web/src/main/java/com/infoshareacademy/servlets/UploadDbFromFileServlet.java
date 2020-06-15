@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @MultipartConfig
-@WebServlet("/upload-json-file")
+@WebServlet("/admin/upload-json-file")
 public class UploadDbFromFileServlet extends HttpServlet {
 
     private static final Logger packageLogger = LoggerFactory.getLogger(UploadDbFromFileServlet.class.getName());

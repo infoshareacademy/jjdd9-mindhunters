@@ -13,7 +13,7 @@ import java.io.IOException;
 
 @WebFilter(
         filterName = "AdminAuthorizationFilter",
-        urlPatterns = {"/admin-users", "/adminPage", "/upload-json-api", "/upload-json-file", "/loggers-test", }
+        urlPatterns = {"/admin/*"}
 )
 public class AdminAuthorizationFilter implements Filter {
 
@@ -29,7 +29,7 @@ public class AdminAuthorizationFilter implements Filter {
 
         final HttpSession httpSession = httpServletRequest.getSession(false);
 
-        if (httpSession==null){
+        if (httpSession == null) {
             LOGGER.info("Session expired.");
             httpServletResponse.sendRedirect("/");
             return;
