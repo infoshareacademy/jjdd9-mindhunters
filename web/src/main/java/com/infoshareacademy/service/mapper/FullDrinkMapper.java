@@ -27,7 +27,7 @@ public class FullDrinkMapper {
         fullDrinkView.setCategoryView(categoryMapper.toView(drink.getCategory()));
         fullDrinkView.setAlcoholStatus(drink.getAlcoholStatus());
         fullDrinkView.setRecipe(drink.getRecipe());
-        fullDrinkView.setDrinkIngredientViews(drink.getDrinkIngredients().stream()
+        fullDrinkView.setDrinkIngredientViews(drink.getDrinkIngredient().stream()
                 .map(drinkIgredientMapper::toView)
                 .collect(Collectors.toList()));
         fullDrinkView.setImage(drink.getImage());

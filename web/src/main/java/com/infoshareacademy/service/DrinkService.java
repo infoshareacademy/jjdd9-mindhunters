@@ -249,4 +249,7 @@ public class DrinkService {
     public static int getMaxPageNumber(String querySize) {
         return (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
     }
+    public void save(Drink drink) {
+        drinkRepository.save(drink);
+    }
 }

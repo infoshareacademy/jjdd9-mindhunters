@@ -2,6 +2,22 @@ package com.infoshareacademy.domain;
 
 import javax.persistence.*;
 
+@NamedQueries({
+        @NamedQuery(
+                name = "Drink.getByDrinkId",
+                query = "SELECT d FROM DrinkIngredient d where d.drinkId= :drinkId"
+        ),
+
+        @NamedQuery(
+                name = "Drink.getByIngredientId",
+                query = "SELECT dI FROM DrinkIngredient dI where dI.ingredient= :ingredinetId"
+        ),
+
+        @NamedQuery(
+                name = "Drink.getByMeasureId",
+                query = "SELECT mI FROM DrinkIngredient mI where mI.measure= :measureId"
+        )
+})
 @Entity
 @Table(name = "drink_ingredient")
 public class DrinkIngredient {

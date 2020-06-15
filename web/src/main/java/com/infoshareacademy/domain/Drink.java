@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @NamedQueries({
         @NamedQuery(
                 name = "Drink.findByIngredients",
@@ -55,6 +54,10 @@ import java.util.List;
         @NamedQuery(
                 name = "Drink.countDrinksByCategoriesAndAlcoholStatus",
                 query = "select count (d) from Drink d where d.alcoholStatus  in (:alcoholStatus) and d.category.id in (:category)"
+        ),
+        @NamedQuery(
+                name = "Drink.findAllByCategories",
+                query = "select d from Drink d where d.category.name in :category"
         )
 
 })
@@ -83,9 +86,10 @@ public class Drink {
     private String alcoholStatus;
 
     @NotNull
+    @Column(columnDefinition = "TEXT")
     private String recipe;
 
-    @OneToMany(mappedBy = "drinkId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "drinkId", fetch = FetchType.LAZY)
     private List<DrinkIngredient> drinkIngredients = new ArrayList<>();
 
     private String image;
@@ -140,12 +144,12 @@ public class Drink {
         this.recipe = recipe;
     }
 
-    public List<DrinkIngredient> getDrinkIngredients() {
+    public List<DrinkIngredient> getDrinkIngredient() {
         return drinkIngredients;
     }
 
-    public void setDrinkIngredients(List<DrinkIngredient> drinkIngredients) {
-        this.drinkIngredients = drinkIngredients;
+    public void setDrinkIngredient(List<DrinkIngredient> drinkIngredient) {
+        this.drinkIngredients = drinkIngredient;
     }
 
     public String getImage() {

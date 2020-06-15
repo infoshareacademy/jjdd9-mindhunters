@@ -1,11 +1,9 @@
 package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.Ingredient;
-import com.infoshareacademy.domain.dto.DrinkIngredientView;
 import com.infoshareacademy.domain.dto.IngredientView;
 import com.infoshareacademy.repository.IngredientRepository;
 import com.infoshareacademy.service.mapper.IngredientMapper;
-import com.infoshareacademy.servlet.LoggerServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,6 +33,17 @@ public class IngredientService {
         return ingredientMapper.toView(ingredientsByName);
     }
 
+    public Ingredient getOrCreate(String name) {
+        Ingredient ingredient = ingredientRepository.getByName(name);
+        if (ingredient == null) {
+            ingredient = new Ingredient();
+            ingredient.setName(name);
+            ingredientRepository.save(ingredient);
+        }
+        return ingredient;
+
+    }
+
     public List<IngredientView> findIngredientsByName(List<String> partialIngredientNames) {
         LOGGER.debug("Searching for ingredients by partial name list input");
         Set<Ingredient> ingredientsByName = new HashSet<>();
@@ -43,5 +52,4 @@ public class IngredientService {
         }
         return ingredientMapper.toView(List.copyOf(ingredientsByName));
     }
-
 }
