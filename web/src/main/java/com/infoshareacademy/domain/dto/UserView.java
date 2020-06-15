@@ -5,6 +5,7 @@ import com.infoshareacademy.domain.Drink;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class UserView {
 
     private Long id;
@@ -13,7 +14,10 @@ public class UserView {
 
     private String email;
 
+    private String role;
+
     private List<Drink> drinks = new ArrayList<>();
+
 
     public Long getId() {
         return id;
@@ -39,6 +43,14 @@ public class UserView {
         this.email = email;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public List<Drink> getDrinks() {
         return drinks;
     }
@@ -46,4 +58,5 @@ public class UserView {
     public void setDrinks(List<Drink> drinks) {
         this.drinks = drinks;
     }
+
 }

@@ -67,12 +67,18 @@ INSERT INTO ingredient (name) VALUES ('Triple sec');
 INSERT INTO ingredient (name) VALUES ('Southern Comfort');
 INSERT INTO ingredient (name) VALUES ('Orange bitters');
 
-INSERT INTO user (name, email) VALUES ('Szymon Skaziński', 'szymon@gmail.com');
-INSERT INTO user (name, email) VALUES ('Łukasz Spyra', 'lukasz@gmail.com');
-INSERT INTO user (name, email) VALUES ('Kamil Markowski', 'kamil@gmail.com');
-INSERT INTO user (name, email) VALUES ('Andrzej Duda', 'duda@gmail.com');
-INSERT INTO user (name, email) VALUES ('Anna Maria', 'marysia@gmail.com');
-INSERT INTO user (name, email) VALUES ('Adam nowak', 'nowak@gmail.lcom');
+INSERT INTO role (id, name) VALUES (1, 'SUPER_ADMIN');
+INSERT INTO role (id, name) VALUES (2,'ADMIN');
+INSERT INTO role (id, name) VALUES (3, 'USER');
+INSERT INTO role (id, name) VALUES (4, 'GUEST');
+
+INSERT INTO user (name, email, role_id) VALUES ('Mindhunters', 'mindhunters3m@gmail.com', 1);
+INSERT INTO user (name, email, role_id) VALUES ('Szymon Skaziński', 'szymon@gmail.com', 2);
+INSERT INTO user (name, email, role_id) VALUES ('Łukasz Spyra', 'lukasz.spyrka@gmail.com', 2);
+INSERT INTO user (name, email, role_id) VALUES ('Kamil Markowski', 'kamil@gmail.com', 2);
+INSERT INTO user (name, email, role_id) VALUES ('test1 user', 'test1@gmai.com', 3);
+INSERT INTO user (name, email, role_id) VALUES ('test2 user', 'test2@gmai.com', 3);
+INSERT INTO user (name, email, role_id) VALUES ('test User', 'test3@gmai.com', 3);
 
 
 UPDATE drink SET category_id =1  WHERE id IN (1,2,3);
