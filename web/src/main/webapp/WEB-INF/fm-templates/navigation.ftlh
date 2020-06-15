@@ -67,6 +67,7 @@
                 <#if role??>
                     <#if role = "USER" || role = "ADMIN" || role = "SUPER_ADMIN">
                         <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="/favourites">Favourites</a>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="/drink-management">Drink management</a>
                         </li>
                     </#if>
                 </#if>
