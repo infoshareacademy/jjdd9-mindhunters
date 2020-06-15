@@ -19,9 +19,6 @@ public class IngredientService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(IngredientService.class.getName());
 
-//    @Inject
-//    IngredientRepositoryBean ingredientRepositoryBean;
-
     @EJB
     private IngredientRepository ingredientRepository;
 

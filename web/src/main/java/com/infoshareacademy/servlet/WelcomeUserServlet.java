@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 
-@WebServlet("/welcome")
+@WebServlet("")
 public class WelcomeUserServlet extends HttpServlet {
 
     private final static Logger logger = Logger.getLogger(WelcomeUserServlet.class.getName());

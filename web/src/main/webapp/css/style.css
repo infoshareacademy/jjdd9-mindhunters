@@ -55,9 +55,6 @@
 
 .load-file-browse {
     max-width: 650px;
-    position: absolute;
-    left: 35%;
-    bottom: 43%;
     horiz-align: center;
     vertical-align: center;
 }
@@ -119,6 +116,10 @@
     width: 100%;
     margin-right: auto;
     margin-left: auto;
+}
+
+.add-padding-admin{
+    padding: 20px 30px;
 }
 
 .navbar-brand {
@@ -306,8 +307,6 @@
     position: absolute;
     top: 1px;
     text-align: center;
-
-
 }
 
 
@@ -323,10 +322,9 @@
 
 .btn-background {
     background-color: #1b1e21;
-!important;
-    outline-color: #fed136;
-!important;
-
+    border-style: solid;
+    border-width: 1px;
+    border-color: #fed136;
 }
 
 .btn-outline-warning {
@@ -639,9 +637,7 @@ fieldset:disabled a.btn {
         padding-left: 0;
     }
     .over-photo2 {
-        position: absolute;
-        left: 10%;
-        bottom: 10%;
+
     }
     .over-photo1 {
         position: absolute;
@@ -692,9 +688,7 @@ fieldset:disabled a.btn {
         bottom:20%;
     }
     .over-photo2{
-        position:absolute;
-        left: 14%;
-        bottom:42%;
+
     }
     .backGround {
         width: 100%;
@@ -799,9 +793,7 @@ fieldset:disabled a.btn {
 
 @media (min-width: 2300px) {
     .over-photo2 {
-        position: page;
-        left: 85%;
-        bottom: 50%;
+
     }
 
     .over-photo1 {

@@ -10,7 +10,7 @@ import javax.inject.Inject;
 public class MeasureService {
 
     @Inject
-    MeasureRepositoryBean measureRepositoryBean;
+    private MeasureRepositoryBean measureRepositoryBean;
 
     public Measure getOrCreate(String quantity) {
         Measure measure = measureRepositoryBean.getByQuantity(quantity);

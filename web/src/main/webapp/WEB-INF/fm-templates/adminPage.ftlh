@@ -12,35 +12,32 @@
     <link href="../../css/style.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
 </head>
-<body id="page-top">
+<body id="page-top" style="background-color: #1b1e21">
 
 <#include "navigation.ftlh">
 
-<div class="body part1-top" id="body part1-top" style="background-color: #1b1e21">
-    <div class="container-fluid" id="part1-top">
-        <div style="position: relative">
-            <img class="backGround" src="../../img/mindhunters.jpg" alt="background" id="glasses">
-
-            <div class="over-photo2">
+<div id="body part1-top" style="background-color: #1b1e21">
+    <div class="row container-fluid add-padding-admin" id="part1-top">
+        <div class="over-photo2">
                 <span class="admin-btn-block vis-of-btn" id="admin-btn-block">
-                    <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin" id="btn-admin1"
+                    <a class="btn btn-background  text-uppercase  text-warning btn-admin" id="btn-admin1"
                     >USERS</a><br>
-                    <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin"
+                    <a class="btn btn-background  text-uppercase  text-warning btn-admin"
                        id="btn-admin2">LOAD DB FROM FILE</a>
                     <br>
-                    <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin"
+                    <a class="btn btn-background  text-uppercase  text-warning btn-admin"
                        id="btn-admin2" a href="/upload-json-api">LOAD DB FROM API</a>
                     <br>
-                    <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin" id="btn-admin3"
-                       >SETTINGS</a><br>
-                    <a class="btn btn-background  text-uppercase  text-warning glow  btn-admin" id="btn-admin-back"
+                    <a class="btn btn-background  text-uppercase  text-warning btn-admin" id="btn-admin3"
+                    >SETTINGS</a><br>
+                    <a class="btn btn-background  text-uppercase  text-warning btn-admin" id="btn-admin-back"
                        a href="/welcome">BACK</a>
                 </span>
-            </div>
-            <div class="container-fluid load-file-browse" id="over-photo3">
-                <div class="load-file-div container-fluid" id="load-file-div">
-                    <form method="post" action="/upload-json-file" enctype="multipart/form-data"
-                          id="vis-of-btn">
+        </div>
+        <div class="container-fluid load-file-browse" id="over-photo3">
+            <div class="load-file-div container-fluid" id="load-file-div">
+                <form method="post" action="/upload-json-file" enctype="multipart/form-data"
+                      id="vis-of-btn">
                     <div class="txt-center">
                         <p class="text-warning">
                             Load DB of Drinks from file
@@ -60,15 +57,13 @@
                     </div>
 
                     <div class="lf-div col-3" style="display: inline-block">
-                        <input class="submit-btn btn btn-background  text-uppercase  text-warning glow" type="submit">
+                        <input class="submit-btn btn btn-background  text-uppercase  text-warning" type="submit">
                     </div>
 
                     <div class="txt-warning-center" id="load-warning">
-                        p4
-                    </div>
-                    </form>
-                </div>
 
+                    </div>
+                </form>
             </div>
         </div>
     </div>
