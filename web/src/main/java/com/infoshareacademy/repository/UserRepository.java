@@ -21,8 +21,8 @@ public interface UserRepository {
 
     List<User> findAll();
 
-    List<Drink> findFavouritesList(Long id, int startPosition, int endPosition);
+    List<Drink> findFavouritesList(String email, int startPosition, int endPosition);
 
-    int countPagesFindFavouritesList(Long userId);
+    int countPagesFindFavouritesList(String email);
 
 }

@@ -27,7 +27,6 @@ public class FavouriteDrinkListServlet extends HttpServlet {
 
     private static final Logger packageLogger = LoggerFactory.getLogger(FavouriteDrinkListServlet.class.getName());
 
-    private final String userId = "1"; // TODO Szymon-Skazinski - mock user
 
     @Inject
     private TemplateProvider templateProvider;
@@ -56,9 +55,16 @@ public class FavouriteDrinkListServlet extends HttpServlet {
 
         Map<String, Object> dataModel = new HashMap<>();
 
-        List<FullDrinkView> drinkViewList = userService.favouritesList(userId, currentPage);
+        ContextHolder contextHolder = new ContextHolder(req.getSession());
+        dataModel.put("name", contextHolder.getName());
+        dataModel.put("role", contextHolder.getRole());
 
-        int maxPage = userService.countPagesFavouritesList(userId);
+        String email = contextHolder.getEmail();
+
+
+        List<FullDrinkView> drinkViewList = userService.favouritesList(email, currentPage);
+
+        int maxPage = userService.countPagesFavouritesList(email);
 
         dataModel.put("drinkList", drinkViewList);
 
@@ -79,10 +85,6 @@ public class FavouriteDrinkListServlet extends HttpServlet {
         dataModel.put("favourites", favouritesId);
         dataModel.put("maxPageSize", maxPage);
         dataModel.put("currentPage", currentPage);
-
-        ContextHolder contextHolder = new ContextHolder(req.getSession());
-        dataModel.put("name", contextHolder.getName());
-        dataModel.put("role", contextHolder.getRole());
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeList.ftlh");
 

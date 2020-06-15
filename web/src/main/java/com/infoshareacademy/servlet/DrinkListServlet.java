@@ -33,8 +33,6 @@ public class DrinkListServlet extends HttpServlet {
 
     private static final Logger packageLogger = LoggerFactory.getLogger(DrinkListServlet.class.getName());
 
-    private final String userId = "1"; // TODO Szymon-Skazinski - mock user
-
     @EJB
     private DrinkService drinkService;
 
@@ -68,6 +66,13 @@ public class DrinkListServlet extends HttpServlet {
 
         Map<String, Object> dataModel = new HashMap<>();
 
+        ContextHolder contextHolder = new ContextHolder(req.getSession());
+        dataModel.put("name", contextHolder.getName());
+        dataModel.put("role", contextHolder.getRole());
+
+        String email = contextHolder.getEmail();
+
+
         Map<String, String[]> searchParam = req.getParameterMap();
 
         SearchType searchType = drinkService.checkingSearchingCase(searchParam, currentPage);
@@ -78,15 +83,19 @@ public class DrinkListServlet extends HttpServlet {
 
         String queryName = searchType.getQueryName();
 
-        List<FullDrinkView> favouritesList = userService.favouritesList(userId);
+        if (email != null && !email.isEmpty()){
 
-        if (!favouritesList.isEmpty()){
-            List<Object>favouritesListModel = favouritesList.stream()
-                    .map(FullDrinkView::getId)
-                    .map(aLong ->  Integer.parseInt(aLong.toString()))
-                    .collect(Collectors.toList());
+            List<FullDrinkView> favouritesList = userService.favouritesList(email);
 
-            dataModel.put("favourites", favouritesListModel);
+            if (!favouritesList.isEmpty()){
+                List<Object>favouritesListModel = favouritesList.stream()
+                        .map(FullDrinkView::getId)
+                        .map(aLong ->  Integer.parseInt(aLong.toString()))
+                        .collect(Collectors.toList());
+
+                dataModel.put("favourites", favouritesListModel);
+            }
+
         }
 
         String servletPath = req.getServletPath();
@@ -98,9 +107,6 @@ public class DrinkListServlet extends HttpServlet {
         dataModel.put("drinkList", drinkViewList);
         dataModel.put("currentPage", currentPage);
 
-        ContextHolder contextHolder = new ContextHolder(req.getSession());
-        dataModel.put("name", contextHolder.getName());
-        dataModel.put("role", contextHolder.getRole());
 
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeList.ftlh");
@@ -118,9 +124,14 @@ public class DrinkListServlet extends HttpServlet {
 
         String drinkId = req.getParameter("drinkId");
 
-        userService.saveOrDeleteFavourite(userId,drinkId);
+        ContextHolder contextHolder = new ContextHolder(req.getSession());
+        String email = contextHolder.getEmail();
 
+        if (email != null && !email.isEmpty()) {
 
+            userService.saveOrDeleteFavourite(email, drinkId);
+
+        }
 
     }
 }

@@ -29,8 +29,6 @@ public class SingleViewServlet extends HttpServlet {
 
     private static final Logger logger = LoggerFactory.getLogger(SingleViewServlet.class.getName());
 
-    private final String userId = "1"; // TODO Szymon-Skazinski - mock user
-
     @EJB
     private DrinkService drinkService;
 
@@ -53,6 +51,12 @@ public class SingleViewServlet extends HttpServlet {
         Long drinkId = userInputValidator.stringToLongConverter(idParam);
         Map<String, Object> dataModel = new HashMap<>();
 
+        ContextHolder contextHolder = new ContextHolder(req.getSession());
+        dataModel.put("name", contextHolder.getName());
+        dataModel.put("role", contextHolder.getRole());
+
+        String email = contextHolder.getEmail();
+
         if (drinkId < 0) {
             dataModel.put("errorMessage", "Wrong input.\n");
         } else {
@@ -66,20 +70,20 @@ public class SingleViewServlet extends HttpServlet {
             dataModel.put("drink", foundDrinkById);
         }
 
-        List<FullDrinkView> favouritesList = userService.favouritesList(userId);
+        if (email != null && !email.isEmpty()){
 
-        if (!favouritesList.isEmpty()){
-            List<Object>favouritesListModel = favouritesList.stream()
-                    .map(FullDrinkView::getId)
-                    .map(aLong ->  Integer.parseInt(aLong.toString()))
-                    .collect(Collectors.toList());
+            List<FullDrinkView> favouritesList = userService.favouritesList(email);
 
-            dataModel.put("favourites", favouritesListModel);
+            if (!favouritesList.isEmpty()){
+                List<Object>favouritesListModel = favouritesList.stream()
+                        .map(FullDrinkView::getId)
+                        .map(aLong ->  Integer.parseInt(aLong.toString()))
+                        .collect(Collectors.toList());
+
+                dataModel.put("favourites", favouritesListModel);
+            }
+
         }
-
-        ContextHolder contextHolder = new ContextHolder(req.getSession());
-        dataModel.put("name", contextHolder.getName());
-        dataModel.put("role", contextHolder.getRole());
 
         Template template = templateProvider.getTemplate(getServletContext(), "singleDrinkView.ftlh");
         try {
