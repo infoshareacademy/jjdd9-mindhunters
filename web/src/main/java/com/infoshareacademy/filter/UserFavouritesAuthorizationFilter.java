@@ -29,7 +29,7 @@ public class UserFavouritesAuthorizationFilter implements Filter {
 
         final HttpSession httpSession = httpServletRequest.getSession(false);
 
-        if (httpSession==null){
+        if (httpSession == null) {
             LOGGER.info("Session expired.");
             httpServletResponse.sendRedirect("/");
             return;
