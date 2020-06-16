@@ -3,6 +3,7 @@ package com.infoshareacademy.service.mapper;
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.Statistics;
 import com.infoshareacademy.domain.dto.FullDrinkView;
+import com.infoshareacademy.domain.dto.StatisticsView;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -42,18 +43,6 @@ public class FullDrinkMapper {
             fullDrinkViews.add(toView(drink));
         }
         return fullDrinkViews;
-    }
-
-    public Statistics toStatisticsEntity(FullDrinkView fullDrinkView){
-        Drink drink = new Drink();
-        drink.setId(fullDrinkView.getId());
-        drink.setDrinkId(fullDrinkView.getDrinkId());
-        drink.setDrinkName(fullDrinkView.getDrinkName());
-        drink.setCategory(categoryMapper.toEntity(fullDrinkView.getCategoryView()));
-
-        Statistics statistics = new Statistics();
-        statistics.setDrink(drink);
-        return statistics;
     }
 
 

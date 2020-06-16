@@ -3,6 +3,13 @@ package com.infoshareacademy.domain;
 
 import javax.persistence.*;
 
+@NamedQueries({
+        @NamedQuery(
+                name = "Statistics.getTop10Drinks",
+                query = "SELECT s, COUNT(s.drink) as quantity FROM Statistics s GROUP BY quantity ORDER BY quantity " +
+                        "DESC")
+})
+
 @Entity
 @Table(name = "statistics")
 public class Statistics {

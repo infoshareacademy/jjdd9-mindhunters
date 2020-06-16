@@ -5,6 +5,8 @@ import com.infoshareacademy.domain.Statistics;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import java.util.List;
 
 @Stateless
 public class StatisticsRepositoryBean {
@@ -18,6 +20,11 @@ public class StatisticsRepositoryBean {
 
         entityManager.persist(statistics);
 
+    }
+
+    public List<Statistics> getTopDrinks(){
+        Query query = entityManager.createNamedQuery("Statistics.getTop10Drinks");
+        return query.getResultList();
     }
 
 
