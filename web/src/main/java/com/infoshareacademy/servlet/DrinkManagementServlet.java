@@ -25,10 +25,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @WebServlet("/drink-management")
@@ -81,30 +79,41 @@ public class DrinkManagementServlet extends HttpServlet {
 
         Category category = categoryService.getOrCreate(req.getParameter("category"));
 
-        drink.setDrinkName(req.getParameter("name"));
-        drink.setRecipe(req.getParameter("recipe"));
-
-        String[] ingredients = req.getParameterValues("ingredient");
-
-        Ingredient ingredient = ingredientService.getOrCreate
-                (ingredients[0]);
-
 
         String[] measures = req.getParameterValues("measure");
+        String[] ingredients = req.getParameterValues("ingredient");
 
-        Measure measure = measureService.getOrCreate
-                (measures[0]);
-
-
-
+        List<Measure> measureList = new ArrayList<>();
+        List<Ingredient> ingredientList = new ArrayList<>();
 
 
-        //    drink.setDrinkIngredient(ingredientViewList);
+        for (String measure : measures){
+            measureList.add(measureService.getOrCreate(measure));
+        }
+        for (String ingredient : ingredients){
+            ingredientList.add(ingredientService.getOrCreate(ingredient));
+        }
 
-//        drink.setDrinkIngredient(List.of(drinkIngredient1,drinkIngredient));
+        List<DrinkIngredient> drinkIngredientsList = new ArrayList<>();
+
+        for (int i=0; i < measureList.size(); i++){
+            DrinkIngredient drinkIngredient = new DrinkIngredient();
+
+            drinkIngredient.setMeasure(measureList.get(i));
+            drinkIngredient.setIngredient(ingredientList.get(i));
+            drinkIngredient.setDrinkId(drink);
+
+            drinkIngredientsList.add(drinkIngredient);
+        }
+
+        drink.setDrinkIngredient(drinkIngredientsList);
+        drink.setDrinkName(req.getParameter("name"));
+        drink.setRecipe(req.getParameter("recipe"));
         drink.setCategory(category);
         drink.setAlcoholStatus(req.getParameter("status"));
         drink.setDate(LocalDateTime.now());
+        drink.setImage("https://www.thecocktaildb.com/images/media/drink/yxswtp1441253918.jpg");
+        drink.setDrinkId("6666");
 
         drinkService.save(drink);
 
