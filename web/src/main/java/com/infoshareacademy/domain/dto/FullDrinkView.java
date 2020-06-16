@@ -1,6 +1,5 @@
 package com.infoshareacademy.domain.dto;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
