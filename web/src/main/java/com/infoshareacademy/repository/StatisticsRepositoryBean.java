@@ -14,11 +14,10 @@ public class StatisticsRepositoryBean {
     private EntityManager entityManager;
 
 
-    public Statistics addToStatistics(Statistics statistics) {
+    public void addToStatistics(Statistics statistics) {
 
         entityManager.persist(statistics);
 
-        return statistics;
     }
 
 
