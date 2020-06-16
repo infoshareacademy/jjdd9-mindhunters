@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/admin-users")
+@WebServlet("/admin/users")
 public class UserManagementServlet extends HttpServlet {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserManagementServlet.class.getName());
