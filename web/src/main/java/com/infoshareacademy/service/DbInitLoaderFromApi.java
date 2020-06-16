@@ -38,20 +38,11 @@ public class DbInitLoaderFromApi {
     @Inject
     private JsonParserApiBean jsonParserApiBean;
 
-
-//    @Inject
-//    private Executor executorService;
-
-
     @PostConstruct
     public void loadApi() {
 
         List<DrinkJson> drinkJsons = new ArrayList<>();
         List<CategoryJson> categoryJson = new ArrayList<>();
-
-
-
-
 
         for (char alphabet = 'a'; alphabet <= 'z'; alphabet++) {
             Request fromAlphabet = Request.Get("https://www.thecocktaildb.com/api/json/v1/1/search.php?f=" + alphabet);
@@ -74,7 +65,6 @@ public class DbInitLoaderFromApi {
             }
         }
 
-
         Request getCat = Request.Get("https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list");
         String stringCatDrinkJson = null;
         try {
@@ -93,19 +83,5 @@ public class DbInitLoaderFromApi {
             drink = drinkMapper.toEntity(drinkJson, categoryJson.get(1));
             drinkService.save(drink);
         }
-
-
-
     }
-
-
-
-
-//    public void fillDataBase() {
-//        for (DrinkJson drinkJson : drinkJsons) {
-//
-//            drink = drinkMapper.toEntity(drinkJson, categoryJson.get(1));
-//            drinkService.save(drink);
-//        }
-//    }
 }
