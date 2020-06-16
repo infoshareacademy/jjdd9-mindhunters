@@ -92,7 +92,7 @@ public class Drink {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "drinkId", fetch = FetchType.LAZY)
     private List<DrinkIngredient> drinkIngredients = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "drinkId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "drink", fetch = FetchType.LAZY)
     private List<Statistics> statisticsList = new ArrayList<>();
 
     private String image;
