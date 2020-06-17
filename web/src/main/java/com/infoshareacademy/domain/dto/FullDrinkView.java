@@ -19,8 +19,6 @@ public class FullDrinkView {
 
     private List<DrinkIngredientView> drinkIngredientViews = new ArrayList<>();
 
-    private List<StatisticsView> statisticsViews = new ArrayList<>();
-
     private String image;
 
     private String date;
@@ -95,13 +93,5 @@ public class FullDrinkView {
 
     public void setDate(String date) {
         this.date = date;
-    }
-
-    public List<StatisticsView> getStatisticsViews() {
-        return statisticsViews;
-    }
-
-    public void setStatisticsViews(List<StatisticsView> statisticsViews) {
-        this.statisticsViews = statisticsViews;
     }
 }
