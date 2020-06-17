@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/loggers-test")
+@WebServlet("/admin/loggers")
 public class LoggerServlet extends HttpServlet {
 
     private static final Logger packageLogger = LoggerFactory.getLogger(LoggerServlet.class.getName());

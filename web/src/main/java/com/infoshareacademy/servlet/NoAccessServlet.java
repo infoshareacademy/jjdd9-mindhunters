@@ -1,6 +1,6 @@
-package com.infoshareacademy.servlets;
+package com.infoshareacademy.servlet;
 
-import com.infoshareacademy.cdi.FileUploadProcessor;
+import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -14,41 +14,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+@WebServlet("/not-found")
+public class NoAccessServlet extends HttpServlet {
 
-@WebServlet("/adminPage")
-public class AdminServlet extends HttpServlet {
-
-    private static final Logger packageLogger = LoggerFactory.getLogger(AdminServlet.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoggerServlet.class.getName());
 
     @Inject
     private TemplateProvider templateProvider;
 
-    @Inject
-    private FileUploadProcessor fileUploadProcessor;
-
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        resp.setContentType("text/html; charset=UTF-8");
         Map<String, Object> dataModel = new HashMap<>();
-        String name = req.getParameter("name");
 
-        if (name == null || name.isEmpty()) {
-            name = "Stranger";
-        }
-        dataModel.put("name", name.toUpperCase());
-        Template template = templateProvider.getTemplate(getServletContext(), "adminPage.ftlh");
+        ContextHolder contextHolder = new ContextHolder(req.getSession());
+        dataModel.put("name", contextHolder.getName());
+        dataModel.put("role", contextHolder.getRole());
 
-        PrintWriter printWriter = resp.getWriter();
+        Template template = templateProvider.getTemplate(getServletContext(), "noAccess.ftlh");
 
         try {
-            template.process(dataModel, printWriter);
+            template.process(dataModel, resp.getWriter());
         } catch (TemplateException e) {
-                packageLogger.error("Template not created");
+            LOGGER.warn("Template not created");
         }
 
     }

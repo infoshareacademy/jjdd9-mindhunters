@@ -17,7 +17,7 @@
                     <div class="dropdown-menu dropdown-menu-right" style="text-align: center">
 
 
-                        <li><a href="/admin-users">User Management</a></li>
+                        <li><a href="/admin/users">User Management</a></li>
                         <div class="dropdown-divider"></div>
 
                         <li><a href="/#userMANAGEMENT">Statistics</a></li>
@@ -26,7 +26,7 @@
                         <li><a href="/#userMANAGEMENT">Drink Management</a></li>
                         <div class="dropdown-divider"></div>
 
-                        <li><a href="/#userMANAGEMENT">Back up database load</a></li>
+                        <li><a href="/admin/page">Back up API upload</a></li>
 
 
                     </div>

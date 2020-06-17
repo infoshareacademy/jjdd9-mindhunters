@@ -36,6 +36,9 @@ public class ContextHolder {
     }
 
     private void setContext(UserView userView) {
+
+        httpSession.setMaxInactiveInterval(1800);
+
         httpSession.setAttribute(NAME, userView.getName());
         httpSession.setAttribute(EMAIL, userView.getEmail());
         httpSession.setAttribute(ID, userView.getId());

@@ -7,7 +7,6 @@ import freemarker.template.TemplateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,11 +17,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+@WebServlet("/error")
+public class ErrorServlet extends HttpServlet {
 
-@WebServlet("")
-public class WelcomeUserServlet extends HttpServlet {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(WelcomeUserServlet.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoggerServlet.class.getName());
 
     @Inject
     private TemplateProvider templateProvider;
@@ -32,11 +30,7 @@ public class WelcomeUserServlet extends HttpServlet {
         resp.setContentType("text/html; charset=UTF-8");
         Map<String, Object> dataModel = new HashMap<>();
 
-        ContextHolder contextHolder = new ContextHolder(req.getSession());
-        dataModel.put("name", contextHolder.getName());
-        dataModel.put("role", contextHolder.getRole());
-
-        Template template = templateProvider.getTemplate(getServletContext(), "welcomePage.ftlh");
+        Template template = templateProvider.getTemplate(getServletContext(), "error.ftlh");
 
         try {
             template.process(dataModel, resp.getWriter());

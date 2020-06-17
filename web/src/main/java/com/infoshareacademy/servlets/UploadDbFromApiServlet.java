@@ -24,7 +24,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-@WebServlet("/upload-json-api")
+@WebServlet("/admin/upload-json-api")
 public class UploadDbFromApiServlet extends HttpServlet {
 
     private static final Logger packageLogger = LoggerFactory.getLogger(UploadDbFromApiServlet.class.getName());
@@ -68,6 +68,6 @@ public class UploadDbFromApiServlet extends HttpServlet {
             drink = drinkMapper.toEntity(drinkJson, categoryJson.get(1));
             drinkService.save(drink);
         }
-        resp.sendRedirect("/adminPage");
+        resp.sendRedirect("/admin/page");
     }
 }

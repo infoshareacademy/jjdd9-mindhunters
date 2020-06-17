@@ -1,6 +1,5 @@
 package com.infoshareacademy.domain.dto;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +18,8 @@ public class FullDrinkView {
     private String recipe;
 
     private List<DrinkIngredientView> drinkIngredientViews = new ArrayList<>();
+
+    private List<StatisticsView> statisticsViews = new ArrayList<>();
 
     private String image;
 
@@ -94,5 +95,13 @@ public class FullDrinkView {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public List<StatisticsView> getStatisticsViews() {
+        return statisticsViews;
+    }
+
+    public void setStatisticsViews(List<StatisticsView> statisticsViews) {
+        this.statisticsViews = statisticsViews;
     }
 }

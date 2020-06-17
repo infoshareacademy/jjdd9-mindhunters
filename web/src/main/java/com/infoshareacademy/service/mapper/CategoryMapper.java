@@ -26,5 +26,12 @@ public class CategoryMapper {
         return categoryViews;
     }
 
+    public Category toEntity(CategoryView categoryView) {
+        Category category = new Category();
+        category.setId(categoryView.getId());
+        category.setName(categoryView.getName());
+        return category;
+    }
+
 
 }
