@@ -62,7 +62,10 @@
                             </svg>
                         </i>
                         <br><br>
-                        <div>ID number: ${drink.drinkId}</div>
+                        <#if drink.drinkId??>
+                            <div>ID number: ${drink.drinkId}</div>
+                        </#if>
+
                         <div>Category: ${drink.categoryView.name}</div>
 
                         <#if drink.alcoholStatus == "Alcoholic" || drink.alcoholStatus == "Optional alcohol">
@@ -74,9 +77,15 @@
                         <div style="color:${color}">${drink.alcoholStatus}</div>
                     </div>
                     <div class="col-md-3">
-                        <img src="${drink.image}" style="
+                        <#if drink.image!?trim?has_content>
+                            <img src="${drink.image}" style="
                         border-radius: 10px;
   padding: 5px; width: 70%;" alt="">
+                        <#else>
+                            <img src="../../img/drinkimage-not-avail.jpg" style="
+                        border-radius: 10px;
+  padding: 5px; width: 70%;" alt="">
+                        </#if>
                     </div>
                 </div>
 
