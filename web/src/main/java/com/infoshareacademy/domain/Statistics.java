@@ -6,8 +6,19 @@ import javax.persistence.*;
 @NamedQueries({
         @NamedQuery(
                 name = "Statistics.getTop10Drinks",
-                query = "SELECT s, COUNT(s.drink) as quantity FROM Statistics s GROUP BY quantity ORDER BY quantity " +
-                        "DESC")
+                query = "SELECT s.drink, COUNT(s.drink) FROM Statistics s GROUP BY s.drink ORDER BY " +
+                        "COUNT" +
+                        "(s" +
+                        ".drink)  DESC "),
+
+        @NamedQuery(
+                name = "Statistics.getTopCategories",
+                query = "SELECT s.drink, COUNT(s.drink) FROM Statistics s GROUP BY s.drink ORDER BY " +
+                        "COUNT" +
+                        "(s" +
+                        ".drink)  DESC ")
+
+
 })
 
 @Entity

@@ -22,10 +22,16 @@ public class StatisticsRepositoryBean {
 
     }
 
-    public List<Statistics> getTopDrinks(){
+    public List getTopDrinks(){
         Query query = entityManager.createNamedQuery("Statistics.getTop10Drinks");
+        query.setMaxResults(10);
         return query.getResultList();
     }
 
 
+    public List getTopCategories() {
+        Query query = entityManager.createNamedQuery("Statistics.getTopCategories");
+
+        return query.getResultList();
+    }
 }

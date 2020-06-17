@@ -1,17 +1,20 @@
 package com.infoshareacademy.service;
 
 
+import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.Statistics;
+import com.infoshareacademy.domain.dto.DrinkLiveSearchView;
 import com.infoshareacademy.domain.dto.FullDrinkView;
-import com.infoshareacademy.domain.dto.StatisticsView;
 import com.infoshareacademy.repository.StatisticsRepositoryBean;
-import com.infoshareacademy.service.mapper.FullDrinkMapper;
+import com.infoshareacademy.service.mapper.DrinkLiveSearchMapper;
 import com.infoshareacademy.service.mapper.StatisticsMapper;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Stateless
 public class StatisticsService {
@@ -20,8 +23,8 @@ public class StatisticsService {
     @EJB
     private StatisticsRepositoryBean statisticsRepositoryBean;
 
-    @Inject
-    private FullDrinkMapper fullDrinkMapper;
+    @EJB
+    private DrinkLiveSearchMapper drinkLiveSearchMapper;
 
     @Inject
     private StatisticsMapper statisticsMapper;
@@ -35,13 +38,51 @@ public class StatisticsService {
 
     }
 
-    public List<StatisticsView> getTopDrinks(){
-        List<Statistics> statistics = statisticsRepositoryBean.getTopDrinks();
-        return statisticsMapper.toView(statistics);
+    public Map<String, Long> getTopDrinks() {
+        List statistics = statisticsRepositoryBean.getTopDrinks();
+        Object[] row;
+        Map<String, Long> statisticsMap = new HashMap<>();
+
+        for (Object o : statistics) {
+
+            if (o instanceof Object[]) {
+
+                row = (Object[]) o;
+
+                if (row[0] instanceof Drink) {
+
+                    DrinkLiveSearchView drinkLiveSearchView = drinkLiveSearchMapper.toView((Drink) row[0]);
+                    statisticsMap.put(drinkLiveSearchView.getDrinkName(), (Long) row[1]);
+
+                }
+            }
+        }
+
+        return statisticsMap;
     }
 
+    public Map<String, Long> getTopCategories() {
+        List statistics = statisticsRepositoryBean.getTopCategories();
+        Object[] row;
+        Map<String, Long> statisticsMap = new HashMap<>();
 
+        for (Object o : statistics) {
 
+            if (o instanceof Object[]) {
+
+                row = (Object[]) o;
+
+                if (row[0] instanceof Drink) {
+
+                    DrinkLiveSearchView drinkLiveSearchView = drinkLiveSearchMapper.toView((Drink) row[0]);
+                    statisticsMap.put(drinkLiveSearchView.getDrinkName(), (Long) row[1]);
+
+                }
+            }
+        }
+
+        return statisticsMap;
+    }
 
 
 }

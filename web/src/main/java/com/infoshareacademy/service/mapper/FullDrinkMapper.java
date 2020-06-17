@@ -19,6 +19,9 @@ public class FullDrinkMapper {
     private DrinkIgredientMapper drinkIgredientMapper;
 
     @Inject
+    private StatisticsMapper statisticsMapper;
+
+    @Inject
     private CategoryMapper categoryMapper;
 
     public FullDrinkView toView(Drink drink) {
