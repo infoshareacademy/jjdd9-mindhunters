@@ -112,8 +112,6 @@ public class DrinkManagementServlet extends HttpServlet {
         drink.setCategory(category);
         drink.setAlcoholStatus(req.getParameter("status"));
         drink.setDate(LocalDateTime.now());
-        drink.setImage("https://www.thecocktaildb.com/images/media/drink/yxswtp1441253918.jpg");
-        drink.setDrinkId("6666");
 
         drinkService.save(drink);
 
