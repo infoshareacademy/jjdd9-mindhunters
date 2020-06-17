@@ -23,7 +23,7 @@
 <div class="body part1-top" id="body part1-top" style="background-color: #1b1e21">
     <div class="container-fluid" id="part1-top">
         <div style="position: relative">
-            <img class="backGround" src="../../img/mindhunters.jpg" alt="background" id="glasses">
+            <img class="backGround mx-auto" src="../../img/mindhunters.jpg" alt="background" id="glasses">
             <div class="over-photo1">
                 <header class="masthead">
                     <div class="container welcome-settings">

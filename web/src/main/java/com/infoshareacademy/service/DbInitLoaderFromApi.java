@@ -24,7 +24,7 @@ import java.util.Optional;
 @Startup
 public class DbInitLoaderFromApi {
 
-    private static final Logger logger = LoggerFactory.getLogger(DbInitLoaderFromApi.class.getName());
+    private static final Logger packageLogger = LoggerFactory.getLogger(DbInitLoaderFromApi.class.getName());
 
     @Inject
     private DrinkMapper drinkMapper;
@@ -41,16 +41,18 @@ public class DbInitLoaderFromApi {
     @PostConstruct
     public void loadApi() {
 
+
+
         List<DrinkJson> drinkJsons = new ArrayList<>();
         List<CategoryJson> categoryJson = new ArrayList<>();
 
         for (char alphabet = 'a'; alphabet <= 'z'; alphabet++) {
-            Request fromAlphabet = Request.Get("https://www.thecocktaildb.com/api/json/v1/1/search.php?f=" + alphabet);
+            Request fromAlphabet = Request.Get("http://isa-proxy.blueazurit.com/cocktails/1/search.php?f=" + alphabet);
             String stringDrinkJson = null;
             try {
                 stringDrinkJson = fromAlphabet.execute().returnContent().asString();
             } catch (IOException e) {
-                e.printStackTrace();
+                packageLogger.error("DrinkJson not found");
             }
 
             List<DrinkJson> letterDrinkJsons = null;
@@ -58,24 +60,25 @@ public class DbInitLoaderFromApi {
                 letterDrinkJsons = Optional.ofNullable(jsonParserApiBean.jsonDrinkReaderFromString(stringDrinkJson))
                         .orElse(Collections.emptyList());
             } catch (IOException e) {
-                e.printStackTrace();
+                packageLogger.error("letterDrinkJson not found");
+
             }
             for (DrinkJson letterDrinkJson : letterDrinkJsons) {
                 drinkJsons.add(letterDrinkJson);
             }
         }
 
-        Request getCat = Request.Get("https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list");
+        Request getCat = Request.Get("http://isa-proxy.blueazurit.com/cocktails/1/list.php?c=list");
         String stringCatDrinkJson = null;
         try {
             stringCatDrinkJson = getCat.execute().returnContent().asString();
         } catch (IOException e) {
-            e.printStackTrace();
+            packageLogger.error("stringCatDrinkJson not found");
         }
         try {
             categoryJson = JsonCategoryApiReader.jsonCategoryReader(stringCatDrinkJson);
         } catch (IOException e) {
-            e.printStackTrace();
+            packageLogger.error("categoryJson not found");
         }
         Drink drink = new Drink();
         for (DrinkJson drinkJson : drinkJsons) {

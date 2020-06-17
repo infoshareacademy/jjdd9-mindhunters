@@ -48,7 +48,7 @@ public class UploadDbFromApiServlet extends HttpServlet {
         List<DrinkJson> drinkJsons = new ArrayList<>();
 
         for (char alphabet = 'a'; alphabet <= 'z'; alphabet++) {
-            Request fromAlphabet = Request.Get("https://www.thecocktaildb.com/api/json/v1/1/search.php?f=" + alphabet);
+            Request fromAlphabet = Request.Get("http://isa-proxy.blueazurit.com/cocktails/1/search.php?f=" + alphabet);
             String stringDrinkJson = fromAlphabet.execute().returnContent().asString();
 
             List<DrinkJson> letterDrinkJsons = Optional.ofNullable(jsonParserApiBean.jsonDrinkReaderFromString(stringDrinkJson))
@@ -58,7 +58,7 @@ public class UploadDbFromApiServlet extends HttpServlet {
             }
         }
 
-        Request getCat = Request.Get("https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list");
+        Request getCat = Request.Get("http://isa-proxy.blueazurit.com/cocktails/1/list.php?c=list");
         String stringCatDrinkJson = getCat.execute().returnContent().asString();
         List<CategoryJson> categoryJson = new ArrayList<>();
         categoryJson = JsonCategoryApiReader.jsonCategoryReader(stringCatDrinkJson);

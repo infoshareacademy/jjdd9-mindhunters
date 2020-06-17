@@ -2,8 +2,6 @@ package com.infoshareacademy.servlet;
 
 import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.freemarker.TemplateProvider;
-import com.infoshareacademy.service.DrinkService;
-import com.infoshareacademy.service.IngredientService;
 import com.infoshareacademy.service.SearchTypeService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -36,6 +34,7 @@ public class DrinkSearchServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html; charset=UTF-8");
+        req.setCharacterEncoding("UTF-8");
         Map<String, Object> dataModel = new HashMap<>();
 
         dataModel = searchTypeService.listViewSearchType(req);
