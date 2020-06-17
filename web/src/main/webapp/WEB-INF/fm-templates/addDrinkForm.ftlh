@@ -16,7 +16,7 @@
 <body id="page-top justify-content-center " style="background-color: #1b1e21;">
 
 
-<form class="was-validated  " action="/drink-management" method="post" id="abc">
+<form class="was-validated  " action="/drink-management" method="post" id="abc" enctype="multipart/form-data">
 
     <div class="container-fluid form-elements " style="width: 800px">
 
@@ -96,8 +96,7 @@
 
 
         <div class="custom-file col-6 justify-content-between" style="padding-left: 15px; padding-right: 15px; margin: 0px">
-            <input type="file" class="custom-file-input" id="validatedCustomFile">
-            <label class="custom-file-label" for="validatedCustomFile">Choose picture file...</label>
+            <input type="file" name="image" style="margin: auto"/>
         </div>
 
 

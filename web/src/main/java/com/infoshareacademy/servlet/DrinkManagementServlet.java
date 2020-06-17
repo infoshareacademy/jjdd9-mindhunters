@@ -4,7 +4,9 @@ import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.*;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.domain.dto.IngredientView;
+import com.infoshareacademy.exception.JsonNotFound;
 import com.infoshareacademy.freemarker.TemplateProvider;
+import com.infoshareacademy.imageFileUpload.ImageUploadProcessor;
 import com.infoshareacademy.mapper.IngredientMapper;
 import com.infoshareacademy.service.CategoryService;
 import com.infoshareacademy.service.DrinkService;
@@ -18,10 +20,12 @@ import org.slf4j.LoggerFactory;
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.awt.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -30,9 +34,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @WebServlet("/drink-management")
+@MultipartConfig
 public class DrinkManagementServlet extends HttpServlet {
 
     private static final Logger packageLogger = LoggerFactory.getLogger(DrinkManagementServlet.class.getName());
+
+    @Inject
+    ImageUploadProcessor imageUploadProcessor;
 
     @Inject
     private TemplateProvider templateProvider;
@@ -112,6 +120,18 @@ public class DrinkManagementServlet extends HttpServlet {
         drink.setCategory(category);
         drink.setAlcoholStatus(req.getParameter("status"));
         drink.setDate(LocalDateTime.now());
+
+        Part image = req.getPart("image");
+        String imageUrl = "";
+        try {
+            imageUrl = "/images/" + imageUploadProcessor
+                    .uploadImageFile(image).getName();
+        } catch (JsonNotFound userImageNotFound) {
+            packageLogger.warn(userImageNotFound.getMessage());
+        }
+
+        drink.setImage(imageUrl);
+
 
         drinkService.save(drink);
 
