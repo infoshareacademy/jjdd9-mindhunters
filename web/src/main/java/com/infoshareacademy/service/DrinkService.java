@@ -249,7 +249,27 @@ public class DrinkService {
     public static int getMaxPageNumber(String querySize) {
         return (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
     }
+
     public void save(Drink drink) {
         drinkRepository.save(drink);
     }
+
+    public void deleteDrinkById(String drinkId) {
+        Long id = Long.valueOf(drinkId);
+
+        Drink drink = drinkRepository.findDrinkById(id);
+        if (drink != null) {
+            drinkRepository.delete(drink);
+        }
+    }
+
+    public void update(String drinkId) {
+        Long id = Long.valueOf(drinkId);
+
+        Drink drink = drinkRepository.findDrinkById(id);
+        if (drink != null) {
+            drinkRepository.update(drink);
+        }
+    }
+
 }

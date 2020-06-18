@@ -41,7 +41,7 @@
                             <div class="container ml-0 pl-0 mr-0 pr-0 ">
                                 <div class="row list-element" >
                                     <div class="col-md-auto d-flex justify-content-center " style="min-width: 205px" >
-                                        <div class="relative" id="ID04">
+                                        <div class="relative" id="FAVOURITES">
                                             <#if drink.image!?trim?has_content>
                                                 <img src="${drink.image}" class="thumbnail_list justify-content-center">
                                             <#else>
