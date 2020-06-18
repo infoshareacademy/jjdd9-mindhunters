@@ -62,9 +62,9 @@ import java.util.Objects;
         ),
 
         @NamedQuery(
-                name = "Drinks.getDrinksPerAllCategories",
+                name = "Drinks.getDrinksInAllCategories",
                 query = "SELECT c.name, COUNT(d.drinkName) as quantity FROM Drink d JOIN d.category c GROUP BY c" +
-                        ".name ORDER BY quantity DESC")
+                        ".name ORDER BY c.name ASC")
 
 })
 

@@ -12,9 +12,7 @@ import com.infoshareacademy.service.mapper.StatisticsMapper;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Stateless
 public class StatisticsService {
@@ -85,10 +83,10 @@ public class StatisticsService {
     }
 
 
-    public Map<String, Long> getDrinksPerAllCategories() {
-        List statistics = statisticsRepositoryBean.getDrinksPerAllCategories();
+    public Map<String, Long> getDrinksInAllCategories() {
+        List statistics = statisticsRepositoryBean.getDrinksInAllCategories();
         Object[] row;
-        Map<String, Long> statisticsMap = new HashMap<>();
+        SortedMap<String, Long> statisticsMap = new TreeMap<>();
 
         for (Object o : statistics) {
 
@@ -104,6 +102,8 @@ public class StatisticsService {
                 }
             }
         }
+
+
 
         return statisticsMap;
     }

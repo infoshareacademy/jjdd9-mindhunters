@@ -40,10 +40,10 @@ public class StatisticsController {
     @GET
     @Path("/drinks/category")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getDrinksPerCategory() {
+    public Response getDrinksInAllCategories() {
 
         return Response.status(Response.Status.OK)
-                .entity(statisticsService.getDrinksPerAllCategories().entrySet())
+                .entity(statisticsService.getDrinksInAllCategories().entrySet())
                 .build();
     }
 

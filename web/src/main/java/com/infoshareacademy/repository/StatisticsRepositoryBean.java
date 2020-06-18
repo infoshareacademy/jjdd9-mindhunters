@@ -35,8 +35,8 @@ public class StatisticsRepositoryBean {
         return query.getResultList();
     }
 
-    public List getDrinksPerAllCategories(){
-        Query query = entityManager.createNamedQuery("Drinks.getDrinksPerAllCategories");
+    public List getDrinksInAllCategories(){
+        Query query = entityManager.createNamedQuery("Drinks.getDrinksInAllCategories");
         List test = query.getResultList();
         return test;
 
