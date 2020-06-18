@@ -124,7 +124,7 @@ public class DrinkManagementServlet extends HttpServlet {
         Part image = req.getPart("image");
         String imageUrl = "";
         try {
-            imageUrl = "/images/" + imageUploadProcessor
+            imageUrl = "/pictures/" + imageUploadProcessor
                     .uploadImageFile(image).getName();
         } catch (JsonNotFound userImageNotFound) {
             packageLogger.warn(userImageNotFound.getMessage());

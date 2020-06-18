@@ -42,6 +42,6 @@ public class FileUploadProcessor {
         settings.load(Thread.currentThread()
                 .getContextClassLoader().getResource(SETTINGS_FILE)
                 .openStream());
-        return settings.getProperty("Upload.Path.JSON");
+        return settings.getProperty("Upload.Path.IMAGE");
     }
 }

@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class DrinkService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DrinkService.class.getName());
-    private static final Integer PAGE_SIZE = 5;
+    private static final Integer PAGE_SIZE = 20;
 
 
     @EJB
