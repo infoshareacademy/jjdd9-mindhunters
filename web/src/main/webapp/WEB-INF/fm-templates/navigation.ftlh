@@ -20,7 +20,7 @@
                         <li><a href="/admin/users">User Management</a></li>
                         <div class="dropdown-divider"></div>
 
-                        <li><a href="/#userMANAGEMENT">Statistics</a></li>
+                        <li><a href="/admin/statistics">Statistics</a></li>
                         <div class="dropdown-divider"></div>
 
                         <li><a href="/#userMANAGEMENT">Drink Management</a></li>
