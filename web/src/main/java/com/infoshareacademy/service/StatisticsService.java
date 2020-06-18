@@ -3,8 +3,8 @@ package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.Statistics;
-import com.infoshareacademy.domain.dto.DrinkLiveSearchView;
 import com.infoshareacademy.domain.dto.FullDrinkView;
+import com.infoshareacademy.domain.dto.StatisticsChartView;
 import com.infoshareacademy.repository.StatisticsRepositoryBean;
 import com.infoshareacademy.service.mapper.DrinkLiveSearchMapper;
 import com.infoshareacademy.service.mapper.StatisticsMapper;
@@ -12,7 +12,8 @@ import com.infoshareacademy.service.mapper.StatisticsMapper;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Stateless
 public class StatisticsService {
@@ -36,10 +37,10 @@ public class StatisticsService {
 
     }
 
-    public Map<String, Long> getTopDrinks() {
+    public List<StatisticsChartView> getTopDrinks() {
         List statistics = statisticsRepositoryBean.getTopDrinks();
         Object[] row;
-        Map<String, Long> statisticsMap = new HashMap<>();
+        List<StatisticsChartView> views = new ArrayList<>();
 
         for (Object o : statistics) {
 
@@ -48,21 +49,24 @@ public class StatisticsService {
                 row = (Object[]) o;
 
                 if (row[0] instanceof Drink) {
+                    Drink drink = ((Drink) row[0]);
+                    StatisticsChartView view = new StatisticsChartView();
+                    view.setName(drink.getDrinkName());
+                    view.setQuantity((Long) row[1]);
 
-                    DrinkLiveSearchView drinkLiveSearchView = drinkLiveSearchMapper.toView((Drink) row[0]);
-                    statisticsMap.put(drinkLiveSearchView.getDrinkName(), (Long) row[1]);
+                    views.add(view);
 
                 }
             }
         }
 
-        return statisticsMap;
+        return views;
     }
 
-    public Map<String, Long> getCategoriesStats() {
+    public List<StatisticsChartView> getCategoriesStats() {
         List statistics = statisticsRepositoryBean.getCategoriesStats();
         Object[] row;
-        Map<String, Long> statisticsMap = new HashMap<>();
+        List<StatisticsChartView> views = new ArrayList<>();
 
         for (Object o : statistics) {
 
@@ -70,23 +74,22 @@ public class StatisticsService {
 
                 row = (Object[]) o;
 
-                if (row[0] instanceof String) {
+                StatisticsChartView view = new StatisticsChartView();
+                view.setName(String.valueOf(row[0]));
+                view.setQuantity((Long) row[1]);
 
-                    String categoryName = (String)row[0];
-                    statisticsMap.put(categoryName, (Long) row[1]);
+                views.add(view);
 
-                }
             }
         }
-
-        return statisticsMap;
+        return views;
     }
 
 
-    public Map<String, Long> getDrinksInAllCategories() {
+    public List<StatisticsChartView> getDrinksInAllCategories() {
         List statistics = statisticsRepositoryBean.getDrinksInAllCategories();
         Object[] row;
-        SortedMap<String, Long> statisticsMap = new TreeMap<>();
+        List<StatisticsChartView> views = new ArrayList<>();
 
         for (Object o : statistics) {
 
@@ -94,18 +97,16 @@ public class StatisticsService {
 
                 row = (Object[]) o;
 
-                if (row[0] instanceof String) {
+                StatisticsChartView view = new StatisticsChartView();
+                view.setName(String.valueOf(row[0]));
+                view.setQuantity((Long) row[1]);
 
-                    String categoryName = (String)row[0];
-                    statisticsMap.put(categoryName, (Long) row[1]);
-
-                }
+                views.add(view);
             }
         }
 
 
-
-        return statisticsMap;
+        return views;
     }
 
 

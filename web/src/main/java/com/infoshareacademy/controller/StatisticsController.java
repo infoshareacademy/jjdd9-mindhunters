@@ -22,7 +22,7 @@ public class StatisticsController {
     public Response topDrinks() {
 
         return Response.status(Response.Status.OK)
-                .entity(statisticsService.getTopDrinks().entrySet())
+                .entity(statisticsService.getTopDrinks())
                 .build();
     }
 
@@ -33,7 +33,7 @@ public class StatisticsController {
     public Response categoriesStats() {
 
         return Response.status(Response.Status.OK)
-                .entity(statisticsService.getCategoriesStats().entrySet())
+                .entity(statisticsService.getCategoriesStats())
                 .build();
     }
 
@@ -43,7 +43,7 @@ public class StatisticsController {
     public Response getDrinksInAllCategories() {
 
         return Response.status(Response.Status.OK)
-                .entity(statisticsService.getDrinksInAllCategories().entrySet())
+                .entity(statisticsService.getDrinksInAllCategories())
                 .build();
     }
 

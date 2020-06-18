@@ -68,7 +68,7 @@
 
         <button id="button">getJson</button>
 
-        <canvas id="myChart" width="400" height="100"></canvas>
+        <canvas id="myChart" width="100" height="100"></canvas>
 
 
 

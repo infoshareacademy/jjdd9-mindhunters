@@ -1,6 +1,9 @@
 $( document ).ready(function(){
     $.getJSON('/api/stats/drinks/category', function (data1) {
-        console.log(data1)
+        console.log(data1);
+
+
+
     });
 
 
@@ -15,6 +18,21 @@ $( document ).ready(function(){
 
     $.getJSON('/api/stats/drinks/top-10', function (data3) {
         console.log(data3)
+
+        let drinkAndQuantityArray = [];
+        for (let i = 0; i < 1; i++) {
+            let pairDrinkQuantity = data3[0];
+            console.log(pairDrinkQuantity[0]);
+            drinkAndQuantityArray = [pairDrinkQuantity.get(0),
+                pairDrinkQuantity.get(1)];
+            console.log(drinkAndQuantityArray);
+
+
+        }
+
+        xLabels.push(drinkAndQuantityArray);
+        var ctx = document.getElementById("myChart").getContext("2d");
+
     });
 
 
@@ -22,58 +40,50 @@ $( document ).ready(function(){
 });
 
 
-
+var ctx = document.getElementById('myChart');
+const xLabels = [];
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: xLabels,
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
 
 
 /*
 
-    var ctx = document.getElementById("myChart").getContext("2d");
 
 
-    // draw empty chart
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: [],
-            datasets: [
-                {
-                    label: "My First dataset",
-                    fill: false,
-                    lineTension: 0.1,
-                    backgroundColor: "rgba(75,192,192,0.4)",
-                    borderColor: "rgba(75,192,192,1)",
-                    borderCapStyle: 'butt',
-                    borderDash: [],
-                    borderDashOffset: 0.0,
-                    borderJoinStyle: 'miter',
-                    pointBorderColor: "rgba(75,192,192,1)",
-                    pointBackgroundColor: "#fff",
-                    pointBorderWidth: 1,
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 1,
-                    pointHitRadius: 10,
-                    data: [],
-                    spanGaps: false,
-                }
-            ]
-        },
-        options: {
-            tooltips: {
-                mode: 'index',
-                intersect: false
-            },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero:true
-                    }
-                }]
-            }
-        }
-    });
 
     ajax_chart(myChart, json_url);
 
@@ -106,49 +116,7 @@ $( document ).ready(function(){
 /*
 
 
-function drawChart() {
 
-    var ctx = document.getElementById("myChart").getContext("2d");
-
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-
-
-/!*
 
 
     $.getJSON('/drinks/category', function (dataset1) {
