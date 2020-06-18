@@ -26,11 +26,12 @@ public class DbInitLoaderFromApi {
 
     private static final Logger packageLogger = LoggerFactory.getLogger(DbInitLoaderFromApi.class.getName());
 
+    private final String API_URL_DRINKS = "http://isa-proxy.blueazurit.com/cocktails/1/search.php?f=";
+
+    private final String API_URL_CATEGORIES = "http://isa-proxy.blueazurit.com/cocktails/1/list.php?c=list";
+
     @Inject
     private DrinkMapper drinkMapper;
-
-//    @Inject
-//    private JsonService jsonService;
 
     @Inject
     private DrinkService drinkService;
@@ -47,7 +48,7 @@ public class DbInitLoaderFromApi {
         List<CategoryJson> categoryJson = new ArrayList<>();
 
         for (char alphabet = 'a'; alphabet <= 'z'; alphabet++) {
-            Request fromAlphabet = Request.Get("http://isa-proxy.blueazurit.com/cocktails/1/search.php?f=" + alphabet);
+            Request fromAlphabet = Request.Get(API_URL_DRINKS + alphabet);
             String stringDrinkJson = null;
             try {
                 stringDrinkJson = fromAlphabet.execute().returnContent().asString();
@@ -68,7 +69,7 @@ public class DbInitLoaderFromApi {
             }
         }
 
-        Request getCat = Request.Get("http://isa-proxy.blueazurit.com/cocktails/1/list.php?c=list");
+        Request getCat = Request.Get(API_URL_CATEGORIES);
         String stringCatDrinkJson = null;
         try {
             stringCatDrinkJson = getCat.execute().returnContent().asString();
