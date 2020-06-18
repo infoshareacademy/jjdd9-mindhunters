@@ -1,7 +1,24 @@
 $( document ).ready(function(){
-    $.getJSON('/api/stats/drinks/category', function (dataset1) {
-        console.log(dataset1)
+    $.getJSON('/api/stats/drinks/category', function (data1) {
+        console.log(data1)
     });
+
+
+
+
+    $.getJSON('/api/stats/categories', function (data2) {
+        console.log(data2)
+    });
+
+
+
+
+    $.getJSON('/api/stats/drinks/top-10', function (data3) {
+        console.log(data3)
+    });
+
+
+
 });
 
 
