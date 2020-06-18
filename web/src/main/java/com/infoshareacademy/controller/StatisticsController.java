@@ -37,14 +37,14 @@ public class StatisticsController {
                 .build();
     }
 
-/*    @GET
+    @GET
     @Path("/drinks/category")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response topCategories() {
+    public Response getDrinksPerCategory() {
 
         return Response.status(Response.Status.OK)
-                .entity(statisticsService.getCategories().entrySet())
+                .entity(statisticsService.getDrinksPerAllCategories().entrySet())
                 .build();
-    }*/
+    }
 
 }

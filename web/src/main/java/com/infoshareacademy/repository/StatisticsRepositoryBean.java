@@ -31,7 +31,14 @@ public class StatisticsRepositoryBean {
 
     public List getCategoriesStats() {
         Query query = entityManager.createNamedQuery("Statistics.getCategoriesStats");
+
+        return query.getResultList();
+    }
+
+    public List getDrinksPerAllCategories(){
+        Query query = entityManager.createNamedQuery("Drinks.getDrinksPerAllCategories");
         List test = query.getResultList();
         return test;
+
     }
 }

@@ -59,7 +59,12 @@ import java.util.Objects;
         @NamedQuery(
                 name = "Drink.findAllByCategories",
                 query = "select d from Drink d where d.category.name in :category"
-        )
+        ),
+
+        @NamedQuery(
+                name = "Drinks.getDrinksPerAllCategories",
+                query = "SELECT c.name, COUNT(d.drinkName) as quantity FROM Drink d JOIN d.category c GROUP BY c" +
+                        ".name ORDER BY quantity DESC")
 
 })
 

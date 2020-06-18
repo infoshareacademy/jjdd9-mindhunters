@@ -85,4 +85,28 @@ public class StatisticsService {
     }
 
 
+    public Map<String, Long> getDrinksPerAllCategories() {
+        List statistics = statisticsRepositoryBean.getDrinksPerAllCategories();
+        Object[] row;
+        Map<String, Long> statisticsMap = new HashMap<>();
+
+        for (Object o : statistics) {
+
+            if (o instanceof Object[]) {
+
+                row = (Object[]) o;
+
+                if (row[0] instanceof String) {
+
+                    String categoryName = (String)row[0];
+                    statisticsMap.put(categoryName, (Long) row[1]);
+
+                }
+            }
+        }
+
+        return statisticsMap;
+    }
+
+
 }
