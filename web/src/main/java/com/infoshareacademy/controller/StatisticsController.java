@@ -6,7 +6,6 @@ import com.infoshareacademy.service.StatisticsService;
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -18,7 +17,7 @@ public class StatisticsController {
     StatisticsService statisticsService;
 
     @GET
-    @Path("/top-10")
+    @Path("/drinks/top-10")
     @Produces(MediaType.APPLICATION_JSON)
     public Response topDrinks() {
 
@@ -29,13 +28,23 @@ public class StatisticsController {
 
 
     @GET
-    @Path("/topCategories")
+    @Path("/categories")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response categoriesStats() {
+
+        return Response.status(Response.Status.OK)
+                .entity(statisticsService.getCategoriesStats().entrySet())
+                .build();
+    }
+
+/*    @GET
+    @Path("/drinks/category")
     @Produces(MediaType.APPLICATION_JSON)
     public Response topCategories() {
 
         return Response.status(Response.Status.OK)
-                .entity(statisticsService.getTopDrinks().entrySet())
+                .entity(statisticsService.getCategories().entrySet())
                 .build();
-    }
+    }*/
 
 }

@@ -29,9 +29,9 @@ public class StatisticsRepositoryBean {
     }
 
 
-    public List getTopCategories() {
-        Query query = entityManager.createNamedQuery("Statistics.getTopCategories");
-
-        return query.getResultList();
+    public List getCategoriesStats() {
+        Query query = entityManager.createNamedQuery("Statistics.getCategoriesStats");
+        List test = query.getResultList();
+        return test;
     }
 }

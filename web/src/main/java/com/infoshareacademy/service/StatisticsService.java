@@ -61,8 +61,8 @@ public class StatisticsService {
         return statisticsMap;
     }
 
-    public Map<String, Long> getTopCategories() {
-        List statistics = statisticsRepositoryBean.getTopCategories();
+    public Map<String, Long> getCategoriesStats() {
+        List statistics = statisticsRepositoryBean.getCategoriesStats();
         Object[] row;
         Map<String, Long> statisticsMap = new HashMap<>();
 
@@ -72,10 +72,10 @@ public class StatisticsService {
 
                 row = (Object[]) o;
 
-                if (row[0] instanceof Drink) {
+                if (row[0] instanceof String) {
 
-                    DrinkLiveSearchView drinkLiveSearchView = drinkLiveSearchMapper.toView((Drink) row[0]);
-                    statisticsMap.put(drinkLiveSearchView.getDrinkName(), (Long) row[1]);
+                    String categoryName = (String)row[0];
+                    statisticsMap.put(categoryName, (Long) row[1]);
 
                 }
             }

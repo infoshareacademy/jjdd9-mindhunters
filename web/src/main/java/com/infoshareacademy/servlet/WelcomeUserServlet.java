@@ -31,7 +31,7 @@ public class WelcomeUserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html; charset=UTF-8");
         Map<String, Object> dataModel = new HashMap<>();
-
+//TODO: change password
         ContextHolder contextHolder = new ContextHolder(req.getSession());
         dataModel.put("name", contextHolder.getName());
         dataModel.put("role", contextHolder.getRole());
