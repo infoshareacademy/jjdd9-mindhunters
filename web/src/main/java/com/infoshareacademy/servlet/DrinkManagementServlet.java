@@ -137,6 +137,18 @@ public class DrinkManagementServlet extends HttpServlet {
 
     }
 
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getParameter("id");
+
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = req.getParameter("id");
+
+        drinkService.deleteDrinkById(id);
 
 
+    }
 }

@@ -33,6 +33,16 @@ public class DrinkRepositoryBean implements DrinkRepository {
         return entityManager.find(Drink.class, drinkId);
     }
 
+    @Override
+    public void delete(Drink drink) {
+        entityManager.remove(drink);
+
+    }
+
+    @Override
+    public void update(Drink drink) {
+        entityManager.merge(drink);
+    }
 
     @Override
     public List<Drink> findDrinksByName(String partialDrinkName, int startPosition, int endPosition) {

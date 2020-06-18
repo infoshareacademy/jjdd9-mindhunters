@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('#ID03').on('click', '#ID04', function () {
+    $('#ID03').on('click', '#FAVOURITES', function () {
         let drinkId = $(this).text().trim().toString();
         let url = new URL(window.location);
 
