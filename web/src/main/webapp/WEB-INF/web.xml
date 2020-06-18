@@ -13,8 +13,8 @@
   <data-source>
     <name>java:ds/mindhuntersDS</name>
     <class-name>com.mysql.cj.jdbc.MysqlDataSource</class-name>
-    <url>jdbc:mysql://0.0.0.0:3308/mindhunters_db?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Warsaw</url>
-<!--    <url>jdbc:mysql://mysql/mindhunters_db?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Warsaw</url>-->
+<!--    <url>jdbc:mysql://0.0.0.0:3308/mindhunters_db?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Warsaw</url>-->
+    <url>jdbc:mysql://mysql/mindhunters_db?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Warsaw</url>
     <user>root</user>
     <password>root</password>
   </data-source>

@@ -29,8 +29,8 @@ public class DbInitLoaderFromApi {
     @Inject
     private DrinkMapper drinkMapper;
 
-    @Inject
-    private JsonService jsonService;
+//    @Inject
+//    private JsonService jsonService;
 
     @Inject
     private DrinkService drinkService;

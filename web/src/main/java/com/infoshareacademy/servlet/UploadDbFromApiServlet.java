@@ -1,4 +1,4 @@
-package com.infoshareacademy.servlets;
+package com.infoshareacademy.servlet;
 
 import com.infoshareacademy.cdi.JsonParserApiBean;
 import com.infoshareacademy.domain.Drink;
