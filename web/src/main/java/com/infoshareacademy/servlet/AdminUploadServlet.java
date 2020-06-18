@@ -1,4 +1,4 @@
-package com.infoshareacademy.servlets;
+package com.infoshareacademy.servlet;
 
 import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.freemarker.TemplateProvider;
@@ -31,6 +31,7 @@ public class AdminUploadServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html; charset=UTF-8");
+        req.setCharacterEncoding("UTF-8");
         Map<String, Object> dataModel = new HashMap<>();
         String name = req.getParameter("name");
 

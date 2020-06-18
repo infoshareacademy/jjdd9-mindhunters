@@ -22,7 +22,7 @@ import java.util.List;
 public class UserService {
 
     private static final Logger packageLogger = LoggerFactory.getLogger(UserService.class.getName());
-    private static final Integer PAGE_SIZE = 5;
+    private static final Integer PAGE_SIZE = 20;
 
     @EJB
     private UserRepository userRepository;
