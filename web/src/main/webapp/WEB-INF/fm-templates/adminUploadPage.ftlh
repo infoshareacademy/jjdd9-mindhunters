@@ -43,13 +43,13 @@
                             Load DB of Drinks from file
                         </p>
                     </div>
-
+                        <p class="text-warning p-padding">Select DrinkJson</p>
                     <div class="text-warning lf-div col-8" style="display: inline-block">
                         <label class="submit-btn" style="display: inline-block"></label><br>
                         <input type="file" id="jsonFile" name="jsonFile" multiple
                                class="btn btn-background text-uppercase text-warning size-input-design">
                     </div>
-
+                        <p class="text-warning p-padding">Select CategoryJson</p>
                     <div class="text-warning lf-div col-8" style="display: inline-block">
                         <label class="submit-btn" style="display: inline-block"></label><br>
                         <input type="file" id="jsonCatFile" name="jsonCatFile" multiple
