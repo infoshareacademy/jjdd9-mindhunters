@@ -34,44 +34,27 @@
 <section style="background-color: #1b1e21">
     <div class="container" style="color: white; height: max-content;">
 
-        <form method="post" action="/admin-users">
-            <label>Set user as ADMIN by id: </label>
-            <input id="userId" type="number" min="2" name="u">
-            <button type="submit" name="Set as admin">Set as admin</button>
-        </form>
-        <br>
-        <form method="post" action="/admin-users">
-            <label>Set admin as USER by id: </label>
-            <input id="userId" type="number" min="2" name="a">
-            <button type="submit" name="Set as admin">Set as user</button>
-        </form>
-        <br>
+
         <div class="row justify-content-center">
-            <h3>Users registered in database</h3>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-md-3">
-                <h4>Id</h4>
+
+            <div class="col-md-6">
+                <canvas id="myChart1" width="100" height="100"></canvas>
             </div>
-            <div class="col-md-3">
-                <h4>Name</h4>
-            </div>
-            <div class="col-md-3">
-                <h4>Email</h4>
-            </div>
-            <div class="col-md-3">
-                <h4>Role</h4>
+
+            <div class="col-md-6">
+                <canvas id="myChart2" width="100" height="100"></canvas>
             </div>
 
         </div>
 
+        <div class="row justify-content-center">
 
-        <button id="button">getJson</button>
+            <div class="col-md-6">
+                <canvas id="myChart3" width="100" height="100"></canvas>
+            </div>
 
-        <canvas id="myChart" width="100" height="100"></canvas>
 
-
-
+        </div>
 
 
     </div>
@@ -85,7 +68,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymneiw iem jak wsatawilem u mnie footer to mi namiesal z ustawieniemous"></script>
+        crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 <script src="../../js/homePage.js"></script>
