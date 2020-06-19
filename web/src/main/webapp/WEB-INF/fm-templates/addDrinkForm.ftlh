@@ -15,6 +15,9 @@
 </head>
 <body id="page-top justify-content-center " style="background-color: #1b1e21;">
 
+<!--Navigation-->
+
+<#include "navigation.ftlh">
 
 <form class="was-validated  " action="/drink-management" method="post" id="abc" enctype="multipart/form-data">
 
@@ -111,25 +114,9 @@
 </form>
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title " id="exampleModalLabel">Ciąg Fibonacciego</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body mx-3 text-center">
-                <p id="fibonacci"></p>
-            </div>
+<!--Footer-->
 
-
-        </div>
-    </div>
-</div>
+<#include "footer.ftlh">
 
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">

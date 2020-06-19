@@ -25,13 +25,19 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $('#ID03').on('click', '#UPDATE', function () {
+    $('#ID03').on('click', '#EDIT', function () {
         let drinkId = $(this).siblings('p').text().trim().toString();
 
-        $.ajax({
-            url: '/drink-management?id=' + drinkId,
-            type: 'PUT',
-        });
+        window.location = '/drink-management?id=' + drinkId + '&action=edit';
+        // let value = $(this).val();
+        //
+        // $.ajax({
+        //     type: 'GET',
+        //     url: '/drink-management?id=' + drinkId + '&action=edit',
+        //     success: function() {
+        //         $('#abc').html(value);
+        //     }
 
+        // });
     });
 });
