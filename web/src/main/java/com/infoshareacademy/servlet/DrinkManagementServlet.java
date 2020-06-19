@@ -3,15 +3,14 @@ package com.infoshareacademy.servlet;
 import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.*;
 import com.infoshareacademy.domain.dto.FullDrinkView;
-import com.infoshareacademy.domain.dto.IngredientView;
 import com.infoshareacademy.exception.JsonNotFound;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.imageFileUpload.ImageUploadProcessor;
-import com.infoshareacademy.mapper.IngredientMapper;
 import com.infoshareacademy.service.CategoryService;
 import com.infoshareacademy.service.DrinkService;
 import com.infoshareacademy.service.IngredientService;
 import com.infoshareacademy.service.MeasureService;
+import com.infoshareacademy.service.validator.UserInputValidator;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -19,6 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -26,12 +26,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import java.awt.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 @WebServlet("/drink-management")
 @MultipartConfig
@@ -57,20 +57,50 @@ public class DrinkManagementServlet extends HttpServlet {
     @EJB
     private MeasureService measureService;
 
+    @Inject
+    private UserInputValidator userInputValidator;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        String action = req.getParameter("action");
+
+        if (action == null || action.isBlank()){
+            action = "";
+        }
+
+        String idParam = req.getParameter("id");
+        Long drinkId = userInputValidator.stringToLongConverter(idParam);
+
         resp.setContentType("text/html; charset=UTF-8");
 
         Map<String, Object> dataModel = new HashMap<>();
-
-        dataModel.put("categories", categoryService.findAllCategories());
+        Template template = null;
 
         ContextHolder contextHolder = new ContextHolder(req.getSession());
-        dataModel.put("name", contextHolder.getName());
+         dataModel.put("name", contextHolder.getName());
         dataModel.put("role", contextHolder.getRole());
 
-        Template template = templateProvider.getTemplate(getServletContext(), "addDrinkForm.ftlh");
+        switch (action) {
+            case "edit":
+                FullDrinkView drinkView = drinkService.getDrinkById(drinkId);
+
+                dataModel.put("drink", drinkView);
+                dataModel.put("categories", categoryService.findAllCategories());
+                template = templateProvider.getTemplate(getServletContext(), "editDrinkForm.ftlh");
+                try {
+                    template.process(dataModel, resp.getWriter());
+                } catch (
+                        TemplateException e) {
+                    packageLogger.error(e.getMessage());
+                }
+
+                return;
+            default:
+                dataModel.put("categories", categoryService.findAllCategories());
+                template = templateProvider.getTemplate(getServletContext(), "addDrinkForm.ftlh");
+                break;
+        }
 
         try {
             template.process(dataModel, resp.getWriter());
@@ -78,10 +108,13 @@ public class DrinkManagementServlet extends HttpServlet {
                 TemplateException e) {
             packageLogger.error(e.getMessage());
         }
+        return;
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getParameter("action");
+        String id = req.getParameter("id");
 
         Drink drink = new Drink();
 
@@ -95,16 +128,16 @@ public class DrinkManagementServlet extends HttpServlet {
         List<Ingredient> ingredientList = new ArrayList<>();
 
 
-        for (String measure : measures){
+        for (String measure : measures) {
             measureList.add(measureService.getOrCreate(measure));
         }
-        for (String ingredient : ingredients){
+        for (String ingredient : ingredients) {
             ingredientList.add(ingredientService.getOrCreate(ingredient));
         }
 
         List<DrinkIngredient> drinkIngredientsList = new ArrayList<>();
 
-        for (int i=0; i < measureList.size(); i++){
+        for (int i = 0; i < measureList.size(); i++) {
             DrinkIngredient drinkIngredient = new DrinkIngredient();
 
             drinkIngredient.setMeasure(measureList.get(i));
@@ -132,14 +165,18 @@ public class DrinkManagementServlet extends HttpServlet {
 
         drink.setImage(imageUrl);
 
-
+        if (action != null && id != null){
+            drinkService.update(id, drink);
+            resp.sendRedirect("/single-view?drink=" + id);
+            return;
+        }
         drinkService.save(drink);
 
-    }
 
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getParameter("id");
+        resp.sendRedirect("/list?page=1");
+
+        return;
+
 
     }
 
@@ -148,7 +185,9 @@ public class DrinkManagementServlet extends HttpServlet {
         String id = req.getParameter("id");
 
         drinkService.deleteDrinkById(id);
+        resp.getWriter().print("aaaa");
+        resp.sendRedirect("/list?page=1");
 
-
+        return;
     }
 }

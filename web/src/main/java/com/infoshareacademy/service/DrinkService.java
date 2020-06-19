@@ -1,7 +1,9 @@
 package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.Drink;
+import com.infoshareacademy.domain.DrinkIngredient;
 import com.infoshareacademy.domain.Ingredient;
+import com.infoshareacademy.domain.Measure;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.domain.dto.IngredientView;
 import com.infoshareacademy.repository.DrinkRepository;
@@ -14,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -33,6 +36,11 @@ public class DrinkService {
     @Inject
     private IngredientMapper ingredientMapper;
 
+    @EJB
+    private MeasureService measureService;
+
+    @EJB
+    private IngredientService ingredientService;
 
     public FullDrinkView getDrinkById(Long drinkId) {
         LOGGER.debug("Searching drink id");
@@ -42,6 +50,8 @@ public class DrinkService {
         }
         return fullDrinkMapper.toView(foundDrink);
     }
+
+
 
     public List<FullDrinkView> findDrinksByName(String partialDrinkName, int pageNumber) {
         LOGGER.debug("Searching drinks by name with pagination");
@@ -262,11 +272,17 @@ public class DrinkService {
             drinkRepository.delete(drink);
         }
     }
-
-    public void update(String drinkId) {
+    @Transactional
+    public void update(String drinkId, Drink updatedDrink) {
         Long id = Long.valueOf(drinkId);
 
         Drink drink = drinkRepository.findDrinkById(id);
+        drink.setDrinkName(updatedDrink.getDrinkName());
+        drink.setRecipe(updatedDrink.getRecipe());
+        drink.setCategory(updatedDrink.getCategory());
+        drink.setImage(updatedDrink.getImage());
+        drink.setAlcoholStatus(updatedDrink.getAlcoholStatus());
+
         if (drink != null) {
             drinkRepository.update(drink);
         }
