@@ -1,6 +1,7 @@
 package com.infoshareacademy.scheduler;
 
 
+import com.infoshareacademy.email.EmailSender;
 import com.infoshareacademy.service.DrinkService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,10 +20,13 @@ public class DrinkReportScheduler {
     @EJB
     DrinkService drinkService;
 
+    @EJB
+    private EmailSender emailSender;
 
-    @Schedule(hour = "*", minute = "2/15")
+
+    @Schedule(hour = "*", minute = "2/2")
     public void checkRecipesForApproval() {
-
+        emailSender.sendEmail();
         //drinkService.checkRecipesForApproval();
         LOGGER.info("CheckRecipesForApproval, every 15 min scheduler");
     }

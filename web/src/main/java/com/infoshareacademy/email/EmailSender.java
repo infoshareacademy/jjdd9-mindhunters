@@ -1,6 +1,5 @@
 package com.infoshareacademy.email;
 
-import com.infoshareacademy.servlet.WelcomeUserServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,8 +16,8 @@ public class EmailSender {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EmailSender.class.getName());
 
-    final String username = "mindhunters3M@gmail.com";
-    final String password = "javaalcoapp3";
+    private final String username = "mindhunters3M@gmail.com";
+    private final String password = "javaalcoapp3";
 
 
     public void sendEmail() {
@@ -47,7 +46,7 @@ public class EmailSender {
         Properties properties = new Properties();
         try {
             properties.load(Objects.requireNonNull(Thread.currentThread()
-                    .getContextClassLoader().getResource("session.properties"))
+                    .getContextClassLoader().getResource("emailConfig.properties"))
                     .openStream());
         } catch (IOException e) {
             LOGGER.error("Error during loading properties, {}", e.getMessage());
