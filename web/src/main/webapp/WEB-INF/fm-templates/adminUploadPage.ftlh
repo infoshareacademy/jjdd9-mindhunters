@@ -20,18 +20,18 @@
     <div class="row container-fluid add-padding-admin" id="part1-top">
         <div class="over-photo2">
                 <span class="admin-btn-block vis-of-btn" id="admin-btn-block">
-                    <a class="btn btn-background  text-uppercase  text-warning btn-admin" id="btn-admin1"
-                    >USERS</a><br>
+<#--                    <a class="btn btn-background  text-uppercase  text-warning btn-admin" id="btn-admin1"
+                    >USERS</a><br>-->
                     <a class="btn btn-background  text-uppercase  text-warning btn-admin"
                        id="btn-admin2">LOAD DB FROM FILE</a>
                     <br>
                     <a class="btn btn-background  text-uppercase  text-warning btn-admin"
                        id="btn-admin2" a href="/admin/upload-json-api">LOAD DB FROM API</a>
                     <br>
-                    <a class="btn btn-background  text-uppercase  text-warning btn-admin" id="btn-admin3"
+<#--                    <a class="btn btn-background  text-uppercase  text-warning btn-admin" id="btn-admin3"
                     >SETTINGS</a><br>
                     <a class="btn btn-background  text-uppercase  text-warning btn-admin" id="btn-admin-back"
-                       a href="/welcome">BACK</a>
+                       a href="/welcome">BACK</a>-->
                 </span>
         </div>
         <div class="container-fluid load-file-browse" id="over-photo3">

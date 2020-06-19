@@ -14,19 +14,20 @@
 
                         Admin panel
                     </button>
-                    <div class="dropdown-menu dropdown-menu-right" style="text-align: center">
+                    <div class="dropdown-menu dropdown-menu-right text-warning" style="text-align: center;
+                    background-color:#1b1e21">
 
 
-                        <li><a href="/admin/users">User Management</a></li>
+                        <li><a class="text-warning" href="/admin/users">User Management</a></li>
                         <div class="dropdown-divider"></div>
 
-                        <li><a href="/admin/statistics">Statistics</a></li>
+                        <li><a class="text-warning" href="/admin/statistics">Statistics</a></li>
                         <div class="dropdown-divider"></div>
 
-                        <li><a href="/#userMANAGEMENT">Drink Management</a></li>
+                        <li><a class="text-warning" href="/#userMANAGEMENT">Drink Management</a></li>
                         <div class="dropdown-divider"></div>
 
-                        <li><a href="/admin/page">Back up API upload</a></li>
+                        <li><a class="text-warning" href="/admin/page">Back up drinks upload</a></li>
 
 
                     </div>
