@@ -1,7 +1,7 @@
 package com.infoshareacademy.email;
 
 
-public interface EmailStrategy {
+public interface EmailBuildStrategy {
 
     String createContent();
 

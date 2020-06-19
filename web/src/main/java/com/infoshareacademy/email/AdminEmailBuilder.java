@@ -1,6 +1,6 @@
 package com.infoshareacademy.email;
 
-public class AdminEmailBuilder implements EmailStrategy{
+public class AdminEmailBuilder implements EmailBuildStrategy{
 
 
     @Override
