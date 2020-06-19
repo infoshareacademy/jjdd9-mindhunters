@@ -25,7 +25,7 @@
 
             <div class="col-md-6">
                 <br>
-                <label style="color: #ffc107">Categories popularity</label>
+                <label style="color: #ffc107">Current drinks in database per category</label>
                 <canvas id="myChart1" width="100" height="100"></canvas>
                 <br>
             </div>
@@ -43,7 +43,7 @@
 
             <div class="col-md-6">
                 <br>
-                <label style="text-align: center; color: #ffc107">Current drinks in database per category</label>
+                <label style="text-align: center; color: #ffc107">Categories popularity</label>
                 <canvas id="myChart2" width="100" height="100"></canvas>
                 <br>
             </div>
