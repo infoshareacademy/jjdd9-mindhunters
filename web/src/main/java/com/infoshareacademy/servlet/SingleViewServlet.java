@@ -51,6 +51,7 @@ public class SingleViewServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         resp.setContentType("text/html; charset=UTF-8");
+        req.setCharacterEncoding("UTF-8");
         final String idParam = req.getParameter("drink");
         Long drinkId = userInputValidator.stringToLongConverter(idParam);
         Map<String, Object> dataModel = new HashMap<>();

@@ -1,4 +1,4 @@
-package com.infoshareacademy.servlets;
+package com.infoshareacademy.servlet;
 
 import com.infoshareacademy.cdi.FileUploadProcessor;
 import com.infoshareacademy.cdi.JsonParserBean;
