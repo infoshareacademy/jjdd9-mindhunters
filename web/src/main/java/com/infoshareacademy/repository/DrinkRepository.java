@@ -24,6 +24,8 @@ public interface DrinkRepository {
 
     List<Drink> findAllDrinks(int startPosition, int endPosition);
 
+    List<Drink> findAllDrinks();
+
     int countPagesFindAll();
 
     List<Drink> findByCategories(List<Long> category, int startPosition, int endPosition);

@@ -116,6 +116,14 @@ public class DrinkRepositoryBean implements DrinkRepository {
     }
 
     @Override
+    public List<Drink> findAllDrinks() {
+        Query query = entityManager.createNamedQuery("Drink.findAll");
+
+        return query.getResultList();
+
+    }
+
+    @Override
     public int countPagesFindAll() {
         Query query = entityManager.createNamedQuery("Drink.countFindAll");
 
