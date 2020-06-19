@@ -11,51 +11,44 @@
     <link href="../../css/style.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
 
-    <style>
-        .row + .row {
-            border-top: 0;
-        }
-
-        div.row {
-            border: 1px solid;
-            border-color: #ffc107;
-        }
-
-    </style>
-
 
 </head>
 <body id="page-top" style="background-color: #1b1e21">
 
-
 <#include "navigation.ftlh">
-
 
 <section style="background-color: #1b1e21">
     <div class="container" style="color: white; height: max-content;">
 
 
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" style="text-align: center">
 
             <div class="col-md-6">
+                <br>
+                <label style="color: #ffc107">Categories popularity</label>
                 <canvas id="myChart1" width="100" height="100"></canvas>
+                <br>
             </div>
 
             <div class="col-md-6">
-                <canvas id="myChart2" width="100" height="100"></canvas>
-            </div>
-
-        </div>
-
-        <div class="row justify-content-center">
-
-            <div class="col-md-6">
+                <br>
+                <label style="text-align: center; color: #ffc107">Top 10 drinks</label>
                 <canvas id="myChart3" width="100" height="100"></canvas>
+                <br>
             </div>
-
 
         </div>
 
+        <div class="row justify-content-center" style="text-align: center">
+
+            <div class="col-md-6">
+                <br>
+                <label style="text-align: center; color: #ffc107">Current drinks in database per category</label>
+                <canvas id="myChart2" width="100" height="100"></canvas>
+                <br>
+            </div>
+
+        </div>
 
     </div>
     </div>

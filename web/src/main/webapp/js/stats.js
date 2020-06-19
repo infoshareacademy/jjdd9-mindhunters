@@ -7,17 +7,23 @@ var xData2 = [];
 var xData3 = [];
 
 
-function drawCharts(a, b, c) {
+function drawBarCharts(labels, data, chartNo, type) {
 
-    var ctx = document.getElementById(c);
+    var ctx = document.getElementById(chartNo);
     var myChart = new Chart(ctx, {
-        type: 'pie',
+        type: type,
         data: {
-            labels: a,
+            labels: labels,
             datasets: [{
-                label: 'Drinks',
-                data: b,
+                label: '',
+                data: data,
                 backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
                     'rgba(255, 206, 86, 0.2)',
@@ -31,14 +37,76 @@ function drawCharts(a, b, c) {
                     'rgba(255, 206, 86, 1)',
                     'rgba(75, 192, 192, 1)',
                     'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
                     'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            legend: {
+                display: false,
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+}
+
+
+function drawPieCharts(labels, data, chartNo, type) {
+
+    var ctx = document.getElementById(chartNo);
+    var myChart = new Chart(ctx, {
+        type: type,
+        data: {
+            labels: labels,
+            datasets: [{
+                label: '',
+                data: data,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
                 ],
                 borderWidth: 1
             }]
         },
     });
 }
-
 
 function getData() {
     $.getJSON('/api/stats/drinks/category', function (data1) {
@@ -51,7 +119,7 @@ function getData() {
             xData1.push(quantity1);
 
         }
-        drawCharts(xLabels1, xData1, 'myChart1');
+        drawBarCharts(xLabels1, xData1, 'myChart1', 'bar');
     });
 
     $.getJSON('/api/stats/categories', function (data2) {
@@ -64,7 +132,7 @@ function getData() {
             xData2.push(quantity2);
 
         }
-        drawCharts(xLabels2, xData2, 'myChart2');
+        drawPieCharts(xLabels2, xData2, 'myChart2', 'pie');
     });
 
 
@@ -78,36 +146,15 @@ function getData() {
             xData3.push(quantity3);
 
         }
-        drawCharts(xLabels3, xData3, 'myChart3');
+        drawBarCharts(xLabels3, xData3, 'myChart3', 'bar');
     });
 }
-
-
-/*
-    $(document).ready(drawCharts());
-    console.log('koniec wywolanie drawCharts z getData');
-}
-*/
-
 
 $(function () {
     $(document).ready(function () {
         getData();
     });
 });
-
-
-/*
-$(document).ready(getData());
-$(document).ready(drawCharts());*/
-
-/*$(document).ready(function () {
-    $("#testowy").click(function (e) {
-        e.preventDefault();
-        drawCharts();
-    });
-});*/
-
 
 
 
