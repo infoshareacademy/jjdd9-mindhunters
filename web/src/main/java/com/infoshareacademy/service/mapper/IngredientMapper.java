@@ -28,7 +28,6 @@ public class IngredientMapper {
     public Ingredient toEntity(IngredientView ingredientView) {
         Ingredient ingredient = new Ingredient();
         ingredient.setName(ingredientView.getName());
-        ingredient.setId(ingredientView.getId());
         return ingredient;
     }
 

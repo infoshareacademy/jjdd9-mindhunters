@@ -164,7 +164,6 @@ public class DrinkManagementServlet extends HttpServlet {
         }
 
         drink.setImage(imageUrl);
-
         if (action != null && id != null){
             drinkService.update(Long.valueOf(id), drink);
             resp.sendRedirect("/single-view?drink=" + id);

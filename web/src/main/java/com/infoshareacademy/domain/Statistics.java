@@ -16,7 +16,7 @@ import javax.persistence.*;
                         "d.category c " +
                         "GROUP BY c.name ORDER BY quantity DESC"),
         @NamedQuery(
-                name = "Statistics.deleteFavouritesByDrinks",
+                name = "Statistics.deleteStatisticsByDrinks",
                 query = "DELETE  FROM Statistics s where s.drink = :drink" )
 
 })

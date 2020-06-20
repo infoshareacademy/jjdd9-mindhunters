@@ -45,11 +45,8 @@ public class DrinkRepositoryBean implements DrinkRepository {
 
     @Override
     public void update(Long id, Drink updatedDrink) {
-        Drink drink = findDrinkById(id);
-
-        drink.setDrinkName(updatedDrink.getDrinkName());
-
-        entityManager.merge(drink);
+        entityManager.detach(updatedDrink);
+        entityManager.merge(updatedDrink);
     }
 
     @Override
@@ -221,4 +218,12 @@ public class DrinkRepositoryBean implements DrinkRepository {
 
         return query.getResultList();
     }
+
+    @Override
+    public void deleteIngredientsFromDrink(Long drinkId){
+        Query query = entityManager.createNamedQuery("Drink.deleteIngredientByDrink");
+        query.setParameter("drinkId", drinkId).executeUpdate();
+
+    }
+
 }

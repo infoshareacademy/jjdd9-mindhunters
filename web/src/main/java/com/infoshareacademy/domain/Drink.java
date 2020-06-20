@@ -71,8 +71,11 @@ import java.util.Objects;
 
         @NamedQuery(
                 name = "Drink.getDrinksToApprove",
-                query = "SELECT d FROM Drink d where d.isApproved = false ")
+                query = "SELECT d FROM Drink d where d.isApproved = false "),
 
+        @NamedQuery(
+                name = "Drink.deleteIngredientsByDrink",
+                query = "DELETE FROM DrinkIngredient di where di.drinkId.id = :drinkId ")
 
 })
 
@@ -91,7 +94,7 @@ public class Drink {
     @NotNull
     private String drinkName;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -103,7 +106,7 @@ public class Drink {
     @Column(columnDefinition = "TEXT")
     private String recipe;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "drinkId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.ALL, CascadeType.MERGE}, mappedBy = "drinkId", fetch = FetchType.LAZY)
     private List<DrinkIngredient> drinkIngredients = new ArrayList<>();
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "drinks")

@@ -47,7 +47,7 @@ public class DbInitLoaderFromApi {
         List<DrinkJson> drinkJsons = new ArrayList<>();
         List<CategoryJson> categoryJson = new ArrayList<>();
 
-        for (char alphabet = 'a'; alphabet <= 'z'; alphabet++) {
+        for (char alphabet = 'a'; alphabet <= 'b'; alphabet++) { //todo: zmienic litery
             Request fromAlphabet = Request.Get(API_URL_DRINKS + alphabet);
             String stringDrinkJson = null;
             try {

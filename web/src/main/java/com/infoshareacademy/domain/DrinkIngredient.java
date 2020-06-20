@@ -16,6 +16,10 @@ import javax.persistence.*;
         @NamedQuery(
                 name = "Drink.getByMeasureId",
                 query = "SELECT mI FROM DrinkIngredient mI where mI.measure= :measureId"
+        ),
+        @NamedQuery(
+                name = "Drink.deleteIngredientByDrink",
+                query = "DELETE FROM DrinkIngredient di where di.drinkId.id = :drinkId"
         )
 })
 @Entity

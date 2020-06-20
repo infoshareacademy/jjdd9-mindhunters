@@ -32,7 +32,7 @@ public class Category {
     @NotNull
     private String name;
 
-    @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "category", cascade = {CascadeType.ALL})
     private List<Drink> drinks = new ArrayList<>();
 
 

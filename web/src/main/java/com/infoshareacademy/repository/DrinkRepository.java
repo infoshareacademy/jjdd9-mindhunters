@@ -50,4 +50,7 @@ public interface DrinkRepository {
 
     List<Drink> findDrinksToApprove();
 
-}
+    void deleteIngredientsFromDrink(Long drinkId);
+
+
+    }
