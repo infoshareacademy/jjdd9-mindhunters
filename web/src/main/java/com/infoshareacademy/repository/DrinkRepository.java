@@ -43,8 +43,8 @@ public interface DrinkRepository {
 
     void save(Drink drink);
 
-    void delete(Drink drink);
+    void delete(Long id);
 
-    void update(Drink drink);
+    void update(Long id, Drink drink);
 
 }

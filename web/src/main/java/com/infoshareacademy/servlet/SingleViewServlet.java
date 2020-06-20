@@ -61,7 +61,7 @@ public class SingleViewServlet extends HttpServlet {
         if (drinkId < 0) {
             dataModel.put("errorMessage", "Wrong input.\n");
         } else {
-            final FullDrinkView foundDrinkById = drinkService.getDrinkById(drinkId);
+            final FullDrinkView foundDrinkById = drinkService.getFullDrinkViewById(drinkId);
 
 
             if (foundDrinkById == null) {

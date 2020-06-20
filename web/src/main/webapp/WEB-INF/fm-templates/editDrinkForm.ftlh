@@ -17,7 +17,7 @@
 
 <!--Navigation-->
 
-<form class="was-validated"  action="/drink-management?action=update&id=${drink.id!}" method="post" id="abc" enctype="multipart/form-data">
+<form class="was-validated"  action="/api/drink-management/${drink.id!}" ac id="abc" enctype="multipart/form-data">
 
 
     <div class="container-fluid form-elements " style="width: 800px">

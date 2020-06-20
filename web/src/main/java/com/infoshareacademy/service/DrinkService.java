@@ -1,9 +1,8 @@
 package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.Drink;
-import com.infoshareacademy.domain.DrinkIngredient;
 import com.infoshareacademy.domain.Ingredient;
-import com.infoshareacademy.domain.Measure;
+import com.infoshareacademy.domain.User;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.domain.dto.IngredientView;
 import com.infoshareacademy.repository.DrinkRepository;
@@ -37,12 +36,17 @@ public class DrinkService {
     private IngredientMapper ingredientMapper;
 
     @EJB
-    private MeasureService measureService;
+    private AdminManagementRecipeService adminManagementRecipeService;
 
     @EJB
     private IngredientService ingredientService;
 
-    public FullDrinkView getDrinkById(Long drinkId) {
+    @EJB
+    private UserService userService;
+
+
+    @Transactional
+    public FullDrinkView getFullDrinkViewById(Long drinkId) {
         LOGGER.debug("Searching drink id");
         Drink foundDrink = drinkRepository.findDrinkById(drinkId);
         if (foundDrink == null) {
@@ -51,6 +55,14 @@ public class DrinkService {
         return fullDrinkMapper.toView(foundDrink);
     }
 
+    public Drink getDrinkById(Long drinkId) {
+        LOGGER.debug("Searching drink id");
+        Drink foundDrink = drinkRepository.findDrinkById(drinkId);
+        if (foundDrink == null) {
+            return null;
+        }
+        return foundDrink;
+    }
 
 
     public List<FullDrinkView> findDrinksByName(String partialDrinkName, int pageNumber) {
@@ -94,6 +106,7 @@ public class DrinkService {
         List<Drink> drinks = drinkRepository.findAllDrinks(startPosition, endPosition);
         return fullDrinkMapper.toView(drinks);
     }
+
 
     public int countPagesFindAll() {
         int maxPageNumber = drinkRepository.countPagesFindAll();
@@ -264,28 +277,14 @@ public class DrinkService {
         drinkRepository.save(drink);
     }
 
-    public void deleteDrinkById(String drinkId) {
-        Long id = Long.valueOf(drinkId);
+    public boolean deleteDrinkById(Long id) {
 
-        Drink drink = drinkRepository.findDrinkById(id);
-        if (drink != null) {
-            drinkRepository.delete(drink);
-        }
+        return  adminManagementRecipeService.deleteDrinkById(id);
     }
-    @Transactional
-    public void update(String drinkId, Drink updatedDrink) {
-        Long id = Long.valueOf(drinkId);
 
-        Drink drink = drinkRepository.findDrinkById(id);
-        drink.setDrinkName(updatedDrink.getDrinkName());
-        drink.setRecipe(updatedDrink.getRecipe());
-        drink.setCategory(updatedDrink.getCategory());
-        drink.setImage(updatedDrink.getImage());
-        drink.setAlcoholStatus(updatedDrink.getAlcoholStatus());
+    public boolean update(Long id, Drink drink) {
 
-        if (drink != null) {
-            drinkRepository.update(drink);
-        }
+        return adminManagementRecipeService.updateDrink(id, drink);
     }
 
 }

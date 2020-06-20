@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -83,7 +82,7 @@ public class DrinkManagementServlet extends HttpServlet {
 
         switch (action) {
             case "edit":
-                FullDrinkView drinkView = drinkService.getDrinkById(drinkId);
+                FullDrinkView drinkView = drinkService.getFullDrinkViewById(drinkId);
 
                 dataModel.put("drink", drinkView);
                 dataModel.put("categories", categoryService.findAllCategories());
@@ -166,7 +165,7 @@ public class DrinkManagementServlet extends HttpServlet {
         drink.setImage(imageUrl);
 
         if (action != null && id != null){
-            drinkService.update(id, drink);
+            drinkService.update(Long.valueOf(id), drink);
             resp.sendRedirect("/single-view?drink=" + id);
             return;
         }
@@ -184,7 +183,8 @@ public class DrinkManagementServlet extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
 
-        drinkService.deleteDrinkById(id);
+
+
         resp.getWriter().print("aaaa");
         resp.sendRedirect("/list?page=1");
 

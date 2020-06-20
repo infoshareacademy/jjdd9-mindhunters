@@ -34,13 +34,21 @@ public class DrinkRepositoryBean implements DrinkRepository {
     }
 
     @Override
-    public void delete(Drink drink) {
-        entityManager.remove(drink);
+    public void delete(Long id) {
+
+        Drink drink = findDrinkById(id);
+        if (drink != null) {
+            entityManager.remove(drink);
+        }
 
     }
 
     @Override
-    public void update(Drink drink) {
+    public void update(Long id, Drink updatedDrink) {
+        Drink drink = findDrinkById(id);
+
+        drink.setDrinkName(updatedDrink.getDrinkName());
+
         entityManager.merge(drink);
     }
 

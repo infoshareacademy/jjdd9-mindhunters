@@ -17,7 +17,7 @@ $(document).ready(function () {
         let drinkId = $(this).siblings('p').text().trim().toString();
 
         $.ajax({
-            url: '/drink-management?id=' + drinkId,
+            url: '/api/drink-management/' + drinkId,
             type: 'DELETE',
         });
 

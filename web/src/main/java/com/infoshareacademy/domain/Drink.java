@@ -63,7 +63,11 @@ import java.util.List;
         @NamedQuery(
                 name = "Drinks.getDrinksInAllCategories",
                 query = "SELECT c.name, COUNT(d.drinkName) as quantity FROM Drink d JOIN d.category c GROUP BY c" +
-                        ".name ORDER BY c.name ASC")
+                        ".name ORDER BY c.name ASC"),
+        @NamedQuery(
+                name = "Drinks.getAllUsers",
+                query = "SELECT d.users FROM Drink d where d.id = :id ")
+
 
 })
 
@@ -96,6 +100,9 @@ public class Drink {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "drinkId", fetch = FetchType.LAZY)
     private List<DrinkIngredient> drinkIngredients = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "drinks")
+    private List<User> users = new ArrayList<>();
 
     private String image;
 
@@ -171,5 +178,21 @@ public class Drink {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public List<DrinkIngredient> getDrinkIngredients() {
+        return drinkIngredients;
+    }
+
+    public void setDrinkIngredients(List<DrinkIngredient> drinkIngredients) {
+        this.drinkIngredients = drinkIngredients;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }

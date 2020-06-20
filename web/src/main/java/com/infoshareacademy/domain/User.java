@@ -1,6 +1,7 @@
 package com.infoshareacademy.domain;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ import java.util.List;
 
 })
 
+@Transactional
 @Entity
 @Table(name = "user")
 public class User {
@@ -44,7 +46,7 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "favourite",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "drink_id", referencedColumnName = "id"))
