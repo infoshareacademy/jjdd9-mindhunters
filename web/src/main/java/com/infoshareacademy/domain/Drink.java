@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @NamedQueries({
         @NamedQuery(
@@ -58,7 +59,12 @@ import java.util.List;
         @NamedQuery(
                 name = "Drink.findAllByCategories",
                 query = "select d from Drink d where d.category.name in :category"
-        )
+        ),
+
+        @NamedQuery(
+                name = "Drinks.getDrinksInAllCategories",
+                query = "SELECT c.name, COUNT(d.drinkName) as quantity FROM Drink d JOIN d.category c GROUP BY c" +
+                        ".name ORDER BY c.name ASC")
 
 })
 
@@ -91,6 +97,9 @@ public class Drink {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "drinkId", fetch = FetchType.LAZY)
     private List<DrinkIngredient> drinkIngredients = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "drink", fetch = FetchType.LAZY)
+    private List<Statistics> statisticsList = new ArrayList<>();
 
     private String image;
 
@@ -166,5 +175,36 @@ public class Drink {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public List<Statistics> getStatisticsList() {
+        return statisticsList;
+    }
+
+    public void setStatisticsList(List<Statistics> statisticsList) {
+        this.statisticsList = statisticsList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof Drink))
+            return false;
+        Drink drink = (Drink) o;
+        return id.equals(drink.id) &&
+                drinkId.equals(drink.drinkId) &&
+                drinkName.equals(drink.drinkName) &&
+                Objects.equals(category, drink.category) &&
+                Objects.equals(alcoholStatus, drink.alcoholStatus) &&
+                Objects.equals(recipe, drink.recipe) &&
+                Objects.equals(drinkIngredients, drink.drinkIngredients) &&
+                Objects.equals(image, drink.image) &&
+                Objects.equals(date, drink.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, drinkId, drinkName, category, alcoholStatus, recipe, image, date);
     }
 }

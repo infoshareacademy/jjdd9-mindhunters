@@ -1,7 +1,9 @@
 package com.infoshareacademy.service.mapper;
 
 import com.infoshareacademy.domain.Drink;
+import com.infoshareacademy.domain.Statistics;
 import com.infoshareacademy.domain.dto.FullDrinkView;
+import com.infoshareacademy.domain.dto.StatisticsView;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -15,6 +17,9 @@ public class FullDrinkMapper {
 
     @Inject
     private DrinkIgredientMapper drinkIgredientMapper;
+
+    @Inject
+    private StatisticsMapper statisticsMapper;
 
     @Inject
     private CategoryMapper categoryMapper;
@@ -42,4 +47,7 @@ public class FullDrinkMapper {
         }
         return fullDrinkViews;
     }
+
+
+
 }

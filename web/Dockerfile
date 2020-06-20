@@ -1,6 +1,6 @@
 FROM jboss/wildfly
 
-RUN /opt/jboss/wildfly/bin/add-user.sh root root --silent
+RUN /opt/jboss/wildfly/bin/add-user.sh root IloveiSA --silent
 
 USER root
 

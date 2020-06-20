@@ -4,6 +4,20 @@
             <img src="../../img/logomindhunters.jpg" alt="logo">
         </a>
 
+        <div class="navbar-toggler  text-warning" type="button"
+             data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+             aria-expanded="false" aria-label="Toggle navigation" style="border-color:#fed136">
+            <a> Menu
+                <svg class="bi bi-justify" width="1.5em" height="1.4em" viewBox="0 0 16 16" fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                          d="M2 12.5a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0
+                          010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5
+                          0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
+                </svg>
+            </a>
+        </div>
+
         <#if role??>
             <#if role = "ADMIN" || role = "SUPER_ADMIN">
 
@@ -14,19 +28,20 @@
 
                         Admin panel
                     </button>
-                    <div class="dropdown-menu dropdown-menu-right" style="text-align: center">
+                    <div class="dropdown-menu dropdown-menu-right text-warning" style="text-align: center;
+                    background-color:#1b1e21">
 
 
-                        <li><a href="/admin/users">User Management</a></li>
+                        <li><a class="text-warning" href="/admin/users">User Management</a></li>
                         <div class="dropdown-divider"></div>
 
-                        <li><a href="/#userMANAGEMENT">Statistics</a></li>
+                        <li><a class="text-warning" href="/admin/statistics">Statistics</a></li>
                         <div class="dropdown-divider"></div>
 
-                        <li><a href="/#userMANAGEMENT">Drink Management</a></li>
+                        <li><a class="text-warning" href="/#userMANAGEMENT">Drink Management</a></li>
                         <div class="dropdown-divider"></div>
 
-                        <li><a href="/admin/page">Back up API upload</a></li>
+                        <li><a class="text-warning" href="/admin/page">Back up drinks upload</a></li>
 
 
                     </div>
