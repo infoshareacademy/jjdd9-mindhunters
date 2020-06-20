@@ -1,5 +1,6 @@
 package com.infoshareacademy.repository;
 
+import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.Statistics;
 
 import javax.ejb.Stateless;
@@ -39,6 +40,12 @@ public class StatisticsRepositoryBean {
         Query query = entityManager.createNamedQuery("Drinks.getDrinksInAllCategories");
         List test = query.getResultList();
         return test;
+
+    }
+
+    public void deleteFavouritesByDrink(Drink drink){
+        Query query = entityManager.createNamedQuery("Statistics.deleteFavouritesByDrinks");
+        query.setParameter("drink", drink).executeUpdate();
 
     }
 }

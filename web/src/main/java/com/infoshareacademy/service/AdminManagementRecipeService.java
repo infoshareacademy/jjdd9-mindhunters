@@ -3,6 +3,7 @@ package com.infoshareacademy.service;
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.User;
 import com.infoshareacademy.repository.DrinkRepository;
+import com.infoshareacademy.repository.StatisticsRepositoryBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +21,9 @@ public class AdminManagementRecipeService {
     @EJB
     private DrinkRepository drinkRepository;
 
+    @EJB
+    StatisticsRepositoryBean statisticsRepositoryBean;
+
     @Transactional
     public boolean deleteDrinkById(Long id) {
 
@@ -29,7 +33,7 @@ public class AdminManagementRecipeService {
         for (User user : users) {
             user.getDrinks().remove(drink);
         }
-
+        statisticsRepositoryBean.deleteFavouritesByDrink(drink);
         drinkRepository.delete(id);
         return true;
     }
