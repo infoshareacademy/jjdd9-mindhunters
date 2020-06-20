@@ -22,7 +22,7 @@ public class DrinkReportScheduler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DrinkReportScheduler.class.getName());
 
-    private Long counter = 0L;
+    private Long scheduleCounter = 0L;
     private List<FullDrinkView> drinks1st = new ArrayList<>();
     private List<FullDrinkView> drinks3rd = new ArrayList<>();
 
@@ -37,19 +37,20 @@ public class DrinkReportScheduler {
     private EmailBuildStrategy emailBuildStrategy;
 
 
-    @Schedule(hour = "*", minute = "2/1")
+    @Schedule(hour = "*", minute = "2/15")
     public void checkRecipesForApproval() {
-        LOGGER.info("Counter {}", counter);
+        LOGGER.debug("Counter {}", scheduleCounter);
 
-        if (counter % 2 == 0) {
+        if (scheduleCounter % 2 == 0) {
 
+//TODO dummy search method - replace with method searching drinks scheduled for approval
             drinks1st = drinkService.findDrinksByName("casino", 1);
 
             if (recipeAwaiting3scheduleCalls()) {
 
                 emailSender.sendEmail(emailBuildStrategy.createContent(drinks1st));
                 LOGGER.info("CheckRecipesForApproval - email send");
-                counter = 0L;
+                scheduleCounter = 0L;
                 drinks3rd = Collections.emptyList();
                 return;
             }
@@ -57,8 +58,8 @@ public class DrinkReportScheduler {
             drinks3rd = drinks1st;
 
         }
-        counter++;
-        LOGGER.info("CheckRecipesForApproval, every 15 min scheduler");
+        scheduleCounter++;
+        LOGGER.info("CheckRecipesForApproval, every 15 min scheduler, no action required");
     }
 
 
