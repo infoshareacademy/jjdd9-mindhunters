@@ -53,7 +53,6 @@ public class DrinkListServlet extends HttpServlet {
         resp.setContentType("text/html; charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
         String pageNumberReq = req.getParameter("page");
-
         int currentPage;
 
         if (!userInputValidator.validatePageNumber(pageNumberReq)) {
@@ -97,6 +96,8 @@ public class DrinkListServlet extends HttpServlet {
             }
 
         }
+
+
 
         String servletPath = req.getServletPath();
 

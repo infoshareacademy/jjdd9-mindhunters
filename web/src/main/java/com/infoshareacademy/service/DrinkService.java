@@ -287,4 +287,12 @@ public class DrinkService {
         return adminManagementRecipeService.updateDrink(id, drink);
     }
 
+    public List<FullDrinkView> findDrinksToApprove() {
+
+        List<Drink> drinks = drinkRepository.findDrinksToApprove();
+        return fullDrinkMapper.toView(drinks);
+    }
+
+
+
 }

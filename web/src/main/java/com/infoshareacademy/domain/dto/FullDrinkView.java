@@ -25,6 +25,8 @@ public class FullDrinkView {
 
     private String date;
 
+    private boolean isApproved;
+
     public Long getId() {
         return id;
     }

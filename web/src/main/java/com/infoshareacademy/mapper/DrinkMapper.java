@@ -30,7 +30,8 @@ public class DrinkMapper {
         drink.setRecipe(drinkJson.getRecipe());
         drink.setImage(drinkJson.getImageUrl());
         drink.setDate(drinkJson.getModifiedDate());
-
+        drink.setApproved(true);
+        
         List<DrinkIngredient> drinkIngredients = new ArrayList<>();
         for (IngredientJson ingredientJson : drinkJson.getIngredients()) {
             DrinkIngredient drinkIngredient = ingredientMapper.toEntity(ingredientJson, drink);

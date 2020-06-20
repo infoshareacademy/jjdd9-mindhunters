@@ -39,9 +39,16 @@ public class AdminManagementRecipeService {
     }
 
 
-    public boolean updateDrink(Long id,Drink drink) {
+    public boolean updateDrink(Long id,Drink newDrink) {
+        Drink drink = drinkRepository.findDrinkById(id);
 
-        if (drink != null) {
+
+
+
+        if (newDrink != null) {
+
+            drink.setDrinkName(newDrink.getDrinkName());
+
             drinkRepository.update(id, drink);
             return true;
         }

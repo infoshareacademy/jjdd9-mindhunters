@@ -152,6 +152,7 @@ public class DrinkManagementServlet extends HttpServlet {
         drink.setCategory(category);
         drink.setAlcoholStatus(req.getParameter("status"));
         drink.setDate(LocalDateTime.now());
+        drink.setApproved(false);
 
         Part image = req.getPart("image");
         String imageUrl = "";

@@ -215,4 +215,10 @@ public class DrinkRepositoryBean implements DrinkRepository {
 
     }
 
+    @Override
+    public List<Drink> findDrinksToApprove() {
+        Query query = entityManager.createNamedQuery("Drink.getDrinksToApprove");
+
+        return query.getResultList();
+    }
 }

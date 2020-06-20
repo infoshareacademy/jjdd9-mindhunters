@@ -2,6 +2,7 @@ package com.infoshareacademy.repository;
 
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.Ingredient;
+import com.infoshareacademy.domain.dto.FullDrinkView;
 
 import javax.ejb.Local;
 import java.util.List;
@@ -46,5 +47,7 @@ public interface DrinkRepository {
     void delete(Long id);
 
     void update(Long id, Drink drink);
+
+    List<Drink> findDrinksToApprove();
 
 }
