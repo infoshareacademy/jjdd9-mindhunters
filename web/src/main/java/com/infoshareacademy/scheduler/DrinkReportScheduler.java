@@ -1,6 +1,7 @@
 package com.infoshareacademy.scheduler;
 
 
+import com.infoshareacademy.email.EmailBuildStrategy;
 import com.infoshareacademy.email.EmailSender;
 import com.infoshareacademy.service.DrinkService;
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import javax.ejb.EJB;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.inject.Inject;
 
 @Singleton
 @Startup
@@ -23,10 +25,17 @@ public class DrinkReportScheduler {
     @EJB
     private EmailSender emailSender;
 
+    @EJB
+    private EmailBuildStrategy emailBuildStrategy;
+
 
     @Schedule(hour = "*", minute = "2/2")
     public void checkRecipesForApproval() {
-        emailSender.sendEmail();
+
+        //List<SimpleDrinkView> drinksForApproval = drinkService.checkNewDrinksForApproval();
+
+
+        emailSender.sendEmail(emailBuildStrategy.createContent());
         //drinkService.checkRecipesForApproval();
         LOGGER.info("CheckRecipesForApproval, every 15 min scheduler");
     }
