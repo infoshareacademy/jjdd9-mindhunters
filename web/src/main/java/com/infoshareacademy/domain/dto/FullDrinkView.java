@@ -1,6 +1,5 @@
 package com.infoshareacademy.domain.dto;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,4 +94,15 @@ public class FullDrinkView {
     public void setDate(String date) {
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return "Drink: {" +
+                "id=" + id +
+                ", drinkName='" + drinkName + '\'' +
+                ", alcoholStatus='" + alcoholStatus + '\'' +
+                ", last modification ='" + date + '\'' +
+                '}';
+    }
+
 }
