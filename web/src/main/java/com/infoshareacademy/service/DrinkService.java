@@ -283,7 +283,6 @@ public class DrinkService {
     }
 
     public boolean update(Long id, Drink drink) {
-
         return adminManagementRecipeService.updateDrink(id, drink);
     }
 

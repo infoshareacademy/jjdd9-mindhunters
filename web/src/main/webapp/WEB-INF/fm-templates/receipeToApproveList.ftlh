@@ -30,7 +30,7 @@
 
             <div class="col-12 col-md-8 col-lg-8 col-xl-8">
                 <ul class="list-unstyled  justify-content-center  ml-auto space_list  " id="ID03" >
-                    <#list drinkList as drink>
+                    <#list drinkList! as drink>
 
                         <li class="media ">
                             <div class="container ml-0 pl-0 mr-0 pr-0 ">

@@ -42,12 +42,14 @@ public class AdminManagementRecipeService {
     public boolean updateDrink(Long id,Drink newDrink) {
         Drink drink = drinkRepository.findDrinkById(id);
 
-
-
-
         if (newDrink != null) {
 
             drink.setDrinkName(newDrink.getDrinkName());
+            drink.setAlcoholStatus(newDrink.getAlcoholStatus());
+            drink.setImage(newDrink.getImage());
+            drink.setCategory(newDrink.getCategory());
+            drink.setRecipe(newDrink.getRecipe());
+            drink.setDrinkIngredient(newDrink.getDrinkIngredient());
 
             drinkRepository.update(id, drink);
             return true;

@@ -91,7 +91,7 @@ public class Drink {
     @NotNull
     private String drinkName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -106,7 +106,7 @@ public class Drink {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "drinkId", fetch = FetchType.LAZY)
     private List<DrinkIngredient> drinkIngredients = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "drinks")
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "drinks")
     private List<User> users = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "drink", fetch = FetchType.LAZY)
@@ -189,14 +189,6 @@ public class Drink {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
-    }
-
-    public List<DrinkIngredient> getDrinkIngredients() {
-        return drinkIngredients;
-    }
-
-    public void setDrinkIngredients(List<DrinkIngredient> drinkIngredients) {
-        this.drinkIngredients = drinkIngredients;
     }
 
     public List<User> getUsers() {

@@ -17,7 +17,7 @@
 
 <!--Navigation-->
 
-<form class="was-validated"  action="/api/drink-management/${drink.id!}" ac id="abc" enctype="multipart/form-data">
+<form class="was-validated"   id="#form_data" enctype="multipart/form-data">
 
 
     <div class="container-fluid form-elements " style="width: 800px">
@@ -116,7 +116,7 @@
 
 
         <div class=" my-3 col-5 justify-content-between">
-            <button type="button submit  " class="btn btn-primary" name="save" value="save">
+            <button type="button submit" class="btn btn-primary" name="save" value="save" id="submit">
                 Save drink
             </button>
         </div>
@@ -150,7 +150,7 @@
 -->
 <!--&lt;!&ndash;&lt;!&ndash; Core theme JS&ndash;&gt;&ndash;&gt;-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.js"></script>
-<script src="../../js/addDrinkForm.js"></script>
+<script src="../../js/editDrink.js"></script>
 <#--
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 -->
