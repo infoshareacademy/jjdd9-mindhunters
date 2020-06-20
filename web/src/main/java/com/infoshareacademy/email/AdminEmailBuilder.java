@@ -22,7 +22,8 @@ public class AdminEmailBuilder implements EmailBuildStrategy {
                 "      }\n" +
                 "      #body {\n" +
                 "        font-size: 14px;\n" +
-                "      background-color: #212529;" +
+                "      background-color: #3e1010;" +
+                "        font-family: 'Cinzel', serif;" +
                 "      color: #ffc107;}\n" +
                 "    </style>\n" +
                 "  </head>\n" +
@@ -35,7 +36,7 @@ public class AdminEmailBuilder implements EmailBuildStrategy {
 
         stringBuilder.append("</ul>" +
                 "      <p>Have fun,<br>" +
-                "Mindhunters Virtual Bartender</p>\n" +
+                "Mindhunters Virtual Bartender<br>http://mindhunters.jjdd9.is-academy.pl/</p>\n" +
                 "    </div>\n" +
                 "  </body>\n" +
                 "</html>");

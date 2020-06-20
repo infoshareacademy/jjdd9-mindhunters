@@ -44,7 +44,7 @@ public class DrinkReportScheduler {
         if (scheduleCounter % 2 == 0) {
 
 //TODO dummy search method - replace with method searching drinks scheduled for approval
-            drinks1st = drinkService.findDrinksByName("casino", 1);
+            //drinks1st = drinkService.findDrinksByName("auto", 1);
 
             if (recipeAwaiting3scheduleCalls()) {
 
