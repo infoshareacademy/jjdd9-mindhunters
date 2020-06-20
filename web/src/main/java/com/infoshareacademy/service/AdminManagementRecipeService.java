@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -19,6 +20,7 @@ public class AdminManagementRecipeService {
     @EJB
     private DrinkRepository drinkRepository;
 
+    @Transactional
     public boolean deleteDrinkById(Long id) {
 
         Drink drink = drinkRepository.findDrinkById(id);
