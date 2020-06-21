@@ -1,5 +1,20 @@
+let adult = false;
+
+$(document).ready(function(){
+    // $("#myBtn").click(function(){
+    //     $("#myModal").modal();
+    // });
+
+    $('#yes18').click(function(){
+        adult = true;
+        // $("#yes18").css(data-dismiss="modal");
+        $('#myModal').modal('hide');
+    });
+});
+
 $(document).ready(function () {
     $('#ID03').on('click', '#ID04', function () {
+
         let drinkId = $(this).text().trim().toString();
         let url = new URL(window.location);
 
@@ -13,10 +28,17 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $("[data-link]").click(function () {
-        window.location.href = $(this).attr("data-link");
-        return false;
+        if (adult = true) {
+            window.location.href = $(this).attr("data-link");
+            return false;
+        }else {
+            $("#myModal").modal();
+
+        }
     });
 });
+
+
 
 $(document).ready(function () {
 

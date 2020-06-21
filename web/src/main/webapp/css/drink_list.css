@@ -922,3 +922,7 @@ a {
 .color_toggle_on{
     fill: orange;
 }
+
+.modal{
+    height: 300px;!important;
+}

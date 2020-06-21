@@ -19,6 +19,35 @@
 
 <#include "navigation.ftlh">
 <!--List-->
+
+
+<!-- Trigger the modal with a button -->
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are You more then 18 years old?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="yes18" >Yes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <nav aria-label="LIST" style="cursor: pointer;">
 
     <div class="container-fluid">
@@ -59,7 +88,9 @@
                                     </div>
 
                                     <div class="media-body  line-clamp col-sm-8 ml-0 pl-1 mr-0 pr-0"
-                                         style="color: #ffc107" data-link="${"/single-view?drink=" + drink.id}">
+
+<#--                                         style="color: #ffc107" data-link="${"/single-view?drink=" + drink.id}">-->
+                                         style="color: #ffc107" data-toggle="modal" data-target="#myModal">
 
                                         <div class="row col-sm d-flex mt-4 mt-md-0 ">
                                             <h5 class="col-md-6 mx-2 my-2  font-weight-bold text-center text-md-left">
