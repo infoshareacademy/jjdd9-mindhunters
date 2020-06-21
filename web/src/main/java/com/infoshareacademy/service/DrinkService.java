@@ -282,7 +282,7 @@ public class DrinkService {
         return  adminManagementRecipeService.deleteDrinkById(id);
     }
 
-    public boolean update(Long id, Drink updatedDrink) {
+    public boolean addOrUpdate(Long id, Drink updatedDrink) {
         return adminManagementRecipeService.updateDrink(id, updatedDrink);
     }
 

@@ -61,12 +61,16 @@ public class AdminManagementRecipeService {
     public boolean updateDrink(Long id,Drink newDrink) {
         Drink drink = drinkRepository.findDrinkById(id);
 
+        if (drink == null){
+            drink = new Drink();
+        }
+
         if (newDrink != null) {
 
             drink.setDrinkName(newDrink.getDrinkName());
             drink.setAlcoholStatus(newDrink.getAlcoholStatus());
             drink.setImage(newDrink.getImage());
-
+            drink.setRecipe(newDrink.getRecipe());
             Category category =categoryService.getOrCreate(newDrink.getCategory().getName()) ;
             drink.setCategory(category);
 
@@ -109,16 +113,22 @@ public class AdminManagementRecipeService {
 
 
             LocalDateTime formatDateTime = LocalDateTime.now();
-            drink.setDate(formatDateTime);
 
             drink.setDate(formatDateTime);
 
 
+        }
+
+        if (id != 0L){
+            drink.setManageAction("EDITED");
             drinkRepository.deleteIngredientsFromDrink(id);
             drinkRepository.update(id, drink);
-            return true;
+        } else {
+            drink.setManageAction("ADDED");
+            drinkRepository.save(drink);
+
         }
-        return false;
+        return true;
     }
 
     public Drink setApproved(long drinkId) {

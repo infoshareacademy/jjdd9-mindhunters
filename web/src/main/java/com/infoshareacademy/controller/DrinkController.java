@@ -2,12 +2,10 @@ package com.infoshareacademy.controller;
 
 
 import com.infoshareacademy.domain.Drink;
-import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.repository.DrinkRepository;
 import com.infoshareacademy.service.DrinkService;
 
 import javax.ejb.EJB;
-import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -52,8 +50,21 @@ public class DrinkController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response update(@PathParam("id") Long id, Drink updateDrink) {
 
+        if (drinkService.addOrUpdate(id, updateDrink)) {
+            return Response.status(204).build();
+        } else {
+            return Response.status(404).build();
+        }
+    }
 
-        if (drinkService.update(id, updateDrink)) {
+    @POST
+    @Path("")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response add(Drink updateDrink) {
+
+
+        if (drinkService.addOrUpdate(0L, updateDrink)) {
             return Response.status(204).build();
         } else {
             return Response.status(404).build();
