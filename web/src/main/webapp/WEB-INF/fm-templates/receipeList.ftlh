@@ -14,31 +14,24 @@
 
 </head>
 <body id="page-top" style="background-color: #1b1e21;">
+
 <!--Navigation-->
-
 <#include "navigation.ftlh">
+
 <!--List-->
-
-
-<!-- Trigger the modal with a button -->
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-
 <#include "modal.ftlh">
 
 <nav aria-label="LIST" style="cursor: pointer;">
 
     <div class="container-fluid">
-
         <div class="row mx-2 my-2 justify-content-center">
 
             <!--categoriesSidebar-->
             <#if categories??>
-
                 <#include "categoriesSidebar.ftlh">
-
             </#if>
-            <!--LIST-->
 
+            <!--LIST-->
             <div class="col-12 col-md-8 col-lg-8 col-xl-8">
                 <ul class="list-unstyled  justify-content-center  ml-auto space_list  " id="ID03">
                     <#list drinkList as drink>
@@ -63,22 +56,16 @@
                                                 <p hidden>${drink.id}</p>
                                             </#if>
                                         </div>
-
                                     </div>
-
                                     <div class="media-body  line-clamp col-sm-8 ml-0 pl-1 mr-0 pr-0"
 
                                             <#if drink.alcoholStatus == "Non alcoholic" || adult! == "true">
-
-
                                          style="color: #ffc107" data-link="${"/single-view?drink=" + drink.id}">
 
                                         <#else>
-
-                                            style="color: #ffc107" data-link="${"/list"}">
-
+                                            style="color: #ffc107"
+                                            data-link="${"/list?page=${currentPage! 1}"}">
                                         </#if>
-
 
                                         <div class="row col-sm d-flex mt-4 mt-md-0 ">
                                             <h5 class="col-md-6 mx-2 my-2  font-weight-bold text-center text-md-left">
@@ -89,9 +76,7 @@
                                                     padding-right: 0px;
                                                     margin-right: 0px;">
                                                 ${drink.categoryView.name}
-
                                             </h5>
-
 
                                         </div>
                                         <div class="line-clamp mx-2 my-2 mt-4 mr-4 d-none d-md-block">
@@ -107,22 +92,16 @@
                                     </div>
                                 </div>
                             </div>
-
                         </li>
-
-
                     </#list>
 
                     <#if !(drinkList?has_content) >
-
                         <#include "emptyList.ftlh">
-
                     </#if>
                 </ul>
             </div>
         </div>
     </div>
-
 
     <!--Pagination-->
 
@@ -149,13 +128,7 @@
 
 <!-- Bootstrap core JS-->
 
-
--->
 <script src="../../js/receipeList.js"></script>
-<#--
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
--->
-
 
 <#if !adult??>
 

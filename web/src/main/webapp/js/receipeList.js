@@ -1,17 +1,5 @@
 let adult = false;
 
-$(document).ready(function(){
-    // $("#myBtn").click(function(){
-    //     $("#myModal").modal();
-    // });
-
-    $('#yes18').click(function(){
-        adult = true;
-        // $("#yes18").css(data-dismiss="modal");
-        $('#myModal').modal('hide');
-    });
-});
-
 $(document).ready(function () {
     $('#ID03').on('click', '#ID04', function () {
 
@@ -28,13 +16,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $("[data-link]").click(function () {
-        if (adult = true) {
             window.location.href = $(this).attr("data-link");
-            return false;
-        }else {
-            $("#myModal").modal();
-
-        }
     });
 });
 
@@ -137,16 +119,13 @@ $(document).ready(function () {
             } else {
 
                 newUrl = "";
+
             }
 
             window.location = '/list?page=1' + newUrl;
-
         }
-
     });
-
 })
-
 
 async function nextPage() {
     let url = new URL(window.location); // or construct from window.location
@@ -168,8 +147,6 @@ async function previousPage() {
         let newURL = url.origin + url.pathname + '?' + params.toString();
         location.replace(newURL);
     }
-
-
 }
 
 

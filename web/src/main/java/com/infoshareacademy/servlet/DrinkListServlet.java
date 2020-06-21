@@ -69,7 +69,6 @@ public class DrinkListServlet extends HttpServlet {
         ContextHolder contextHolder = new ContextHolder(req.getSession());
         dataModel.put("name", contextHolder.getName());
         dataModel.put("role", contextHolder.getRole());
-//tests
 
         String adult = req.getParameter("adult");
 
@@ -81,9 +80,7 @@ public class DrinkListServlet extends HttpServlet {
             dataModel.put("adult", contextHolder.getADULT());
         }
 
-
         String email = contextHolder.getEmail();
-
 
         Map<String, String[]> searchParam = req.getParameterMap();
 
@@ -107,7 +104,6 @@ public class DrinkListServlet extends HttpServlet {
 
                 dataModel.put("favourites", favouritesListModel);
             }
-
         }
 
         String servletPath = req.getServletPath();
@@ -118,7 +114,6 @@ public class DrinkListServlet extends HttpServlet {
         dataModel.put("queryName", queryName);
         dataModel.put("drinkList", drinkViewList);
         dataModel.put("currentPage", currentPage);
-
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeList.ftlh");
 
@@ -143,6 +138,5 @@ public class DrinkListServlet extends HttpServlet {
             userService.saveOrDeleteFavourite(email, drinkId);
 
         }
-
     }
 }
