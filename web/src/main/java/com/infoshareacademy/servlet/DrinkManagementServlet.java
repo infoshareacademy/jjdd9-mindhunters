@@ -97,7 +97,12 @@ public class DrinkManagementServlet extends HttpServlet {
             default:
                 dataModel.put("categories", categoryService.findAllCategories());
                 template = templateProvider.getTemplate(getServletContext(), "addDrinkForm.ftlh");
-
+                try {
+                    template.process(dataModel, resp.getWriter());
+                } catch (
+                        TemplateException e) {
+                    packageLogger.error(e.getMessage());
+                }
                 break;
         }
 

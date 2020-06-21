@@ -115,6 +115,9 @@ public class Drink {
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "drink", fetch = FetchType.LAZY)
     private List<Statistics> statisticsList = new ArrayList<>();
 
+    private  Long parentId;
+
+    private String manageAction;
 
     private String image;
 
@@ -216,6 +219,22 @@ public class Drink {
 
     public void setApproved(boolean approved) {
         isApproved = approved;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
+    public String getManageAction() {
+        return manageAction;
+    }
+
+    public void setManageAction(String manageAction) {
+        this.manageAction = manageAction;
     }
 
     @Override
