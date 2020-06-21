@@ -54,6 +54,7 @@ public class ContextHolder {
         httpSession.setAttribute(EMAIL, userView.getEmail());
         httpSession.setAttribute(ID, userView.getId());
         httpSession.setAttribute(ROLE, userView.getRole());
+        httpSession.removeAttribute(ADULT);
     }
 
     public void invalidate() {
