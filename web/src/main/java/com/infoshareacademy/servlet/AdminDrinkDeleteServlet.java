@@ -8,7 +8,6 @@ import com.infoshareacademy.email.UserDrinkProposalEmailBuilder;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.AdminManagementRecipeService;
 import com.infoshareacademy.service.DrinkService;
-import com.infoshareacademy.service.mapper.FullDrinkMapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -30,7 +29,7 @@ import java.util.stream.Collectors;
 @WebServlet("/admin/to-approve-list/delete")
 public class AdminDrinkDeleteServlet extends HttpServlet {
 
-    private static final Logger packageLogger = LoggerFactory.getLogger(AdminDrinkDeleteServlet.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdminDrinkDeleteServlet.class.getName());
 
     @EJB
     private DrinkService drinkService;
@@ -54,7 +53,7 @@ public class AdminDrinkDeleteServlet extends HttpServlet {
         resp.setContentType("text/html; charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
 
-/*        ContextHolder contextHolder = new ContextHolder(req.getSession());
+        ContextHolder contextHolder = new ContextHolder(req.getSession());
 
         String role = contextHolder.getRole();
         Map<String, Object> dataModel = new HashMap<>();
@@ -64,7 +63,7 @@ public class AdminDrinkDeleteServlet extends HttpServlet {
 
         if (role != null && (role.equalsIgnoreCase("SUPER_ADMIN") || role.equalsIgnoreCase("ADMIN"))) {
 
-            List<FullDrinkView> toApproveList = drinkService.findNewDrinksToApprove();
+            List<FullDrinkView> toApproveList = drinkService.findDeletedDrinksToApprove();
 
             if (!toApproveList.isEmpty()) {
                 List<Object> toApproveListModel = toApproveList.stream()
@@ -77,7 +76,7 @@ public class AdminDrinkDeleteServlet extends HttpServlet {
 
         }
 
- dataModel.put("drinkList", "deleted");
+        dataModel.put("typeOfAction", "deleted");
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeToApproveList.ftlh");
 
@@ -85,8 +84,8 @@ public class AdminDrinkDeleteServlet extends HttpServlet {
             template.process(dataModel, resp.getWriter());
         } catch (
                 TemplateException e) {
-            packageLogger.error(e.getMessage());
-        }*/
+            LOGGER.error(e.getMessage());
+        }
     }
 
 
@@ -97,7 +96,7 @@ public class AdminDrinkDeleteServlet extends HttpServlet {
 
         ContextHolder contextHolder = new ContextHolder(req.getSession());
 
-/*        String role = contextHolder.getRole();
+        String role = contextHolder.getRole();
         Map<String, Object> dataModel = new HashMap<>();
 
         dataModel.put("name", contextHolder.getName());
@@ -107,7 +106,7 @@ public class AdminDrinkDeleteServlet extends HttpServlet {
         String idToDelete = req.getParameter("delete");
 
         if (idToCreate != null && !idToCreate.isBlank()) {
-            Drink approvedDrink = adminManagementRecipeService.setApproved(Long.parseLong(idToCreate));
+            Drink approvedDrink = adminManagementRecipeService.setApprovedDeleteDrink(Long.parseLong(idToCreate));
             String emailContent = userDrinkProposalEmailBuilder.createContent(approvedDrink, "accepted");
             emailSender.sendEmail(emailContent, approvedDrink.getConfirmUserEmail());
         }
@@ -131,9 +130,9 @@ public class AdminDrinkDeleteServlet extends HttpServlet {
                         .collect(Collectors.toList());
 
                 dataModel.put("drinkList", toApproveList);
-            }*/
+            }
 
-/*        }
+        }
 
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeToApproveList.ftlh");
@@ -142,8 +141,8 @@ public class AdminDrinkDeleteServlet extends HttpServlet {
             template.process(dataModel, resp.getWriter());
         } catch (
                 TemplateException e) {
-            packageLogger.error(e.getMessage());
-        }*/
+            LOGGER.error(e.getMessage());
+        }
     }
 
 }

@@ -1,7 +1,6 @@
 package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.*;
-import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.repository.DrinkRepository;
 import com.infoshareacademy.repository.StatisticsRepositoryBean;
 import com.infoshareacademy.service.mapper.FullDrinkMapper;
@@ -13,7 +12,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -58,10 +56,10 @@ public class AdminManagementRecipeService {
     }
 
     @Transactional
-    public boolean updateDrink(Long id,Drink newDrink) {
+    public boolean updateDrink(Long id, Drink newDrink) {
         Drink drink = drinkRepository.findDrinkById(id);
 
-        if (drink == null){
+        if (drink == null) {
             drink = new Drink();
         }
 
@@ -71,7 +69,7 @@ public class AdminManagementRecipeService {
             drink.setAlcoholStatus(newDrink.getAlcoholStatus());
             drink.setImage(newDrink.getImage());
             drink.setRecipe(newDrink.getRecipe());
-            Category category =categoryService.getOrCreate(newDrink.getCategory().getName()) ;
+            Category category = categoryService.getOrCreate(newDrink.getCategory().getName());
             drink.setCategory(category);
 
 
@@ -119,7 +117,7 @@ public class AdminManagementRecipeService {
 
         }
 
-        if (id != 0L){
+        if (id != 0L) {
             drink.setManageAction("EDITED");
             drinkRepository.deleteIngredientsFromDrink(id);
             drinkRepository.update(id, drink);
@@ -152,6 +150,16 @@ public class AdminManagementRecipeService {
         drink.setId(drink.getParentId());
         drinkRepository.update(drink.getId(), drink);
         drinkRepository.delete(drinkId);
+
+        return drink;
+    }
+
+    public Drink setApprovedDeleteDrink(long drinkId) {
+        Drink drink = drinkRepository.findDrinkById(drinkId);
+        Long idTobeDeleted = drink.getParentId();
+
+        drinkRepository.delete(drinkId);
+        drinkRepository.delete(idTobeDeleted);
 
         return drink;
     }
