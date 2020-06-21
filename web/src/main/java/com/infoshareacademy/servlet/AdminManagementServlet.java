@@ -3,7 +3,7 @@ package com.infoshareacademy.servlet;
 import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.freemarker.TemplateProvider;
-import com.infoshareacademy.service.CategoryService;
+import com.infoshareacademy.service.AdminManagementRecipeService;
 import com.infoshareacademy.service.DrinkService;
 import com.infoshareacademy.service.validator.UserInputValidator;
 import freemarker.template.Template;
@@ -33,7 +33,7 @@ public class AdminManagementServlet extends HttpServlet {
     private DrinkService drinkService;
 
     @EJB
-    private CategoryService categoryService;
+    private AdminManagementRecipeService adminManagementRecipeService;
 
     @Inject
     private TemplateProvider templateProvider;
@@ -54,14 +54,14 @@ public class AdminManagementServlet extends HttpServlet {
         dataModel.put("name", contextHolder.getName());
         dataModel.put("role", contextHolder.getRole());
 
-        if (role != null && (role.equalsIgnoreCase("SUPER_ADMIN") || role.equalsIgnoreCase("ADMIN"))){
+        if (role != null && (role.equalsIgnoreCase("SUPER_ADMIN") || role.equalsIgnoreCase("ADMIN"))) {
 
             List<FullDrinkView> toApproveList = drinkService.findDrinksToApprove();
 
-            if (!toApproveList.isEmpty()){
-                List<Object>toApproveListModel = toApproveList.stream()
+            if (!toApproveList.isEmpty()) {
+                List<Object> toApproveListModel = toApproveList.stream()
                         .map(FullDrinkView::getId)
-                        .map(aLong ->  Integer.parseInt(aLong.toString()))
+                        .map(aLong -> Integer.parseInt(aLong.toString()))
                         .collect(Collectors.toList());
 
                 dataModel.put("drinkList", toApproveList);
@@ -69,10 +69,6 @@ public class AdminManagementServlet extends HttpServlet {
 
         }
 
-
-        String servletPath = req.getServletPath();
-
-        dataModel.put("servletPath",servletPath);
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeToApproveList.ftlh");
 
@@ -83,4 +79,56 @@ public class AdminManagementServlet extends HttpServlet {
             packageLogger.error(e.getMessage());
         }
     }
+
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html; charset=UTF-8");
+
+        ContextHolder contextHolder = new ContextHolder(req.getSession());
+
+        String role = contextHolder.getRole();
+        Map<String, Object> dataModel = new HashMap<>();
+
+        dataModel.put("name", contextHolder.getName());
+        dataModel.put("role", contextHolder.getRole());
+
+        String idToCreate = req.getParameter("create");
+        String idToDelete = req.getParameter("delete");
+
+        if (idToCreate != null && !idToCreate.isBlank()) {
+            adminManagementRecipeService.setApproved(Long.parseLong(idToCreate));
+        }
+
+        if (idToDelete != null && !idToDelete.isBlank()) {
+            adminManagementRecipeService.rejectDrinkProposal(Long.parseLong(idToDelete));
+        }
+
+        if (role != null && (role.equalsIgnoreCase("SUPER_ADMIN") || role.equalsIgnoreCase("ADMIN"))) {
+
+            List<FullDrinkView> toApproveList = drinkService.findDrinksToApprove();
+
+            if (!toApproveList.isEmpty()) {
+                List<Object> toApproveListModel = toApproveList.stream()
+                        .map(FullDrinkView::getId)
+                        .map(aLong -> Integer.parseInt(aLong.toString()))
+                        .collect(Collectors.toList());
+
+                dataModel.put("drinkList", toApproveList);
+            }
+
+        }
+
+
+        Template template = templateProvider.getTemplate(getServletContext(), "receipeToApproveList.ftlh");
+
+        try {
+            template.process(dataModel, resp.getWriter());
+        } catch (
+                TemplateException e) {
+            packageLogger.error(e.getMessage());
+        }
+    }
+
 }

@@ -28,13 +28,13 @@
                         <span class="admin-btn-block vis-of-btn" id="admin-btn-block">
 
                     <a class="btn btn-background  text-uppercase  text-warning btn-admin"
-                       id="btn-admin2">Drinks created</a>
+                       id="btn-admin2" href="/admin/to-approve-list">Drinks created</a>
                     <br>
                     <a class="btn btn-background  text-uppercase  text-warning btn-admin"
-                       id="btn-admin2" a href="/admin/upload-json-api">Drinks edited</a>
+                       id="btn-admin2" href="/admin/to-approve-list">Drinks edited</a>
                     <br>
                     <a class="btn btn-background  text-uppercase  text-warning btn-admin"
-                       id="btn-admin2" a href="/admin/upload-json-api">Drinks to be deleted</a>
+                       id="btn-admin2" href="/admin/to-approve-list">Drinks to be deleted</a>
                     <br>
                 </span>
 
@@ -108,7 +108,7 @@
                             <form method="post" action="/admin/to-approve-list">
                                 <div class="list-group  list-element">
                                     <div class="list-group-item sidebar-list">
-                                        <input type="hidden" name="search" value="name"/>
+                                        <input type="hidden" name="create" value="${drink.id}"/>
                                         <input id="search-by-name" class="rounded-input" type="submit" value="Approve">
                                     </div>
                                 </div>
@@ -117,7 +117,7 @@
                             <form method="post" action="/admin/to-approve-list">
                                 <div class="list-group  list-element">
                                     <div class="list-group-item sidebar-list">
-                                        <input type="hidden" name="search" value="name"/>
+                                        <input type="hidden" name="delete" value="${drink.id}"/>
                                         <input id="search-by-name" class="rounded-input" type="submit" value="Reject">
                                     </div>
                                 </div>

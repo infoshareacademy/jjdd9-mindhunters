@@ -100,4 +100,15 @@ public class AdminManagementRecipeService {
         }
         return false;
     }
+
+    public void setApproved(long drinkId) {
+        Drink drink = drinkRepository.findDrinkById(drinkId);
+        drink.setApproved(true);
+        drinkRepository.update(drinkId, drink);
+    }
+
+
+    public void rejectDrinkProposal(long drinkId) {
+        drinkRepository.delete(drinkId);
+    }
 }
