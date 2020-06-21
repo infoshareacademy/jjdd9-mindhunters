@@ -111,13 +111,7 @@ public class AdminManagementRecipeService {
             LocalDateTime formatDateTime = LocalDateTime.now();
             drink.setDate(formatDateTime);
 
-//            String now = LocalDateTime.now().toString();
-//
-//            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-//
-//            LocalDateTime formatDateTime = LocalDateTime.parse(now, dateFormatter);
-//
-//            drink.setDate(formatDateTime);
+            drink.setDate(formatDateTime);
 
 
             drinkRepository.deleteIngredientsFromDrink(id);
