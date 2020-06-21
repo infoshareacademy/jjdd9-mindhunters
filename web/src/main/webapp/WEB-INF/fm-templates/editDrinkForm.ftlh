@@ -20,6 +20,9 @@
 
 <!--Navigation-->
 
+<#include "navigation.ftlh">
+<div style="margin-bottom: 20px; margin-top: 20px">
+<#--Form-->
 <form class="was-validated" id="form_data">
 
 
@@ -80,20 +83,20 @@
 
         <div class=" add-group  justify-content-between">
 
-            <div class=" sidebar-list">
+            <div class="list-group-item sidebar-list">
 
                 <#list drink.drinkIngredientViews>
                     <#items as drinkIngredientView>
                         <div class="row justify-content-between " id="ingrMeasure" style="margin: 0px">
 
                             <div class=" md-3 col-5 ">
-                                <input type="text" required maxlength="20" minlength="2" name="drinkIngredients[][ingredient[name]]" value="${drinkIngredientView.name}"
+                                <input type="text" required maxlength="20" minlength="2" name="drinkIngredients[${(drinkIngredientView?counter)-1}][ingredient[name]]" value="${drinkIngredientView.name}"
                                        placeholder="Ingredient..." class="form-control "  aria-required="true"/>
                                 <div class="invalid-feedback alert alert-danger">Input ingredient</div>
                             </div>
 
                             <div class=" md-3 col-5">
-                                <input type="text" required maxlength="20" minlength="2" name="drinkIngredients[][measure[quantity]]" value="${drinkIngredientView.measure}"
+                                <input type="text" required maxlength="20" minlength="2" name="drinkIngredients[${(drinkIngredientView?counter)-1}][measure[quantity]]" value="${drinkIngredientView.measure}"
                                        placeholder="Measure..."   class="form-control "/>
                                 <div class="invalid-feedback alert alert-danger">Input measure</div>
                             </div>
@@ -137,6 +140,10 @@
     </div>
 </form>
 
+</div>
+<!--Footer-->
+
+<#include "footer.ftlh">
 
 
 

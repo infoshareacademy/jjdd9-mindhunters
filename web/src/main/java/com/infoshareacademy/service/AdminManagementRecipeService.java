@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -98,6 +100,18 @@ public class AdminManagementRecipeService {
             }
             drink.getDrinkIngredients().clear();
             drink.setDrinkIngredients(drinkIngredientsList);
+
+
+            LocalDateTime formatDateTime = LocalDateTime.now();
+            drink.setDate(formatDateTime);
+
+//            String now = LocalDateTime.now().toString();
+//
+//            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+//
+//            LocalDateTime formatDateTime = LocalDateTime.parse(now, dateFormatter);
+//
+//            drink.setDate(formatDateTime);
 
 
             drinkRepository.deleteIngredientsFromDrink(id);
