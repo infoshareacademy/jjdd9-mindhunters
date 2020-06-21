@@ -145,6 +145,10 @@ public class DrinkManagementServlet extends HttpServlet {
 
             drinkIngredientsList.add(drinkIngredient);
         }
+        ContextHolder contextHolder = new ContextHolder(req.getSession());
+
+        drink.setConfirmUserEmail(contextHolder.getEmail());
+
 
         drink.setDrinkIngredients(drinkIngredientsList);
         drink.setDrinkName(req.getParameter("name"));
@@ -153,7 +157,6 @@ public class DrinkManagementServlet extends HttpServlet {
         drink.setAlcoholStatus(req.getParameter("status"));
         drink.setDate(LocalDateTime.now());
         drink.setApproved(false);
-
         Part image = req.getPart("image");
         String imageUrl = "";
         try {

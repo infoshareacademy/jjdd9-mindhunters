@@ -125,6 +125,8 @@ public class Drink {
 
     private boolean isApproved;
 
+    private String confirmUserEmail;
+
     public Long getId() {
         return id;
     }
@@ -235,6 +237,14 @@ public class Drink {
 
     public void setManageAction(String manageAction) {
         this.manageAction = manageAction;
+    }
+
+    public String getConfirmUserEmail() {
+        return confirmUserEmail;
+    }
+
+    public void setConfirmUserEmail(String confirmUserEmail) {
+        this.confirmUserEmail = confirmUserEmail;
     }
 
     @Override
