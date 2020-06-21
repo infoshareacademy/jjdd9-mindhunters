@@ -10,7 +10,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,12 +57,12 @@ public class AdminManagementRecipeService {
             drink.setCategory(newDrink.getCategory());
 
 
-            List<String> measures = newDrink.getDrinkIngredient().stream()
+            List<String> measures = newDrink.getDrinkIngredients().stream()
                     .map(drinkIngredient -> drinkIngredient.getMeasure())
                     .map(measure -> measure.getQuantity())
                     .collect(Collectors.toList());
 
-            List<String> ingredients = newDrink.getDrinkIngredient().stream()
+            List<String> ingredients = newDrink.getDrinkIngredients().stream()
                     .map(drinkIngredient -> drinkIngredient.getIngredient())
                     .map(ingredient -> ingredient.getName())
                     .collect(Collectors.toList());
@@ -91,8 +90,8 @@ public class AdminManagementRecipeService {
 
                 drinkIngredientsList.add(drinkIngredient);
             }
-            drink.getDrinkIngredient().clear();
-            drink.setDrinkIngredient(drinkIngredientsList);
+            drink.getDrinkIngredients().clear();
+            drink.setDrinkIngredients(drinkIngredientsList);
 
 
             drinkRepository.deleteIngredientsFromDrink(id);

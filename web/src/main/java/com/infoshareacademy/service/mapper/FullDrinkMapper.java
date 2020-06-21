@@ -1,9 +1,7 @@
 package com.infoshareacademy.service.mapper;
 
 import com.infoshareacademy.domain.Drink;
-import com.infoshareacademy.domain.Statistics;
 import com.infoshareacademy.domain.dto.FullDrinkView;
-import com.infoshareacademy.domain.dto.StatisticsView;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -33,7 +31,7 @@ public class FullDrinkMapper {
         fullDrinkView.setCategoryView(categoryMapper.toView(drink.getCategory()));
         fullDrinkView.setAlcoholStatus(drink.getAlcoholStatus());
         fullDrinkView.setRecipe(drink.getRecipe());
-        fullDrinkView.setDrinkIngredientViews(drink.getDrinkIngredient().stream()
+        fullDrinkView.setDrinkIngredientViews(drink.getDrinkIngredients().stream()
                 .map(drinkIgredientMapper::toView)
                 .collect(Collectors.toList()));
         fullDrinkView.setImage(drink.getImage());
@@ -59,7 +57,7 @@ public class FullDrinkMapper {
         drink.setCategory(categoryMapper.toEntity(fullDrinkView.getCategoryView()));
         drink.setAlcoholStatus(fullDrinkView.getAlcoholStatus());
         drink.setRecipe(fullDrinkView.getRecipe());
-        drink.setDrinkIngredient(fullDrinkView.getDrinkIngredientViews().stream()
+        drink.setDrinkIngredients(fullDrinkView.getDrinkIngredientViews().stream()
                 .map(drinkIgredientMapper::toEntity)
                 .collect(Collectors.toList()));
         drink.setImage(fullDrinkView.getImage());

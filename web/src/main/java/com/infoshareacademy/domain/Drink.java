@@ -173,12 +173,12 @@ public class Drink {
         this.recipe = recipe;
     }
 
-    public List<DrinkIngredient> getDrinkIngredient() {
+    public List<DrinkIngredient> getDrinkIngredients() {
         return drinkIngredients;
     }
 
-    public void setDrinkIngredient(List<DrinkIngredient> drinkIngredient) {
-        this.drinkIngredients = drinkIngredient;
+    public void setDrinkIngredients(List<DrinkIngredient> drinkIngredients) {
+        this.drinkIngredients = drinkIngredients;
     }
 
     public String getImage() {

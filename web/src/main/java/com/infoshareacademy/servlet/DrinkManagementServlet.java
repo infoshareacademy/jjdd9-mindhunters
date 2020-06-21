@@ -146,7 +146,7 @@ public class DrinkManagementServlet extends HttpServlet {
             drinkIngredientsList.add(drinkIngredient);
         }
 
-        drink.setDrinkIngredient(drinkIngredientsList);
+        drink.setDrinkIngredients(drinkIngredientsList);
         drink.setDrinkName(req.getParameter("name"));
         drink.setRecipe(req.getParameter("recipe"));
         drink.setCategory(category);
