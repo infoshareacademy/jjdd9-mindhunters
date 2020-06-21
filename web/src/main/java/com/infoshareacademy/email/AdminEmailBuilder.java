@@ -5,7 +5,7 @@ import com.infoshareacademy.domain.dto.FullDrinkView;
 import javax.ejb.Stateless;
 import java.util.List;
 
-@Stateless(name = "admin")
+@Stateless
 public class AdminEmailBuilder implements EmailBuildStrategy {
 
 

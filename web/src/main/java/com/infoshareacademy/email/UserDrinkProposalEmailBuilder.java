@@ -2,17 +2,19 @@ package com.infoshareacademy.email;
 
 
 import com.infoshareacademy.context.ContextHolder;
+import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 
 import javax.ejb.Stateless;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-@Stateless(name = "user")
-public class UserDrinkAcceptedEmailBuilder implements EmailBuildStrategy{
+@Stateless
+public class UserDrinkProposalEmailBuilder{
 
 
-    @Override
-    public String createContent(List<FullDrinkView> drinks) {
+
+    public String createContent(List<Drink> drinks) {
 
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -33,9 +35,9 @@ public class UserDrinkAcceptedEmailBuilder implements EmailBuildStrategy{
                 "  <body>\n" +
                 "    <div id='body'>\n" +
                 "      <p>Dear User of Mindhunters Virtual Bartender" + ",</p>\n" +
-                "      <p>Following proposals were accepted by our admins:</p><br><ul class='colored'>");
+                "      <p>Following proposals were accepted by our admins:</p><ul class='colored'>Recipe: ");
 
-        stringBuilder.append(drinks.get(0).getDrinkName()).append(", created: ").append(drinks.get(0).getDate());
+        stringBuilder.append(drinks.get(0).getDrinkName().toUpperCase()).append(", created: ").append(drinks.get(0).getDate().format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm")));
 
         stringBuilder.append("</ul>" +
                 "      <p>All the beast,<br>" +

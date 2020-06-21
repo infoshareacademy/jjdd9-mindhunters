@@ -1,11 +1,15 @@
 package com.infoshareacademy.servlet;
 
 import com.infoshareacademy.context.ContextHolder;
+import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.email.EmailBuildStrategy;
+import com.infoshareacademy.email.EmailSender;
+import com.infoshareacademy.email.UserDrinkProposalEmailBuilder;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.AdminManagementRecipeService;
 import com.infoshareacademy.service.DrinkService;
+import com.infoshareacademy.service.mapper.FullDrinkMapper;
 import com.infoshareacademy.service.validator.UserInputValidator;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -36,14 +40,17 @@ public class AdminManagementServlet extends HttpServlet {
     @EJB
     private AdminManagementRecipeService adminManagementRecipeService;
 
-    @EJB(beanName = "user")
-    private EmailBuildStrategy emailBuildStrategy;
+    @EJB
+    private UserDrinkProposalEmailBuilder userDrinkProposalEmailBuilder;
+
+    @EJB
+    private EmailSender emailSender;
 
     @Inject
     private TemplateProvider templateProvider;
 
     @Inject
-    private UserInputValidator userInputValidator;
+    private FullDrinkMapper fullDrinkMapper;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -102,13 +109,15 @@ public class AdminManagementServlet extends HttpServlet {
         String idToDelete = req.getParameter("delete");
 
         if (idToCreate != null && !idToCreate.isBlank()) {
-            FullDrinkView approvedDrink = adminManagementRecipeService.setApproved(Long.parseLong(idToCreate));
-            String emailContent = emailBuildStrategy.createContent(List.of(approvedDrink));
-
+            Drink approvedDrink = adminManagementRecipeService.setApproved(Long.parseLong(idToCreate));
+            String emailContent = userDrinkProposalEmailBuilder.createContent(List.of(approvedDrink));
+            emailSender.sendEmail(emailContent, approvedDrink.getConfirmUserEmail());
         }
 
         if (idToDelete != null && !idToDelete.isBlank()) {
+            String userEmail = drinkService.getDrinkById(Long.parseLong(idToDelete)).getConfirmUserEmail();
             adminManagementRecipeService.rejectDrinkProposal(Long.parseLong(idToDelete));
+
         }
 
         if (role != null && (role.equalsIgnoreCase("SUPER_ADMIN") || role.equalsIgnoreCase("ADMIN"))) {

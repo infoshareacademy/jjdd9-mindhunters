@@ -107,12 +107,12 @@ public class AdminManagementRecipeService {
         return false;
     }
 
-    public FullDrinkView setApproved(long drinkId) {
+    public Drink setApproved(long drinkId) {
         Drink drink = drinkRepository.findDrinkById(drinkId);
         drink.setApproved(true);
         drinkRepository.update(drinkId, drink);
 
-        return fullDrinkMapper.toView(drink);
+        return drink;
     }
 
 
