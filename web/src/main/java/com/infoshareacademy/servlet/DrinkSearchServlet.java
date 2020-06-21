@@ -43,6 +43,16 @@ public class DrinkSearchServlet extends HttpServlet {
         dataModel.put("name", contextHolder.getName());
         dataModel.put("role", contextHolder.getRole());
 
+        String adult = req.getParameter("adult");
+
+        if (adult != null) {
+            contextHolder.setADULT(adult);
+        }
+
+        if (contextHolder.getADULT() != null) {
+            dataModel.put("adult", contextHolder.getADULT());
+        }
+
         Template template = templateProvider.getTemplate(getServletContext(), "receipeSearchList.ftlh");
         try {
             template.process(dataModel, resp.getWriter());

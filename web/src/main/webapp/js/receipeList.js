@@ -1,5 +1,3 @@
-let adult = false;
-
 $(document).ready(function () {
     $('#ID03').on('click', '#ID04', function () {
 

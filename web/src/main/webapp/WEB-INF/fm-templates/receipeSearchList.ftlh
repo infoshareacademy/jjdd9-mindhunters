@@ -36,6 +36,8 @@
 <!--Navigation-->
 <#include "navigation.ftlh">
 
+<#include "modal.ftlh">
+
 <!--List-->
 <nav aria-label="LIST" style="cursor:pointer;">
 
@@ -71,16 +73,27 @@
                                             <img src="${drink.image}"
                                                  class=" thumbnail_list justify-content-center" alt="...">
                                         </div>
-                                        <div class="media-body line-clamp col-sm-8 ml-0 pl-1 mr-0 pr-0"
-                                             style="color: #ffc107">
+                                        <div class="media-body  line-clamp col-sm-8 ml-0 pl-1 mr-0 pr-0"
+
+                                                <#if drink.alcoholStatus == "Non alcoholic" || adult! == "true">
+                                             style="color: #ffc107" data-link="${"/single-view?drink=" + drink.id}">
+
+                                            <#else>
+                                                style="color: #ffc107"
+                                                data-link="${"/search?${queryName}"! ""}">
+                                            </#if>
+
                                             <div class="row col-sm d-flex mt-4 mt-md-0 ">
                                                 <h5 class="col-md-6 mx-2 my-2  font-weight-bold text-center text-md-left">
                                                     ${drink.drinkName}
                                                 </h5>
+
                                                 <h5 class="col-md-5 mx-2 my-2   text-center text-md-right" style="
-                                                                                    padding-right: 0px; margin-right: 0px;">
+                                                    padding-right: 0px;
+                                                    margin-right: 0px;">
                                                     ${drink.categoryView.name}
                                                 </h5>
+
                                             </div>
                                             <div class="line-clamp mx-2 my-2 mt-4 mr-4 d-none d-md-block">
                                                 ${drink.recipe}
@@ -121,6 +134,16 @@
 <!--CSS scripts-->
 <script type="text/javascript" src="../../js/homePage.js"></script>
 <script type="text/javascript" src="../../js/searchPage.js"></script>
+
+<#if !adult??>
+
+    <script>
+        $(document).ready(function () {
+            $('#myModal').modal('show');
+        });
+
+    </script>
+</#if>
 
 </body>
 </html>

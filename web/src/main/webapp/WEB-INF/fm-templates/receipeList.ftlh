@@ -18,9 +18,9 @@
 <!--Navigation-->
 <#include "navigation.ftlh">
 
-<!--List-->
 <#include "modal.ftlh">
 
+<!--List-->
 <nav aria-label="LIST" style="cursor: pointer;">
 
     <div class="container-fluid">
