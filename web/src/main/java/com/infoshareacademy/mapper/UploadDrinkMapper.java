@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RequestScoped
-public class DrinkMapper {
+public class UploadDrinkMapper {
 
     @Inject
-    CategoryMapper categoryMapper;
+    UploadCategoryMapper uploadCategoryMapper;
 
     @Inject
-    IngredientMapper ingredientMapper;
+    UploadIngredientMapper uploadIngredientMapper;
 
     public Drink toEntity(DrinkJson drinkJson, CategoryJson categoryJson) {
 
@@ -34,13 +34,13 @@ public class DrinkMapper {
         
         List<DrinkIngredient> drinkIngredients = new ArrayList<>();
         for (IngredientJson ingredientJson : drinkJson.getIngredients()) {
-            DrinkIngredient drinkIngredient = ingredientMapper.toEntity(ingredientJson, drink);
+            DrinkIngredient drinkIngredient = uploadIngredientMapper.toEntity(ingredientJson, drink);
             drinkIngredient.setDrinkId(drink);
             drinkIngredients.add(drinkIngredient);
         }
         drink.setDrinkIngredients(drinkIngredients);
         categoryJson.setCategoryName(drinkJson.getCategoryName());
-        Category category = categoryMapper.toEntity(categoryJson);
+        Category category = uploadCategoryMapper.toEntity(categoryJson);
         drink.setCategory(category);
 
         return drink;

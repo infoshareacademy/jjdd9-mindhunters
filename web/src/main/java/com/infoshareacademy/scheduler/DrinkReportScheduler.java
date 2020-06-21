@@ -33,7 +33,7 @@ public class DrinkReportScheduler {
     @EJB
     private EmailSender emailSender;
 
-    @EJB
+    @EJB(beanName = "admin")
     private EmailBuildStrategy emailBuildStrategy;
 
 

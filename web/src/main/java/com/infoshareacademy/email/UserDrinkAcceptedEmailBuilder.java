@@ -1,16 +1,19 @@
 package com.infoshareacademy.email;
 
+
+import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 
 import javax.ejb.Stateless;
 import java.util.List;
 
-@Stateless(name = "admin")
-public class AdminEmailBuilder implements EmailBuildStrategy {
+@Stateless(name = "user")
+public class UserDrinkAcceptedEmailBuilder implements EmailBuildStrategy{
 
 
     @Override
     public String createContent(List<FullDrinkView> drinks) {
+
 
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -29,13 +32,13 @@ public class AdminEmailBuilder implements EmailBuildStrategy {
                 "  </head>\n" +
                 "  <body>\n" +
                 "    <div id='body'>\n" +
-                "      <p>Dear Admin,</p>\n" +
-                "      <p>Drink recipes awaiting your approval:</p>\n<ul class='colored'>");
+                "      <p>Dear User of Mindhunters Virtual Bartender" + ",</p>\n" +
+                "      <p>Following proposals were accepted by our admins:</p><br><ul class='colored'>");
 
-        drinks.forEach(d -> stringBuilder.append("<li>").append(d.toString()).append("</li>"));
+        stringBuilder.append(drinks.get(0).getDrinkName()).append(", created: ").append(drinks.get(0).getDate());
 
         stringBuilder.append("</ul>" +
-                "      <p>Have fun,<br>" +
+                "      <p>All the beast,<br>" +
                 "Mindhunters Virtual Bartender<br>http://mindhunters.jjdd9.is-academy.pl/</p>\n" +
                 "    </div>\n" +
                 "  </body>\n" +

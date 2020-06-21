@@ -5,7 +5,7 @@ import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.DrinkJson;
 import com.infoshareacademy.jsonSupport.CategoryJson;
 import com.infoshareacademy.jsonSupport.JsonCategoryApiReader;
-import com.infoshareacademy.mapper.DrinkMapper;
+import com.infoshareacademy.mapper.UploadDrinkMapper;
 import com.infoshareacademy.service.DrinkService;
 import com.infoshareacademy.service.JsonService;
 import org.apache.http.client.fluent.Request;
@@ -30,7 +30,7 @@ public class UploadDbFromApiServlet extends HttpServlet {
     private static final Logger packageLogger = LoggerFactory.getLogger(UploadDbFromApiServlet.class.getName());
 
     @Inject
-    private DrinkMapper drinkMapper;
+    private UploadDrinkMapper uploadDrinkMapper;
 
     @Inject
     private JsonService jsonService;
@@ -65,7 +65,7 @@ public class UploadDbFromApiServlet extends HttpServlet {
 
         Drink drink = new Drink();
         for (DrinkJson drinkJson : drinkJsons) {
-            drink = drinkMapper.toEntity(drinkJson, categoryJson.get(1));
+            drink = uploadDrinkMapper.toEntity(drinkJson, categoryJson.get(1));
             drinkService.save(drink);
         }
         resp.sendRedirect("/admin/page");

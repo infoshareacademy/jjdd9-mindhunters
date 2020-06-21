@@ -2,6 +2,7 @@ package com.infoshareacademy.servlet;
 
 import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.dto.FullDrinkView;
+import com.infoshareacademy.email.EmailBuildStrategy;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.AdminManagementRecipeService;
 import com.infoshareacademy.service.DrinkService;
@@ -34,6 +35,9 @@ public class AdminManagementServlet extends HttpServlet {
 
     @EJB
     private AdminManagementRecipeService adminManagementRecipeService;
+
+    @EJB(beanName = "user")
+    private EmailBuildStrategy emailBuildStrategy;
 
     @Inject
     private TemplateProvider templateProvider;
@@ -98,7 +102,9 @@ public class AdminManagementServlet extends HttpServlet {
         String idToDelete = req.getParameter("delete");
 
         if (idToCreate != null && !idToCreate.isBlank()) {
-            adminManagementRecipeService.setApproved(Long.parseLong(idToCreate));
+            FullDrinkView approvedDrink = adminManagementRecipeService.setApproved(Long.parseLong(idToCreate));
+            String emailContent = emailBuildStrategy.createContent(List.of(approvedDrink));
+
         }
 
         if (idToDelete != null && !idToDelete.isBlank()) {

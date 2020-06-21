@@ -8,7 +8,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 
 @RequestScoped
-public class IngredientMapper {
+public class UploadIngredientMapper {
 
     @EJB
     private IngredientService ingredientService;
