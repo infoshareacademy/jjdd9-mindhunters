@@ -95,19 +95,14 @@ $(document).ready(function () {
         alert(jsonString);
 
                 $.ajax({
-            url: "/api/drink-management/4",
-            type: 'put',
-            headers: {
-                'x-auth-token': localStorage.accessToken,
-                "Content-Type": "application/json"
-            },
-            data: jsonn,
+            url: "/api/drink-management/1",
+            type: 'post',
+            data: jsonString,
             success: function () {
             },
             dataType: "json",
             contentType: "application/json"
         });
-        alert(jsonn);
 
     });
 });
@@ -222,7 +217,7 @@ $(document).ready(function () {
                 "skip":    null // skip is a special type that makes it easy to ignore elements
             },
 
-            useIntKeysAsArrayIndex: false // name="foo[2]" value="v" => {foo: [null, null, "v"]}, instead of {foo: ["2": "v"]}
+            useIntKeysAsArrayIndex: true // name="foo[2]" value="v" => {foo: [null, null, "v"]}, instead of {foo: ["2": "v"]}
         },
 
         // Merge option defaults into the options
