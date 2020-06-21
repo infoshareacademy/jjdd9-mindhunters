@@ -3,14 +3,12 @@ package com.infoshareacademy.servlet;
 import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.dto.FullDrinkView;
-import com.infoshareacademy.email.EmailBuildStrategy;
 import com.infoshareacademy.email.EmailSender;
 import com.infoshareacademy.email.UserDrinkProposalEmailBuilder;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.AdminManagementRecipeService;
 import com.infoshareacademy.service.DrinkService;
 import com.infoshareacademy.service.mapper.FullDrinkMapper;
-import com.infoshareacademy.service.validator.UserInputValidator;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -110,13 +108,15 @@ public class AdminManagementServlet extends HttpServlet {
 
         if (idToCreate != null && !idToCreate.isBlank()) {
             Drink approvedDrink = adminManagementRecipeService.setApproved(Long.parseLong(idToCreate));
-            String emailContent = userDrinkProposalEmailBuilder.createContent(List.of(approvedDrink));
+            String emailContent = userDrinkProposalEmailBuilder.createContent(approvedDrink, "accepted");
             emailSender.sendEmail(emailContent, approvedDrink.getConfirmUserEmail());
         }
 
         if (idToDelete != null && !idToDelete.isBlank()) {
-            String userEmail = drinkService.getDrinkById(Long.parseLong(idToDelete)).getConfirmUserEmail();
-            adminManagementRecipeService.rejectDrinkProposal(Long.parseLong(idToDelete));
+            Drink deletedDrink = adminManagementRecipeService.rejectDrinkProposal(Long.parseLong(idToDelete));
+            String userEmail = deletedDrink.getConfirmUserEmail();
+            String emailContent = userDrinkProposalEmailBuilder.createContent(deletedDrink, "deleted");
+            emailSender.sendEmail(emailContent, userEmail);
 
         }
 

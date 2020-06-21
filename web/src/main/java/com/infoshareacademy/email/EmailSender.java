@@ -32,7 +32,7 @@ public class EmailSender {
         try {
             message.setFrom(new InternetAddress(user));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destination));
-            message.setSubject("Recipes approval notification");
+            message.setSubject("Recipes proposal notification");
             message.setContent(htmlMessage, "text/html; charset=utf-8");
 
             Transport.send(message);

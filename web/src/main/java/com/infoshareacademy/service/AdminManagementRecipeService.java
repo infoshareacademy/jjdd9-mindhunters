@@ -116,7 +116,9 @@ public class AdminManagementRecipeService {
     }
 
 
-    public void rejectDrinkProposal(long drinkId) {
+    public Drink rejectDrinkProposal(long drinkId) {
+        Drink drink = drinkRepository.findDrinkById(drinkId);
         drinkRepository.delete(drinkId);
+        return drink;
     }
 }
