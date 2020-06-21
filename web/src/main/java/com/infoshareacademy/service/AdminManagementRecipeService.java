@@ -145,4 +145,14 @@ public class AdminManagementRecipeService {
         drinkRepository.delete(drinkId);
         return drink;
     }
+
+    public Drink setApprovedExistingDrink(long drinkId) {
+        Drink drink = drinkRepository.findDrinkById(drinkId);
+        drink.setApproved(true);
+        drink.setId(drink.getParentId());
+        drinkRepository.update(drink.getId(), drink);
+        drinkRepository.delete(drinkId);
+
+        return drink;
+    }
 }
