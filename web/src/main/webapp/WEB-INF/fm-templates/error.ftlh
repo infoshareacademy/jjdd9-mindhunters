@@ -19,7 +19,7 @@
 
 
 <div class="container-fluid" style="color:red; background-color: #1b1e21; text-align: center">
-    <label><h2> Something went terribly wrong. Our team is working hard to restore application server. Code 500.
+    <label><h2> Something went terribly wrong. Our team is working hard to restore application server.
         </h2></label>
 </div>
 
@@ -33,7 +33,6 @@
                         <div class="masthead-subheading  text-warning glow " id="welcomeDiv"
                              style=font-size:30px;text-align:center>
                             Something went terribly wrong. Our team is working hard to restore application server.
-                            Code 500.
                         </div>
                     </div>
                 </header>

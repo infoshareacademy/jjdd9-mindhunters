@@ -548,11 +548,6 @@
         </outbound-socket-binding>
     </socket-binding-group>
     <deployments>
-        <deployment name="loggers.war" runtime-name="loggers.war">
-            <content sha1="c230d1603994b7aee8953379cda1dea654331e86"/>
-        </deployment>
-        <deployment name="web-1.0-SNAPSHOT" runtime-name="web-1.0-SNAPSHOT.war">
-            <fs-exploded path="/home/spyrka/IdeaProjects/jjdd9-mindhunters/web/target/web-1.0-SNAPSHOT"/>
-        </deployment>
+
     </deployments>
 </server>
