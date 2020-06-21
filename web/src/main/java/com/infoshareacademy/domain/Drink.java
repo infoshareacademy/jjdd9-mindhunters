@@ -75,7 +75,15 @@ import java.util.Objects;
 
         @NamedQuery(
                 name = "Drink.deleteIngredientsByDrink",
-                query = "DELETE FROM DrinkIngredient di where di.drinkId.id = :drinkId ")
+                query = "DELETE FROM DrinkIngredient di where di.drinkId.id = :drinkId "),
+
+        @NamedQuery(
+                name = "Drink.getEditedDrinksToApprove",
+                query = "SELECT d FROM Drink d where d.isApproved = false AND d.manageAction LIKE :action"),
+
+        @NamedQuery(
+                name = "Drink.getDeletedDrinksToApprove",
+                query = "SELECT d FROM Drink d where d.isApproved = false AND d.manageAction LIKE :action")
 
 })
 

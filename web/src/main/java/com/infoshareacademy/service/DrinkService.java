@@ -2,7 +2,6 @@ package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.Ingredient;
-import com.infoshareacademy.domain.User;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.domain.dto.IngredientView;
 import com.infoshareacademy.repository.DrinkRepository;
@@ -279,19 +278,29 @@ public class DrinkService {
 
     public boolean deleteDrinkById(Long id) {
 
-        return  adminManagementRecipeService.deleteDrinkById(id);
+        return adminManagementRecipeService.deleteDrinkById(id);
     }
 
     public boolean addOrUpdate(Long id, Drink updatedDrink) {
         return adminManagementRecipeService.updateDrink(id, updatedDrink);
     }
 
-    public List<FullDrinkView> findDrinksToApprove() {
+    public List<FullDrinkView> findNewDrinksToApprove() {
 
-        List<Drink> drinks = drinkRepository.findDrinksToApprove();
+        List<Drink> drinks = drinkRepository.findNewDrinksToApprove();
         return fullDrinkMapper.toView(drinks);
     }
 
+    public List<FullDrinkView> findEditedDrinksToApprove() {
 
+        List<Drink> drinks = drinkRepository.findEditedDrinksToApprove();
+        return fullDrinkMapper.toView(drinks);
+    }
+
+    public List<FullDrinkView> findDeletedDrinksToApprove() {
+
+        List<Drink> drinks = drinkRepository.findDeletedDrinksToApprove();
+        return fullDrinkMapper.toView(drinks);
+    }
 
 }

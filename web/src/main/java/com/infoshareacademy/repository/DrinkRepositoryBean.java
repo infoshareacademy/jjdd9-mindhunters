@@ -213,7 +213,7 @@ public class DrinkRepositoryBean implements DrinkRepository {
     }
 
     @Override
-    public List<Drink> findDrinksToApprove() {
+    public List<Drink> findNewDrinksToApprove() {
         Query query = entityManager.createNamedQuery("Drink.getNewDrinksToApprove");
         query.setParameter("actions", List.of("edit", "delete"));
         return query.getResultList();
@@ -225,5 +225,22 @@ public class DrinkRepositoryBean implements DrinkRepository {
         query.setParameter("drinkId", drinkId).executeUpdate();
 
     }
+
+    @Override
+    public List<Drink> findEditedDrinksToApprove() {
+        Query query = entityManager.createNamedQuery("Drink.getEditedDrinksToApprove");
+        query.setParameter("action", "edit");
+        return query.getResultList();
+    }
+
+
+    @Override
+    public List<Drink> findDeletedDrinksToApprove() {
+        Query query = entityManager.createNamedQuery("Drink.getDeletedDrinksToApprove");
+        query.setParameter("action", "delete");
+        return query.getResultList();
+    }
+
+
 
 }
