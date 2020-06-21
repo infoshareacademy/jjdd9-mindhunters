@@ -3,7 +3,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Age verification</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -12,7 +12,7 @@
                 Are You more then 18 years old? If not you will not be allowed to see details of alcoholic
                 beverages.
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer txt-center">
 
                 <form action="/list" method="GET">
                     <input type="hidden" value="true"
@@ -21,11 +21,10 @@
                            name="page"/>
 
                     <input type="checkbox" name="age18" value="true">
-                    <label for="age18">Keep my choice 24h</label>
+                    <label for="age18">Keep my choice 24h </label>
 
-                    <button class="btn btn-primary" type="submit">Yes</button>
+                    <button class="btn btn-secondary" type="submit">Yes</button>
                 </form>
-
 
                 <form action="/list" method="GET">
 
@@ -36,11 +35,10 @@
                            name="page"/>
 
                     <input type="checkbox" name="age18" value="false">
-                    <label for="age18">Keep my choice 24h</label>
+                    <label for="age18">Keep my choice 24h </label>
 
                     <button class="btn btn-secondary" type="submit">No</button>
                 </form>
-
             </div>
         </div>
     </div>
