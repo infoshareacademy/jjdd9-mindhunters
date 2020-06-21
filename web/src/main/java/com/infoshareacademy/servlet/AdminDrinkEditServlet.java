@@ -76,6 +76,7 @@ public class AdminDrinkEditServlet extends HttpServlet {
         }
 
         dataModel.put("typeOfAction", "edited");
+        dataModel.put("url", "edit");
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeToApproveList.ftlh");
 
@@ -133,6 +134,8 @@ public class AdminDrinkEditServlet extends HttpServlet {
 
         }
 
+        dataModel.put("typeOfAction", "edited");
+        dataModel.put("url", "edit");
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeToApproveList.ftlh");
 

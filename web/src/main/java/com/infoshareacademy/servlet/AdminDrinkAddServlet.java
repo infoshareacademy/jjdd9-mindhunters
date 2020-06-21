@@ -79,6 +79,7 @@ public class AdminDrinkAddServlet extends HttpServlet {
         }
 
         dataModel.put("typeOfAction", "created");
+        dataModel.put("url", "add");
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeToApproveList.ftlh");
 
@@ -135,7 +136,8 @@ public class AdminDrinkAddServlet extends HttpServlet {
             }
 
         }
-
+        dataModel.put("typeOfAction", "created");
+        dataModel.put("url", "add");
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeToApproveList.ftlh");
 

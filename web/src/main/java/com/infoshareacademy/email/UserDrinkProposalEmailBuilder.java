@@ -40,7 +40,7 @@ public class UserDrinkProposalEmailBuilder{
         stringBuilder.append(drink.getDrinkName().toUpperCase()).append(", created: ").append(drink.getDate().format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm")));
 
         stringBuilder.append("</ul>" +
-                "      <p>All the beast,<br>" +
+                "      <p>All the best,<br>" +
                 "Mindhunters Virtual Bartender<br>http://mindhunters.jjdd9.is-academy.pl/</p>\n" +
                 "    </div>\n" +
                 "  </body>\n" +

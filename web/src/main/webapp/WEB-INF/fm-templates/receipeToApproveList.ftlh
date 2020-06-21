@@ -93,7 +93,7 @@
                             </div>
 
 
-                            <form method="post" action="/admin/to-approve-list/add">
+                            <form method="post" action="/admin/to-approve-list/${url}">
                                 <div class="list-group  list-element">
                                     <div class="list-group-item sidebar-list">
                                         <input type="hidden" name="create" value="${drink.id}"/>
@@ -102,7 +102,7 @@
                                 </div>
                             </form>
 
-                            <form method="post" action="/admin/to-approve-list/add">
+                            <form method="post" action="/admin/to-approve-list/${url}">
                                 <div class="list-group  list-element">
                                     <div class="list-group-item sidebar-list">
                                         <input type="hidden" name="delete" value="${drink.id}"/>

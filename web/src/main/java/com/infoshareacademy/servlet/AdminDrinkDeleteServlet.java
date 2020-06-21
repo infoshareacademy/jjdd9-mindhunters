@@ -77,6 +77,7 @@ public class AdminDrinkDeleteServlet extends HttpServlet {
         }
 
         dataModel.put("typeOfAction", "deleted");
+        dataModel.put("url", "delete");
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeToApproveList.ftlh");
 
@@ -121,7 +122,7 @@ public class AdminDrinkDeleteServlet extends HttpServlet {
 
         if (role != null && (role.equalsIgnoreCase("SUPER_ADMIN") || role.equalsIgnoreCase("ADMIN"))) {
 
-            List<FullDrinkView> toApproveList = drinkService.findNewDrinksToApprove();
+            List<FullDrinkView> toApproveList = drinkService.findDeletedDrinksToApprove();
 
             if (!toApproveList.isEmpty()) {
                 List<Object> toApproveListModel = toApproveList.stream()
@@ -133,6 +134,9 @@ public class AdminDrinkDeleteServlet extends HttpServlet {
             }
 
         }
+
+        dataModel.put("typeOfAction", "deleted");
+        dataModel.put("url", "delete");
 
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeToApproveList.ftlh");
