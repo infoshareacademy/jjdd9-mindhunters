@@ -14,7 +14,7 @@
 
 <!--Navigation-->
 
-<form class="was-validated"  >
+<form class="was-validated" id="form_data" >
 
 
     <div class="container-fluid form-elements " style="width: 800px">
@@ -29,35 +29,6 @@
 
         </div>
 
-        <div class="row justify-content-between" style="margin: 0px">
-
-<#--            <div class="form-group md-3 col-5 ">-->
-<#--                <select name="status" class="custom-select" required="">-->
-<#--                    <option value="test1">test1</option>-->
-<#--                    <option value="Alcoholic">Alcoholic</option>-->
-<#--                    <option value="Non-alcoholic">Non-alcoholic</option>-->
-<#--                    <option value="Optional">Optional</option>-->
-<#--                </select>-->
-<#--                <div class="invalid-feedback alert alert-danger">Select alcohol status</div>-->
-<#--            </div>-->
-
-<#--            <div class="form-group md-3 col-5 ">-->
-<#--                <select name="category" class="custom-select" required="">-->
-<#--                    <option value="Coffee / Tea">Coffee / Tea</option>-->
-<#--                    <option value="Cocktail">Cocktail</option>-->
-<#--                    <option value="Shot">Shot</option>-->
-<#--                    <option value="Ordinary Drink">Ordinary Drink</option>-->
-<#--                    <option value="Other/Unknown">Other/Unknown</option>-->
-<#--                    <option value="Coffee / Tea">Coffee / Tea</option>-->
-<#--                    <option value="Beer">Beer</option>-->
-<#--                    <option value="Punch / Party Drink">Punch / Party Drink</option>-->
-<#--                </select>-->
-<#--                <div class="invalid-feedback alert alert-danger">Select category</div>-->
-<#--            </div>-->
-
-        </div>
-
-
         <div class="form-group col-12">
             <label for="exampleFormControlTextarea1">Input recipe:</label>
             <textarea name="recipe" class="form-control" id="exampleFormControlTextarea1" rows="5" required="" minlength="3">Layered in a shot glass.</textarea>
@@ -65,7 +36,7 @@
         </div>
 
         <div class=" my-3 col-5 justify-content-between">
-            <button type="button" class="btn btn-primary" name="save" value="save" id="submit">
+            <button type="button" class="btn btn-primary" name="save" value="save" id="submit_but">
                 Save drink
             </button>
         </div>
@@ -82,6 +53,7 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/js/serializejson.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
