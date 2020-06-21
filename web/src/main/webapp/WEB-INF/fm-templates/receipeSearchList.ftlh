@@ -87,13 +87,10 @@
                                                 <h5 class="col-md-6 mx-2 my-2  font-weight-bold text-center text-md-left">
                                                     ${drink.drinkName}
                                                 </h5>
-
                                                 <h5 class="col-md-5 mx-2 my-2   text-center text-md-right" style="
-                                                    padding-right: 0px;
-                                                    margin-right: 0px;">
+                                                                                    padding-right: 0px; margin-right: 0px;">
                                                     ${drink.categoryView.name}
                                                 </h5>
-
                                             </div>
                                             <div class="line-clamp mx-2 my-2 mt-4 mr-4 d-none d-md-block">
                                                 ${drink.recipe}
