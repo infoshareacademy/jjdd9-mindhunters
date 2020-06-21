@@ -9,19 +9,31 @@ $(document).ready(function () {
             let params = new URLSearchParams(url.search.slice(1));
             let drinkId = parseInt(params.get('id'));
 
+            if (isNaN(drinkId) || drinkId == 0){
+                drinkId = "";
+            }
+
             var obj = $('#form_data').serializeJSON();
 
             var jsonString = JSON.stringify(obj);
-            console.log(jsonString);
+            // console.log(jsonString);
 
-//            alert(jsonString);
+           // alert(jsonString);
 
             $.ajax({
                 url: "/api/drink-management/" + drinkId,
                 type: 'post',
                 data: jsonString,
                 success: function () {
-                    let newURL = url.origin + '/single-view?drink=' + drinkId;
+                    let newURL = "" ;
+                    if (drinkId == ""){
+
+                        newURL =  url.origin + '/list?page=1';
+
+                    } else {
+
+                        newURL =  url.origin +'/single-view?drink=' + drinkId;
+                    }
                     location.replace(newURL);
 
                 },

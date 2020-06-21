@@ -1,8 +1,8 @@
 package com.infoshareacademy.service;
 
+import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.Ingredient;
-import com.infoshareacademy.domain.User;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.domain.dto.IngredientView;
 import com.infoshareacademy.repository.DrinkRepository;
@@ -282,8 +282,8 @@ public class DrinkService {
         return  adminManagementRecipeService.deleteDrinkById(id);
     }
 
-    public boolean addOrUpdate(Long id, Drink updatedDrink) {
-        return adminManagementRecipeService.updateDrink(id, updatedDrink);
+    public boolean addOrUpdate(Long id, Drink updatedDrink, ContextHolder contextHolder) {
+        return adminManagementRecipeService.addOrUpdateDrink(id, updatedDrink, contextHolder);
     }
 
     public List<FullDrinkView> findDrinksToApprove() {

@@ -1,7 +1,10 @@
 package com.infoshareacademy.service;
 
+import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.*;
 import com.infoshareacademy.domain.dto.FullDrinkView;
+import com.infoshareacademy.exception.JsonNotFound;
+import com.infoshareacademy.imageFileUpload.ImageUploadProcessor;
 import com.infoshareacademy.repository.DrinkRepository;
 import com.infoshareacademy.repository.StatisticsRepositoryBean;
 import com.infoshareacademy.service.mapper.FullDrinkMapper;
@@ -11,11 +14,15 @@ import org.slf4j.LoggerFactory;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 import javax.transaction.Transactional;
+import javax.ws.rs.core.Context;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -43,9 +50,10 @@ public class AdminManagementRecipeService {
     CategoryService categoryService;
 
 
+
+
     @Transactional
     public boolean deleteDrinkById(Long id) {
-
         Drink drink = drinkRepository.findDrinkById(id);
 
         List<User> users = drink.getUsers();
@@ -58,15 +66,16 @@ public class AdminManagementRecipeService {
     }
 
     @Transactional
-    public boolean updateDrink(Long id,Drink newDrink) {
+    public boolean addOrUpdateDrink(Long id, Drink newDrink, ContextHolder contextHolder) {
         Drink drink = drinkRepository.findDrinkById(id);
+
 
         if (drink == null){
             drink = new Drink();
         }
 
         if (newDrink != null) {
-
+            drink.setConfirmUserEmail(newDrink.getConfirmUserEmail());
             drink.setDrinkName(newDrink.getDrinkName());
             drink.setAlcoholStatus(newDrink.getAlcoholStatus());
             drink.setImage(newDrink.getImage());
@@ -76,19 +85,19 @@ public class AdminManagementRecipeService {
 
 
             List<String> measures = newDrink.getDrinkIngredients().stream()
+                    .filter(Objects::nonNull)
                     .map(drinkIngredient -> drinkIngredient.getMeasure())
                     .map(measure -> measure.getQuantity())
                     .collect(Collectors.toList());
 
             List<String> ingredients = newDrink.getDrinkIngredients().stream()
+                    .filter(Objects::nonNull)
                     .map(drinkIngredient -> drinkIngredient.getIngredient())
                     .map(ingredient -> ingredient.getName())
                     .collect(Collectors.toList());
 
             List<Measure> measureList = new ArrayList<>();
             List<Ingredient> ingredientList = new ArrayList<>();
-
-            String measure1 = measures.get(0);
 
             for (String measure : measures) {
                 measureList.add(measureService.getOrCreate(measure));
@@ -113,6 +122,7 @@ public class AdminManagementRecipeService {
 
 
             LocalDateTime formatDateTime = LocalDateTime.now();
+
 
             drink.setDate(formatDateTime);
 

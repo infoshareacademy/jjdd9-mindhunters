@@ -160,9 +160,14 @@
 
             <div class="custom-file col-6 justify-content-between"
                  style="padding-left: 15px; padding-right: 15px; margin: 0px">
-                <input type="file" name="image" style="margin: auto"/>
+                <input type="file" name="image" style="margin: auto" />
             </div>
 
+            <#if ((drink)?has_content)>
+
+            <input hidden name="image" style="margin: auto" value="${(drink.image)!}"/>
+
+            </#if>
             <#--BUTTON-->
 
             <div class=" my-3 col-5 justify-content-between">

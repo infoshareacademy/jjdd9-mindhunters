@@ -1,12 +1,17 @@
 package com.infoshareacademy.controller;
 
 
+import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.repository.DrinkRepository;
 import com.infoshareacademy.service.DrinkService;
+import org.hibernate.Session;
 
 import javax.ejb.EJB;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -18,6 +23,9 @@ public class DrinkController {
 
     @EJB
     private DrinkRepository drinkRepository;
+
+    @Context
+    private HttpServletRequest request;
 
 
     @GET
@@ -49,13 +57,17 @@ public class DrinkController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response update(@PathParam("id") Long id, Drink updateDrink) {
+        ContextHolder contextHolder = new ContextHolder(request.getSession());
+        String email = contextHolder.getEmail();
 
-        if (drinkService.addOrUpdate(id, updateDrink)) {
+        updateDrink.setConfirmUserEmail(email);
+        if (email != null && drinkService.addOrUpdate(id, updateDrink, contextHolder)) {
             return Response.status(204).build();
         } else {
             return Response.status(404).build();
         }
     }
+
 
     @POST
     @Path("")
@@ -63,8 +75,12 @@ public class DrinkController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response add(Drink updateDrink) {
 
+        ContextHolder contextHolder = new ContextHolder(request.getSession());
+        String email = contextHolder.getEmail();
 
-        if (drinkService.addOrUpdate(0L, updateDrink)) {
+        updateDrink.setConfirmUserEmail(email);
+
+        if (email != null && drinkService.addOrUpdate(0L, updateDrink,contextHolder)) {
             return Response.status(204).build();
         } else {
             return Response.status(404).build();
