@@ -82,12 +82,14 @@
 
 
         <div class=" add-group  justify-content-between">
+            <div class=" sidebar-list">
 
-            <div class="list-group-item sidebar-list">
+                <p hidden id="initialIngredientsCount">${drink.drinkIngredientViews?size}</p>
 
                 <#list drink.drinkIngredientViews>
                     <#items as drinkIngredientView>
                         <div class="row justify-content-between " id="ingrMeasure" style="margin: 0px">
+
 
                             <div class=" md-3 col-5 ">
                                 <input type="text" required maxlength="20" minlength="2" name="drinkIngredients[${(drinkIngredientView?counter)-1}][ingredient[name]]" value="${drinkIngredientView.name}"
@@ -95,13 +97,13 @@
                                 <div class="invalid-feedback alert alert-danger">Input ingredient</div>
                             </div>
 
-                            <div class=" md-3 col-5">
+                            <div class=" md-3 col-5 ">
                                 <input type="text" required maxlength="20" minlength="2" name="drinkIngredients[${(drinkIngredientView?counter)-1}][measure[quantity]]" value="${drinkIngredientView.measure}"
                                        placeholder="Measure..."   class="form-control "/>
                                 <div class="invalid-feedback alert alert-danger">Input measure</div>
                             </div>
 
-                            <a href="javascript:void(0);" class="add_button " id="remove_blue" title="Add field">
+                            <a href="javascript:void(0);" class="add_button col-1 " id="remove_blue" title="Add field">
                                 <svg class="bi bi-plus-square-fill" id="remove_blue" width="1em" height="1em"
                                      viewBox="0 0 16 16"
                                      fill="currentColor" xmlns="http://www.w3.org/2000/svg">
