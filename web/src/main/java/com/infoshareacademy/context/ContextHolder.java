@@ -11,6 +11,9 @@ public class ContextHolder {
     private static final String EMAIL = "email";
     private static final String ID = "id";
 
+//test
+    private static String ADULT = "adult";
+
     private final HttpSession httpSession;
 
 
@@ -21,6 +24,14 @@ public class ContextHolder {
     public ContextHolder(HttpSession httpSession, UserView userView) {
         this.httpSession = httpSession;
         setContext(userView);
+    }
+
+    public String getADULT() {
+        return (String) httpSession.getAttribute(ADULT);
+    }
+
+    public void setADULT(String ADULT) {
+        httpSession.setAttribute(ContextHolder.ADULT, ADULT);;
     }
 
     public String getName() {
@@ -50,5 +61,6 @@ public class ContextHolder {
         httpSession.removeAttribute(NAME);
         httpSession.removeAttribute(ROLE);
         httpSession.removeAttribute(ID);
+        httpSession.removeAttribute(ADULT);
     }
 }

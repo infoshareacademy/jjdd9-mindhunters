@@ -69,6 +69,18 @@ public class DrinkListServlet extends HttpServlet {
         ContextHolder contextHolder = new ContextHolder(req.getSession());
         dataModel.put("name", contextHolder.getName());
         dataModel.put("role", contextHolder.getRole());
+//tests
+
+        String adult = req.getParameter("adult");
+
+        if (adult != null) {
+            contextHolder.setADULT(adult);
+        }
+
+        if (contextHolder.getADULT() != null) {
+            dataModel.put("adult", contextHolder.getADULT());
+        }
+
 
         String email = contextHolder.getEmail();
 
@@ -83,14 +95,14 @@ public class DrinkListServlet extends HttpServlet {
 
         String queryName = searchType.getQueryName();
 
-        if (email != null && !email.isEmpty()){
+        if (email != null && !email.isEmpty()) {
 
             List<FullDrinkView> favouritesList = userService.favouritesList(email);
 
-            if (!favouritesList.isEmpty()){
-                List<Object>favouritesListModel = favouritesList.stream()
+            if (!favouritesList.isEmpty()) {
+                List<Object> favouritesListModel = favouritesList.stream()
                         .map(FullDrinkView::getId)
-                        .map(aLong ->  Integer.parseInt(aLong.toString()))
+                        .map(aLong -> Integer.parseInt(aLong.toString()))
                         .collect(Collectors.toList());
 
                 dataModel.put("favourites", favouritesListModel);
@@ -100,13 +112,12 @@ public class DrinkListServlet extends HttpServlet {
 
         String servletPath = req.getServletPath();
 
-        dataModel.put("servletPath",servletPath);
+        dataModel.put("servletPath", servletPath);
         dataModel.put("categories", categories);
         dataModel.put("maxPageSize", maxPage);
         dataModel.put("queryName", queryName);
         dataModel.put("drinkList", drinkViewList);
         dataModel.put("currentPage", currentPage);
-
 
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeList.ftlh");

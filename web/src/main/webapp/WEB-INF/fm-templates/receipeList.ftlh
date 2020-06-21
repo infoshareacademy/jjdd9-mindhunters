@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -24,29 +23,7 @@
 <!-- Trigger the modal with a button -->
 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Are You more then 18 years old?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="yes18" >Yes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
+<#include "modal.ftlh">
 
 <nav aria-label="LIST" style="cursor: pointer;">
 
@@ -63,25 +40,27 @@
             <!--LIST-->
 
             <div class="col-12 col-md-8 col-lg-8 col-xl-8">
-                <ul class="list-unstyled  justify-content-center  ml-auto space_list  " id="ID03" >
+                <ul class="list-unstyled  justify-content-center  ml-auto space_list  " id="ID03">
                     <#list drinkList as drink>
 
                         <li class="media ">
                             <div class="container ml-0 pl-0 mr-0 pr-0 ">
-                                <div class="row list-element" >
-                                    <div class="col-md-auto d-flex justify-content-center " style="min-width: 205px" >
+                                <div class="row list-element">
+                                    <div class="col-md-auto d-flex justify-content-center " style="min-width: 205px">
                                         <div class="relative" id="ID04">
                                             <img src="${drink.image}"
                                                  class=" thumbnail_list justify-content-center" alt="...">
                                             <#if name??>
-                                            <i class="icon-lock-star icons <#if favourites!?seq_contains(drink.id)>color_toggle_on </#if> "   title="Add/delete from favourites" >
-                                                <svg id="star-fill" class="bi bi-star-fill  " width="1em" height="1em"
-                                                     viewBox="0 0 16 16"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                                </svg>
-                                            </i>
-                                            <p hidden>${drink.id}</p>
+                                                <i class="icon-lock-star icons <#if favourites!?seq_contains(drink.id)>color_toggle_on </#if> "
+                                                   title="Add/delete from favourites">
+                                                    <svg id="star-fill" class="bi bi-star-fill  " width="1em"
+                                                         height="1em"
+                                                         viewBox="0 0 16 16"
+                                                         xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                                    </svg>
+                                                </i>
+                                                <p hidden>${drink.id}</p>
                                             </#if>
                                         </div>
 
@@ -89,8 +68,17 @@
 
                                     <div class="media-body  line-clamp col-sm-8 ml-0 pl-1 mr-0 pr-0"
 
-<#--                                         style="color: #ffc107" data-link="${"/single-view?drink=" + drink.id}">-->
-                                         style="color: #ffc107" data-toggle="modal" data-target="#myModal">
+                                            <#if drink.alcoholStatus == "Non alcoholic" || adult! == "true">
+
+
+                                         style="color: #ffc107" data-link="${"/single-view?drink=" + drink.id}">
+
+                                        <#else>
+
+                                            style="color: #ffc107" data-link="${"/list"}">
+
+                                        </#if>
+
 
                                         <div class="row col-sm d-flex mt-4 mt-md-0 ">
                                             <h5 class="col-md-6 mx-2 my-2  font-weight-bold text-center text-md-left">
@@ -119,7 +107,10 @@
                                     </div>
                                 </div>
                             </div>
+
                         </li>
+
+
                     </#list>
 
                     <#if !(drinkList?has_content) >
@@ -146,6 +137,9 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
@@ -155,16 +149,23 @@
 
 <!-- Bootstrap core JS-->
 
-<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>-->
-<!--&lt;!&ndash; Third party plugin JS&ndash;&gt;-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-<#--<script src="../../js/BootstrapValidation.js"></script>-->
-<!--&lt;!&ndash;&lt;!&ndash; Core theme JS&ndash;&gt;&ndash;&gt;-->
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
 -->
 <script src="../../js/receipeList.js"></script>
 <#--
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 -->
+
+
+<#if !adult??>
+
+    <script>
+        $(document).ready(function () {
+            $('#myModal').modal('show');
+        });
+
+    </script>
+</#if>
+
 </body>
 </html>
