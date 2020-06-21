@@ -12,9 +12,8 @@ import javax.ejb.EJB;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.io.IOException;
+import java.util.*;
 
 @Singleton
 @Startup
@@ -25,6 +24,7 @@ public class DrinkReportScheduler {
     private Long scheduleCounter = 0L;
     private List<FullDrinkView> drinks1st = new ArrayList<>();
     private List<FullDrinkView> drinks3rd = new ArrayList<>();
+    private final String dest = getEmailProperties("dest");
 
 
     @EJB
@@ -48,7 +48,7 @@ public class DrinkReportScheduler {
 
             if (recipeAwaiting3scheduleCalls()) {
 
-                emailSender.sendEmail(emailBuildStrategy.createContent(drinks1st));
+                emailSender.sendEmail(emailBuildStrategy.createContent(drinks1st), dest);
                 LOGGER.info("CheckRecipesForApproval - email send");
                 scheduleCounter = 0L;
                 drinks3rd = Collections.emptyList();
@@ -75,5 +75,16 @@ public class DrinkReportScheduler {
         });
     }
 
+    private String getEmailProperties(String key) {
+        Properties properties = new Properties();
+        try {
+            properties.load(Objects.requireNonNull(Thread.currentThread()
+                    .getContextClassLoader().getResource("email.properties"))
+                    .openStream());
+        } catch (IOException e) {
+            LOGGER.error("Error during loading email properties, {}", e.getMessage());
+        }
+        return properties.getProperty(key);
+    }
 
 }

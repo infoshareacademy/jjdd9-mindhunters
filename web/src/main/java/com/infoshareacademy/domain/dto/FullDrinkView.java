@@ -27,6 +27,24 @@ public class FullDrinkView {
 
     private boolean isApproved;
 
+    private String confirmUserEmail;
+
+    public boolean isApproved() {
+        return isApproved;
+    }
+
+    public void setApproved(boolean approved) {
+        isApproved = approved;
+    }
+
+    public String getConfirmUserEmail() {
+        return confirmUserEmail;
+    }
+
+    public void setConfirmUserEmail(String confirmUserEmail) {
+        this.confirmUserEmail = confirmUserEmail;
+    }
+
     public Long getId() {
         return id;
     }

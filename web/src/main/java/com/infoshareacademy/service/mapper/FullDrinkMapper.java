@@ -5,6 +5,7 @@ import com.infoshareacademy.domain.dto.FullDrinkView;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class FullDrinkMapper {
     @Inject
     private CategoryMapper categoryMapper;
 
+    @Transactional
     public FullDrinkView toView(Drink drink) {
         FullDrinkView fullDrinkView = new FullDrinkView();
         fullDrinkView.setId(drink.getId());

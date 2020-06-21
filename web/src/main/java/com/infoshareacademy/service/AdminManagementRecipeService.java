@@ -1,13 +1,16 @@
 package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.*;
+import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.repository.DrinkRepository;
 import com.infoshareacademy.repository.StatisticsRepositoryBean;
+import com.infoshareacademy.service.mapper.FullDrinkMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -25,13 +28,16 @@ public class AdminManagementRecipeService {
     private DrinkRepository drinkRepository;
 
     @EJB
-    StatisticsRepositoryBean statisticsRepositoryBean;
+    private StatisticsRepositoryBean statisticsRepositoryBean;
 
     @EJB
-    MeasureService measureService;
+    private MeasureService measureService;
 
     @EJB
-    IngredientService ingredientService;
+    private IngredientService ingredientService;
+
+    @Inject
+    private FullDrinkMapper fullDrinkMapper;
 
     @EJB
     CategoryService categoryService;
@@ -119,5 +125,20 @@ public class AdminManagementRecipeService {
             return true;
         }
         return false;
+    }
+
+    public Drink setApproved(long drinkId) {
+        Drink drink = drinkRepository.findDrinkById(drinkId);
+        drink.setApproved(true);
+        drinkRepository.update(drinkId, drink);
+
+        return drink;
+    }
+
+
+    public Drink rejectDrinkProposal(long drinkId) {
+        Drink drink = drinkRepository.findDrinkById(drinkId);
+        drinkRepository.delete(drinkId);
+        return drink;
     }
 }

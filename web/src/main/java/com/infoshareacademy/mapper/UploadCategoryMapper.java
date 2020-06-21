@@ -8,7 +8,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 @Stateless
-public class CategoryMapper {
+public class UploadCategoryMapper {
 
     @EJB
     private CategoryService categoryService;
