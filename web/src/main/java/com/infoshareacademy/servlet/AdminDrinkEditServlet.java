@@ -75,6 +75,7 @@ public class AdminDrinkEditServlet extends HttpServlet {
 
         }
 
+        dataModel.put("drinkList", "edited");
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeToApproveList.ftlh");
 

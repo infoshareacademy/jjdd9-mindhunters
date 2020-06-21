@@ -29,6 +29,7 @@
                 <ul class="list-unstyled  justify-content-center  ml-auto space_list  " id="ID03" >
 
 
+            <label style="color: #FFC107; size: 15px">List of ${typeOfAction!} drinks for approval: <br></label>
 
 
                     <#list drinkList! as drink>
