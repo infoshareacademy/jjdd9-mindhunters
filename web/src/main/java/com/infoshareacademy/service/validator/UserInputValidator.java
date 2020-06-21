@@ -11,7 +11,7 @@ public class UserInputValidator {
 
 
     public boolean validateSpecialChars(String input) {
-        Pattern compiledPattern = Pattern.compile("[a-zA-Z0-9_ -]{2,30}");
+        Pattern compiledPattern = Pattern.compile("[\\p{L}0-9_. -]{2,30}");
         Matcher matcher = compiledPattern.matcher(input);
         return matcher.matches();
     }
@@ -33,8 +33,8 @@ public class UserInputValidator {
         return -1L;
     }
 
-    public int compareCurrentPageWithMaxPage(int currentPage, int maxPage){
-        if (currentPage < 0 || currentPage > maxPage){
+    public int compareCurrentPageWithMaxPage(int currentPage, int maxPage) {
+        if (currentPage < 0 || currentPage > maxPage) {
             currentPage = 1;
         }
         return currentPage;

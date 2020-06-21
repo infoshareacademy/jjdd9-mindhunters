@@ -32,7 +32,7 @@
                         <div class="masthead-subheading  text-warning glow " id="welcomeDiv"
                              style=font-size:30px;text-align:center>
                             Welcome ${name ! "Stranger"}<br>
-                            Page Not Found - code 404.
+                            Page Not Found - 404.
                         </div>
                     </div>
                 </header>

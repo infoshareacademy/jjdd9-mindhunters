@@ -104,4 +104,15 @@ public class FullDrinkView {
     public void setStatisticsViews(List<StatisticsView> statisticsViews) {
         this.statisticsViews = statisticsViews;
     }
+
+    @Override
+    public String toString() {
+        return "Drink: {" +
+                "id=" + id +
+                ", drinkName='" + drinkName + '\'' +
+                ", alcoholStatus='" + alcoholStatus + '\'' +
+                ", last modification ='" + date + '\'' +
+                '}';
+    }
+
 }

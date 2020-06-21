@@ -20,7 +20,6 @@ public class DrinkLiveSearchMapper {
         for (Drink drink : drinks) {
             drinkViews.add(toView(drink));
         }
-            logger.debug("Drinks entity results mapped to view for live search");
             return drinkViews;
         }
 
