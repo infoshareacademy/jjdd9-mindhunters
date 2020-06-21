@@ -20,6 +20,11 @@ $(document).ready(function () {
             $.ajax({
                 url: '/api/drink-management/' + drinkId,
                 type: 'DELETE',
+                success: function () {
+                    let newURL = window.location.origin + '/list?page=1';
+                    location.replace(newURL);
+                }
+
             });
         }
     });

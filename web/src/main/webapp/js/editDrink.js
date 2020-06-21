@@ -1,135 +1,35 @@
-// define(function(){
-//     FormHelper = {};
-//
-//     FormHelper.parseForm = function($form){
-//         var serialized = $form.serializeArray();
-//         var s = '';
-//         var data = {};
-//         for(s in serialized){
-//             data[serialized[s]['name']] = serialized[s]['value']
-//         }
-//         return JSON.stringify(data);
-//     }
-//
-//     return FormHelper;
-// });
-// $(document).ready(function () {
-//     var maxField = 10; //Input fields increment limitation
-//     var addButton = $('.add_button'); //Add button selector
-//     var wrapper = $('.add-group'); //Input field wrapper
-//     var fieldHTML =
-//         '<div class="list-group-item sidebar-list" >' +
-//         '<div class="row justify-content-between " id="ingrMeasure" style="margin: 0px">' +
-//         '<input type="text" required maxlength="20" minlength="2" name="ingredient" value="" placeholder="Ingredient..." class="form-control md-3 col-5"/>'+
-//         '<input type="text" required maxlength="20" minlength="2" name="measure" value="" placeholder="Measure..." class="form-control md-3 col-5"/>' +
-//         '<a id="remove_blue" href="javascript:void(0);"' +
-//         ' class="remove_button">' +
-//         '<svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\n' +
-//         '<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>\n' +
-//         '<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>\n' +
-//         '</svg><br></a></div>'; //New input field html
-//
-//     var x = 1; //Initial field counter is 1
-//
-//     //Once add button is clicked
-//     $(addButton).click(function () {
-//         //Check maximum number of input fields
-//         if (x < maxField) {
-//             x++; //Increment field counter
-//             $(wrapper).append(fieldHTML); //Add field html
-//         }
-//     });
-//
-//     //Once remove button is clicked
-//     $(wrapper).on('click', '.remove_button', function (e) {
-//         e.preventDefault();
-//         $(this).parent('div').remove(); //Remove field html
-//         x--; //Decrement field counter
-//     });
-// });
-
-
-// function getFormData($form){
-//     var unindexed_array = $form.serializeArray();
-//     var indexed_array = {};
-//
-//     $.map(unindexed_array, function(n, i){
-//         indexed_array[n['name']] = n['value'];
-//     });
-//     console.log(indexed_array);
-//     return indexed_array;
-// }
-//
-// var $form = $("#form_data");
-// var data = getFormData($form);
-//
-// function parseJson(){
-//     FormHelper = {};
-//
-//     var $form = $("#form_data");
-//
-//     FormHelper.parseForm = function($form){
-//         var serialized = $form.serializeArray();
-//         var s = '';
-//         var data = {};
-//         for(s in serialized){
-//             data[serialized[s]['name']] = serialized[s]['value']
-//         }
-//         return JSON.stringify(data);
-//     }
-//
-//     return FormHelper;
-// };
-//
-//
-
-// });
-
 $(document).ready(function () {
 
     $('#submit_but').click(function () {
+        if (confirm('Do you really want to edit this recipe?')) {
 
-        var obj = $('#form_data').serializeJSON();
-        var jsonString = JSON.stringify(obj);
-        console.log(jsonString);
-        alert(jsonString);
+            let url = new URL(window.location);
+            let params = new URLSearchParams(url.search.slice(1));
+            let drinkId = parseInt(params.get('id'));
 
-                $.ajax({
-            url: "/api/drink-management/1",
-            type: 'post',
-            data: jsonString,
-            success: function () {
-            },
-            dataType: "json",
-            contentType: "application/json"
-        });
+            var obj = $('#form_data').serializeJSON();
+
+            var jsonString = JSON.stringify(obj);
+            console.log(jsonString);
+
+//            alert(jsonString);
+
+            $.ajax({
+                url: "/api/drink-management/" + drinkId,
+                type: 'post',
+                data: jsonString,
+                success: function () {
+                    let newURL = url.origin + '/single-view?drink=' + drinkId;
+                    location.replace(newURL);
+
+                },
+                dataType: "json",
+                contentType: "application/json"
+            });
+        }
 
     });
 });
-// $(document).ready(function () {
-//
-//     $('#submit').click(function () {
-//         var obj = $('#form_data').serializeJSON();
-//         var jsonString = JSON.stringify(obj);
-//
-//         alert(jsonString);
-//
-//         $.ajax({
-//             url: "/api/drink-management/4",
-//             type: 'put',
-//             headers: {
-//                 'x-auth-token': localStorage.accessToken,
-//                 "Content-Type": "application/json"
-//             },
-//             data: jsonn,
-//             success: function () {
-//             },
-//             dataType: "json",
-//             contentType: "application/json"
-//         });
-//         alert(jsonn);
-//
-//     });
 
 
 /*!
@@ -156,7 +56,8 @@ $(document).ready(function () {
 
     // jQuery('form').serializeJSON()
     $.fn.serializeJSON = function (options) {
-        var f, $form, opts, formAsArray, serializedObject, name, value, parsedValue, _obj, nameWithNoType, type, keys, skipFalsy;
+        var f, $form, opts, formAsArray, serializedObject, name, value, parsedValue, _obj, nameWithNoType, type, keys,
+            skipFalsy;
         f = $.serializeJSON;
         $form = this; // NOTE: the set of matched elements is most likely a form, but it could also be a group of inputs
         opts = f.setupOpts(options); // calculate values for options {parseNumbers, parseBoolens, parseNulls, ...} with defaults
@@ -168,7 +69,7 @@ $(document).ready(function () {
         // Convert the formAsArray into a serializedObject with nested keys
         serializedObject = {};
         $.each(formAsArray, function (i, obj) {
-            name  = obj.name; // original input name
+            name = obj.name; // original input name
             value = obj.value; // input value
             _obj = f.extractTypeAndNameWithNoType(name);
             nameWithNoType = _obj.nameWithNoType; // input name with no type (i.e. "foo:string" => "foo")
@@ -207,50 +108,74 @@ $(document).ready(function () {
 
             customTypes: {}, // override defaultTypes
             defaultTypes: {
-                "string":  function(str) { return String(str); },
-                "number":  function(str) { return Number(str); },
-                "boolean": function(str) { var falses = ["false", "null", "undefined", "", "0"]; return falses.indexOf(str) === -1; },
-                "null":    function(str) { var falses = ["false", "null", "undefined", "", "0"]; return falses.indexOf(str) === -1 ? str : null; },
-                "array":   function(str) { return JSON.parse(str); },
-                "object":  function(str) { return JSON.parse(str); },
-                "auto":    function(str) { return $.serializeJSON.parseValue(str, null, null, {parseNumbers: true, parseBooleans: true, parseNulls: true}); }, // try again with something like "parseAll"
-                "skip":    null // skip is a special type that makes it easy to ignore elements
+                "string": function (str) {
+                    return String(str);
+                },
+                "number": function (str) {
+                    return Number(str);
+                },
+                "boolean": function (str) {
+                    var falses = ["false", "null", "undefined", "", "0"];
+                    return falses.indexOf(str) === -1;
+                },
+                "null": function (str) {
+                    var falses = ["false", "null", "undefined", "", "0"];
+                    return falses.indexOf(str) === -1 ? str : null;
+                },
+                "array": function (str) {
+                    return JSON.parse(str);
+                },
+                "object": function (str) {
+                    return JSON.parse(str);
+                },
+                "auto": function (str) {
+                    return $.serializeJSON.parseValue(str, null, null, {
+                        parseNumbers: true,
+                        parseBooleans: true,
+                        parseNulls: true
+                    });
+                }, // try again with something like "parseAll"
+                "skip": null // skip is a special type that makes it easy to ignore elements
             },
 
             useIntKeysAsArrayIndex: true // name="foo[2]" value="v" => {foo: [null, null, "v"]}, instead of {foo: ["2": "v"]}
         },
 
         // Merge option defaults into the options
-        setupOpts: function(options) {
+        setupOpts: function (options) {
             var opt, validOpts, defaultOptions, optWithDefault, parseAll, f;
             f = $.serializeJSON;
 
-            if (options == null) { options = {}; }   // options ||= {}
+            if (options == null) {
+                options = {};
+            }   // options ||= {}
             defaultOptions = f.defaultOptions || {}; // defaultOptions
 
             // Make sure that the user didn't misspell an option
             validOpts = ['checkboxUncheckedValue', 'parseNumbers', 'parseBooleans', 'parseNulls', 'parseAll', 'parseWithFunction', 'skipFalsyValuesForTypes', 'skipFalsyValuesForFields', 'customTypes', 'defaultTypes', 'useIntKeysAsArrayIndex']; // re-define because the user may override the defaultOptions
             for (opt in options) {
                 if (validOpts.indexOf(opt) === -1) {
-                    throw new  Error("serializeJSON ERROR: invalid option '" + opt + "'. Please use one of " + validOpts.join(', '));
+                    throw new Error("serializeJSON ERROR: invalid option '" + opt + "'. Please use one of " + validOpts.join(', '));
                 }
             }
 
             // Helper to get the default value for this option if none is specified by the user
-            optWithDefault = function(key) { return (options[key] !== false) && (options[key] !== '') && (options[key] || defaultOptions[key]); };
+            optWithDefault = function (key) {
+                return (options[key] !== false) && (options[key] !== '') && (options[key] || defaultOptions[key]);
+            };
 
             // Return computed options (opts to be used in the rest of the script)
             parseAll = optWithDefault('parseAll');
             return {
-                checkboxUncheckedValue:    optWithDefault('checkboxUncheckedValue'),
+                checkboxUncheckedValue: optWithDefault('checkboxUncheckedValue'),
 
-                parseNumbers:  parseAll || optWithDefault('parseNumbers'),
+                parseNumbers: parseAll || optWithDefault('parseNumbers'),
                 parseBooleans: parseAll || optWithDefault('parseBooleans'),
-                parseNulls:    parseAll || optWithDefault('parseNulls'),
-                parseWithFunction:         optWithDefault('parseWithFunction'),
+                parseNulls: parseAll || optWithDefault('parseNulls'),
+                parseWithFunction: optWithDefault('parseWithFunction'),
 
-                skipFalsyValuesForTypes:   optWithDefault('skipFalsyValuesForTypes'),
-                skipFalsyValuesForFields:  optWithDefault('skipFalsyValuesForFields'),
+                skipFalsyValuesForTypes: optWithDefault('skipFalsyValuesForTypes'),
+                skipFalsyValuesForFields: optWithDefault('skipFalsyValuesForFields'),
                 typeFunctions: $.extend({}, optWithDefault('defaultTypes'), optWithDefault('customTypes')),
 
                 useIntKeysAsArrayIndex: optWithDefault('useIntKeysAsArrayIndex')
@@ -258,18 +183,18 @@ $(document).ready(function () {
         },
 
         // Given a string, apply the type or the relevant "parse" options, to return the parsed value
-        parseValue: function(valStr, inputName, type, opts) {
+        parseValue: function (valStr, inputName, type, opts) {
             var f, parsedVal;
             f = $.serializeJSON;
             parsedVal = valStr; // if no parsing is needed, the returned value will be the same
 
             if (opts.typeFunctions && type && opts.typeFunctions[type]) { // use a type if available
                 parsedVal = opts.typeFunctions[type](valStr);
-            } else if (opts.parseNumbers  && f.isNumeric(valStr)) { // auto: number
+            } else if (opts.parseNumbers && f.isNumeric(valStr)) { // auto: number
                 parsedVal = Number(valStr);
             } else if (opts.parseBooleans && (valStr === "true" || valStr === "false")) { // auto: boolean
                 parsedVal = (valStr === "true");
-            } else if (opts.parseNulls    && valStr == "null") { // auto: null
+            } else if (opts.parseNulls && valStr == "null") { // auto: null
                 parsedVal = null;
             } else if (opts.typeFunctions && opts.typeFunctions["string"]) { // make sure to apply :string type if it was re-defined
                 parsedVal = opts.typeFunctions["string"](valStr);
@@ -283,12 +208,30 @@ $(document).ready(function () {
             return parsedVal;
         },
 
-        isObject:          function(obj) { return obj === Object(obj); }, // is it an Object?
-        isUndefined:       function(obj) { return obj === void 0; }, // safe check for undefined values
-        isValidArrayIndex: function(val) { return /^[0-9]+$/.test(String(val)); }, // 1,2,3,4 ... are valid array indexes
-        isNumeric:         function(obj) { return obj - parseFloat(obj) >= 0; }, // taken from jQuery.isNumeric implementation. Not using jQuery.isNumeric to support old jQuery and Zepto versions
+        isObject: function (obj) {
+            return obj === Object(obj);
+        }, // is it an Object?
+        isUndefined: function (obj) {
+            return obj === void 0;
+        }, // safe check for undefined values
+        isValidArrayIndex: function (val) {
+            return /^[0-9]+$/.test(String(val));
+        }, // 1,2,3,4 ... are valid array indexes
+        isNumeric: function (obj) {
+            return obj - parseFloat(obj) >= 0;
+        }, // taken from jQuery.isNumeric implementation. Not using jQuery.isNumeric to support old jQuery and Zepto versions
 
-        optionKeys: function(obj) { if (Object.keys) { return Object.keys(obj); } else { var key, keys = []; for(key in obj){ keys.push(key); } return keys;} }, // polyfill Object.keys to get option keys in IE<9
+        optionKeys: function (obj) {
+            if (Object.keys) {
+                return Object.keys(obj);
+            } else {
+                var key, keys = [];
+                for (key in obj) {
+                    keys.push(key);
+                }
+                return keys;
+            }
+        }, // polyfill Object.keys to get option keys in IE<9
 
 
         // Fill the formAsArray object with values for the unchecked checkbox inputs,
@@ -297,7 +240,9 @@ $(document).ready(function () {
         // and/or the data-unchecked-value attribute of the inputs.
         readCheckboxUncheckedValues: function (formAsArray, opts, $form) {
             var selector, $uncheckedCheckboxes, $el, uncheckedValue, f, name;
-            if (opts == null) { opts = {}; }
+            if (opts == null) {
+                opts = {};
+            }
             f = $.serializeJSON;
 
             selector = 'input[type=checkbox][name]:not(:checked):not([disabled])';
@@ -313,7 +258,7 @@ $(document).ready(function () {
                 // If there's an uncheckedValue, push it into the serialized formAsArray
                 if (uncheckedValue != null) {
                     if (el.name && el.name.indexOf("[][") !== -1) { // identify a non-supported
-                        throw new Error("serializeJSON ERROR: checkbox unchecked values are not supported on nested arrays of objects like '"+el.name+"'. See https://github.com/marioizquierdo/jquery.serializeJSON/issues/67");
+                        throw new Error("serializeJSON ERROR: checkbox unchecked values are not supported on nested arrays of objects like '" + el.name + "'. See https://github.com/marioizquierdo/jquery.serializeJSON/issues/67");
                     }
                     formAsArray.push({name: el.name, value: uncheckedValue});
                 }
@@ -325,7 +270,7 @@ $(document).ready(function () {
         //   "foo"           =>  {nameWithNoType: "foo",      type:  null}
         //   "foo:boolean"   =>  {nameWithNoType: "foo",      type: "boolean"}
         //   "foo[bar]:null" =>  {nameWithNoType: "foo[bar]", type: "null"}
-        extractTypeAndNameWithNoType: function(name) {
+        extractTypeAndNameWithNoType: function (name) {
             var match;
             if (match = name.match(/(.*):([^:]+)$/)) {
                 return {nameWithNoType: match[1], type: match[2]};
@@ -337,7 +282,7 @@ $(document).ready(function () {
 
         // Check if this input should be skipped when it has a falsy value,
         // depending on the options to skip values by name or type, and the data-skip-falsy attribute.
-        shouldSkipFalsy: function($form, name, nameWithNoType, type, opts) {
+        shouldSkipFalsy: function ($form, name, nameWithNoType, type, opts) {
             var f = $.serializeJSON;
 
             var skipFromDataAttr = f.attrFromInputWithName($form, name, 'data-skip-falsy');
@@ -361,16 +306,16 @@ $(document).ready(function () {
 
         // Finds the first input in $form with this name, and get the given attr from it.
         // Returns undefined if no input or no attribute was found.
-        attrFromInputWithName: function($form, name, attrName) {
+        attrFromInputWithName: function ($form, name, attrName) {
             var escapedName, selector, $input, attrValue;
-            escapedName = name.replace(/(:|\.|\[|\]|\s)/g,'\\$1'); // every non-standard character need to be escaped by \\
+            escapedName = name.replace(/(:|\.|\[|\]|\s)/g, '\\$1'); // every non-standard character need to be escaped by \\
             selector = '[name="' + escapedName + '"]';
             $input = $form.find(selector).add($form.filter(selector)); // NOTE: this returns only the first $input element if multiple are matched with the same name (i.e. an "array[]"). So, arrays with different element types specified through the data-value-type attr is not supported.
             return $input.attr(attrName);
         },
 
         // Raise an error if the type is not recognized.
-        validateType: function(name, type, opts) {
+        validateType: function (name, type, opts) {
             var validTypes, f;
             f = $.serializeJSON;
             validTypes = f.optionKeys(opts ? opts.typeFunctions : f.defaultOptions.defaultTypes);
@@ -390,12 +335,16 @@ $(document).ready(function () {
         // "foo[inn[bar]]"    => ['foo', 'inn', 'bar']
         // "foo[inn][arr][0]" => ['foo', 'inn', 'arr', '0']
         // "arr[][val]"       => ['arr', '', 'val']
-        splitInputNameIntoKeysArray: function(nameWithNoType) {
+        splitInputNameIntoKeysArray: function (nameWithNoType) {
             var keys, f;
             f = $.serializeJSON;
             keys = nameWithNoType.split('['); // split string into array
-            keys = $.map(keys, function (key) { return key.replace(/\]/g, ''); }); // remove closing brackets
-            if (keys[0] === '') { keys.shift(); } // ensure no opening bracket ("[foo][inn]" should be same as "foo[inn]")
+            keys = $.map(keys, function (key) {
+                return key.replace(/\]/g, '');
+            }); // remove closing brackets
+            if (keys[0] === '') {
+                keys.shift();
+            } // ensure no opening bracket ("[foo][inn]" should be same as "foo[inn]")
             return keys;
         },
 
@@ -418,10 +367,16 @@ $(document).ready(function () {
         //
         deepSet: function (o, keys, value, opts) {
             var key, nextKey, tail, lastIdx, lastVal, f;
-            if (opts == null) { opts = {}; }
+            if (opts == null) {
+                opts = {};
+            }
             f = $.serializeJSON;
-            if (f.isUndefined(o)) { throw new Error("ArgumentError: param 'o' expected to be an object or array, found undefined"); }
-            if (!keys || keys.length === 0) { throw new Error("ArgumentError: param 'keys' expected to be an array with least one element"); }
+            if (f.isUndefined(o)) {
+                throw new Error("ArgumentError: param 'o' expected to be an object or array, found undefined");
+            }
+            if (!keys || keys.length === 0) {
+                throw new Error("ArgumentError: param 'keys' expected to be an array with least one element");
+            }
 
             key = keys[0];
 
@@ -477,39 +432,6 @@ $(document).ready(function () {
 
 }));
 
-
-
-    // (function () {
-    //     function toJSONString(form) {
-    //         var obj = {};
-    //         var elements = form.querySelectorAll("input, select, textarea");
-    //         for (var i = 0; i < elements.length; ++i) {
-    //             var element = elements[i];
-    //             var name = element.name;
-    //             var value = element.value;
-    //
-    //             if (name) {
-    //                 obj[name] = value;
-    //             }
-    //         }
-    //
-    //         return JSON.stringify(obj);
-    //     }
-    //
-    //     document.addEventListener("DOMContentLoaded", function () {
-    //         var form = document.getElementById("form_data");
-    //         var output = document.getElementById("output");
-    //         form.addEventListener("submit", function (e) {
-    //             e.preventDefault();
-    //             var json = toJSONString(this);
-    //             output.innerHTML = json;
-    //             alert(json);
-    //         }, false);
-    //
-    //     });
-    //
-    // })();
-// })
 
 
 
