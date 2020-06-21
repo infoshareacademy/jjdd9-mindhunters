@@ -31,6 +31,10 @@ public class AdminManagementRecipeService {
     @EJB
     IngredientService ingredientService;
 
+    @EJB
+    CategoryService categoryService;
+
+
     @Transactional
     public boolean deleteDrinkById(Long id) {
 
@@ -54,7 +58,9 @@ public class AdminManagementRecipeService {
             drink.setDrinkName(newDrink.getDrinkName());
             drink.setAlcoholStatus(newDrink.getAlcoholStatus());
             drink.setImage(newDrink.getImage());
-            drink.setCategory(newDrink.getCategory());
+
+            Category category =categoryService.getOrCreate(newDrink.getCategory().getName()) ;
+            drink.setCategory(category);
 
 
             List<String> measures = newDrink.getDrinkIngredients().stream()
