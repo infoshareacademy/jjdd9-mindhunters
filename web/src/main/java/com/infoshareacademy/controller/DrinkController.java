@@ -46,7 +46,7 @@ public class DrinkController {
     }
 
 
-    @PUT
+    @POST
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)

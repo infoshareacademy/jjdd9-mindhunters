@@ -14,13 +14,14 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $('#ID03').on('click', '#DELETE', function () {
-        let drinkId = $(this).siblings('p').text().trim().toString();
+        if (confirm('Do you really want to delete this recipe?')) {
+            let drinkId = $(this).siblings('p').text().trim().toString();
 
-        $.ajax({
-            url: '/api/drink-management/' + drinkId,
-            type: 'DELETE',
-        });
-
+            $.ajax({
+                url: '/api/drink-management/' + drinkId,
+                type: 'DELETE',
+            });
+        }
     });
 });
 
@@ -28,16 +29,16 @@ $(document).ready(function () {
     $('#ID03').on('click', '#EDIT', function () {
         let drinkId = $(this).siblings('p').text().trim().toString();
 
-        window.location = '/drink-management?id=' + drinkId + '&action=edit';
-        // let value = $(this).val();
-        //
-        // $.ajax({
-        //     type: 'GET',
-        //     url: '/drink-management?id=' + drinkId + '&action=edit',
-        //     success: function() {
-        //         $('#abc').html(value);
-        //     }
+            window.location = '/drink-management?id=' + drinkId + '&action=edit';
+            // let value = $(this).val();
+            //
+            // $.ajax({
+            //     type: 'GET',
+            //     url: '/drink-management?id=' + drinkId + '&action=edit',
+            //     success: function() {
+            //         $('#abc').html(value);
+            //     }
 
-        // });
-    });
+            // });
+        });
 });

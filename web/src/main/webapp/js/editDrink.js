@@ -49,30 +49,101 @@
 // });
 
 
+// function getFormData($form){
+//     var unindexed_array = $form.serializeArray();
+//     var indexed_array = {};
+//
+//     $.map(unindexed_array, function(n, i){
+//         indexed_array[n['name']] = n['value'];
+//     });
+//     console.log(indexed_array);
+//     return indexed_array;
+// }
+//
+// var $form = $("#form_data");
+// var data = getFormData($form);
+//
+// function parseJson(){
+//     FormHelper = {};
+//
+//     var $form = $("#form_data");
+//
+//     FormHelper.parseForm = function($form){
+//         var serialized = $form.serializeArray();
+//         var s = '';
+//         var data = {};
+//         for(s in serialized){
+//             data[serialized[s]['name']] = serialized[s]['value']
+//         }
+//         return JSON.stringify(data);
+//     }
+//
+//     return FormHelper;
+// };
+//
+//
 
-    // function getFormData($form){
-    //     var unindexed_array = $form.serializeArray();
-    //     var indexed_array = {};
-    //
-    //     $.map(unindexed_array, function(n, i){
-    //         indexed_array[n['name']] = n['value'];
-    //     });
-    //     console.log(indexed_array);
-    //     return indexed_array;
-    // }
-    //
-    // var $form = $("#form_data");
-    // var data = getFormData($form);
-    //
+// });
 
-    var json = data.stringify();
-    $.ajax({
-        type: "PUT",
-        url: "/api/drink-management/1",
-        data: $('form').serialize(),
-        datatype: 'json',
-        success: function (data) {
 
-        }
+
+$(document).ready(function () {
+
+    $('#submit').click(function () {
+
+        var jsonn = parseJson();
+        var $form = $("#form_data");
+
+        $.ajax({
+            url: "/api/drink-management/4",
+            type: 'put',
+            headers: {
+                'x-auth-token': localStorage.accessToken,
+                "Content-Type": "application/json"
+            },
+            data: jsonn,
+            success: function () {
+            },
+            dataType: "json",
+            contentType: "application/json"
+        });
+        alert(jsonn);
+
     });
+
+
+    (function () {
+        function toJSONString(form) {
+            var obj = {};
+            var elements = form.querySelectorAll("input, select, textarea");
+            for (var i = 0; i < elements.length; ++i) {
+                var element = elements[i];
+                var name = element.name;
+                var value = element.value;
+
+                if (name) {
+                    obj[name] = value;
+                }
+            }
+
+            return JSON.stringify(obj);
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var form = document.getElementById("form_data");
+            var output = document.getElementById("output");
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+                var json = toJSONString(this);
+                output.innerHTML = json;
+                alert(json);
+            }, false);
+
+        });
+
+    })();
+})
+
+
+
 

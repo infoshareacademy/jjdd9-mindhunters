@@ -64,7 +64,7 @@ public class DrinkManagementServlet extends HttpServlet {
 
         String action = req.getParameter("action");
 
-        if (action == null || action.isBlank()){
+        if (action == null || action.isBlank()) {
             action = "";
         }
 
@@ -77,7 +77,7 @@ public class DrinkManagementServlet extends HttpServlet {
         Template template = null;
 
         ContextHolder contextHolder = new ContextHolder(req.getSession());
-         dataModel.put("name", contextHolder.getName());
+        dataModel.put("name", contextHolder.getName());
         dataModel.put("role", contextHolder.getRole());
 
         switch (action) {
@@ -93,20 +93,15 @@ public class DrinkManagementServlet extends HttpServlet {
                         TemplateException e) {
                     packageLogger.error(e.getMessage());
                 }
-
-                return;
+                break;
             default:
                 dataModel.put("categories", categoryService.findAllCategories());
                 template = templateProvider.getTemplate(getServletContext(), "addDrinkForm.ftlh");
+
                 break;
         }
 
-        try {
-            template.process(dataModel, resp.getWriter());
-        } catch (
-                TemplateException e) {
-            packageLogger.error(e.getMessage());
-        }
+
         return;
     }
 
@@ -164,7 +159,7 @@ public class DrinkManagementServlet extends HttpServlet {
         }
 
         drink.setImage(imageUrl);
-        if (action != null && id != null){
+        if (action != null && id != null) {
             drinkService.update(Long.valueOf(id), drink);
             resp.sendRedirect("/single-view?drink=" + id);
             return;
@@ -182,7 +177,6 @@ public class DrinkManagementServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-
 
 
         resp.getWriter().print("aaaa");
