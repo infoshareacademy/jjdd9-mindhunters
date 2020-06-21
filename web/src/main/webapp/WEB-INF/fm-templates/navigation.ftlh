@@ -38,7 +38,13 @@
                         <li><a class="text-warning" href="/admin/statistics">Statistics</a></li>
                         <div class="dropdown-divider"></div>
 
-                        <li><a class="text-warning" href="/admin/to-approve-list">Drink to approve</a></li>
+                        <li><a class="text-warning" href="/admin/to-approve-list/add">Drink create requests</a></li>
+                        <div class="dropdown-divider"></div>
+
+                        <li><a class="text-warning" href="/admin/to-approve-list/delete">Drink delete requests</a></li>
+                        <div class="dropdown-divider"></div>
+
+                        <li><a class="text-warning" href="/admin/to-approve-list/edit">Drink edit requests</a></li>
                         <div class="dropdown-divider"></div>
 
                         <li><a class="text-warning" href="/admin/page">Back up drinks upload</a></li>

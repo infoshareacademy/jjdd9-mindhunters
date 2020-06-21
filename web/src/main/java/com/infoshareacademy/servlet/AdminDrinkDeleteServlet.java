@@ -27,10 +27,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@WebServlet("/admin/to-approve-list")
-public class AdminManagementServlet extends HttpServlet {
+@WebServlet("/admin/to-approve-list/delete")
+public class AdminDrinkDeleteServlet extends HttpServlet {
 
-    private static final Logger packageLogger = LoggerFactory.getLogger(DrinkManagementServlet.class.getName());
+    private static final Logger packageLogger = LoggerFactory.getLogger(AdminDrinkDeleteServlet.class.getName());
 
     @EJB
     private DrinkService drinkService;
@@ -47,15 +47,14 @@ public class AdminManagementServlet extends HttpServlet {
     @Inject
     private TemplateProvider templateProvider;
 
-    @Inject
-    private FullDrinkMapper fullDrinkMapper;
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html; charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
 
-        ContextHolder contextHolder = new ContextHolder(req.getSession());
+/*        ContextHolder contextHolder = new ContextHolder(req.getSession());
 
         String role = contextHolder.getRole();
         Map<String, Object> dataModel = new HashMap<>();
@@ -86,7 +85,7 @@ public class AdminManagementServlet extends HttpServlet {
         } catch (
                 TemplateException e) {
             packageLogger.error(e.getMessage());
-        }
+        }*/
     }
 
 
@@ -97,7 +96,7 @@ public class AdminManagementServlet extends HttpServlet {
 
         ContextHolder contextHolder = new ContextHolder(req.getSession());
 
-        String role = contextHolder.getRole();
+/*        String role = contextHolder.getRole();
         Map<String, Object> dataModel = new HashMap<>();
 
         dataModel.put("name", contextHolder.getName());
@@ -131,9 +130,9 @@ public class AdminManagementServlet extends HttpServlet {
                         .collect(Collectors.toList());
 
                 dataModel.put("drinkList", toApproveList);
-            }
+            }*/
 
-        }
+/*        }
 
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeToApproveList.ftlh");
@@ -143,7 +142,7 @@ public class AdminManagementServlet extends HttpServlet {
         } catch (
                 TemplateException e) {
             packageLogger.error(e.getMessage());
-        }
+        }*/
     }
 
 }

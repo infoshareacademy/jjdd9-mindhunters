@@ -70,8 +70,8 @@ import java.util.Objects;
                 query = "SELECT d.users FROM Drink d where d.id = :id AND d.isApproved = true"),
 
         @NamedQuery(
-                name = "Drink.getDrinksToApprove",
-                query = "SELECT d FROM Drink d where d.isApproved = false "),
+                name = "Drink.getNewDrinksToApprove",
+                query = "SELECT d FROM Drink d where d.isApproved = false AND d.manageAction NOT IN :actions"),
 
         @NamedQuery(
                 name = "Drink.deleteIngredientsByDrink",
