@@ -36,7 +36,7 @@
 <!--Navigation-->
 <#include "navigation.ftlh">
 
-<#include "modal.ftlh">
+<#include "modalSearch.ftlh">
 
 <!--List-->
 <nav aria-label="LIST" style="cursor:pointer;">
@@ -80,7 +80,7 @@
 
                                             <#else>
                                                 style="color: #ffc107"
-                                                data-link="${"/search?${queryName}"! ""}">
+                                                data-link="/search?page=${currentPage! 1}&${queryName!}">
                                             </#if>
 
                                             <div class="row col-sm d-flex mt-4 mt-md-0 ">
