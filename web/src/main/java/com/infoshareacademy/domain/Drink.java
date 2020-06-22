@@ -128,7 +128,7 @@ public class Drink {
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "drinks")
     private List<User> users = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "drink", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "drink", fetch = FetchType.LAZY)
     private List<Statistics> statisticsList = new ArrayList<>();
 
     private  Long parentId;
