@@ -10,6 +10,8 @@ import java.util.List;
 public interface DrinkRepository {
 
 
+    List<Drink>  findAcceptedDrinkById(Long drinkId);
+
     Drink findDrinkById(Long drinkId);
 
     List<Drink> findDrinksByName(String partialDrinkName, int startPosition, int endPosition);

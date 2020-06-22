@@ -54,6 +54,16 @@ public class DrinkService {
         return fullDrinkMapper.toView(foundDrink);
     }
 
+    @Transactional
+    public FullDrinkView getAcceptedFullDrinkViewById(Long drinkId) {
+        LOGGER.debug("Searching accepted drink id");
+        List<Drink> foundDrink = drinkRepository.findAcceptedDrinkById(drinkId);
+        if (foundDrink.isEmpty()) {
+            return null;
+        }
+        return fullDrinkMapper.toView(foundDrink.get(0));
+    }
+
     public Drink getDrinkById(Long drinkId) {
         LOGGER.debug("Searching drink id");
         Drink foundDrink = drinkRepository.findDrinkById(drinkId);

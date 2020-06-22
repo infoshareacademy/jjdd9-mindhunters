@@ -73,7 +73,13 @@ public class SingleViewServlet extends HttpServlet {
             }
 
             dataModel.put("drink", foundDrinkById);
-            statisticsService.addToStatistics(foundDrinkById);
+
+            final FullDrinkView foundAcceptedDrinkById = drinkService.getAcceptedFullDrinkViewById(drinkId);
+
+            if (foundAcceptedDrinkById != null){
+                statisticsService.addToStatistics(foundAcceptedDrinkById);
+            }
+
         }
 
         if (email != null && !email.isEmpty()){

@@ -140,18 +140,27 @@ public class AdminManagementRecipeService {
 
     public Drink rejectDrinkProposal(long drinkId) {
         Drink drink = drinkRepository.findDrinkById(drinkId);
+        statisticsRepositoryBean.deleteFavouritesByDrink(drink);
         drinkRepository.delete(drinkId);
+
         return drink;
     }
 
     public Drink setApprovedExistingDrink(long drinkId) {
-        Drink drink = drinkRepository.findDrinkById(drinkId);
-        drink.setApproved(true);
-        drink.setId(drink.getParentId());
-        drinkRepository.update(drink.getId(), drink);
+        Drink newDrink = drinkRepository.findDrinkById(drinkId);
+        statisticsRepositoryBean.deleteFavouritesByDrink(newDrink);
+
+        Long newDrinkParentId = newDrink.getParentId();
+        Drink oldDrink = drinkRepository.findDrinkById(newDrinkParentId);
+        statisticsRepositoryBean.deleteFavouritesByDrink(oldDrink);
+
+        newDrink.setApproved(true);
+        newDrink.setId(newDrinkParentId);
+
+        drinkRepository.update(newDrink.getId(), newDrink);
         drinkRepository.delete(drinkId);
 
-        return drink;
+        return newDrink;
     }
 
     public Drink setApprovedDeleteDrink(long drinkId) {

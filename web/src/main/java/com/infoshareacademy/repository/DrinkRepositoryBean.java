@@ -34,6 +34,13 @@ public class DrinkRepositoryBean implements DrinkRepository {
     }
 
     @Override
+    public List<Drink> findAcceptedDrinkById(Long drinkId) {
+        Query query = entityManager.createNamedQuery("Drink.findAcceptedDrinkById");
+        query.setParameter("drinkId",  drinkId);
+        return query.getResultList();
+    }
+
+    @Override
     public void delete(Long id) {
 
         Drink drink = findDrinkById(id);

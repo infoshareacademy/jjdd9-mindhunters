@@ -121,7 +121,7 @@ public class AdminDrinkEditServlet extends HttpServlet {
 
         if (role != null && (role.equalsIgnoreCase("SUPER_ADMIN") || role.equalsIgnoreCase("ADMIN"))) {
 
-            List<FullDrinkView> toApproveList = drinkService.findNewDrinksToApprove();
+            List<FullDrinkView> toApproveList = drinkService.findEditedDrinksToApprove();
 
             if (!toApproveList.isEmpty()) {
                 List<Object> toApproveListModel = toApproveList.stream()
