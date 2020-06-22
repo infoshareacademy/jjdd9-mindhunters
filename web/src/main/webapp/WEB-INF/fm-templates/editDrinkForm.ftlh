@@ -122,31 +122,42 @@
 
                     <#if !(drink?has_content)>
 
-                                                <div class="row justify-content-between " id="ingrMeasure" style="margin: 0px">
+                        <div class="row justify-content-between " id="ingrMeasure" style="margin: 0px">
 
 
-                                <div class=" md-3 col-5 ">
-                                    <input type="text" required maxlength="20" minlength="2" name="drinkIngredients[1][ingredient[name]]" value=""
-                                           placeholder="Ingredient..." class="form-control "  aria-required="true"/>
-                                    <div class="invalid-feedback alert alert-danger">Input ingredient</div>
-                                </div>
-
-                                <div class=" md-3 col-5 ">
-                                    <input type="text" required maxlength="20" minlength="2" name="drinkIngredients[1][measure[quantity]]" value=""
-                                           placeholder="Measure..."   class="form-control "/>
-                                    <div class="invalid-feedback alert alert-danger">Input measure</div>
-                                </div>
-
-                                <a href="javascript:void(0);" class="add_button col-1 " id="remove_blue" title="Add field">
-                                    <svg class="bi bi-plus-square-fill" id="remove_blue" width="1em" height="1em"
-                                         viewBox="0 0 16 16"
-                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                              d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4a.5.5 0 0 0-1 0v3.5H4a.5.5 0 0 0 0 1h3.5V12a.5.5 0 0 0 1 0V8.5H12a.5.5 0 0 0 0-1H8.5V4z"/>
-                                    </svg>
-                                </a>
-                                <br>
+                            <div class=" md-3 col-5 ">
+                                <input type="text" required maxlength="20" minlength="2"
+                                       name="drinkIngredients[1][ingredient[name]]" value=""
+                                       placeholder="Ingredient..." class="form-control " aria-required="true"/>
+                                <div class="invalid-feedback alert alert-danger">Input ingredient</div>
                             </div>
+
+                            <div class=" md-3 col-5 ">
+                                <input type="text" required maxlength="20" minlength="2"
+                                       name="drinkIngredients[1][measure[quantity]]" value=""
+                                       placeholder="Measure..." class="form-control "/>
+                                <div class="invalid-feedback alert alert-danger">Input measure</div>
+                            </div>
+
+                            <a href="javascript:void(0);" class="add_button col-1 " id="remove_blue" title="Add field">
+                                <svg class="bi bi-plus-square-fill" id="remove_blue" width="1em" height="1em"
+                                     viewBox="0 0 16 16"
+                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                          d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4a.5.5 0 0 0-1 0v3.5H4a.5.5 0 0 0 0 1h3.5V12a.5.5 0 0 0 1 0V8.5H12a.5.5 0 0 0 0-1H8.5V4z"/>
+                                </svg>
+                            </a>
+                            <a href="javascript:void(0);" class="add_button col-1 " id="remove_blue" title="Add field">
+                                <svg class="bi bi-plus-square-fill" id="remove_blue" width="1em" height="1em"
+                                     viewBox="0 0 16 16"
+                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                          d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4a.5.5 0 0 0-1 0v3.5H4a.5.5 0 0 0 0 1h3.5V12a.5.5 0 0 0 1 0V8.5H12a.5.5 0 0 0 0-1H8.5V4z"/>
+                                </svg>
+                            </a>
+
+                            <br>
+                        </div>
 
                     </#if>
 
@@ -158,16 +169,18 @@
 
             <#--        IMAGE-->
 
-            <div class="custom-file col-6 justify-content-between"
-                 style="padding-left: 15px; padding-right: 15px; margin: 0px">
-                <input type="file" name="image" style="margin: auto" />
-            </div>
+<#--            <div class="custom-file col-6 justify-content-between"-->
+<#--                 style="padding-left: 15px; padding-right: 15px; margin: 0px">-->
+<#--                <input type="file" name="image" style="margin: auto"/>-->
+<#--            </div>-->
 
             <#if ((drink)?has_content)>
 
-            <input hidden name="image" style="margin: auto" value="${(drink.image)!}"/>
+                <input hidden name="image" style="margin: auto" value="${(drink.image)!}"/>
 
             </#if>
+
+
             <#--BUTTON-->
 
             <div class=" my-3 col-5 justify-content-between">
@@ -178,10 +191,27 @@
 
 
         </div>
+
+
     </form>
+
+    <form name="uploader" class="was-validated  " id="image_form" onsubmit="return false">
+        <div class="custom-file col-6 justify-content-between"
+             style="padding-left: 15px; padding-right: 15px; margin: 0px">
+            <input type="file" name="image" style="margin: auto"/>
+        </div>
+        <div class=" my-3 col-5 justify-content-between">
+            <button type="submit" class="btn btn-primary" name="image" value="save" id="submit_image_but"
+                    action="/drink-management" method="post" enctype="multipart/form-data">
+                Save drink
+            </button>
+        </div>
+    </form>
+
 
 </div>
 <!--Footer-->
+
 
 <#include "footer.ftlh">
 

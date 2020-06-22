@@ -104,7 +104,7 @@
 
 
         <div class=" my-3 col-5 justify-content-between">
-            <button type="button submit  " class="btn btn-primary" name="save" value="save">
+            <button type="button" class="btn btn-primary" name="save" value="save">
                 Save drink
             </button>
         </div>

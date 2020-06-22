@@ -1,3 +1,6 @@
+// POST SENDING TO REST API
+
+
 $(document).ready(function () {
 
     $('#submit_but').click(function () {
@@ -9,7 +12,7 @@ $(document).ready(function () {
             let params = new URLSearchParams(url.search.slice(1));
             let drinkId = parseInt(params.get('id'));
 
-            if (isNaN(drinkId) || drinkId == 0){
+            if (isNaN(drinkId) || drinkId == 0) {
                 drinkId = "";
             }
 
@@ -18,21 +21,21 @@ $(document).ready(function () {
             var jsonString = JSON.stringify(obj);
             // console.log(jsonString);
 
-           // alert(jsonString);
+            // alert(jsonString);
 
             $.ajax({
                 url: "/api/drink-management/" + drinkId,
                 type: 'post',
                 data: jsonString,
                 success: function () {
-                    let newURL = "" ;
-                    if (drinkId == ""){
+                    let newURL = "";
+                    if (drinkId == "") {
 
-                        newURL =  url.origin + '/list?page=1';
+                        newURL = url.origin + '/list?page=1';
 
                     } else {
 
-                        newURL =  url.origin +'/single-view?drink=' + drinkId;
+                        newURL = url.origin + '/single-view?drink=' + drinkId;
                     }
                     location.replace(newURL);
 
@@ -43,7 +46,40 @@ $(document).ready(function () {
         }
 
     });
+
+
 });
+
+
+$(document).ready(function () {
+
+    $("form[name='uploader']").submit(function(e) {
+
+            var formData = new FormData($(this)[0]);
+
+            $.ajax({
+                url: "/add-image",
+                type: "POST",
+                data: formData,
+                success: function (msg) {
+                    console.log(msg)
+                    alert(msg.toString())
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+
+            e.preventDefault();
+
+
+
+    });
+});
+
+
+
+
 
 
 $(document).ready(function () {
