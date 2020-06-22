@@ -5,7 +5,7 @@ import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.DrinkJson;
 import com.infoshareacademy.jsonSupport.CategoryJson;
 import com.infoshareacademy.jsonSupport.JsonCategoryApiReader;
-import com.infoshareacademy.mapper.DrinkMapper;
+import com.infoshareacademy.mapper.UploadDrinkMapper;
 import org.apache.http.client.fluent.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +31,7 @@ public class DbInitLoaderFromApi {
     private final String API_URL_CATEGORIES = "http://isa-proxy.blueazurit.com/cocktails/1/list.php?c=list";
 
     @Inject
-    private DrinkMapper drinkMapper;
+    private UploadDrinkMapper uploadDrinkMapper;
 
     @Inject
     private DrinkService drinkService;
@@ -84,7 +84,7 @@ public class DbInitLoaderFromApi {
         Drink drink = new Drink();
         for (DrinkJson drinkJson : drinkJsons) {
 
-            drink = drinkMapper.toEntity(drinkJson, categoryJson.get(1));
+            drink = uploadDrinkMapper.toEntity(drinkJson, categoryJson.get(1));
             drinkService.save(drink);
         }
     }

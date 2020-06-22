@@ -29,6 +29,7 @@ public class IngredientMapper {
         Ingredient ingredient = new Ingredient();
         ingredient.setName(ingredientView.getName());
         ingredient.setId(ingredientView.getId());
+
         return ingredient;
     }
 

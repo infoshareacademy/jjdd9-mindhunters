@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg" id="mainNav" style="background-color: #1b1e21">
     <div class="container-fluid">
-        <a class="navbar-brand ">
-            <img src="../../img/logomindhunters.jpg" alt="logo">
+        <a href="/" class="navbar-brand ">
+            <img  src="../../img/logomindhunters.jpg" alt="logo">
         </a>
 
         <div class="navbar-toggler  text-warning" type="button"
@@ -38,7 +38,7 @@
                         <li><a class="text-warning" href="/admin/statistics">Statistics</a></li>
                         <div class="dropdown-divider"></div>
 
-                        <li><a class="text-warning" href="/#userMANAGEMENT">Drink Management</a></li>
+                        <li><a class="text-warning" href="/admin/to-approve-list">Drink to approve</a></li>
                         <div class="dropdown-divider"></div>
 
                         <li><a class="text-warning" href="/admin/page">Back up drinks upload</a></li>
@@ -67,6 +67,7 @@
                 <#if role??>
                     <#if role = "USER" || role = "ADMIN" || role = "SUPER_ADMIN">
                         <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="/favourites">Favourites</a>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="/drink-management">Drink management</a>
                         </li>
                     </#if>
                 </#if>

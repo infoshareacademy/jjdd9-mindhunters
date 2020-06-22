@@ -14,7 +14,10 @@ import javax.persistence.*;
                 query = "SELECT c.name, COUNT(d.drinkName) as quantity FROM Statistics s JOIN s.drink d JOIN" +
                         " " +
                         "d.category c " +
-                        "GROUP BY c.name ORDER BY quantity DESC")
+                        "GROUP BY c.name ORDER BY quantity DESC"),
+        @NamedQuery(
+                name = "Statistics.deleteStatisticsByDrinks",
+                query = "DELETE  FROM Statistics s where s.drink = :drink" )
 
 })
 

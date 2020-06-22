@@ -1,4 +1,4 @@
-package com.infoshareacademy.cdi;
+package com.infoshareacademy.imageFileUpload;
 
 import com.infoshareacademy.exception.JsonNotFound;
 
@@ -12,20 +12,20 @@ import java.nio.file.Paths;
 import java.util.Properties;
 
 @RequestScoped
-public class FileUploadProcessor {
+public class ImageUploadProcessor {
 
     private static final String SETTINGS_FILE = "settings.properties";
 
-    public File uploadJsonFile(Part filePart) throws IOException, JsonNotFound {
+    public File uploadImageFile(Part filePart) throws IOException, JsonNotFound {
 
         String fileName = Paths.get(filePart.getSubmittedFileName())
                 .getFileName().toString();
 
         if (fileName == null || fileName.isEmpty()) {
-            throw new JsonNotFound("No JSON file has been uploaded");
+            throw new JsonNotFound("No image file has been uploaded");
         }
 
-        File file = new File(getUploadJsonFilesPath() + fileName);
+        File file = new File(getUploadImageFilesPath() + fileName);
         Files.deleteIfExists(file.toPath());
 
         InputStream fileContent = filePart.getInputStream();
@@ -37,7 +37,7 @@ public class FileUploadProcessor {
         return file;
     }
 
-    public String getUploadJsonFilesPath() throws IOException {
+    public String getUploadImageFilesPath() throws IOException {
         Properties settings = new Properties();
         settings.load(Thread.currentThread()
                 .getContextClassLoader().getResource(SETTINGS_FILE)

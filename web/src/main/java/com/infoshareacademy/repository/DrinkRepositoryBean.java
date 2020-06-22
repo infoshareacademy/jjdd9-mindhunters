@@ -33,6 +33,21 @@ public class DrinkRepositoryBean implements DrinkRepository {
         return entityManager.find(Drink.class, drinkId);
     }
 
+    @Override
+    public void delete(Long id) {
+
+        Drink drink = findDrinkById(id);
+        if (drink != null) {
+            entityManager.remove(drink);
+        }
+
+    }
+
+    @Override
+    public void update(Long id, Drink updatedDrink) {
+        entityManager.detach(updatedDrink);
+        entityManager.merge(updatedDrink);
+    }
 
     @Override
     public List<Drink> findDrinksByName(String partialDrinkName, int startPosition, int endPosition) {
@@ -100,6 +115,14 @@ public class DrinkRepositoryBean implements DrinkRepository {
 
         query.setFirstResult(startPosition);
         query.setMaxResults(endPosition);
+
+        return query.getResultList();
+
+    }
+
+    @Override
+    public List<Drink> findAllDrinks() {
+        Query query = entityManager.createNamedQuery("Drink.findAll");
 
         return query.getResultList();
 
@@ -186,6 +209,20 @@ public class DrinkRepositoryBean implements DrinkRepository {
 
         int maxPageNumber = drinkService.getMaxPageNumber(querySize);
         return maxPageNumber;
+
+    }
+
+    @Override
+    public List<Drink> findDrinksToApprove() {
+        Query query = entityManager.createNamedQuery("Drink.getDrinksToApprove");
+
+        return query.getResultList();
+    }
+
+    @Override
+    public void deleteIngredientsFromDrink(Long drinkId){
+        Query query = entityManager.createNamedQuery("Drink.deleteIngredientByDrink");
+        query.setParameter("drinkId", drinkId).executeUpdate();
 
     }
 

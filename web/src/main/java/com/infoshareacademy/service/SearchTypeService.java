@@ -38,7 +38,7 @@ public class SearchTypeService {
             dataModel.put("errorMessage", "Wrong input.\n");
             LOGGER.debug("Negative drink id");
         } else {
-            final FullDrinkView foundDrinkById = drinkService.getDrinkById(drinkId);
+            final FullDrinkView foundDrinkById = drinkService.getFullDrinkViewById(drinkId);
 
             if (foundDrinkById == null) {
                 dataModel.put("errorMessage", "Drink not found.\n");

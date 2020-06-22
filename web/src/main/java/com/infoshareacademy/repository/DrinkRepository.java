@@ -2,6 +2,7 @@ package com.infoshareacademy.repository;
 
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.Ingredient;
+import com.infoshareacademy.domain.dto.FullDrinkView;
 
 import javax.ejb.Local;
 import java.util.List;
@@ -24,6 +25,8 @@ public interface DrinkRepository {
 
     List<Drink> findAllDrinks(int startPosition, int endPosition);
 
+    List<Drink> findAllDrinks();
+
     int countPagesFindAll();
 
     List<Drink> findByCategories(List<Long> category, int startPosition, int endPosition);
@@ -40,4 +43,14 @@ public interface DrinkRepository {
     int countPagesByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus);
 
     void save(Drink drink);
-}
+
+    void delete(Long id);
+
+    void update(Long id, Drink drink);
+
+    List<Drink> findDrinksToApprove();
+
+    void deleteIngredientsFromDrink(Long drinkId);
+
+
+    }

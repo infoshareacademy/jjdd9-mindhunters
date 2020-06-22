@@ -18,10 +18,9 @@ public class EmailSender {
 
     private final String user = getEmailProperties("user");
     private final String pass = getEmailProperties("pass");
-    private final String dest = getEmailProperties("dest");
 
 
-    public void sendEmail(String htmlMessage) {
+    public void sendEmail(String htmlMessage, String destination) {
         Session session = Session.getInstance(getEmailConfigProperties(),
                 new Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
@@ -32,15 +31,10 @@ public class EmailSender {
         Message message = new MimeMessage(session);
         try {
             message.setFrom(new InternetAddress(user));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(dest));
-            message.setSubject("Recipes approval notification");
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destination));
+            message.setSubject("Recipes proposal notification");
             message.setContent(htmlMessage, "text/html; charset=utf-8");
 
-
-
-/*
-            message.setText("DearAdmin,"
-                    + "\n\n There are drink recipes awaiting your approval:");*/
             Transport.send(message);
         } catch (MessagingException e) {
             LOGGER.error("Error during sending email, {}", e.getMessage());

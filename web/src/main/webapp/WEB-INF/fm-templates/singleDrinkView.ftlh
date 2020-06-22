@@ -29,17 +29,15 @@
                         <h4>${drink.drinkName}</h4>
                         <#if name??>
                             <i class="icon-lock-star icons <#if favourites!?seq_contains(drink.id)>color_toggle_on </#if> "
-                               title="Add/delete from favourites" id="ID04" style="position: static">
+                               title="Add/delete from favourites" id="FAVOURITES" style="position: static">
                                 <svg id="star-fill" class="bi bi-star-fill  " width="1em" height="1em"
                                      viewBox="0 0 16 16"
                                      xmlns="http://www.w3.org/2000/svg">
                                     <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
                                 </svg>
                             </i>
-                            <p hidden>${drink.id}</p>
-                        </#if>
                         |
-                        <i class="icon-lock" title="Delete recipe">
+                        <i class="icon-lock" title="Delete recipe" id="DELETE">
                             <svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z"/>
@@ -48,8 +46,9 @@
                                       clip-rule="evenodd"/>
                             </svg>
                         </i>
+
                         |
-                        <i class="icon-lock" title="Edit recipe">
+                        <i class="icon-lock" title="Edit recipe" id="EDIT">
                             <svg class="bi bi-pen" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -61,8 +60,14 @@
                                 <path d="M13.293 1.207a1 1 0 011.414 0l.03.03a1 1 0 01.03 1.383L13.5 4 12 2.5l1.293-1.293z"/>
                             </svg>
                         </i>
+                        </#if>
+
+                        <p hidden>${drink.id}</p>
                         <br><br>
-                        <div>ID number: ${drink.drinkId}</div>
+                        <#if drink.drinkId??>
+                            <div>ID number: ${drink.drinkId}</div>
+                        </#if>
+
                         <div>Category: ${drink.categoryView.name}</div>
 
                         <#if drink.alcoholStatus == "Alcoholic" || drink.alcoholStatus == "Optional alcohol">
@@ -74,9 +79,15 @@
                         <div style="color:${color}">${drink.alcoholStatus}</div>
                     </div>
                     <div class="col-md-3">
-                        <img src="${drink.image}" style="
+                        <#if drink.image!?trim?has_content>
+                            <img src="${drink.image}" style="
                         border-radius: 10px;
   padding: 5px; width: 70%;" alt="">
+                        <#else>
+                            <img src="../../img/drinkimage-not-avail.jpg" style="
+                        border-radius: 10px;
+  padding: 5px; width: 70%;" alt="">
+                        </#if>
                     </div>
                 </div>
 

@@ -2,6 +2,8 @@ package com.infoshareacademy.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @NamedQueries({
         @NamedQuery(
@@ -30,6 +32,11 @@ public class Category {
     @NotNull
     private String name;
 
+    @OneToMany(mappedBy = "category", cascade = {CascadeType.ALL})
+    private List<Drink> drinks = new ArrayList<>();
+
+
+
     public Long getId() {
         return id;
     }
@@ -44,5 +51,13 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Drink> getDrinks() {
+        return drinks;
+    }
+
+    public void setDrinks(List<Drink> drinks) {
+        this.drinks = drinks;
     }
 }

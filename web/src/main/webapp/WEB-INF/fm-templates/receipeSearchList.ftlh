@@ -70,8 +70,12 @@
                                     <div class="row list-element" data-link="${"/single-view?drink=" + drink.id}">
                                         <div class="col-md-auto d-flex justify-content-center "
                                              style="min-width: 205px">
-                                            <img src="${drink.image}"
-                                                 class=" thumbnail_list justify-content-center" alt="...">
+                                            <#if drink.image!?trim?has_content>
+                                                <img src="${drink.image}" class="thumbnail_list justify-content-center">
+                                            <#else>
+                                                <img src="../../img/drinkimage-not-avail.jpg"
+                                                     class=" thumbnail_list justify-content-center">
+                                            </#if>
                                         </div>
                                         <div class="media-body  line-clamp col-sm-8 ml-0 pl-1 mr-0 pr-0"
 

@@ -111,6 +111,7 @@ public class DrinkListServlet extends HttpServlet {
 
                 dataModel.put("favourites", favouritesListModel);
             }
+
         }
 
         String servletPath = req.getServletPath();
@@ -166,5 +167,6 @@ public class DrinkListServlet extends HttpServlet {
             userService.saveOrDeleteFavourite(email, drinkId);
 
         }
+
     }
 }

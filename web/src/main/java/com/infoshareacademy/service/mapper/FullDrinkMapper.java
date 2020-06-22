@@ -1,12 +1,12 @@
 package com.infoshareacademy.service.mapper;
 
 import com.infoshareacademy.domain.Drink;
-import com.infoshareacademy.domain.Statistics;
 import com.infoshareacademy.domain.dto.FullDrinkView;
-import com.infoshareacademy.domain.dto.StatisticsView;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +24,7 @@ public class FullDrinkMapper {
     @Inject
     private CategoryMapper categoryMapper;
 
+    @Transactional
     public FullDrinkView toView(Drink drink) {
         FullDrinkView fullDrinkView = new FullDrinkView();
         fullDrinkView.setId(drink.getId());
@@ -32,7 +33,7 @@ public class FullDrinkMapper {
         fullDrinkView.setCategoryView(categoryMapper.toView(drink.getCategory()));
         fullDrinkView.setAlcoholStatus(drink.getAlcoholStatus());
         fullDrinkView.setRecipe(drink.getRecipe());
-        fullDrinkView.setDrinkIngredientViews(drink.getDrinkIngredient().stream()
+        fullDrinkView.setDrinkIngredientViews(drink.getDrinkIngredients().stream()
                 .map(drinkIgredientMapper::toView)
                 .collect(Collectors.toList()));
         fullDrinkView.setImage(drink.getImage());
@@ -49,5 +50,24 @@ public class FullDrinkMapper {
     }
 
 
+    public Drink toEntity(FullDrinkView fullDrinkView) {
+        Drink drink = new Drink();
 
+        drink.setId(fullDrinkView.getId());
+        drink.setDrinkId(fullDrinkView.getDrinkId());
+        drink.setDrinkName(fullDrinkView.getDrinkName());
+        drink.setCategory(categoryMapper.toEntity(fullDrinkView.getCategoryView()));
+        drink.setAlcoholStatus(fullDrinkView.getAlcoholStatus());
+        drink.setRecipe(fullDrinkView.getRecipe());
+        drink.setDrinkIngredients(fullDrinkView.getDrinkIngredientViews().stream()
+                .map(drinkIgredientMapper::toEntity)
+                .collect(Collectors.toList()));
+        drink.setImage(fullDrinkView.getImage());
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm");
+        String date = fullDrinkView.getDate();
+        drink.setDate(LocalDateTime.now());
+        drink.setApproved(true);  //TODO : change mocked true
+        return drink;
+    }
 }

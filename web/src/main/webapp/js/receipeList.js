@@ -1,6 +1,5 @@
 $(document).ready(function () {
-    $('#ID03').on('click', '#ID04', function () {
-
+    $('#ID03').on('click', '#FAVOURITES', function () {
         let drinkId = $(this).text().trim().toString();
         let url = new URL(window.location);
 
@@ -121,9 +120,13 @@ $(document).ready(function () {
             }
 
             window.location = '/list?page=1' + newUrl;
+
         }
+
     });
+
 })
+
 
 async function nextPage() {
     let url = new URL(window.location); // or construct from window.location
@@ -145,6 +148,8 @@ async function previousPage() {
         let newURL = url.origin + url.pathname + '?' + params.toString();
         location.replace(newURL);
     }
+
+
 }
 
 

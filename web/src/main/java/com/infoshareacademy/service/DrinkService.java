@@ -1,5 +1,6 @@
 package com.infoshareacademy.service;
 
+import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.domain.Ingredient;
 import com.infoshareacademy.domain.dto.FullDrinkView;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -33,8 +35,18 @@ public class DrinkService {
     @Inject
     private IngredientMapper ingredientMapper;
 
+    @EJB
+    private AdminManagementRecipeService adminManagementRecipeService;
 
-    public FullDrinkView getDrinkById(Long drinkId) {
+    @EJB
+    private IngredientService ingredientService;
+
+    @EJB
+    private UserService userService;
+
+
+    @Transactional
+    public FullDrinkView getFullDrinkViewById(Long drinkId) {
         LOGGER.debug("Searching drink id");
         Drink foundDrink = drinkRepository.findDrinkById(drinkId);
         if (foundDrink == null) {
@@ -42,6 +54,16 @@ public class DrinkService {
         }
         return fullDrinkMapper.toView(foundDrink);
     }
+
+    public Drink getDrinkById(Long drinkId) {
+        LOGGER.debug("Searching drink id");
+        Drink foundDrink = drinkRepository.findDrinkById(drinkId);
+        if (foundDrink == null) {
+            return null;
+        }
+        return foundDrink;
+    }
+
 
     public List<FullDrinkView> findDrinksByName(String partialDrinkName, int pageNumber) {
         LOGGER.debug("Searching drinks by name with pagination");
@@ -84,6 +106,7 @@ public class DrinkService {
         List<Drink> drinks = drinkRepository.findAllDrinks(startPosition, endPosition);
         return fullDrinkMapper.toView(drinks);
     }
+
 
     public int countPagesFindAll() {
         int maxPageNumber = drinkRepository.countPagesFindAll();
@@ -249,7 +272,26 @@ public class DrinkService {
     public static int getMaxPageNumber(String querySize) {
         return (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
     }
+
     public void save(Drink drink) {
         drinkRepository.save(drink);
     }
+
+    public boolean deleteDrinkById(Long id) {
+
+        return  adminManagementRecipeService.deleteDrinkById(id);
+    }
+
+    public boolean addOrUpdate(Long id, Drink updatedDrink, ContextHolder contextHolder) {
+        return adminManagementRecipeService.addOrUpdateDrink(id, updatedDrink, contextHolder);
+    }
+
+    public List<FullDrinkView> findDrinksToApprove() {
+
+        List<Drink> drinks = drinkRepository.findDrinksToApprove();
+        return fullDrinkMapper.toView(drinks);
+    }
+
+
+
 }
