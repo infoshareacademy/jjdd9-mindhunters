@@ -20,14 +20,15 @@
                            name="page"/>
 
                     <select id="adult" name="adult" required>
-                        <option value="true" selected>Yes, I am over 18 years old.</option>
+                        <option value="true" selected>Yes, I am over 18.</option>
                         <option value="false">No, I am not.</option>
                     </select>
-
+                   <i>  </i>
                     <input type="checkbox" name="age18" value="v">
-                    <label for="age18">Keep my choice 24h (Accept cookies).</label>
+                    <label for="age18">Remember my choice 24h.</label>
 
                     <button class="btn btn-secondary" type="submit">Confirm</button>
+
 
                 </form>
             </div>

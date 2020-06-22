@@ -37,7 +37,7 @@ public class DrinkReportScheduler {
     private EmailBuildStrategy emailBuildStrategy;
 
 
-    @Schedule(hour = "*", minute = "2/2")
+    @Schedule(hour = "*", minute = "2/15")
     public void checkRecipesForApproval() {
 
         if (scheduleCounter % 2 == 0) {
