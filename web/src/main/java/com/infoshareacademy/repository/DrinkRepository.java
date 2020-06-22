@@ -57,4 +57,6 @@ public interface DrinkRepository {
 
     List<Drink> findDeletedDrinksToApprove();
 
+    List<Drink> findAllDrinksToApprove();
 }
+

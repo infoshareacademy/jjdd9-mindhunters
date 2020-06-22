@@ -36,7 +36,7 @@ public class DrinkRepositoryBean implements DrinkRepository {
     @Override
     public List<Drink> findAcceptedDrinkById(Long drinkId) {
         Query query = entityManager.createNamedQuery("Drink.findAcceptedDrinkById");
-        query.setParameter("drinkId",  drinkId);
+        query.setParameter("drinkId", drinkId);
         return query.getResultList();
     }
 
@@ -227,7 +227,7 @@ public class DrinkRepositoryBean implements DrinkRepository {
     }
 
     @Override
-    public void deleteIngredientsFromDrink(Long drinkId){
+    public void deleteIngredientsFromDrink(Long drinkId) {
         Query query = entityManager.createNamedQuery("Drink.deleteIngredientByDrink");
         query.setParameter("drinkId", drinkId).executeUpdate();
 
@@ -248,6 +248,12 @@ public class DrinkRepositoryBean implements DrinkRepository {
         return query.getResultList();
     }
 
+    @Override
+    public List<Drink> findAllDrinksToApprove() {
+        Query query = entityManager.createNamedQuery("Drink.getAllDrinksToApprove");
+
+        return query.getResultList();
+    }
 
 
 }

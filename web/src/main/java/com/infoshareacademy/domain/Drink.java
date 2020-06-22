@@ -89,6 +89,10 @@ import java.util.Objects;
                 name = "Drink.findAcceptedDrinkById",
                 query = "SELECT d FROM Drink d where d.isApproved = true AND d.id = :drinkId"),
 
+        @NamedQuery(
+                name = "Drink.getAllDrinksToApprove",
+                query = "SELECT d FROM Drink d where d.isApproved = false")
+
 })
 
 @Entity

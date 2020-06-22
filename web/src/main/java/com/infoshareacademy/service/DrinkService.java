@@ -313,4 +313,10 @@ public class DrinkService {
         return fullDrinkMapper.toView(drinks);
     }
 
+    public List<FullDrinkView> findAllDrinksToApprove() {
+
+        List<Drink> drinks = drinkRepository.findAllDrinksToApprove();
+        return fullDrinkMapper.toView(drinks);
+    }
+
 }
