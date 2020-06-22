@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,32 +14,32 @@
 
 </head>
 <body id="page-top" style="background-color: #1b1e21;">
-<!--Navigation-->
 
+<!--Navigation-->
 <#include "navigation.ftlh">
+
+<#include "modal.ftlh">
+
 <!--List-->
 <nav aria-label="LIST" style="cursor: pointer;">
 
     <div class="container-fluid">
-
         <div class="row mx-2 my-2 justify-content-center">
 
             <!--categoriesSidebar-->
             <#if categories??>
-
                 <#include "categoriesSidebar.ftlh">
-
             </#if>
-            <!--LIST-->
 
+            <!--LIST-->
             <div class="col-12 col-md-8 col-lg-8 col-xl-8">
-                <ul class="list-unstyled  justify-content-center  ml-auto space_list  " id="ID03" >
+                <ul class="list-unstyled  justify-content-center  ml-auto space_list  " id="ID03">
                     <#list drinkList as drink>
 
                         <li class="media ">
                             <div class="container ml-0 pl-0 mr-0 pr-0 ">
-                                <div class="row list-element" >
-                                    <div class="col-md-auto d-flex justify-content-center " style="min-width: 205px" >
+                                <div class="row list-element">
+                                    <div class="col-md-auto d-flex justify-content-center " style="min-width: 205px">
                                         <div class="relative" id="FAVOURITES">
                                             <#if drink.image!?trim?has_content>
                                                 <img src="${drink.image}" class="thumbnail_list justify-content-center">
@@ -63,7 +62,14 @@
                                     </div>
 
                                     <div class="media-body  line-clamp col-sm-8 ml-0 pl-1 mr-0 pr-0"
+
+                                            <#if drink.alcoholStatus == "Non alcoholic" || adult! == "true">
                                          style="color: #ffc107" data-link="${"/single-view?drink=" + drink.id}">
+
+                                        <#else>
+                                            style="color: #ffc107"
+                                            data-link="${"/list?page=${currentPage! 1}"}">
+                                        </#if>
 
                                         <div class="row col-sm d-flex mt-4 mt-md-0 ">
                                             <h5 class="col-md-6 mx-2 my-2  font-weight-bold text-center text-md-left">
@@ -119,6 +125,9 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
@@ -128,16 +137,17 @@
 
 <!-- Bootstrap core JS-->
 
-<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>-->
-<!--&lt;!&ndash; Third party plugin JS&ndash;&gt;-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-<#--<script src="../../js/BootstrapValidation.js"></script>-->
-<!--&lt;!&ndash;&lt;!&ndash; Core theme JS&ndash;&gt;&ndash;&gt;-->
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.js"></script>
--->
 <script src="../../js/receipeList.js"></script>
-<#--
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
--->
+
+<#if !adult??>
+
+    <script>
+        $(document).ready(function () {
+            $('#myModal').modal('show');
+        });
+
+    </script>
+</#if>
+
 </body>
 </html>

@@ -115,6 +115,7 @@ $(document).ready(function () {
             } else {
 
                 newUrl = "";
+
             }
 
             window.location = '/list?page=1' + newUrl;

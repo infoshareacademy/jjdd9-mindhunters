@@ -36,6 +36,8 @@
 <!--Navigation-->
 <#include "navigation.ftlh">
 
+<#include "modalSearch.ftlh">
+
 <!--List-->
 <nav aria-label="LIST" style="cursor:pointer;">
 
@@ -75,8 +77,16 @@
                                                      class=" thumbnail_list justify-content-center">
                                             </#if>
                                         </div>
-                                        <div class="media-body line-clamp col-sm-8 ml-0 pl-1 mr-0 pr-0"
-                                             style="color: #ffc107">
+                                        <div class="media-body  line-clamp col-sm-8 ml-0 pl-1 mr-0 pr-0"
+
+                                                <#if drink.alcoholStatus == "Non alcoholic" || adult! == "true">
+                                             style="color: #ffc107" data-link="${"/single-view?drink=" + drink.id}">
+
+                                            <#else>
+                                                style="color: #ffc107"
+                                                data-link="/search?page=${currentPage! 1}&${queryName!}">
+                                            </#if>
+
                                             <div class="row col-sm d-flex mt-4 mt-md-0 ">
                                                 <h5 class="col-md-6 mx-2 my-2  font-weight-bold text-center text-md-left">
                                                     ${drink.drinkName}
@@ -125,6 +135,16 @@
 <!--CSS scripts-->
 <script type="text/javascript" src="../../js/homePage.js"></script>
 <script type="text/javascript" src="../../js/searchPage.js"></script>
+
+<#if !adult??>
+
+    <script>
+        $(document).ready(function () {
+            $('#myModal').modal('show');
+        });
+
+    </script>
+</#if>
 
 </body>
 </html>
