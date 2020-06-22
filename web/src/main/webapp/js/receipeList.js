@@ -13,10 +13,11 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $("[data-link]").click(function () {
-        window.location.href = $(this).attr("data-link");
-        return false;
+            window.location.href = $(this).attr("data-link");
     });
 });
+
+
 
 $(document).ready(function () {
 
@@ -115,6 +116,7 @@ $(document).ready(function () {
             } else {
 
                 newUrl = "";
+
             }
 
             window.location = '/list?page=1' + newUrl;

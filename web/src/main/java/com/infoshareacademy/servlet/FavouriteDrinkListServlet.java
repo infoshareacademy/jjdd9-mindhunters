@@ -86,7 +86,7 @@ public class FavouriteDrinkListServlet extends HttpServlet {
         dataModel.put("maxPageSize", maxPage);
         dataModel.put("currentPage", currentPage);
 
-        Template template = templateProvider.getTemplate(getServletContext(), "receipeList.ftlh");
+        Template template = templateProvider.getTemplate(getServletContext(), "favorites.ftlh");
 
         try {
             template.process(dataModel, resp.getWriter());
