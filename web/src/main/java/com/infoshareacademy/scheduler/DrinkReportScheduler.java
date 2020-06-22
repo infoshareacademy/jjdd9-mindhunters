@@ -37,14 +37,12 @@ public class DrinkReportScheduler {
     private EmailBuildStrategy emailBuildStrategy;
 
 
-    @Schedule(hour = "*", minute = "2/15")
+    @Schedule(hour = "*", minute = "2/2")
     public void checkRecipesForApproval() {
-        LOGGER.debug("Counter {}", scheduleCounter);
 
         if (scheduleCounter % 2 == 0) {
 
-//TODO dummy search method - replace with method searching drinks scheduled for approval
-            //drinks1st = drinkService.findDrinksByName("auto", 1);
+            drinks1st = drinkService.findDrinksToApprove();
 
             if (recipeAwaiting3scheduleCalls()) {
 
