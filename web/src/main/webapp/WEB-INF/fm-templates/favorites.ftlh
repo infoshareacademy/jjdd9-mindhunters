@@ -18,8 +18,6 @@
 <!--Navigation-->
 <#include "navigation.ftlh">
 
-<#include "modal.ftlh">
-
 <!--List-->
 <nav aria-label="LIST" style="cursor: pointer;">
 
@@ -59,13 +57,7 @@
                                     </div>
                                     <div class="media-body  line-clamp col-sm-8 ml-0 pl-1 mr-0 pr-0"
 
-                                            <#if drink.alcoholStatus == "Non alcoholic" || adult! == "true">
                                          style="color: #ffc107" data-link="${"/single-view?drink=" + drink.id}">
-
-                                        <#else>
-                                            style="color: #ffc107"
-                                            data-link="${"/list?page=${currentPage! 1}"}">
-                                        </#if>
 
                                         <div class="row col-sm d-flex mt-4 mt-md-0 ">
                                             <h5 class="col-md-6 mx-2 my-2  font-weight-bold text-center text-md-left">
@@ -129,16 +121,6 @@
 <!-- Bootstrap core JS-->
 
 <script src="../../js/receipeList.js"></script>
-
-<#if !adult??>
-
-    <script>
-        $(document).ready(function () {
-            $('#myModal').modal('show');
-        });
-
-    </script>
-</#if>
 
 </body>
 </html>

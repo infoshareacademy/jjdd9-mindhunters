@@ -1,5 +1,6 @@
 $(document).ready(function () {
     $('#ID03').on('click', '#ID04', function () {
+
         let drinkId = $(this).text().trim().toString();
         let url = new URL(window.location);
 
@@ -13,10 +14,11 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $("[data-link]").click(function () {
-        window.location.href = $(this).attr("data-link");
-        return false;
+            window.location.href = $(this).attr("data-link");
     });
 });
+
+
 
 $(document).ready(function () {
 
@@ -115,16 +117,13 @@ $(document).ready(function () {
             } else {
 
                 newUrl = "";
+
             }
 
             window.location = '/list?page=1' + newUrl;
-
         }
-
     });
-
 })
-
 
 async function nextPage() {
     let url = new URL(window.location); // or construct from window.location
@@ -146,8 +145,6 @@ async function previousPage() {
         let newURL = url.origin + url.pathname + '?' + params.toString();
         location.replace(newURL);
     }
-
-
 }
 
 
