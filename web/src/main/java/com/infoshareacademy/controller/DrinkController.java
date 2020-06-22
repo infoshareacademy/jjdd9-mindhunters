@@ -21,12 +21,8 @@ public class DrinkController {
     @EJB
     private DrinkService drinkService;
 
-    @EJB
-    private DrinkRepository drinkRepository;
-
     @Context
     private HttpServletRequest request;
-
 
     @GET
     @Path("{id}")
