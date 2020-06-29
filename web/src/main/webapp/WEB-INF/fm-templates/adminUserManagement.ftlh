@@ -34,13 +34,13 @@
 <section style="background-color: #1b1e21">
     <div class="container" style="color: white; height: max-content;">
 
-        <form method="post" action="/admin-users">
+        <form method="post" action="/admin/users">
             <label>Set user as ADMIN by id: </label>
             <input id="userId" type="number" min="2" name="u">
             <button type="submit" name="Set as admin">Set as admin</button>
         </form>
         <br>
-        <form method="post" action="/admin-users">
+        <form method="post" action="/admin/users">
             <label>Set admin as USER by id: </label>
             <input id="userId" type="number" min="2" name="a">
             <button type="submit" name="Set as admin">Set as user</button>

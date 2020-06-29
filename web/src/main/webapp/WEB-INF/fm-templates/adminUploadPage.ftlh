@@ -20,18 +20,11 @@
     <div class="row container-fluid add-padding-admin" id="part1-top">
         <div class="over-photo2">
                 <span class="admin-btn-block vis-of-btn" id="admin-btn-block">
-<#--                    <a class="btn btn-background  text-uppercase  text-warning btn-admin" id="btn-admin1"
-                    >USERS</a><br>-->
-                    <a class="btn btn-background  text-uppercase  text-warning btn-admin"
-                       id="btn-admin2">LOAD DB FROM FILE</a>
-                    <br>
+
                     <a class="btn btn-background  text-uppercase  text-warning btn-admin"
                        id="btn-admin2" a href="/admin/upload-json-api">LOAD DB FROM API</a>
                     <br>
-<#--                    <a class="btn btn-background  text-uppercase  text-warning btn-admin" id="btn-admin3"
-                    >SETTINGS</a><br>
-                    <a class="btn btn-background  text-uppercase  text-warning btn-admin" id="btn-admin-back"
-                       a href="/welcome">BACK</a>-->
+
                 </span>
         </div>
         <div class="container-fluid load-file-browse" id="over-photo3">
@@ -43,13 +36,13 @@
                             Load DB of Drinks from file
                         </p>
                     </div>
-                        <p class="text-warning p-padding">Select DrinkJson</p>
+                    <p class="text-warning p-padding">Select DrinkJson</p>
                     <div class="text-warning lf-div col-8" style="display: inline-block">
                         <label class="submit-btn" style="display: inline-block"></label><br>
                         <input type="file" id="jsonFile" name="jsonFile" multiple
                                class="btn btn-background text-uppercase text-warning size-input-design">
                     </div>
-                        <p class="text-warning p-padding">Select CategoryJson</p>
+                    <p class="text-warning p-padding">Select CategoryJson</p>
                     <div class="text-warning lf-div col-8" style="display: inline-block">
                         <label class="submit-btn" style="display: inline-block"></label><br>
                         <input type="file" id="jsonCatFile" name="jsonCatFile" multiple

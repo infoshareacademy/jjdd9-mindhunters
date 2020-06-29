@@ -9,35 +9,27 @@
                 </button>
             </div>
             <div class="modal-body">
-                Are You more then 18 years old? If not you will not be allowed to see details of alcoholic
+                Are You over 18 years old? If not, you will not be allowed to see details of alcoholic
                 beverages.
             </div>
             <div class="modal-footer txt-center">
 
                 <form action="/list" method="GET">
-                    <input type="hidden" value="true"
-                           name="adult"/>
-                    <input type="hidden" value="1"
-                           name="page"/>
-
-                    <input type="checkbox" name="age18" value="true">
-                    <label for="age18">Keep my choice 24h </label>
-
-                    <button class="btn btn-secondary" type="submit">Yes</button>
-                </form>
-
-                <form action="/list" method="GET">
-
-                    <input type="hidden" value="false"
-                           name="adult"/>
 
                     <input type="hidden" value="1"
                            name="page"/>
 
-                    <input type="checkbox" name="age18" value="false">
-                    <label for="age18">Keep my choice 24h </label>
+                    <select id="adult" name="adult" required>
+                        <option value="true" selected>Yes, I am over 18.</option>
+                        <option value="false">No, I am not.</option>
+                    </select>
+                   <i>  </i>
+                    <input type="checkbox" name="age18" value="v">
+                    <label for="age18">Remember my choice 24h.</label>
 
-                    <button class="btn btn-secondary" type="submit">No</button>
+                    <button class="btn btn-secondary" type="submit">Confirm</button>
+
+
                 </form>
             </div>
         </div>
