@@ -28,13 +28,13 @@
                         <span class="admin-btn-block vis-of-btn" id="admin-btn-block">
 
                     <a class="btn btn-background  text-uppercase  text-warning btn-admin"
-                       id="btn-admin2" href="/admin/to-approve-list">Drinks created</a>
+                       id="btn-admin2" href="/admin/to-approve-list/add">Drinks created</a>
                     <br>
                     <a class="btn btn-background  text-uppercase  text-warning btn-admin"
-                       id="btn-admin2" href="/admin/to-approve-list">Drinks edited</a>
+                       id="btn-admin2" href="/admin/to-approve-list/edit">Drinks edited</a>
                     <br>
                     <a class="btn btn-background  text-uppercase  text-warning btn-admin"
-                       id="btn-admin2" href="/admin/to-approve-list">Drinks to be deleted</a>
+                       id="btn-admin2" href="/admin/to-approve-list/delete">Drinks to be deleted</a>
                     <br>
                 </span>
 
