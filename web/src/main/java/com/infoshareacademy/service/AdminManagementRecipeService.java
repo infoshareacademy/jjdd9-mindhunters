@@ -155,4 +155,31 @@ public class AdminManagementRecipeService {
         drinkRepository.delete(drinkId);
         return drink;
     }
+
+    public Drink setApprovedExistingDrink(long drinkId) {
+        Drink newDrink = drinkRepository.findDrinkById(drinkId);
+        statisticsRepositoryBean.deleteFavouritesByDrink(newDrink);
+
+        Long newDrinkParentId = newDrink.getParentId();
+        Drink oldDrink = drinkRepository.findDrinkById(newDrinkParentId);
+        statisticsRepositoryBean.deleteFavouritesByDrink(oldDrink);
+
+        newDrink.setApproved(true);
+        newDrink.setId(newDrinkParentId);
+
+        drinkRepository.update(newDrink.getId(), newDrink);
+        drinkRepository.delete(drinkId);
+
+        return newDrink;
+    }
+
+    public Drink setApprovedDeleteDrink(long drinkId) {
+        Drink drink = drinkRepository.findDrinkById(drinkId);
+        Long idTobeDeleted = drink.getParentId();
+
+        drinkRepository.delete(drinkId);
+        drinkRepository.delete(idTobeDeleted);
+
+        return drink;
+    }
 }

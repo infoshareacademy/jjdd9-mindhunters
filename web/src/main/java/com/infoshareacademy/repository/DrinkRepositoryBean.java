@@ -226,4 +226,25 @@ public class DrinkRepositoryBean implements DrinkRepository {
 
     }
 
+    @Override
+    public List<Drink> findEditedDrinksToApprove() {
+        Query query = entityManager.createNamedQuery("Drink.getEditedDrinksToApprove");
+        query.setParameter("action", "edit");
+        return query.getResultList();
+    }
+
+
+    @Override
+    public List<Drink> findDeletedDrinksToApprove() {
+        Query query = entityManager.createNamedQuery("Drink.getDeletedDrinksToApprove");
+        query.setParameter("action", "delete");
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Drink> findNewDrinksToApprove() {
+        Query query = entityManager.createNamedQuery("Drink.getNewDrinksToApprove");
+        query.setParameter("actions", List.of("edit", "delete"));
+        return query.getResultList();
+    }
 }

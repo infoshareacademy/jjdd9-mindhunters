@@ -52,5 +52,9 @@ public interface DrinkRepository {
 
     void deleteIngredientsFromDrink(Long drinkId);
 
+    List<Drink> findEditedDrinksToApprove();
 
+    List<Drink> findDeletedDrinksToApprove();
+
+    List<Drink> findNewDrinksToApprove();
     }

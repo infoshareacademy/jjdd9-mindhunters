@@ -292,6 +292,22 @@ public class DrinkService {
         return fullDrinkMapper.toView(drinks);
     }
 
+    public List<FullDrinkView> findDeletedDrinksToApprove() {
 
+        List<Drink> drinks = drinkRepository.findDeletedDrinksToApprove();
+        return fullDrinkMapper.toView(drinks);
+    }
+
+    public List<FullDrinkView> findEditedDrinksToApprove() {
+
+        List<Drink> drinks = drinkRepository.findEditedDrinksToApprove();
+        return fullDrinkMapper.toView(drinks);
+    }
+
+    public List<FullDrinkView> findNewDrinksToApprove() {
+
+        List<Drink> drinks = drinkRepository.findNewDrinksToApprove();
+        return fullDrinkMapper.toView(drinks);
+    }
 
 }
