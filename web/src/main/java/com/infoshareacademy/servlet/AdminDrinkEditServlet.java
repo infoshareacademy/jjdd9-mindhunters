@@ -8,7 +8,6 @@ import com.infoshareacademy.email.UserDrinkProposalEmailBuilder;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.AdminManagementRecipeService;
 import com.infoshareacademy.service.DrinkService;
-import com.infoshareacademy.service.mapper.FullDrinkMapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -27,10 +26,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@WebServlet("/admin/to-approve-list")
-public class AdminManagementServlet extends HttpServlet {
+@WebServlet("/admin/to-approve-list/edit")
+public class AdminDrinkEditServlet extends HttpServlet {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AdminManagementServlet.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdminDrinkEditServlet.class.getName());
 
     @EJB
     private DrinkService drinkService;
@@ -48,7 +47,6 @@ public class AdminManagementServlet extends HttpServlet {
     private TemplateProvider templateProvider;
 
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html; charset=UTF-8");
@@ -64,7 +62,7 @@ public class AdminManagementServlet extends HttpServlet {
 
         if (role != null && (role.equalsIgnoreCase("SUPER_ADMIN") || role.equalsIgnoreCase("ADMIN"))) {
 
-            List<FullDrinkView> toApproveList = drinkService.findDrinksToApprove();
+            List<FullDrinkView> toApproveList = drinkService.findEditedDrinksToApprove();
 
             if (!toApproveList.isEmpty()) {
                 List<Object> toApproveListModel = toApproveList.stream()
@@ -77,6 +75,8 @@ public class AdminManagementServlet extends HttpServlet {
 
         }
 
+        dataModel.put("typeOfAction", "edited");
+        dataModel.put("url", "edit");
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeToApproveList.ftlh");
 
@@ -106,7 +106,7 @@ public class AdminManagementServlet extends HttpServlet {
         String idToDelete = req.getParameter("delete");
 
         if (idToCreate != null && !idToCreate.isBlank()) {
-            Drink approvedDrink = adminManagementRecipeService.setApproved(Long.parseLong(idToCreate));
+            Drink approvedDrink = adminManagementRecipeService.setApprovedExistingDrink(Long.parseLong(idToCreate));
             String emailContent = userDrinkProposalEmailBuilder.createContent(approvedDrink, "accepted");
             emailSender.sendEmail(emailContent, approvedDrink.getConfirmUserEmail());
         }
@@ -121,7 +121,7 @@ public class AdminManagementServlet extends HttpServlet {
 
         if (role != null && (role.equalsIgnoreCase("SUPER_ADMIN") || role.equalsIgnoreCase("ADMIN"))) {
 
-            List<FullDrinkView> toApproveList = drinkService.findDrinksToApprove();
+            List<FullDrinkView> toApproveList = drinkService.findEditedDrinksToApprove();
 
             if (!toApproveList.isEmpty()) {
                 List<Object> toApproveListModel = toApproveList.stream()
@@ -134,6 +134,8 @@ public class AdminManagementServlet extends HttpServlet {
 
         }
 
+        dataModel.put("typeOfAction", "edited");
+        dataModel.put("url", "edit");
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeToApproveList.ftlh");
 
