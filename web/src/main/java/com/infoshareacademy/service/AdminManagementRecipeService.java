@@ -2,9 +2,6 @@ package com.infoshareacademy.service;
 
 import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.*;
-import com.infoshareacademy.domain.dto.FullDrinkView;
-import com.infoshareacademy.exception.JsonNotFound;
-import com.infoshareacademy.imageFileUpload.ImageUploadProcessor;
 import com.infoshareacademy.repository.DrinkRepository;
 import com.infoshareacademy.repository.StatisticsRepositoryBean;
 import com.infoshareacademy.service.mapper.FullDrinkMapper;
@@ -14,12 +11,8 @@ import org.slf4j.LoggerFactory;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.Part;
 import javax.transaction.Transactional;
-import javax.ws.rs.core.Context;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -60,7 +53,7 @@ public class AdminManagementRecipeService {
         for (User user : users) {
             user.getDrinks().remove(drink);
         }
-        statisticsRepositoryBean.deleteFavouritesByDrink(drink);
+        statisticsRepositoryBean.deleteStatisticsByDrink(drink);
         drinkRepository.delete(id);
         return true;
     }
@@ -158,11 +151,11 @@ public class AdminManagementRecipeService {
 
     public Drink setApprovedExistingDrink(long drinkId) {
         Drink newDrink = drinkRepository.findDrinkById(drinkId);
-        statisticsRepositoryBean.deleteFavouritesByDrink(newDrink);
+        statisticsRepositoryBean.deleteStatisticsByDrink(newDrink);
 
         Long newDrinkParentId = newDrink.getParentId();
         Drink oldDrink = drinkRepository.findDrinkById(newDrinkParentId);
-        statisticsRepositoryBean.deleteFavouritesByDrink(oldDrink);
+        statisticsRepositoryBean.deleteStatisticsByDrink(oldDrink);
 
         newDrink.setApproved(true);
         newDrink.setId(newDrinkParentId);
@@ -176,6 +169,8 @@ public class AdminManagementRecipeService {
     public Drink setApprovedDeleteDrink(long drinkId) {
         Drink drink = drinkRepository.findDrinkById(drinkId);
         Long idTobeDeleted = drink.getParentId();
+
+        statisticsRepositoryBean.deleteStatisticsByDrink(drink);
 
         drinkRepository.delete(drinkId);
         drinkRepository.delete(idTobeDeleted);

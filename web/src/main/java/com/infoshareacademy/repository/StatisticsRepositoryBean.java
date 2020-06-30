@@ -43,7 +43,7 @@ public class StatisticsRepositoryBean {
 
     }
 
-    public void deleteFavouritesByDrink(Drink drink){
+    public void deleteStatisticsByDrink(Drink drink){
         Query query = entityManager.createNamedQuery("Statistics.deleteStatisticsByDrinks");
         query.setParameter("drink", drink).executeUpdate();
 
