@@ -50,7 +50,7 @@ public class DrinkSearchServlet extends HttpServlet {
         dataModel.put("name", contextHolder.getName());
         dataModel.put("role", contextHolder.getRole());
 
-        setAdultFromCookies(req, resp, contextHolder);
+        setAdultFromCookies(req, contextHolder);
 
         String adult = req.getParameter("adult");
 
@@ -70,26 +70,58 @@ public class DrinkSearchServlet extends HttpServlet {
         }
     }
 
-    private void setAdultFromCookies(HttpServletRequest req, HttpServletResponse resp, ContextHolder contextHolder) {
-        String cookieValue = req.getParameter("age18");
+    private void verifyAge18(HttpServletRequest req, HttpServletResponse resp, ContextHolder contextHolder) {
+        String adult = req.getParameter("adult");
+        String age18 = req.getParameter("age18");
 
-        if (cookieValue != null) {
-            Cookie cookie1 = new Cookie("age18", cookieValue);
-            cookie1.setMaxAge(60 * 60 * 24);
-            resp.addCookie(cookie1);
+        if (adult != null) {
+
+            switch (adult) {
+
+                case "true":
+                    contextHolder.setADULT(adult);
+
+                    if (age18 != null) {
+
+                        createAdultCookie(resp, "true");
+
+                    }
+                    break;
+
+                case "false":
+
+                    contextHolder.setADULT(adult);
+
+                    if (age18 != null) {
+
+                        createAdultCookie(resp, "false");
+
+                    }
+
+                    break;
+            }
         }
+    }
 
+    private void createAdultCookie(HttpServletResponse resp, String value) {
+        Cookie cookie = new Cookie("age18", value);
+        cookie.setMaxAge(60 * 60 * 24);
+        resp.addCookie(cookie);
+    }
+
+    private void setAdultFromCookies(HttpServletRequest req, ContextHolder contextHolder) {
         Cookie[] c = req.getCookies();
         if (c != null) {
 
-            final List<Cookie> age18 = Arrays.stream(c).filter(e -> e.getName().equalsIgnoreCase("age18")).collect(Collectors.toList());
+            final List<Cookie> age18s =
+                    Arrays.stream(c).filter(e -> e.getName().equalsIgnoreCase("age18")).collect(Collectors.toList());
 
-            if (!age18.isEmpty()) {
-                contextHolder.setADULT(age18.get(0).getValue());
+            if (!age18s.isEmpty()) {
+                contextHolder.setADULT(age18s.get(0).getValue());
             }
         }
-
     }
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
