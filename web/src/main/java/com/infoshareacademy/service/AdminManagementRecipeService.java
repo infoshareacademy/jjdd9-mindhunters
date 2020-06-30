@@ -123,11 +123,11 @@ public class AdminManagementRecipeService {
         }
 
         if (id != 0L){
-            drink.setManageAction("EDITED");
+            drink.setManageAction("EDIT");
             drinkRepository.deleteIngredientsFromDrink(id);
             drinkRepository.update(id, drink);
         } else {
-            drink.setManageAction("ADDED");
+            drink.setManageAction("ADD");
             drinkRepository.save(drink);
 
         }

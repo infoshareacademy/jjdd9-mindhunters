@@ -6,7 +6,7 @@ $(document).ready(function () {
     $('#submit_but').click(function () {
 
 
-        if (confirm('Do you really want to edit this recipe?')) {
+        if (confirm('Do you really want to submit this recipe?')) {
 
             let url = new URL(window.location);
             let params = new URLSearchParams(url.search.slice(1));

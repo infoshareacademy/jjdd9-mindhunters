@@ -136,7 +136,7 @@ public class AdminDrinkDeleteServlet extends HttpServlet {
         }
 
         dataModel.put("typeOfAction", "deleted");
-        dataModel.put("url", "delete");
+        dataModel.put("url", "/delete");
 
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeToApproveList.ftlh");
