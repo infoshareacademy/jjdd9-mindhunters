@@ -29,6 +29,16 @@ public class FullDrinkView {
 
     private String confirmUserEmail;
 
+    private String manageAction;
+
+    public String getManageAction() {
+        return manageAction;
+    }
+
+    public void setManageAction(String manageAction) {
+        this.manageAction = manageAction;
+    }
+
     public boolean isApproved() {
         return isApproved;
     }

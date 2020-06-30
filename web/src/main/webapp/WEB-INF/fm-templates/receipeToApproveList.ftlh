@@ -77,7 +77,7 @@
 
                                         <div class="row col-sm d-flex mt-4 mt-md-0 ">
                                             <h5 class="col-md-6 mx-2 my-2  font-weight-bold text-center text-md-left">
-                                                ${drink.drinkName}
+                                                ${drink.drinkName} ${" - " + drink.manageAction!}
                                             </h5>
 
                                             <h5 class="col-md-5 mx-2 my-2   text-center text-md-right" style="

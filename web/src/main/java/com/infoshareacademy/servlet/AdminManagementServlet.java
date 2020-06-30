@@ -77,6 +77,7 @@ public class AdminManagementServlet extends HttpServlet {
 
         }
 
+        dataModel.put("url", "");
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeToApproveList.ftlh");
 
@@ -134,6 +135,7 @@ public class AdminManagementServlet extends HttpServlet {
 
         }
 
+        dataModel.put("url", "");
 
         Template template = templateProvider.getTemplate(getServletContext(), "receipeToApproveList.ftlh");
 

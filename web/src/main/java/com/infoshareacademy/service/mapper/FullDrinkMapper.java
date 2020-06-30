@@ -38,6 +38,7 @@ public class FullDrinkMapper {
                 .collect(Collectors.toList()));
         fullDrinkView.setImage(drink.getImage());
         fullDrinkView.setDate(drink.getDate().format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm")));
+        fullDrinkView.setManageAction(drink.getManageAction());
         return fullDrinkView;
     }
 
