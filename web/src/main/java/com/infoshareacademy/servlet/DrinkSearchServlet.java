@@ -50,13 +50,11 @@ public class DrinkSearchServlet extends HttpServlet {
         dataModel.put("name", contextHolder.getName());
         dataModel.put("role", contextHolder.getRole());
 
+
+        verifyAge18(req, resp, contextHolder);
+
         setAdultFromCookies(req, contextHolder);
 
-        String adult = req.getParameter("adult");
-
-        if (adult != null) {
-            contextHolder.setADULT(adult);
-        }
 
         if (contextHolder.getADULT() != null) {
             dataModel.put("adult", contextHolder.getADULT());
