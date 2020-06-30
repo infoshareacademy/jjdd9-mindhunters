@@ -18,14 +18,15 @@
 
                     <input type="hidden" value="1"
                            name="page"/>
+                    <input type="checkbox" name="age18" value="v">
+                    <label for="age18">Remember for 24h.</label>
 
                     <select id="adult" name="adult" required>
                         <option value="true" selected>Yes, I am over 18.</option>
                         <option value="false">No, I am not.</option>
                     </select>
                    <i>  </i>
-                    <input type="checkbox" name="age18" value="v">
-                    <label for="age18">Remember my choice 24h.</label>
+
 
                     <button class="btn btn-secondary" type="submit">Confirm</button>
 

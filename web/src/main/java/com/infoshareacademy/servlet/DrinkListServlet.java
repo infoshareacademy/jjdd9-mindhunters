@@ -75,37 +75,7 @@ public class DrinkListServlet extends HttpServlet {
         dataModel.put("role", contextHolder.getRole());
 
 
-        String adult = req.getParameter("adult");
-        String age18 = req.getParameter("age18");
-
-        if (adult != null) {
-
-            switch (adult) {
-
-                case "true":
-                    contextHolder.setADULT(adult);
-
-                    if (age18 != null) {
-
-                        createAdultCookie(resp, "true");
-
-                    }
-                    break;
-
-                case "false":
-
-                    contextHolder.setADULT(adult);
-
-                    if (age18 != null) {
-
-                        createAdultCookie(resp, "false");
-
-                    }
-
-                    break;
-            }
-        }
-
+        verifyAge18(req, resp, contextHolder);
 
         setAdultFromCookies(req, contextHolder);
 
@@ -158,6 +128,39 @@ public class DrinkListServlet extends HttpServlet {
         } catch (
                 TemplateException e) {
             packageLogger.error(e.getMessage());
+        }
+    }
+
+    private void verifyAge18(HttpServletRequest req, HttpServletResponse resp, ContextHolder contextHolder) {
+        String adult = req.getParameter("adult");
+        String age18 = req.getParameter("age18");
+
+        if (adult != null) {
+
+            switch (adult) {
+
+                case "true":
+                    contextHolder.setADULT(adult);
+
+                    if (age18 != null) {
+
+                        createAdultCookie(resp, "true");
+
+                    }
+                    break;
+
+                case "false":
+
+                    contextHolder.setADULT(adult);
+
+                    if (age18 != null) {
+
+                        createAdultCookie(resp, "false");
+
+                    }
+
+                    break;
+            }
         }
     }
 
