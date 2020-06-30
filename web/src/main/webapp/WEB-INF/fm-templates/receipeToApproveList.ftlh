@@ -42,6 +42,7 @@
                 <ul class="list-unstyled  justify-content-center  ml-auto space_list  " id="ID03" >
 
 
+            <label style="color: #FFC107; size: 15px">List of ${typeOfAction!} drinks for approval: <br></label>
 
 
                     <#list drinkList! as drink>
@@ -105,7 +106,7 @@
                             </div>
 
 
-                            <form method="post" action="/admin/to-approve-list">
+                            <form method="post" action="/admin/to-approve-list/${url}">
                                 <div class="list-group  list-element">
                                     <div class="list-group-item sidebar-list">
                                         <input type="hidden" name="create" value="${drink.id}"/>
@@ -114,7 +115,7 @@
                                 </div>
                             </form>
 
-                            <form method="post" action="/admin/to-approve-list">
+                            <form method="post" action="/admin/to-approve-list/${url}">
                                 <div class="list-group  list-element">
                                     <div class="list-group-item sidebar-list">
                                         <input type="hidden" name="delete" value="${drink.id}"/>

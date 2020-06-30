@@ -149,7 +149,7 @@ public class AdminManagementRecipeService {
         return drink;
     }
 
-    public Drink setApprovedExistingDrink(long drinkId) {
+    public Drink setApprovedEditedDrink(long drinkId) {
         Drink newDrink = drinkRepository.findDrinkById(drinkId);
         statisticsRepositoryBean.deleteStatisticsByDrink(newDrink);
 
