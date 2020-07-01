@@ -3,7 +3,8 @@ $(document).ready(function () {
     var maxField = 10; //Input fields increment limitation
     var addButton = $('.add_button'); //Add button selector
     var wrapper = $('.add-group'); //Input field wrapper
-    var fieldHTML = '<div class="list-group-item sidebar-list"><input type="text" maxlength="20" minlength="2"' +
+    var fieldHTML = '<div class="list-group-item sidebar-list"><input class="input-ingredientName" type="text"' +
+        ' maxlength="20" minlength="2"' +
         ' name="ing"' +
         ' value=""' +
         ' placeholder="Add ingredient"/><a' +
@@ -57,7 +58,7 @@ async function previousPage() {
 }
 
 
-//autocomplete
+//autocomplete drink names
 $('#input-name').keyup(function () {
     console.log('inside autocomplete');
     if (this.value.length < 3) return;
@@ -69,6 +70,25 @@ $('#input-name').keyup(function () {
             console.log(data);
             let result = data.map(r => r.drinkName);
             $('#input-name').autocomplete({
+                source: result
+            });
+        }
+    });
+});
+
+
+//autocomplete ingredients
+$('.input-ingredientName').keyup(function () {
+    console.log('inside ingredients autocomplete');
+    if (this.value.length < 3) return;
+    var substring = $(this).val();
+    $.ajax({
+        url: '/api/search/ingredient/' + substring,
+        type: 'GET',
+        success: function (data) {
+            console.log(data);
+            let result = data.map(r => r.name);
+            $('.input-ingredientName').autocomplete({
                 source: result
             });
         }

@@ -17,8 +17,8 @@
 
             <div class="list-group-item sidebar-list">
                 <input type="hidden" name="search" value="ingr"/>
-                <input type="text" required maxlength="20" minlength="2" name="ing" value=""
-                       placeholder="Ingredient..."/>
+                <input type="text" required maxlength="20" minlength="2" name="ing"
+                       placeholder="Ingredient..." class="input-ingredientName"/>
                 <a href="javascript:void(0);" class="add_button " id="remove_blue" title="Add field">
                     <svg class="bi bi-plus-square-fill" id="remove_blue" width="1em" height="1em"
                          viewBox="0 0 16 16"
