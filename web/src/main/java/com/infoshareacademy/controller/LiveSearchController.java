@@ -26,4 +26,13 @@ public class LiveSearchController {
     }
 
 
+    @GET
+    @Path("/ingredient/{partialName}")
+    public Response ingredient(@PathParam("partialName") String partialName) {
+        return Response.status(Response.Status.OK)
+                .entity(drinkRestService.findByNameLiveSearch(partialName))
+                .build();
+    }
+
+
 }
