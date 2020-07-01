@@ -22,6 +22,25 @@ $(document).ready(function () {
             x++; //Increment field counter
             $(wrapper).append(fieldHTML); //Add field html
         }
+
+        //autocomplete ingredients extra fields
+        $('.input-ingredientName').keyup(function () {
+
+            if (this.value.length < 2) return;
+            var substring = $(this).val();
+            $.ajax({
+                url: '/api/search/ingredient/' + substring,
+                type: 'GET',
+                success: function (data) {
+
+                    let result = data.map(r => r.name);
+                    $('.input-ingredientName').autocomplete({
+                        source: result
+                    });
+                }
+            });
+        });
+
     });
 
     //Once remove button is clicked
@@ -60,14 +79,14 @@ async function previousPage() {
 
 //autocomplete drink names
 $('#input-name').keyup(function () {
-    console.log('inside autocomplete');
-    if (this.value.length < 3) return;
+
+    if (this.value.length < 2) return;
     var substring = $(this).val();
     $.ajax({
         url: '/api/search/drink/' + substring,
         type: 'GET',
         success: function (data) {
-            console.log(data);
+
             let result = data.map(r => r.drinkName);
             $('#input-name').autocomplete({
                 source: result
@@ -77,16 +96,16 @@ $('#input-name').keyup(function () {
 });
 
 
-//autocomplete ingredients
+//autocomplete ingredients main field
 $('.input-ingredientName').keyup(function () {
-    console.log('inside ingredients autocomplete');
-    if (this.value.length < 3) return;
+
+    if (this.value.length < 2) return;
     var substring = $(this).val();
     $.ajax({
         url: '/api/search/ingredient/' + substring,
         type: 'GET',
         success: function (data) {
-            console.log(data);
+
             let result = data.map(r => r.name);
             $('.input-ingredientName').autocomplete({
                 source: result
