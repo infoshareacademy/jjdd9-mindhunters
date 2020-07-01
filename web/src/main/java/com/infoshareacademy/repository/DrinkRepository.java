@@ -19,6 +19,8 @@ public interface DrinkRepository {
 
     List<Drink> liveSearchDrinksByName(String partialDrinkName);
 
+    List<Ingredient> liveSearchIngredientsByName(String partialIngredientName);
+
     List<Drink> findByIngredients(List<Ingredient> ingredients, int startPosition, int endPosition);
 
     int countPagesByIngredients(List<Ingredient> ingredients);

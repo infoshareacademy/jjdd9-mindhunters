@@ -1,9 +1,11 @@
 package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.Drink;
+import com.infoshareacademy.domain.Ingredient;
 import com.infoshareacademy.domain.dto.DrinkLiveSearchView;
+import com.infoshareacademy.domain.dto.IngredientView;
 import com.infoshareacademy.repository.DrinkRepository;
-import com.infoshareacademy.service.mapper.DrinkLiveSearchMapper;
+import com.infoshareacademy.service.mapper.LiveSearchMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,13 +23,20 @@ public class DrinkRestService {
     private DrinkRepository drinkRepository;
 
     @EJB
-    private DrinkLiveSearchMapper liveSearchMapper;
+    private LiveSearchMapper liveSearchMapper;
 
     public List<DrinkLiveSearchView> findByNameLiveSearch(String partialDrinkName) {
         LOGGER.debug("Searching by name in livesearch");
         final List<Drink> drinks = drinkRepository.liveSearchDrinksByName(partialDrinkName);
 
         return liveSearchMapper.toView(drinks);
+    }
+
+    public List<IngredientView> findIngredientsLiveSearch(String partialIngredientName) {
+        LOGGER.debug("Searching by ingredients in livesearch");
+        final List<Ingredient> ingredients = drinkRepository.liveSearchIngredientsByName(partialIngredientName);
+
+        return liveSearchMapper.ingredientsToView(ingredients);
     }
 
 }

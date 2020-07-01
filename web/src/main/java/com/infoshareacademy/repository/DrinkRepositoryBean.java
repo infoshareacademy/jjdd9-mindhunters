@@ -84,6 +84,16 @@ public class DrinkRepositoryBean implements DrinkRepository {
         return query.getResultList();
     }
 
+    @Override
+    public List<Ingredient> liveSearchIngredientsByName(String partialIngredientName) {
+        Query query = entityManager.createNamedQuery("Ingredient.findIngredientsByPartialName");
+        query.setHint(QueryHints.HINT_PASS_DISTINCT_THROUGH, false);
+
+        query.setMaxResults(LIVE_SEARCH_LIMIT);
+        query.setParameter("partialIngredientName", "%" + partialIngredientName + "%");
+        return query.getResultList();
+    }
+
 
     @Override
     public List<Drink> findByIngredients(List<Ingredient> ingredients, int startPosition, int endPosition) {
@@ -220,7 +230,7 @@ public class DrinkRepositoryBean implements DrinkRepository {
     }
 
     @Override
-    public void deleteIngredientsFromDrink(Long drinkId){
+    public void deleteIngredientsFromDrink(Long drinkId) {
         Query query = entityManager.createNamedQuery("Drink.deleteIngredientByDrink");
         query.setParameter("drinkId", drinkId).executeUpdate();
 

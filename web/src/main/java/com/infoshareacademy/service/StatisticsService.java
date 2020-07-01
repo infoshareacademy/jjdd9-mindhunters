@@ -6,7 +6,7 @@ import com.infoshareacademy.domain.Statistics;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.domain.dto.StatisticsChartView;
 import com.infoshareacademy.repository.StatisticsRepositoryBean;
-import com.infoshareacademy.service.mapper.DrinkLiveSearchMapper;
+import com.infoshareacademy.service.mapper.LiveSearchMapper;
 import com.infoshareacademy.service.mapper.StatisticsMapper;
 
 import javax.ejb.EJB;
@@ -23,7 +23,7 @@ public class StatisticsService {
     private StatisticsRepositoryBean statisticsRepositoryBean;
 
     @EJB
-    private DrinkLiveSearchMapper drinkLiveSearchMapper;
+    private LiveSearchMapper liveSearchMapper;
 
     @Inject
     private StatisticsMapper statisticsMapper;
