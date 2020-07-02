@@ -10,6 +10,12 @@
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="../../css/styleSingleViewSearch.css" rel="stylesheet">
 
+    <!-- styles for rating -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link href="../../js/rating/starrr.css" rel="stylesheet">
+
+
+
     <title>Drink</title>
 
 </head>
@@ -36,34 +42,36 @@
                                     <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
                                 </svg>
                             </i>
-                        |
-                        <i class="icon-lock" title="Delete recipe" id="DELETE">
-                            <svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z"/>
-                                <path fill-rule="evenodd"
-                                      d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 01-1-1V2a1 1 0 011-1H6a1 1 0 011-1h2a1 1 0 011 1h3.5a1 1 0 011 1v1zM4.118 4L4 4.059V13a1 1 0 001 1h6a1 1 0 001-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
-                                      clip-rule="evenodd"/>
-                            </svg>
-                        </i>
+                            |
+                            <i class="icon-lock" title="Delete recipe" id="DELETE">
+                                <svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16"
+                                     fill="currentColor"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z"/>
+                                    <path fill-rule="evenodd"
+                                          d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 01-1-1V2a1 1 0 011-1H6a1 1 0 011-1h2a1 1 0 011 1h3.5a1 1 0 011 1v1zM4.118 4L4 4.059V13a1 1 0 001 1h6a1 1 0 001-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                                          clip-rule="evenodd"/>
+                                </svg>
+                            </i>
 
-                        |
-                        <i class="icon-lock" title="Edit recipe" id="EDIT">
-                            <svg class="bi bi-pen" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                      d="M5.707 13.707a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391L10.086 2.5a2 2 0 012.828 0l.586.586a2 2 0 010 2.828l-7.793 7.793zM3 11l7.793-7.793a1 1 0 011.414 0l.586.586a1 1 0 010 1.414L5 13l-3 1 1-3z"
-                                      clip-rule="evenodd"/>
-                                <path fill-rule="evenodd"
-                                      d="M9.854 2.56a.5.5 0 00-.708 0L5.854 5.855a.5.5 0 01-.708-.708L8.44 1.854a1.5 1.5 0 012.122 0l.293.292a.5.5 0 01-.707.708l-.293-.293z"
-                                      clip-rule="evenodd"/>
-                                <path d="M13.293 1.207a1 1 0 011.414 0l.03.03a1 1 0 01.03 1.383L13.5 4 12 2.5l1.293-1.293z"/>
-                            </svg>
-                        </i>
+                            |
+                            <i class="icon-lock" title="Edit recipe" id="EDIT">
+                                <svg class="bi bi-pen" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                          d="M5.707 13.707a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391L10.086 2.5a2 2 0 012.828 0l.586.586a2 2 0 010 2.828l-7.793 7.793zM3 11l7.793-7.793a1 1 0 011.414 0l.586.586a1 1 0 010 1.414L5 13l-3 1 1-3z"
+                                          clip-rule="evenodd"/>
+                                    <path fill-rule="evenodd"
+                                          d="M9.854 2.56a.5.5 0 00-.708 0L5.854 5.855a.5.5 0 01-.708-.708L8.44 1.854a1.5 1.5 0 012.122 0l.293.292a.5.5 0 01-.707.708l-.293-.293z"
+                                          clip-rule="evenodd"/>
+                                    <path d="M13.293 1.207a1 1 0 011.414 0l.03.03a1 1 0 01.03 1.383L13.5 4 12 2.5l1.293-1.293z"/>
+                                </svg>
+                            </i>
+                            <br>
                         </#if>
 
                         <p hidden>${drink.id}</p>
-                        <br><br>
+                       <br>
                         <#if drink.drinkId??>
                             <div>ID number: ${drink.drinkId}</div>
                         </#if>
@@ -75,8 +83,11 @@
                         <#else>
                             <#assign color="white">
                         </#if>
-
                         <div style="color:${color}">${drink.alcoholStatus}</div>
+                        <br>
+                        Rate this recipe!
+                        <br>
+                        <div class="starrr"></div>
                     </div>
                     <div class="col-md-3">
                         <#if drink.image!?trim?has_content>
@@ -88,6 +99,7 @@
                         border-radius: 10px;
   padding: 5px; width: 70%;" alt="">
                         </#if>
+
                     </div>
                 </div>
 
@@ -156,8 +168,18 @@
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
-<script src="../../js/BootstrapValidation.js"></script>
 <script src="../../js/singleDrinkView.js"></script>
+
+
+<!--scripts for ratings -->
+<script src="../../js/rating/starrr.js"></script>
+<script>
+$(function(){
+
+    $(".starrr").starrr();
+
+});
+</script>
 
 </body>
 </html>
