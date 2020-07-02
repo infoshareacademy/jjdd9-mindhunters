@@ -2,6 +2,13 @@ package com.infoshareacademy.domain;
 
 import javax.persistence.*;
 
+@NamedQueries({
+        @NamedQuery(
+                name = "Rating.findByDrinkId",
+                query = "SELECT r FROM Rating r WHERE r.drink.id = :drinkId")
+})
+
+
 @Entity
 @Table(name = "drink_rating")
 public class Rating {
@@ -14,7 +21,7 @@ public class Rating {
 
     private Long sum;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "drink_id", unique = true)
     private Drink drink;
 
