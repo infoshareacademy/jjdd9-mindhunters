@@ -4,6 +4,7 @@ import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.dto.FullDrinkView;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.DrinkService;
+import com.infoshareacademy.service.RatingService;
 import com.infoshareacademy.service.StatisticsService;
 import com.infoshareacademy.service.UserService;
 import com.infoshareacademy.service.validator.UserInputValidator;
@@ -35,6 +36,9 @@ public class SingleViewServlet extends HttpServlet {
 
     @EJB
     private StatisticsService statisticsService;
+
+    @EJB
+    private RatingService ratingService;
 
     @Inject
     private UserInputValidator userInputValidator;
@@ -74,6 +78,8 @@ public class SingleViewServlet extends HttpServlet {
 
             dataModel.put("drink", foundDrinkById);
             statisticsService.addToStatistics(foundDrinkById);
+
+            dataModel.put("rating",ratingService.getCalculatedRatingByDrinkId(drinkId));
         }
 
         if (email != null && !email.isEmpty()){
@@ -90,6 +96,7 @@ public class SingleViewServlet extends HttpServlet {
             }
 
         }
+
 
         Template template = templateProvider.getTemplate(getServletContext(), "singleDrinkView.ftlh");
         try {

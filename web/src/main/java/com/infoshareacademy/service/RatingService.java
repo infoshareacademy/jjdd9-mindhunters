@@ -20,6 +20,16 @@ public class RatingService {
 
     }
 
+
+    public Double getCalculatedRatingByDrinkId(Long drinkId){
+
+        final Rating rating = ratingRepository.findByDrinkId(drinkId).orElse(createEmptyRating());
+
+        return (double)rating.getSum()/rating.getNumberOfRatings();
+
+    }
+
+
     private Rating createEmptyRating() {
 
         Rating initialRating = new Rating();
