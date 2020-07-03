@@ -10,11 +10,12 @@
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="../../css/styleSingleViewSearch.css" rel="stylesheet">
 
-    <!-- styles for rating -->
+<#--    <!-- styles for rating &ndash;&gt;
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
-    <link href="../../js/rating/starrr.css" rel="stylesheet">
+    <link href="../../js/rating/starrr.css" rel="stylesheet">-->
 
-
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 
     <title>Drink</title>
 
@@ -87,7 +88,12 @@
                         <br>
                         Rate this recipe!
                         <br>
-                        <div class="starrr"></div>
+                       <#-- <div class="starrr"></div>-->
+
+
+                        <div id="rateYo"></div>
+
+
                     </div>
                     <div class="col-md-3">
                         <#if drink.image!?trim?has_content>
@@ -171,14 +177,40 @@
 <script src="../../js/singleDrinkView.js"></script>
 
 
-<!--scripts for ratings -->
+<#--<!--scripts for ratings &ndash;&gt;
 <script src="../../js/rating/starrr.js"></script>
 <script>
 $(function(){
 
-    $(".starrr").starrr();
+    $(".starrr").starrr({
+        rating: 4
+    })
 
 });
+</script>-->
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+
+<script>
+    /* Javascript */
+
+    //Make sure that the dom is ready
+    $(function () {
+
+        $("#rateYo").rateYo({
+            rating: ${rating ! "0"},
+            ratedFill: "#FFD119",
+            starWidth: "18px",
+            halfStar: true,
+            onSet: function (rating, rateYoInstance) {
+
+                alert("Your rating is: " + rating);
+            }
+
+        });
+
+    });
+
 </script>
 
 </body>
