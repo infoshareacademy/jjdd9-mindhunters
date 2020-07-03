@@ -205,6 +205,16 @@ $(function(){
             onSet: function (rating, rateYoInstance) {
 
                 alert("Your rating is: " + rating);
+/*                $.ajax({
+                    type: 'GET',
+                     url: '/single-view?drink=' + ${drink.id} + '&rating=',
+                    success: function() {
+                        location.reload();
+                    }
+
+                 });*/
+
+                location.href = "/single-view?drink=" + ${drink.id} + "&rate=" + rating;
             }
 
         });

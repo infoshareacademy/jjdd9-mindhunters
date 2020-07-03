@@ -77,7 +77,17 @@ public class SingleViewServlet extends HttpServlet {
             }
 
             dataModel.put("drink", foundDrinkById);
-            statisticsService.addToStatistics(foundDrinkById);
+
+            final String rateParam = req.getParameter("rate");
+
+            if (rateParam == null || rateParam.isEmpty()){
+                statisticsService.addToStatistics(foundDrinkById);
+            } else {
+
+                //TODO validate + set Rating from parameter
+
+            }
+
 
             dataModel.put("rating",ratingService.getCalculatedRatingByDrinkId(drinkId));
         }
