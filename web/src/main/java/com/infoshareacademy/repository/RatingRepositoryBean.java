@@ -22,4 +22,24 @@ public class RatingRepositoryBean implements RatingRepository {
 
         return query.getResultList().stream().findFirst();
     }
+
+    @Override
+    public Rating updateRating(Long drinkId, Long vote) {
+
+        final Rating rating = findByDrinkId(drinkId).get();
+
+        final long newSum = rating.getSum() + vote;
+        final long newNumberOfRating = rating.getNumberOfRatings() + 1;
+
+        rating.setSum(newSum);
+        rating.setNumberOfRatings(newNumberOfRating);
+
+        return entityManager.merge(rating);
+    }
+
+    @Override
+    public void saveRating(Rating rating) {
+
+        entityManager.persist(rating);
+    }
 }

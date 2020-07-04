@@ -84,7 +84,8 @@ public class SingleViewServlet extends HttpServlet {
                 statisticsService.addToStatistics(foundDrinkById);
             } else {
 
-                //TODO validate + set Rating from parameter
+                //TODO validate + sigle vote from user + set Rating from parameter
+                ratingService.updateRating(drinkId, rateParam);
 
             }
 

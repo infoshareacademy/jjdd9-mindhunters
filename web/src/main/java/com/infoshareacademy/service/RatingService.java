@@ -6,6 +6,7 @@ import com.infoshareacademy.repository.RatingRepository;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.transaction.Transactional;
 
 @Stateless
 public class RatingService {
@@ -19,16 +20,16 @@ public class RatingService {
 
     public Rating getRatingByDrinkId(Long drinkId) {
 
-        return ratingRepository.findByDrinkId(drinkId).orElse(createEmptyRating(drinkId));
+        return ratingRepository.findByDrinkId(drinkId).orElseGet(() -> createEmptyRating(drinkId));
 
     }
 
 
     public Double getCalculatedRatingByDrinkId(Long drinkId) {
 
-        final Rating rating = ratingRepository.findByDrinkId(drinkId).orElse(createEmptyRating(drinkId));
+        final Rating rating = getRatingByDrinkId(drinkId);
 
-        if (rating.getSum() == 0){
+        if (rating.getSum() == 0) {
             return 0.0;
         }
 
@@ -44,7 +45,16 @@ public class RatingService {
         initialRating.setSum(0L);
         initialRating.setDrink(drinkRepository.findDrinkById(drinkId));
 
+        ratingRepository.saveRating(initialRating);
+
         return initialRating;
+    }
+
+    @Transactional
+    public Rating updateRating(Long drinkId, String ratingParam) {
+
+        return ratingRepository.updateRating(drinkId, Long.valueOf(ratingParam));
+
     }
 
 }
