@@ -17,6 +17,7 @@ import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,23 +61,12 @@ public class SingleViewServlet extends HttpServlet {
         Long drinkId = userInputValidator.stringToLongConverter(idParam);
         Map<String, Object> dataModel = new HashMap<>();
 
-        ContextHolder contextHolder = new ContextHolder(req.getSession());
-        dataModel.put("name", contextHolder.getName());
-        dataModel.put("role", contextHolder.getRole());
-
-        String email = contextHolder.getEmail();
+        String email = getCredentials(req, dataModel);
 
         if (drinkId < 0) {
             dataModel.put("errorMessage", "Wrong input.\n");
         } else {
-            final FullDrinkView foundDrinkById = drinkService.getFullDrinkViewById(drinkId);
-
-
-            if (foundDrinkById == null) {
-                dataModel.put("errorMessage", "Drink not found.\n");
-            }
-
-            dataModel.put("drink", foundDrinkById);
+            final FullDrinkView foundDrinkById = passDTOtoView(drinkId, dataModel);
 
             final String rateParam = req.getParameter("rate");
 
@@ -86,6 +76,7 @@ public class SingleViewServlet extends HttpServlet {
 
                 //TODO validate + sigle vote from user + set Rating from parameter
                 ratingService.updateRating(drinkId, rateParam);
+                createIpCookie(req, resp);
 
             }
 
@@ -93,6 +84,18 @@ public class SingleViewServlet extends HttpServlet {
             dataModel.put("rating",ratingService.getCalculatedRatingByDrinkId(drinkId));
         }
 
+        sentFavouritesToView(dataModel, email);
+
+        Template template = templateProvider.getTemplate(getServletContext(), "singleDrinkView.ftlh");
+        try {
+            template.process(dataModel, resp.getWriter());
+        } catch (TemplateException e) {
+            logger.error(e.getMessage());
+
+        }
+    }
+
+    private void sentFavouritesToView(Map<String, Object> dataModel, String email) {
         if (email != null && !email.isEmpty()){
 
             List<FullDrinkView> favouritesList = userService.favouritesList(email);
@@ -107,15 +110,31 @@ public class SingleViewServlet extends HttpServlet {
             }
 
         }
+    }
+
+    private FullDrinkView passDTOtoView(Long drinkId, Map<String, Object> dataModel) {
+        final FullDrinkView foundDrinkById = drinkService.getFullDrinkViewById(drinkId);
 
 
-        Template template = templateProvider.getTemplate(getServletContext(), "singleDrinkView.ftlh");
-        try {
-            template.process(dataModel, resp.getWriter());
-        } catch (TemplateException e) {
-            logger.error(e.getMessage());
-
+        if (foundDrinkById == null) {
+            dataModel.put("errorMessage", "Drink not found.\n");
         }
+
+        dataModel.put("drink", foundDrinkById);
+        return foundDrinkById;
+    }
+
+    private String getCredentials(HttpServletRequest req, Map<String, Object> dataModel) {
+        ContextHolder contextHolder = new ContextHolder(req.getSession());
+        dataModel.put("name", contextHolder.getName());
+        dataModel.put("role", contextHolder.getRole());
+
+        return contextHolder.getEmail();
+    }
+
+    private void createIpCookie(HttpServletRequest req, HttpServletResponse resp) {
+        Cookie cookie = new Cookie("ip", req.getRemoteAddr());
+        resp.addCookie(cookie);
     }
 
 

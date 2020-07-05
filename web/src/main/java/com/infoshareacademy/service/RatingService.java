@@ -7,6 +7,7 @@ import com.infoshareacademy.repository.RatingRepository;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Stateless
 public class RatingService {
