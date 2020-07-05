@@ -52,9 +52,9 @@ public class RatingService {
     }
 
     @Transactional
-    public Rating updateRating(Long drinkId, String ratingParam) {
+    public Rating updateRating(Long drinkId, Long ratingParam) {
 
-        return ratingRepository.updateRating(drinkId, Long.valueOf(ratingParam));
+        return ratingRepository.updateRating(drinkId, ratingParam);
 
     }
 

@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,8 +76,17 @@ public class SingleViewServlet extends HttpServlet {
             } else {
 
                 //TODO validate + sigle vote from user + set Rating from parameter
-                ratingService.updateRating(drinkId, rateParam);
-                createIpCookie(req, resp);
+                if (Arrays.stream(req.getCookies())
+                .filter(c -> c.getName().equals("ip"))
+                .map(Cookie::getValue)
+                        .findAny().isEmpty()){
+                    //ratingService.updateRating(drinkId, rateParam);
+
+                    createIpCookie(req, resp);
+                } else {
+                    logger.debug("Cookie exists");
+                }
+
 
             }
 

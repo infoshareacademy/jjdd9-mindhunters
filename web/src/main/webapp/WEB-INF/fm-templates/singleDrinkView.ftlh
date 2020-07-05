@@ -203,18 +203,16 @@ $(function(){
             starWidth: "18px",
             halfStar: true,
             onSet: function (rating, rateYoInstance) {
-
-                alert("Your rating is: " + rating);
-/*                $.ajax({
-                    type: 'GET',
-                     url: '/single-view?drink=' + ${drink.id} + '&rating=',
+                alert("Thank you for your vote. Your rating is: " + rating);
+                $.ajax({
+                    type: 'POST',
+                     url: '/api/rate/drinks/${drink.id}/rating/' + rating,
                     success: function() {
                         location.reload();
                     }
 
-                 });*/
+                 });
 
-                location.href = "/single-view?drink=" + ${drink.id} + "&rate=" + rating;
             }
 
         });
