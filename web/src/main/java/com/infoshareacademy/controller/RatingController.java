@@ -23,16 +23,13 @@ public class RatingController {
     @POST
     @Path("/drinks/{drinkId}/rating/{rate}")
     public Response rateDrink(@PathParam("drinkId") long drinkId,
-                              @PathParam("rate") long rate,
+                              @PathParam("rate") double rate,
                               @Context HttpServletRequest req,
                               @Context HttpServletResponse res) {
 
         String ip = req.getRemoteAddr();
 
-        if (Arrays.stream(req.getCookies())
-                .filter(c -> ip.equals(c.getName()))
-                .map(Cookie::getValue)
-                .findAny().isEmpty()) {
+        if (isIpCookieEmpty(req)) {
 
             ratingService.updateRating(drinkId, rate);
             Cookie cookie = new Cookie("ip", ip);
@@ -42,6 +39,13 @@ public class RatingController {
 
             return Response.status(Response.Status.FORBIDDEN).build();
         }
+    }
+
+    private boolean isIpCookieEmpty(@Context HttpServletRequest req) {
+        return Arrays.stream(req.getCookies())
+                .filter(c -> "ip".equals(c.getName()))
+                .map(Cookie::getValue)
+                .findAny().isEmpty();
     }
 
 }

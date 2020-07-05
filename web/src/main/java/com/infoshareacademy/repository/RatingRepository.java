@@ -12,7 +12,7 @@ public interface RatingRepository {
 
     Optional<Rating> findByDrinkId(Long drinkId);
 
-    Rating updateRating(Long drinkId, Long vote);
+    Rating updateRating(Long drinkId, Double vote);
 
     void saveRating(Rating rating);
 }

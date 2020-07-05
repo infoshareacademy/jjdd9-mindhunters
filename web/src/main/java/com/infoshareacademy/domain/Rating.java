@@ -19,7 +19,7 @@ public class Rating {
 
     private Long numberOfRatings;
 
-    private Long sum;
+    private Double sum;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "drink_id", unique = true)
@@ -41,11 +41,11 @@ public class Rating {
         this.numberOfRatings = numberOfRatings;
     }
 
-    public Long getSum() {
+    public Double getSum() {
         return sum;
     }
 
-    public void setSum(Long sum) {
+    public void setSum(Double sum) {
         this.sum = sum;
     }
 

@@ -43,7 +43,7 @@ public class RatingService {
 
         Rating initialRating = new Rating();
         initialRating.setNumberOfRatings(0L);
-        initialRating.setSum(0L);
+        initialRating.setSum(0.0);
         initialRating.setDrink(drinkRepository.findDrinkById(drinkId));
 
         ratingRepository.saveRating(initialRating);
@@ -52,7 +52,7 @@ public class RatingService {
     }
 
     @Transactional
-    public Rating updateRating(Long drinkId, Long ratingParam) {
+    public Rating updateRating(Long drinkId, Double ratingParam) {
 
         return ratingRepository.updateRating(drinkId, ratingParam);
 

@@ -10,9 +10,9 @@
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="../../css/styleSingleViewSearch.css" rel="stylesheet">
 
-<#--    <!-- styles for rating &ndash;&gt;
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
-    <link href="../../js/rating/starrr.css" rel="stylesheet">-->
+    <#--    <!-- styles for rating &ndash;&gt;
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+        <link href="../../js/rating/starrr.css" rel="stylesheet">-->
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
@@ -72,7 +72,7 @@
                         </#if>
 
                         <p hidden>${drink.id}</p>
-                       <br>
+                        <br>
                         <#if drink.drinkId??>
                             <div>ID number: ${drink.drinkId}</div>
                         </#if>
@@ -88,7 +88,7 @@
                         <br>
                         Rate this recipe!
                         <br>
-                       <#-- <div class="starrr"></div>-->
+                        <#-- <div class="starrr"></div>-->
 
 
                         <div id="rateYo"></div>
@@ -176,25 +176,12 @@
 <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
 <script src="../../js/singleDrinkView.js"></script>
 
-
-<#--<!--scripts for ratings &ndash;&gt;
-<script src="../../js/rating/starrr.js"></script>
-<script>
-$(function(){
-
-    $(".starrr").starrr({
-        rating: 4
-    })
-
-});
-</script>-->
-<!-- Latest compiled and minified JavaScript -->
+<!-- RateYo rating plugin -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
 
 <script>
-    /* Javascript */
 
-    //Make sure that the dom is ready
+    <#-- Make sure that the dom is ready -->
     $(function () {
 
         $("#rateYo").rateYo({
@@ -203,15 +190,21 @@ $(function(){
             starWidth: "18px",
             halfStar: true,
             onSet: function (rating, rateYoInstance) {
-                alert("Thank you for your vote. Your rating is: " + rating);
+
                 $.ajax({
                     type: 'POST',
-                     url: '/api/rate/drinks/${drink.id}/rating/' + rating,
-                    success: function() {
+                    url: '/api/rate/drinks/${drink.id}/rating/' + rating,
+                    success: function () {
+                        alert("Thank you for your vote. Your rating is: " + rating);
                         location.reload();
+                    },
+                    statusCode: {
+                        403: function () {
+                            alert("You can vote only once!");
+                            location.reload();
+                        }
                     }
-
-                 });
+                });
 
             }
 

@@ -24,11 +24,11 @@ public class RatingRepositoryBean implements RatingRepository {
     }
 
     @Override
-    public Rating updateRating(Long drinkId, Long vote) {
+    public Rating updateRating(Long drinkId, Double vote) {
 
         final Rating rating = findByDrinkId(drinkId).get();
 
-        final long newSum = rating.getSum() + vote;
+        final Double newSum = rating.getSum() + vote;
         final long newNumberOfRating = rating.getNumberOfRatings() + 1;
 
         rating.setSum(newSum);
