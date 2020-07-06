@@ -7,7 +7,6 @@ import com.infoshareacademy.repository.RatingRepository;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.transaction.Transactional;
-import java.util.Optional;
 
 @Stateless
 public class RatingService {
@@ -19,22 +18,21 @@ public class RatingService {
     private DrinkRepository drinkRepository;
 
 
-    public Rating getRatingByDrinkId(Long drinkId) {
-
-        return ratingRepository.findByDrinkId(drinkId).orElseGet(() -> createEmptyRating(drinkId));
-
-    }
-
-
     public Double getCalculatedRatingByDrinkId(Long drinkId) {
 
         final Rating rating = getRatingByDrinkId(drinkId);
 
-        if (rating.getSum() == 0) {
+        if (rating.getSum() == 0.0) {
             return 0.0;
         }
 
-        return (double) rating.getSum() / rating.getNumberOfRatings();
+        return rating.getSum() / rating.getNumberOfRatings();
+
+    }
+
+    public Rating getRatingByDrinkId(Long drinkId) {
+
+        return ratingRepository.findByDrinkId(drinkId).orElseGet(() -> createEmptyRating(drinkId));
 
     }
 

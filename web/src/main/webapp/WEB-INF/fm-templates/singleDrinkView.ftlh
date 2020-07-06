@@ -1,20 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <!-- Required meta tags -->
+    <#-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
+    <#-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="../../css/styleSingleViewSearch.css" rel="stylesheet">
 
-    <#--    <!-- styles for rating &ndash;&gt;
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
-        <link href="../../js/rating/starrr.css" rel="stylesheet">-->
-
-    <!-- Latest compiled and minified CSS -->
+    <#-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 
     <title>Drink</title>
@@ -86,13 +82,10 @@
                         </#if>
                         <div style="color:${color}">${drink.alcoholStatus}</div>
                         <br>
+
                         Rate this recipe!
                         <br>
-                        <#-- <div class="starrr"></div>-->
-
-
                         <div id="rateYo"></div>
-
 
                     </div>
                     <div class="col-md-3">
@@ -176,7 +169,7 @@
 <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
 <script src="../../js/singleDrinkView.js"></script>
 
-<!-- RateYo rating plugin -->
+<#-- RateYo rating plugin -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
 
 <script>
@@ -190,7 +183,6 @@
             starWidth: "18px",
             halfStar: true,
             onSet: function (rating, rateYoInstance) {
-
                 $.ajax({
                     type: 'POST',
                     url: '/api/rate/drinks/${drink.id}/rating/' + rating,

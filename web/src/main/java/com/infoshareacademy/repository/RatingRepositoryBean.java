@@ -23,6 +23,7 @@ public class RatingRepositoryBean implements RatingRepository {
         return query.getResultList().stream().findFirst();
     }
 
+    
     @Override
     public Rating updateRating(Long drinkId, Double vote) {
 

@@ -32,13 +32,17 @@ public class RatingController {
         if (isIpCookieEmpty(req)) {
 
             ratingService.updateRating(drinkId, rate);
-            Cookie cookie = new Cookie("ip", ip);
-            res.addCookie(cookie);
+            createCookie(res, ip);
             return Response.status(Response.Status.CREATED).build();
         } else {
 
             return Response.status(Response.Status.FORBIDDEN).build();
         }
+    }
+
+    private void createCookie(@Context HttpServletResponse res, String ip) {
+        Cookie cookie = new Cookie("ip", ip);
+        res.addCookie(cookie);
     }
 
     private boolean isIpCookieEmpty(@Context HttpServletRequest req) {
