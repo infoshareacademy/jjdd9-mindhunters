@@ -69,27 +69,7 @@ public class SingleViewServlet extends HttpServlet {
         } else {
             final FullDrinkView foundDrinkById = passDTOtoView(drinkId, dataModel);
 
-            final String rateParam = req.getParameter("rate");
-
-            if (rateParam == null || rateParam.isEmpty()){
-                statisticsService.addToStatistics(foundDrinkById);
-            } else {
-
-                //TODO validate + sigle vote from user + set Rating from parameter
-                if (Arrays.stream(req.getCookies())
-                .filter(c -> c.getName().equals("ip"))
-                .map(Cookie::getValue)
-                        .findAny().isEmpty()){
-                    //ratingService.updateRating(drinkId, rateParam);
-
-                    createIpCookie(req, resp);
-                } else {
-                    logger.debug("Cookie exists");
-                }
-
-
-            }
-
+            statisticsService.addToStatistics(foundDrinkById);
 
             dataModel.put("rating",ratingService.getCalculatedRatingByDrinkId(drinkId));
         }
@@ -142,10 +122,6 @@ public class SingleViewServlet extends HttpServlet {
         return contextHolder.getEmail();
     }
 
-    private void createIpCookie(HttpServletRequest req, HttpServletResponse resp) {
-        Cookie cookie = new Cookie("ip", req.getRemoteAddr());
-        resp.addCookie(cookie);
-    }
 
 
 }
