@@ -4,6 +4,7 @@ package com.infoshareacademy.controller;
 import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.Drink;
 import com.infoshareacademy.repository.DrinkRepository;
+import com.infoshareacademy.service.AdminManagementRecipeService;
 import com.infoshareacademy.service.DrinkService;
 import org.hibernate.Session;
 
@@ -21,6 +22,9 @@ public class DrinkController {
     @EJB
     private DrinkService drinkService;
 
+    @EJB
+    private AdminManagementRecipeService adminManagementRecipeService;
+
     @Context
     private HttpServletRequest request;
 
@@ -35,15 +39,15 @@ public class DrinkController {
     }
 
     @DELETE
-    @Path("{id}")
+    @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {
+        ContextHolder contextHolder = new ContextHolder(request.getSession());
+        String email = contextHolder.getEmail();
 
-
-        if (drinkService.deleteDrinkById(id)) {
+        if (adminManagementRecipeService.proposeDeleteDrink(id, email)) {
             return Response.status(204).build();
         } else {
             return Response.status(404).build();
-
         }
     }
 

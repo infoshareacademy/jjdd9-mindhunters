@@ -279,7 +279,7 @@ public class DrinkService {
 
     public boolean deleteDrinkById(Long id) {
 
-        return  adminManagementRecipeService.deleteDrinkById(id);
+        return adminManagementRecipeService.deleteDrinkById(id);
     }
 
     public boolean addOrUpdate(Long id, Drink updatedDrink, ContextHolder contextHolder) {
