@@ -55,9 +55,24 @@ public class AdminManagementRecipeService {
         drinkToBeDeleted.setAlcoholStatus(existingDrink.getAlcoholStatus());
         drinkToBeDeleted.setRecipe(existingDrink.getRecipe());
 
-        //drinkToBeDeleted.setDrinkIngredients(existingDrink.getDrinkIngredients());
+        List<DrinkIngredient> drinkIngredientsList = getDrinkIngredients(existingDrink, drinkToBeDeleted);
 
+        existingDrink.setDrinkIngredients(drinkIngredientsList);
 
+        drinkToBeDeleted.setParentId(id);
+        drinkToBeDeleted.setManageAction("DELETE");
+        drinkToBeDeleted.setImage(existingDrink.getImage());
+
+        LocalDateTime formatDateTime = LocalDateTime.now();
+        drinkToBeDeleted.setDate(formatDateTime);
+        drinkToBeDeleted.setApproved(false);
+        drinkToBeDeleted.setConfirmUserEmail(email);
+
+        drinkRepository.save(drinkToBeDeleted);
+        return true;
+    }
+
+    private List<DrinkIngredient> getDrinkIngredients(Drink existingDrink, Drink drinkToBeDeleted) {
         List<String> measures = existingDrink.getDrinkIngredients().stream()
                 .filter(Objects::nonNull)
                 .map(drinkIngredient -> drinkIngredient.getMeasure())
@@ -92,20 +107,7 @@ public class AdminManagementRecipeService {
 
             drinkIngredientsList.add(drinkIngredient);
         }
-
-        existingDrink.setDrinkIngredients(drinkIngredientsList);
-
-        drinkToBeDeleted.setParentId(id);
-        drinkToBeDeleted.setManageAction("DELETE");
-        drinkToBeDeleted.setImage(existingDrink.getImage());
-
-        LocalDateTime formatDateTime = LocalDateTime.now();
-        drinkToBeDeleted.setDate(formatDateTime);
-        drinkToBeDeleted.setApproved(false);
-        drinkToBeDeleted.setConfirmUserEmail(email);
-
-        drinkRepository.save(drinkToBeDeleted);
-        return true;
+        return drinkIngredientsList;
     }
 
 
@@ -145,39 +147,7 @@ public class AdminManagementRecipeService {
             editedDrink.setCategory(category);
 
 
-            List<String> measures = newDrink.getDrinkIngredients().stream()
-                    .filter(Objects::nonNull)
-                    .map(drinkIngredient -> drinkIngredient.getMeasure())
-                    .map(measure -> measure.getQuantity())
-                    .collect(Collectors.toList());
-
-            List<String> ingredients = newDrink.getDrinkIngredients().stream()
-                    .filter(Objects::nonNull)
-                    .map(drinkIngredient -> drinkIngredient.getIngredient())
-                    .map(ingredient -> ingredient.getName())
-                    .collect(Collectors.toList());
-
-            List<Measure> measureList = new ArrayList<>();
-            List<Ingredient> ingredientList = new ArrayList<>();
-
-            for (String measure : measures) {
-                measureList.add(measureService.getOrCreate(measure));
-            }
-            for (String ingredient : ingredients) {
-                ingredientList.add(ingredientService.getOrCreate(ingredient.toString()));
-            }
-
-            List<DrinkIngredient> drinkIngredientsList = new ArrayList<>();
-
-            for (int i = 0; i < measureList.size(); i++) {
-                DrinkIngredient drinkIngredient = new DrinkIngredient();
-
-                drinkIngredient.setMeasure(measureList.get(i));
-                drinkIngredient.setIngredient(ingredientList.get(i));
-                drinkIngredient.setDrinkId(editedDrink);
-
-                drinkIngredientsList.add(drinkIngredient);
-            }
+            List<DrinkIngredient> drinkIngredientsList = getDrinkIngredients(newDrink, editedDrink);
             editedDrink.getDrinkIngredients().clear();
             editedDrink.setDrinkIngredients(drinkIngredientsList);
 
