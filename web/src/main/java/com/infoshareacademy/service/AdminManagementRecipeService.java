@@ -42,84 +42,29 @@ public class AdminManagementRecipeService {
     @EJB
     CategoryService categoryService;
 
-
-public boolean proposeDeleteDrink(Long id, String email){
-    Drink existingDrink = drinkRepository.findDrinkById(id);
-    Drink drinkToBeDeleted = new Drink();
-
-    if (existingDrink == null){
-        return false;
-    }
-    setNewDrinkParameters(drinkToBeDeleted, existingDrink);
-    drinkToBeDeleted.setManageAction("DELETE");
-    drinkToBeDeleted.setConfirmUserEmail(email);
-    drinkToBeDeleted.setParentId(id);
-    drinkRepository.save(drinkToBeDeleted);
-    return true;
-}
-
-
     @Transactional
-    public boolean deleteDrinkById(Long id) {
-        Drink drink = drinkRepository.findDrinkById(id);
+    public boolean proposeDeleteDrink(Long id, String email){
+        Drink existingDrink = drinkRepository.findDrinkById(id);
+        Drink drinkToBeDeleted = new Drink();
 
-        List<User> users = drink.getUsers();
-        for (User user : users) {
-            user.getDrinks().remove(drink);
+        if (existingDrink == null){
+            return false;
         }
-        statisticsRepositoryBean.deleteStatisticsByDrink(drink);
-        drinkRepository.delete(id);
-        return true;
-    }
+        drinkToBeDeleted.setDrinkName(existingDrink.getDrinkName());
+        drinkToBeDeleted.setCategory(existingDrink.getCategory());
+        drinkToBeDeleted.setAlcoholStatus(existingDrink.getAlcoholStatus());
+        drinkToBeDeleted.setRecipe(existingDrink.getRecipe());
 
-    @Transactional
-    public boolean addOrUpdateDrink(Long id, Drink newDrink, ContextHolder contextHolder) {
-        Drink drink = drinkRepository.findDrinkById(id);
+        //drinkToBeDeleted.setDrinkIngredients(existingDrink.getDrinkIngredients());
 
 
-        if (drink == null){
-            drink = new Drink();
-        }
-
-        if (newDrink != null) {
-
-            setNewDrinkParameters(newDrink, drink);
-
-        }
-
-        if (id != 0L){
-            drink.setManageAction("EDIT");
-            drinkRepository.deleteIngredientsFromDrink(id);
-            drinkRepository.update(id, drink);
-        } else {
-            drink.setManageAction("ADD");
-            drinkRepository.save(drink);
-
-        }
-        return true;
-    }
-
-    private void setNewDrinkParameters(Drink newDrink, Drink existingDrink) {
-        existingDrink.setConfirmUserEmail(newDrink.getConfirmUserEmail());
-        existingDrink.setDrinkName(newDrink.getDrinkName());
-        existingDrink.setAlcoholStatus(newDrink.getAlcoholStatus());
-        existingDrink.setImage(newDrink.getImage());
-        existingDrink.setRecipe(newDrink.getRecipe());
-        LocalDateTime formatDateTime = LocalDateTime.now();
-        existingDrink.setDate(formatDateTime);
-
-
-        Category category =categoryService.getOrCreate(newDrink.getCategory().getName()) ;
-        existingDrink.setCategory(category);
-
-
-        List<String> measures = newDrink.getDrinkIngredients().stream()
+        List<String> measures = existingDrink.getDrinkIngredients().stream()
                 .filter(Objects::nonNull)
                 .map(drinkIngredient -> drinkIngredient.getMeasure())
                 .map(measure -> measure.getQuantity())
                 .collect(Collectors.toList());
 
-        List<String> ingredients = newDrink.getDrinkIngredients().stream()
+        List<String> ingredients = existingDrink.getDrinkIngredients().stream()
                 .filter(Objects::nonNull)
                 .map(drinkIngredient -> drinkIngredient.getIngredient())
                 .map(ingredient -> ingredient.getName())
@@ -142,12 +87,113 @@ public boolean proposeDeleteDrink(Long id, String email){
 
             drinkIngredient.setMeasure(measureList.get(i));
             drinkIngredient.setIngredient(ingredientList.get(i));
-            drinkIngredient.setDrinkId(existingDrink);
+
+            drinkIngredient.setDrinkId(drinkToBeDeleted);
 
             drinkIngredientsList.add(drinkIngredient);
         }
-        existingDrink.getDrinkIngredients().clear();
+
         existingDrink.setDrinkIngredients(drinkIngredientsList);
+
+        drinkToBeDeleted.setParentId(id);
+        drinkToBeDeleted.setManageAction("DELETE");
+        drinkToBeDeleted.setImage(existingDrink.getImage());
+
+        LocalDateTime formatDateTime = LocalDateTime.now();
+        drinkToBeDeleted.setDate(formatDateTime);
+        drinkToBeDeleted.setApproved(false);
+        drinkToBeDeleted.setConfirmUserEmail(email);
+
+        drinkRepository.save(drinkToBeDeleted);
+        return true;
+    }
+
+
+    @Transactional
+    public boolean deleteDrinkById(Long id) {
+        Drink drink = drinkRepository.findDrinkById(id);
+
+        List<User> users = drink.getUsers();
+        for (User user : users) {
+            user.getDrinks().remove(drink);
+        }
+        statisticsRepositoryBean.deleteStatisticsByDrink(drink);
+        drinkRepository.delete(id);
+        return true;
+    }
+
+    @Transactional
+    public boolean addOrUpdateDrink(Long id, Drink newDrink, ContextHolder contextHolder) {
+        Drink editedDrink = drinkRepository.findDrinkById(id);
+
+
+        if (editedDrink == null){
+            editedDrink = new Drink();
+        }
+
+        if (newDrink != null) {
+            editedDrink.setConfirmUserEmail(newDrink.getConfirmUserEmail());
+            editedDrink.setDrinkName(newDrink.getDrinkName());
+            editedDrink.setAlcoholStatus(newDrink.getAlcoholStatus());
+            editedDrink.setImage(newDrink.getImage());
+            editedDrink.setRecipe(newDrink.getRecipe());
+            LocalDateTime formatDateTime = LocalDateTime.now();
+            editedDrink.setDate(formatDateTime);
+
+
+            Category category =categoryService.getOrCreate(newDrink.getCategory().getName()) ;
+            editedDrink.setCategory(category);
+
+
+            List<String> measures = newDrink.getDrinkIngredients().stream()
+                    .filter(Objects::nonNull)
+                    .map(drinkIngredient -> drinkIngredient.getMeasure())
+                    .map(measure -> measure.getQuantity())
+                    .collect(Collectors.toList());
+
+            List<String> ingredients = newDrink.getDrinkIngredients().stream()
+                    .filter(Objects::nonNull)
+                    .map(drinkIngredient -> drinkIngredient.getIngredient())
+                    .map(ingredient -> ingredient.getName())
+                    .collect(Collectors.toList());
+
+            List<Measure> measureList = new ArrayList<>();
+            List<Ingredient> ingredientList = new ArrayList<>();
+
+            for (String measure : measures) {
+                measureList.add(measureService.getOrCreate(measure));
+            }
+            for (String ingredient : ingredients) {
+                ingredientList.add(ingredientService.getOrCreate(ingredient.toString()));
+            }
+
+            List<DrinkIngredient> drinkIngredientsList = new ArrayList<>();
+
+            for (int i = 0; i < measureList.size(); i++) {
+                DrinkIngredient drinkIngredient = new DrinkIngredient();
+
+                drinkIngredient.setMeasure(measureList.get(i));
+                drinkIngredient.setIngredient(ingredientList.get(i));
+                drinkIngredient.setDrinkId(editedDrink);
+
+                drinkIngredientsList.add(drinkIngredient);
+            }
+            editedDrink.getDrinkIngredients().clear();
+            editedDrink.setDrinkIngredients(drinkIngredientsList);
+
+
+        }
+
+        if (id != 0L){
+            editedDrink.setManageAction("EDIT");
+            drinkRepository.deleteIngredientsFromDrink(id);
+            drinkRepository.update(id, editedDrink);
+        } else {
+            editedDrink.setManageAction("ADD");
+            drinkRepository.save(editedDrink);
+
+        }
+        return true;
     }
 
     public Drink setApproved(long drinkId) {
