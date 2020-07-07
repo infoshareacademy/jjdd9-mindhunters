@@ -3,6 +3,7 @@ package com.infoshareacademy.service;
 import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.*;
 import com.infoshareacademy.repository.DrinkRepository;
+import com.infoshareacademy.repository.RatingRepository;
 import com.infoshareacademy.repository.StatisticsRepositoryBean;
 import com.infoshareacademy.service.mapper.FullDrinkMapper;
 import org.slf4j.Logger;
@@ -35,6 +36,9 @@ public class AdminManagementRecipeService {
 
     @EJB
     private IngredientService ingredientService;
+
+    @EJB
+    private RatingRepository ratingRepository;
 
     @Inject
     private FullDrinkMapper fullDrinkMapper;
@@ -199,10 +203,12 @@ public class AdminManagementRecipeService {
     }
 
     public Drink setApprovedDeleteDrink(long drinkId) {
-        Drink drink = drinkRepository.findDrinkById(drinkId);
+        Drink drink= drinkRepository.findDrinkById(drinkId);
         Long idTobeDeleted = drink.getParentId();
+        Drink drinkTobeDeleted = drinkRepository.findDrinkById(idTobeDeleted);
 
-        statisticsRepositoryBean.deleteStatisticsByDrink(drink);
+        statisticsRepositoryBean.deleteStatisticsByDrink(drinkTobeDeleted);
+        ratingRepository.removeRating(idTobeDeleted);
 
         drinkRepository.delete(drinkId);
         drinkRepository.delete(idTobeDeleted);

@@ -15,4 +15,6 @@ public interface RatingRepository {
     Rating updateRating(Long drinkId, Double vote);
 
     void saveRating(Rating rating);
+
+    void removeRating(Long drinkId);
 }

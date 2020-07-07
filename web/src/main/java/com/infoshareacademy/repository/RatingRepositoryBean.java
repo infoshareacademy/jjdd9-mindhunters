@@ -23,7 +23,7 @@ public class RatingRepositoryBean implements RatingRepository {
         return query.getResultList().stream().findFirst();
     }
 
-    
+
     @Override
     public Rating updateRating(Long drinkId, Double vote) {
 
@@ -42,5 +42,11 @@ public class RatingRepositoryBean implements RatingRepository {
     public void saveRating(Rating rating) {
 
         entityManager.persist(rating);
+    }
+
+    public void removeRating(Long drinkId) {
+        final Rating rating = findByDrinkId(drinkId).get();
+
+        entityManager.remove(rating);
     }
 }

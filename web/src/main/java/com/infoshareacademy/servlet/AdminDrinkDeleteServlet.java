@@ -107,6 +107,7 @@ public class AdminDrinkDeleteServlet extends HttpServlet {
         String idToDelete = req.getParameter("delete");
 
         if (idToCreate != null && !idToCreate.isBlank()) {
+
             Drink approvedDrink = adminManagementRecipeService.setApprovedDeleteDrink(Long.parseLong(idToCreate));
             String emailContent = userDrinkProposalEmailBuilder.createContent(approvedDrink, "accepted");
             emailSender.sendEmail(emailContent, approvedDrink.getConfirmUserEmail());
